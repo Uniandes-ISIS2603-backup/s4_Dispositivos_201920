@@ -20,7 +20,7 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-/sXXX_ZZZ-back/target/
+/s4_dispositivos-back/target/
 /target/
 
 # Jar y bat de la cascara.
