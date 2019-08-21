@@ -26,6 +26,7 @@ public class ComprobanteDePagoEntity extends BaseEntity
     /**
      * Fecha de compra de los dispositivos electronicos
      */
+    
     private String fechaDeFactura;
     /**
      * Constructor vacio para Serializable
