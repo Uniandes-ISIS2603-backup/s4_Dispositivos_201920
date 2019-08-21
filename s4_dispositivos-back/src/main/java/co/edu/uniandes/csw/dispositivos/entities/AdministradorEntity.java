@@ -54,7 +54,6 @@ public class AdministradorEntity extends BaseEntity
     {
         return contrasena;
     }
-    
     /**
      * Modifica la contrseNa de verificacion
      * @param pContrasena nueva contraseNa
