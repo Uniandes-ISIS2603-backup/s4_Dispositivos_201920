@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.eclipse.persistence.internal.jpa.EntityManagerImpl;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -27,6 +28,8 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class DispositivoPersistenceTest {
     
+    @PersistenceContext(unitName = "dispositivosPU")
+    protected EntityManager em; 
     
     
     @Deployment
@@ -48,12 +51,32 @@ public class DispositivoPersistenceTest {
         DispositivoEntity result = dp.create(dispositivo); 
         Assert.assertNotNull(result);
        
+        DispositivoEntity entity = em.find(DispositivoEntity.class, result.getId()); 
         
-        DispositivoEntity entity = em.find(DispositivoEntity.class, result.getId());
-        
+        //Prueba crear el nombre y encontrarlo
         Assert.assertEquals(dispositivo.getNombre(), entity.getNombre());
         
+        //Prueba crear modelo y encontrarlo
+        Assert.assertEquals(dispositivo.getModelo(), entity.getModelo());
         
+        //Prueba crear Descripcion y encontrarla
+        Assert.assertEquals(dispositivo.getDescripcion(), dispositivo.getDescripcion());
+        
+        //Prueba crear Precio y encontrarlo
+        Assert.assertEquals(dispositivo.getPrecio(), entity.getPrecio(), 0);
+        
+        //Prueba crear Precio de importacion y encontrarlo
+        Assert.assertEquals(dispositivo.getPrecioImportacion(), entity.getPrecioImportacion(), 0);
+        
+        //Prueba crear desucento y encontrarlo
+        Assert.assertEquals(dispositivo.getDescuento(), entity.getDescuento(), 0);
+ 
+        //Prueba crear si esta en stcok y verifica
+        Assert.assertEquals(dispositivo.isEnStock(), entity.isEnStock());
+        
+        //Prueba crea si esta en promocion y verifica
+        Assert.assertEquals(dispositivo.isPromocion(), entity.isPromocion());        
     }
     
+   
 }
