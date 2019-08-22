@@ -31,6 +31,13 @@ public class DispositivoPersistenceTest {
     @PersistenceContext(unitName = "dispositivosPU")
     protected EntityManager em; 
     
+    /**
+     * Constructor vacio 
+     */
+    public DispositivoPersistenceTest(){
+        
+    }
+    
     
     @Deployment
     public static JavaArchive createDeployment(){
@@ -44,6 +51,9 @@ public class DispositivoPersistenceTest {
     @Inject
     DispositivoPersistence dp;
     
+    /**
+     * Prueba para create de DispositivoEntity
+     */
     @Test
     public void createTest(){
         PodamFactory factory = new PodamFactoryImpl();
@@ -78,5 +88,96 @@ public class DispositivoPersistenceTest {
         Assert.assertEquals(dispositivo.isPromocion(), entity.isPromocion());        
     }
     
+    /**
+     * Prueba para find de DispositivoEntity
+     */
+    @Test
+   public void testFind(){
+       PodamFactory factory = new PodamFactoryImpl(); 
+       DispositivoEntity dispositivo = factory.manufacturePojo(DispositivoEntity.class); 
+       DispositivoEntity entity = dp.create(dispositivo); 
+       
+       DispositivoEntity newEntity = dp.find(entity.getId()); 
+       Assert.assertNotNull(newEntity);
+       
+       //Prueba crear el nombre y encontrarlo
+        Assert.assertEquals(dispositivo.getNombre(), newEntity.getNombre());
+        
+        //Prueba crear modelo y encontrarlo
+        Assert.assertEquals(dispositivo.getModelo(), newEntity.getModelo());
+        
+        //Prueba crear Descripcion y encontrarla
+        Assert.assertEquals(dispositivo.getDescripcion(), newEntity.getDescripcion());
+        
+        //Prueba crear Precio y encontrarlo
+        Assert.assertEquals(dispositivo.getPrecio(), newEntity.getPrecio(), 0);
+        
+        //Prueba crear Precio de importacion y encontrarlo
+        Assert.assertEquals(dispositivo.getPrecioImportacion(), newEntity.getPrecioImportacion(), 0);
+        
+        //Prueba crear desucento y encontrarlo
+        Assert.assertEquals(dispositivo.getDescuento(), newEntity.getDescuento(), 0);
+ 
+        //Prueba crear si esta en stcok y verifica
+        Assert.assertEquals(dispositivo.isEnStock(), newEntity.isEnStock());
+        
+        //Prueba crea si esta en promocion y verifica
+        Assert.assertEquals(dispositivo.isPromocion(), newEntity.isPromocion());          
+   }
    
+   /**
+    * Prueba para update de DispositivoEntity
+    */
+   @Test
+   public void testUpdate(){
+       PodamFactory factory = new PodamFactoryImpl(); 
+       DispositivoEntity newDispositivo = factory.manufacturePojo(DispositivoEntity.class); 
+       DispositivoEntity entity = dp.create(newDispositivo); 
+       
+       DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class); 
+       
+       newEntity.setId(entity.getId());
+       
+       dp.update(newEntity); 
+       
+       DispositivoEntity resp = em.find(DispositivoEntity.class, entity.getId()); 
+       
+        //Prueba crear el nombre y encontrarlo
+        Assert.assertEquals(newEntity.getNombre(), resp.getNombre());
+        
+        //Prueba crear modelo y encontrarlo
+        Assert.assertEquals(newEntity.getModelo(), resp.getModelo());
+        
+        //Prueba crear Descripcion y encontrarla
+        Assert.assertEquals(newEntity.getDescripcion(), resp.getDescripcion());
+        
+        //Prueba crear Precio y encontrarlo
+        Assert.assertEquals(newEntity.getPrecio(), resp.getPrecio(), 0);
+        
+        //Prueba crear Precio de importacion y encontrarlo
+        Assert.assertEquals(newEntity.getPrecioImportacion(), resp.getPrecioImportacion(), 0);
+        
+        //Prueba crear desucento y encontrarlo
+        Assert.assertEquals(newEntity.getDescuento(), resp.getDescuento(), 0);
+ 
+        //Prueba crear si esta en stcok y verifica
+        Assert.assertEquals(newEntity.isEnStock(), resp.isEnStock());
+        
+        //Prueba crea si esta en promocion y verifica
+        Assert.assertEquals(newEntity.isPromocion(), resp.isPromocion());   
+   }
+   
+   /**
+    * Prueba para delete de DispositivoEntity
+    */
+   @Test
+   public void testDelete(){
+       PodamFactory factory = new PodamFactoryImpl(); 
+       DispositivoEntity newDispositivo = factory.manufacturePojo(DispositivoEntity.class); 
+       DispositivoEntity entity = dp.create(newDispositivo); 
+       
+       dp.delete(entity.getId());
+       DispositivoEntity deleted = em.find(DispositivoEntity.class, entity.getId()); 
+       Assert.assertNull(deleted);
+   }
 }
