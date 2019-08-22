@@ -31,6 +31,13 @@ public class DispositivoPersistenceTest {
     @PersistenceContext(unitName = "dispositivosPU")
     protected EntityManager em; 
     
+    /**
+     * Constructor vacio 
+     */
+    public DispositivoPersistenceTest(){
+        
+    }
+    
     
     @Deployment
     public static JavaArchive createDeployment(){
