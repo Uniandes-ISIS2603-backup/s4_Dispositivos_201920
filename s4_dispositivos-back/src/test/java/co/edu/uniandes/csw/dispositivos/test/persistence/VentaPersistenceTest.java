@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.VentaPersistence;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -26,6 +27,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class VentaPersistenceTest 
 {
+    @PersistenceContext
     protected EntityManager vam;
     
     @Deployment
@@ -42,7 +44,7 @@ public class VentaPersistenceTest
     VentaPersistence vap; 
     
     @Test
-    public void createTest()
+    public void createVentaTest()
     {
         PodamFactory vafactory = new PodamFactoryImpl();
         VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);

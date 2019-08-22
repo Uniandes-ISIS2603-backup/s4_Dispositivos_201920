@@ -6,10 +6,10 @@
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
-import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.VendedorPersistence;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -27,6 +27,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class VendedorPersistenceTest 
 {
+    @PersistenceContext
     protected EntityManager vrm;
     
     @Deployment
@@ -43,7 +44,7 @@ public class VendedorPersistenceTest
     VendedorPersistence vrp; 
     
     @Test
-    public void createTest()
+    public void createVendedorTest()
     {
         PodamFactory vrfactory = new PodamFactoryImpl();
         VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);

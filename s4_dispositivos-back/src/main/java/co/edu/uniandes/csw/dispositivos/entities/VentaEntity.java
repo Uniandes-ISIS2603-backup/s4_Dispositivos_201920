@@ -30,30 +30,54 @@ public class VentaEntity extends BaseEntity implements Serializable
     private FacturaEntity facturaOriginal;
     */
 
+    /**
+     * Constructor vacío
+     */
     public VentaEntity() 
     {    }
 
+    /**
+     * Constructor que recibe parámetros 
+     * @param precioReventa
+     * @param vendedor 
+     */
     public VentaEntity(double precioReventa, VendedorEntity vendedor) 
     {
         this.precioReventa = precioReventa;
         this.vendedor = vendedor;
     }
     
+    /**
+     * Retorna el precio de reventa
+     * @return precioReventa
+     */
     public double getPrecioReventa() 
     {
         return precioReventa;
     }
 
+    /**
+     * 
+     * @param precioReventa 
+     */
     public void setPrecioReventa(double precioReventa) 
     {
         this.precioReventa = precioReventa;
     }
 
+    /**
+     * Retorna el vendedor asociado  
+     * @return vendedor
+     */
     public VendedorEntity getVendedor() 
     {
         return vendedor;
     }
 
+    /**
+     * 
+     * @param vendedor 
+     */
     public void setVendedor(VendedorEntity vendedor) 
     {
         this.vendedor = vendedor;
