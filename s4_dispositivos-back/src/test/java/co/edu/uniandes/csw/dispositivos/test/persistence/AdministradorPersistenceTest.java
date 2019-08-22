@@ -1,16 +1,19 @@
-
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.AdministradorEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.AdministradorPersistence;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -22,22 +25,25 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class AdministradorPersistenceTest 
 {
     /**
-     * Inyeccion de la dependencia a la clase AdministradorPersistence
+     * Inyeccion de la dependencia a la clase ComprobanteDePagoPersistence
      */
     @Inject
-    private AdministradorPersistence persistence;
+    private AdministradorPersistence mp;
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la BD
      */
-    @PersistenceContext
+    @PersistenceContext(unitName="dispositivosPU")
     private EntityManager em;
+
+    @Inject
+    UserTransaction utx;
+
+    private List<AdministradorEntity> data = new ArrayList<>();
     /**
      * Construye el despliegue de la prueba a realizar
-     * @return jar, es decir JavaArchive. El jar contiene las clases de XYZ, el descriptor de la
-     * base de datos y el archivo beans.xml para resolver la inyección de
-     * dependencias.
+     * @return jar, es decir JavaArchive.
      */
-    @Deployment
+  @Deployment
     public static JavaArchive createDeployment() 
     {
         return ShrinkWrap.create(JavaArchive.class)
@@ -45,8 +51,8 @@ public class AdministradorPersistenceTest
                 .addPackage(AdministradorPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
-   }
-   /**
+    }
+     /**
     * Constructor de la clase
     */
    public AdministradorPersistenceTest()
@@ -55,55 +61,103 @@ public class AdministradorPersistenceTest
    /**
      * Prueba para crear un administrador
      */
-   @Test
-    public void testCreate()
+    @Test
+    public void testCreat()
     {
-        PodamFactory factory = new PodamFactoryImpl();
-        AdministradorEntity admin = factory.manufacturePojo(AdministradorEntity.class);
-        AdministradorEntity result = persistence.create(admin);
+        PodamFactory factory= new PodamFactoryImpl();
+        AdministradorEntity newEntity =factory.manufacturePojo(AdministradorEntity.class);
+        AdministradorEntity result=mp.create(newEntity);
         Assert.assertNotNull(result);
-        AdministradorEntity entity = em.find(AdministradorEntity.class, result.getId());
-        Assert.assertEquals(admin.getUsuario(), entity.getUsuario());
-        Assert.assertEquals(admin.getId(), entity.getId());
-        Assert.assertEquals(admin.getContrasena(), entity.getContrasena());
+        
+        AdministradorEntity entity=em.find(AdministradorEntity.class,result.getId());
+        Assert.assertEquals(newEntity.getId(),entity.getId());
+        Assert.assertEquals(newEntity.getUsuario(),entity.getUsuario()); 
+        Assert.assertEquals(newEntity.getContrasena(),entity.getContrasena()); 
     }
     /**
-     * Prueba para encontrar un administrador
+     * Establece las configuraciones iniciales del test
+     */
+    @Before
+    public void configTest() 
+    {   
+        try 
+        {
+        utx.begin();
+        em.joinTransaction();
+        clearData();
+        PodamFactory factory = new PodamFactoryImpl();
+        for (int i = 0; i < 3; i++) 
+        {
+            AdministradorEntity entity = factory.manufacturePojo(AdministradorEntity.class);
+            em.persist(entity);
+            data.add(entity);
+        }    
+        } 
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    /**
+     * Elimina todos los elementos de 
+     * la BD antes de hacer el test
+     */
+    private void clearData() 
+    {
+        em.createQuery("delete from AdministradorEntity").executeUpdate();
+    }
+    /**
+     * Prueba para obtener todos los administradores
      */
     @Test
-    public void testFind()
+    public void testFindAll() 
     {
-        PodamFactory factory = new PodamFactoryImpl();
-        AdministradorEntity nuevoAdmin = factory.manufacturePojo(AdministradorEntity.class);
-        AdministradorEntity entity = persistence.create(nuevoAdmin);
-        
-        AdministradorEntity newEntity = persistence.find(entity.getId());
-        Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getUsuario(), newEntity.getUsuario());
-        Assert.assertEquals(entity.getId(), newEntity.getId());
-        Assert.assertEquals(entity.getContrasena(), newEntity.getContrasena());
+        List<AdministradorEntity> list = mp.findAll();
+        System.out.println(list.size()+"   hhhhhh ");
+        Assert.assertEquals(data.size(), list.size());
+        for (AdministradorEntity ent : list) {
+            boolean found = false;
+            for (AdministradorEntity entity : data) {
+                if (ent.getId().equals(entity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
     }
+
+    /**
+     * Prueba para consultar un administrador
+     */
+    @Test
+    public void testFind() 
+    {
+        AdministradorEntity entity = data.get(0);
+        AdministradorEntity newEntity = mp.find(entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(newEntity.getId(),entity.getId());
+        Assert.assertEquals(newEntity.getUsuario(),entity.getUsuario()); 
+        Assert.assertEquals(newEntity.getContrasena(),entity.getContrasena());
+    }
+
     /**
      * Prueba para actualizar un administrador
      */
     @Test
     public void testUpdate() 
     {
+        AdministradorEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
-        AdministradorEntity nuevoAdmin = factory.manufacturePojo(AdministradorEntity.class);
-        AdministradorEntity entity = persistence.create(nuevoAdmin);
-        
         AdministradorEntity newEntity = factory.manufacturePojo(AdministradorEntity.class);
 
         newEntity.setId(entity.getId());
 
-        persistence.update(newEntity);
+        mp.update(newEntity);
 
         AdministradorEntity resp = em.find(AdministradorEntity.class, entity.getId());
 
-        Assert.assertEquals(newEntity.getId(), resp.getId());
-        Assert.assertEquals(newEntity.getUsuario(), resp.getUsuario());
-        Assert.assertEquals(newEntity.getContrasena(), resp.getContrasena());
+        Assert.assertEquals(newEntity.getId(),resp.getId());
+        Assert.assertEquals(newEntity.getUsuario(),resp.getUsuario()); 
+        Assert.assertEquals(newEntity.getContrasena(),resp.getContrasena());
     }
     /**
      * Prueba para eliminar un administrador
@@ -111,12 +165,10 @@ public class AdministradorPersistenceTest
     @Test
     public void testDelete() 
     {
-        PodamFactory factory = new PodamFactoryImpl();
-        AdministradorEntity nuevoAdmin = factory.manufacturePojo(AdministradorEntity.class);
-        AdministradorEntity entity = persistence.create(nuevoAdmin);
-        
-        persistence.delete(entity.getId());
+        AdministradorEntity entity = data.get(0);
+        mp.delete(entity.getId());
         AdministradorEntity deleted = em.find(AdministradorEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
+    
 }
