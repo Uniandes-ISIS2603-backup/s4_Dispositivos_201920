@@ -1,8 +1,8 @@
 
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
-import co.edu.uniandes.csw.dispositivos.entities.AdministradorEntity;
-import co.edu.uniandes.csw.dispositivos.persistence.AdministradorPersistence;
+import co.edu.uniandes.csw.dispositivos.entities.ComprobanteDePagoEntity;
+import co.edu.uniandes.csw.dispositivos.persistence.ComprobanteDePagoPersistence;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,17 +15,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
+
 /**
  *Test de persistencia de la clase AdminstradorEntity
  */
 @RunWith(Arquillian.class)
-public class AdministradorPersistenceTest 
+public class ComprobanteDePagoPersistenceTest 
 {
     /**
-     * Inyeccion de la dependencia a la clase AdministradorPersistence
+     * Inyeccion de la dependencia a la clase ComprobanteDePagoPersistence
      */
     @Inject
-    private AdministradorPersistence persistence;
+    private ComprobanteDePagoPersistence persistence;
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la BD
      */
@@ -41,15 +42,15 @@ public class AdministradorPersistenceTest
     public static JavaArchive createDeployment() 
     {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(AdministradorEntity.class.getPackage())
-                .addPackage(AdministradorPersistence.class.getPackage())
+                .addPackage(ComprobanteDePagoEntity.class.getPackage())
+                .addPackage(ComprobanteDePagoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
    }
    /**
     * Constructor de la clase
     */
-   public AdministradorPersistenceTest()
+   public ComprobanteDePagoPersistenceTest()
    {
    }
    /**
@@ -59,13 +60,11 @@ public class AdministradorPersistenceTest
     public void testCreate()
     {
         PodamFactory factory = new PodamFactoryImpl();
-        AdministradorEntity admin = factory.manufacturePojo(AdministradorEntity.class);
-        AdministradorEntity result = persistence.create(admin);
+        ComprobanteDePagoEntity comprobante = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+        ComprobanteDePagoEntity result = persistence.create(comprobante);
         Assert.assertNotNull(result);
-        AdministradorEntity entity = em.find(AdministradorEntity.class, result.getId());
-        Assert.assertEquals(admin.getUsuario(), entity.getUsuario());
-        Assert.assertEquals(admin.getId(), entity.getId());
-        Assert.assertEquals(admin.getContrasena(), entity.getContrasena());
+        ComprobanteDePagoEntity entity = em.find(ComprobanteDePagoEntity.class, result.getId());
+        Assert.assertEquals(comprobante.getNumeroDeFactura(), entity.getNumeroDeFactura());
     }
     /**
      * Prueba para encontrar un administrador
@@ -74,14 +73,13 @@ public class AdministradorPersistenceTest
     public void testFind()
     {
         PodamFactory factory = new PodamFactoryImpl();
-        AdministradorEntity nuevoAdmin = factory.manufacturePojo(AdministradorEntity.class);
-        AdministradorEntity entity = persistence.create(nuevoAdmin);
+        ComprobanteDePagoEntity nuevoComprobante = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+        ComprobanteDePagoEntity entity = persistence.create(nuevoComprobante);
         
-        AdministradorEntity newEntity = persistence.find(entity.getId());
+        ComprobanteDePagoEntity newEntity = persistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getUsuario(), newEntity.getUsuario());
+        Assert.assertEquals(entity.getNumeroDeFactura(), newEntity.getNumeroDeFactura());
         Assert.assertEquals(entity.getId(), newEntity.getId());
-        Assert.assertEquals(entity.getContrasena(), newEntity.getContrasena());
     }
     /**
      * Prueba para actualizar un administrador
@@ -90,20 +88,19 @@ public class AdministradorPersistenceTest
     public void testUpdate() 
     {
         PodamFactory factory = new PodamFactoryImpl();
-        AdministradorEntity nuevoAdmin = factory.manufacturePojo(AdministradorEntity.class);
-        AdministradorEntity entity = persistence.create(nuevoAdmin);
+        ComprobanteDePagoEntity nuevoComprobante = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+        ComprobanteDePagoEntity entity = persistence.create(nuevoComprobante);
         
-        AdministradorEntity newEntity = factory.manufacturePojo(AdministradorEntity.class);
+        ComprobanteDePagoEntity newEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
 
         newEntity.setId(entity.getId());
 
         persistence.update(newEntity);
 
-        AdministradorEntity resp = em.find(AdministradorEntity.class, entity.getId());
+        ComprobanteDePagoEntity resp = em.find(ComprobanteDePagoEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getId(), resp.getId());
-        Assert.assertEquals(newEntity.getUsuario(), resp.getUsuario());
-        Assert.assertEquals(newEntity.getContrasena(), resp.getContrasena());
+        Assert.assertEquals(newEntity.getNumeroDeFactura(), resp.getNumeroDeFactura());
     }
     /**
      * Prueba para eliminar un administrador
@@ -112,11 +109,11 @@ public class AdministradorPersistenceTest
     public void testDelete() 
     {
         PodamFactory factory = new PodamFactoryImpl();
-        AdministradorEntity nuevoAdmin = factory.manufacturePojo(AdministradorEntity.class);
-        AdministradorEntity entity = persistence.create(nuevoAdmin);
+        ComprobanteDePagoEntity nuevoComprobante = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+        ComprobanteDePagoEntity entity = persistence.create(nuevoComprobante);
         
         persistence.delete(entity.getId());
-        AdministradorEntity deleted = em.find(AdministradorEntity.class, entity.getId());
+        ComprobanteDePagoEntity deleted = em.find(ComprobanteDePagoEntity.class, entity.getId());
         Assert.assertNull(deleted);
-    }
+    } 
 }

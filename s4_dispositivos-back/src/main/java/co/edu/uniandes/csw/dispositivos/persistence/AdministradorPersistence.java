@@ -1,9 +1,11 @@
 package co.edu.uniandes.csw.dispositivos.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.AdministradorEntity;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *Persistencia de la clase AdminstradorEntity
@@ -35,5 +37,32 @@ public class AdministradorPersistence
     {
         em.persist(admin);
         return admin;
+    }
+    /**
+     * Retorna todos los administradores de la BD
+     * @return todos los administradores de BD
+     */
+    public List<AdministradorEntity> findAll()
+    {
+        Query query = em.createQuery("select u from AdministradorEntity u");
+        return query.getResultList();
+    }
+    /**
+     * Modifica los elementos de un administrador existente
+     * @param adminEntity nuevo administrador
+     * @return nuevo administrador con el id antiguo
+     */
+    public AdministradorEntity update(AdministradorEntity adminEntity) 
+    {
+        return em.merge(adminEntity);
+    }
+    /**
+     * Elimina un administrador de la BD
+     * @param adminID id del administrador a borrar
+     */
+    public void delete(Long adminID)
+    {
+        AdministradorEntity entity = em.find(AdministradorEntity.class, adminID);
+        em.remove(entity);
     }
 }
