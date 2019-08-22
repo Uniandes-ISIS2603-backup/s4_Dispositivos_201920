@@ -42,7 +42,7 @@ public class ComprobanteDePagoPersistence
      * Retorna todos los comprobantes de pago de BD
      * @return comprobantes de pago de la BD
      */
-    public List<ComprobanteDePagoPersistence> findAll()
+    public List<ComprobanteDePagoEntity> findAll()
     {
         Query query = em.createQuery("select u from ComprobanteDePagoEntity u");
         return query.getResultList();
@@ -65,4 +65,5 @@ public class ComprobanteDePagoPersistence
         ComprobanteDePagoEntity entity = em.find(ComprobanteDePagoEntity.class, comprobanteId);
         em.remove(entity);
     }
+
 }

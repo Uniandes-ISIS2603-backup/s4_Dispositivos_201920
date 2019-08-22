@@ -1,23 +1,25 @@
-
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.ComprobanteDePagoEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.ComprobanteDePagoPersistence;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
-
 /**
- *Test de persistencia de la clase AdminstradorEntity
+ *Test de persistencia de la clase ComprobanteDePagoEntity
  */
 @RunWith(Arquillian.class)
 public class ComprobanteDePagoPersistenceTest 
@@ -26,19 +28,22 @@ public class ComprobanteDePagoPersistenceTest
      * Inyeccion de la dependencia a la clase ComprobanteDePagoPersistence
      */
     @Inject
-    private ComprobanteDePagoPersistence persistence;
+    private ComprobanteDePagoPersistence mp;
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la BD
      */
-    @PersistenceContext
+    @PersistenceContext(unitName="dispositivosPU")
     private EntityManager em;
+
+    @Inject
+    UserTransaction utx;
+
+    private List<ComprobanteDePagoEntity> data = new ArrayList<>();
     /**
      * Construye el despliegue de la prueba a realizar
-     * @return jar, es decir JavaArchive. El jar contiene las clases de XYZ, el descriptor de la
-     * base de datos y el archivo beans.xml para resolver la inyección de
-     * dependencias.
+     * @return jar, es decir JavaArchive.
      */
-    @Deployment
+  @Deployment
     public static JavaArchive createDeployment() 
     {
         return ShrinkWrap.create(JavaArchive.class)
@@ -46,74 +51,137 @@ public class ComprobanteDePagoPersistenceTest
                 .addPackage(ComprobanteDePagoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
-   }
-   /**
+    }
+     /**
     * Constructor de la clase
     */
    public ComprobanteDePagoPersistenceTest()
    {
    }
    /**
-     * Prueba para crear un administrador
-     */
-   @Test
-    public void testCreate()
-    {
-        PodamFactory factory = new PodamFactoryImpl();
-        ComprobanteDePagoEntity comprobante = factory.manufacturePojo(ComprobanteDePagoEntity.class);
-        ComprobanteDePagoEntity result = persistence.create(comprobante);
-        Assert.assertNotNull(result);
-        ComprobanteDePagoEntity entity = em.find(ComprobanteDePagoEntity.class, result.getId());
-        Assert.assertEquals(comprobante.getNumeroDeFactura(), entity.getNumeroDeFactura());
-    }
-    /**
-     * Prueba para encontrar un administrador
+     * Prueba para crear un comprobante de pago
      */
     @Test
-    public void testFind()
+    public void testCreate()
     {
-        PodamFactory factory = new PodamFactoryImpl();
-        ComprobanteDePagoEntity nuevoComprobante = factory.manufacturePojo(ComprobanteDePagoEntity.class);
-        ComprobanteDePagoEntity entity = persistence.create(nuevoComprobante);
+        PodamFactory factory= new PodamFactoryImpl();
+        ComprobanteDePagoEntity newEntity =factory.manufacturePojo(ComprobanteDePagoEntity.class);
+        ComprobanteDePagoEntity result=mp.create(newEntity);
+        Assert.assertNotNull(result);
         
-        ComprobanteDePagoEntity newEntity = persistence.find(entity.getId());
-        Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getNumeroDeFactura(), newEntity.getNumeroDeFactura());
-        Assert.assertEquals(entity.getId(), newEntity.getId());
+        ComprobanteDePagoEntity entity=em.find(ComprobanteDePagoEntity.class,result.getId());
+        Assert.assertEquals(newEntity.getId(),entity.getId());
+        Assert.assertEquals(newEntity.getFechaDeFactura(),entity.getFechaDeFactura()); 
+        Assert.assertEquals(newEntity.getId(),entity.getId()); 
+        Assert.assertEquals(newEntity.getImpuestos(),entity.getImpuestos(),0); 
+        Assert.assertEquals(newEntity.getNumeroDeFactura(),entity.getNumeroDeFactura());
+        Assert.assertEquals(newEntity.getNumeroDeTarjeta(),entity.getNumeroDeTarjeta(),0); 
+        Assert.assertEquals(newEntity.getTotalDePago(),entity.getTotalDePago(),0); 
+
     }
     /**
-     * Prueba para actualizar un administrador
+     * Establece las configuraciones iniciales del test
+     */
+    @Before
+    public void configTest() 
+    {   
+        try 
+        {
+        utx.begin();
+        em.joinTransaction();
+        clearData();
+        PodamFactory factory = new PodamFactoryImpl();
+        for (int i = 0; i < 3; i++) 
+        {
+            ComprobanteDePagoEntity entity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+            em.persist(entity);
+            data.add(entity);
+        }    
+        } 
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    /**
+     * Elimina todos los elementos de 
+     * la BD antes de hacer el test
+     */
+    private void clearData() 
+    {
+        em.createQuery("delete from AdministradorEntity").executeUpdate();
+    }
+    /**
+     * Prueba para obtener todos los comprobantes de pago
+     */
+    @Test
+    public void testFindAll() 
+    {
+        List<ComprobanteDePagoEntity> list = mp.findAll();
+        System.out.println(list.size()+"   hhhhhh ");
+        Assert.assertEquals(data.size(), list.size());
+        for (ComprobanteDePagoEntity ent : list) {
+            boolean found = false;
+            for (ComprobanteDePagoEntity entity : data) {
+                if (ent.getId().equals(entity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+
+    /**
+     * Prueba para consultar un comprobante de pago
+     */
+    @Test
+    public void testFind() 
+    {
+        ComprobanteDePagoEntity entity = data.get(0);
+        ComprobanteDePagoEntity newEntity = mp.find(entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(newEntity.getId(),entity.getId());
+        Assert.assertEquals(newEntity.getFechaDeFactura(),entity.getFechaDeFactura()); 
+        Assert.assertEquals(newEntity.getId(),entity.getId()); 
+        Assert.assertEquals(newEntity.getImpuestos(),entity.getImpuestos(),0); 
+        Assert.assertEquals(newEntity.getNumeroDeFactura(),entity.getNumeroDeFactura());
+        Assert.assertEquals(newEntity.getNumeroDeTarjeta(),entity.getNumeroDeTarjeta(),0); 
+        Assert.assertEquals(newEntity.getTotalDePago(),entity.getTotalDePago(),0); 
+    }
+
+    /**
+     * Prueba para actualizar un comprobante de pago
      */
     @Test
     public void testUpdate() 
     {
+        ComprobanteDePagoEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
-        ComprobanteDePagoEntity nuevoComprobante = factory.manufacturePojo(ComprobanteDePagoEntity.class);
-        ComprobanteDePagoEntity entity = persistence.create(nuevoComprobante);
-        
         ComprobanteDePagoEntity newEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
 
         newEntity.setId(entity.getId());
 
-        persistence.update(newEntity);
+        mp.update(newEntity);
 
         ComprobanteDePagoEntity resp = em.find(ComprobanteDePagoEntity.class, entity.getId());
 
-        Assert.assertEquals(newEntity.getId(), resp.getId());
-        Assert.assertEquals(newEntity.getNumeroDeFactura(), resp.getNumeroDeFactura());
+        Assert.assertEquals(newEntity.getId(),resp.getId());
+        Assert.assertEquals(newEntity.getFechaDeFactura(),resp.getFechaDeFactura()); 
+        Assert.assertEquals(newEntity.getId(),resp.getId()); 
+        Assert.assertEquals(newEntity.getImpuestos(),resp.getImpuestos(),0); 
+        Assert.assertEquals(newEntity.getNumeroDeFactura(),resp.getNumeroDeFactura());
+        Assert.assertEquals(newEntity.getNumeroDeTarjeta(),resp.getNumeroDeTarjeta(),0); 
+        Assert.assertEquals(newEntity.getTotalDePago(),resp.getTotalDePago(),0); 
     }
     /**
-     * Prueba para eliminar un administrador
+     * Prueba para eliminar un comprobante de pago
      */
     @Test
     public void testDelete() 
     {
-        PodamFactory factory = new PodamFactoryImpl();
-        ComprobanteDePagoEntity nuevoComprobante = factory.manufacturePojo(ComprobanteDePagoEntity.class);
-        ComprobanteDePagoEntity entity = persistence.create(nuevoComprobante);
-        
-        persistence.delete(entity.getId());
+        ComprobanteDePagoEntity entity = data.get(0);
+        mp.delete(entity.getId());
         ComprobanteDePagoEntity deleted = em.find(ComprobanteDePagoEntity.class, entity.getId());
         Assert.assertNull(deleted);
-    } 
+    }
+    
 }
