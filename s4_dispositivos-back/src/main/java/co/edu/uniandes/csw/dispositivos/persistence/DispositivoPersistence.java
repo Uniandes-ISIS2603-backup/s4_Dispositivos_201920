@@ -6,9 +6,11 @@
 package co.edu.uniandes.csw.dispositivos.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,5 +31,25 @@ public class DispositivoPersistence {
         em.persist(dispositivo);
         return dispositivo; 
     }
+    
+    public DispositivoEntity find(Long id){
+        return em.find(DispositivoEntity.class, id);
+    }
+    
+    public List<DispositivoPersistence> findAll(){
+        
+        Query query = em.createQuery("select u from DispositivoEntity u"); 
+        return query.getResultList(); 
+    }
+    
+    public DispositivoEntity update(DispositivoEntity dispositivoEntity){
+        return em.merge(dispositivoEntity);
+    }
+    
+    public void delete(Long dispositivoId){
+        DispositivoEntity find = em.find(DispositivoEntity.class, dispositivoId);
+        em.remove(find);
+    }
+    
     
 }
