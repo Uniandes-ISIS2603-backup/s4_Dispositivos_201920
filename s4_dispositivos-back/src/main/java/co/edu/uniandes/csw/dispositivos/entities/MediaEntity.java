@@ -15,11 +15,11 @@ import javax.persistence.Entity;
  */
 @Entity
 public class MediaEntity extends BaseEntity implements Serializable {
-    
+
     private List<String> links;
-    
-    public MediaEntity(){
-        
+
+    public MediaEntity() {
+
     }
 
     /**

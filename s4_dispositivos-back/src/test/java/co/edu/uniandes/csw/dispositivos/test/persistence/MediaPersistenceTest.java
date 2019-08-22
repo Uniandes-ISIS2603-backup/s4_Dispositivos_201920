@@ -26,7 +26,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author Javier Peniche
+ * @author Javier David Peniche
  */
 @RunWith(Arquillian.class)
 public class MediaPersistenceTest {
