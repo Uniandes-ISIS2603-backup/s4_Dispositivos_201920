@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.dispositivos.persistence;
 
-import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
+import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,14 +15,14 @@ import javax.persistence.PersistenceContext;
  * @author Zharet Bautista Montes
  */
 @Stateless
-public class VentaPersistence 
+public class VendedorPersistence 
 {
     @PersistenceContext(unitName = "dispositivosPU")
-    protected EntityManager em; 
+    protected EntityManager em;
     
-    public VentaEntity create(VentaEntity venta)
+    public VendedorEntity create(VendedorEntity vendedor)
     {
-        em.persist(venta);      
-        return venta;
+        em.persist(vendedor);
+        return vendedor; 
     }
 }

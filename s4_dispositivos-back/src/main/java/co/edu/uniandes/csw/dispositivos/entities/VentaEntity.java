@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 /**
  *
- * @author Estudiante
+ * @author Zharet Bautista Montes
  */
 
 @Entity 
