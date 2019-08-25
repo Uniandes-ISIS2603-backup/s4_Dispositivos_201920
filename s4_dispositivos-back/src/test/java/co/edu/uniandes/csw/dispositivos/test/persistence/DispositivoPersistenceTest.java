@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.dispositivos.test.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -123,6 +124,22 @@ public class DispositivoPersistenceTest {
         
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(dispositivo.isPromocion(), newEntity.isPromocion());          
+   }
+   
+   @Test
+   public void findAllTest(){
+       List<DispositivoEntity> list = dp.findAll();
+        System.out.println(list.size()+"   hhhhhh ");
+        Assert.assertEquals(data.size(), list.size());
+        for (DispositivoEntity ent : list) {
+            boolean found = false;
+            for (DispositivoEntity entity : data) {
+                if (ent.getId().equals(entity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
    }
    
    /**
