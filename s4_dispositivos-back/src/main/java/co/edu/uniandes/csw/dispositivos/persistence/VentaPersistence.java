@@ -26,18 +26,18 @@ public class VentaPersistence
     @PersistenceContext(unitName = "dispositivosPU")
     protected EntityManager em; 
     
-    public VentaEntity create(VentaEntity venta)
+    public VentaEntity create(VentaEntity ventac)
     {
         LOGGER.log(Level.INFO, "Creando una nueva venta");
-        em.persist(venta); 
+        em.persist(ventac); 
         LOGGER.log(Level.INFO, "Venta creada");
-        return venta;
+        return ventac;
     }
     
-    public VentaEntity find(Long ventaID)
+    public VentaEntity find(Long ventafID)
     {
-        LOGGER.log(Level.INFO, "Consultando la venta con el ID={0}", ventaID);
-        return em.find(VentaEntity.class, ventaID);
+        LOGGER.log(Level.INFO, "Consultando la venta con el ID={0}", ventafID);
+        return em.find(VentaEntity.class, ventafID);
     }
     
     public List<VentaEntity> findAll()
@@ -45,5 +45,18 @@ public class VentaPersistence
         LOGGER.log(Level.INFO, "Consultando todas las ventas registradas");
         Query vaq = em.createQuery("select u from VentaEntity u");
         return vaq.getResultList();
+    }
+    
+    public VentaEntity update(VentaEntity ventau)
+    {
+        LOGGER.log(Level.INFO, "Actualizando la venta con id={0}", ventau.getId());
+        return em.merge(ventau);
+    }
+    
+    public void delete(Long ventadID)
+    {
+        LOGGER.log(Level.INFO, "Borrando la venta con id={0}", ventadID);
+        VentaEntity wantedva = em.find(VentaEntity.class, ventadID); 
+        em.remove(wantedva);
     }
 }

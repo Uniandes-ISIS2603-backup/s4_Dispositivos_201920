@@ -26,18 +26,18 @@ public class VendedorPersistence
     @PersistenceContext(unitName = "dispositivosPU")
     protected EntityManager em;
     
-    public VendedorEntity create(VendedorEntity vendedor)
+    public VendedorEntity create(VendedorEntity vendedorc)
     {
         LOGGER.log(Level.INFO, "Creando una nueva vendedor");
-        em.persist(vendedor);
+        em.persist(vendedorc);
         LOGGER.log(Level.INFO, "Vendedor creado");
-        return vendedor; 
+        return vendedorc; 
     }
     
-    public VendedorEntity find(Long vendedorID)
+    public VendedorEntity find(Long vendedorfID)
     {
-        LOGGER.log(Level.INFO, "Consultando el vendedor con el ID={0}", vendedorID);
-        return em.find(VendedorEntity.class, vendedorID);
+        LOGGER.log(Level.INFO, "Consultando el vendedor con el ID={0}", vendedorfID);
+        return em.find(VendedorEntity.class, vendedorfID);
     }
     
     public List<VendedorEntity> findAll()
@@ -45,5 +45,18 @@ public class VendedorPersistence
         LOGGER.log(Level.INFO, "Consultando todos los vendedores registrados");
         Query vrq = em.createQuery("select u from VendedorEntity u");
         return vrq.getResultList();
+    }
+    
+    public VendedorEntity update(VendedorEntity vendedoru)
+    {
+        LOGGER.log(Level.INFO, "Actualizando el vendedor con id={0}", vendedoru.getId());
+        return em.merge(vendedoru);
+    }
+    
+    public void delete(Long vendedordID)
+    {
+        LOGGER.log(Level.INFO, "Borrando el vendedor con id={0}", vendedordID);
+        VendedorEntity wantedvr = em.find(VendedorEntity.class, vendedordID); 
+        em.remove(wantedvr);
     }
 }
