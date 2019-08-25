@@ -7,16 +7,19 @@ package co.edu.uniandes.csw.dispositivos.test.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 import org.eclipse.persistence.internal.jpa.EntityManagerImpl;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -39,6 +42,11 @@ public class DispositivoPersistenceTest {
         
     }
     
+    @Inject
+    UserTransaction utx;
+
+    private List<DispositivoEntity> data =  new ArrayList<>(); 
+    
     
     @Deployment
     public static JavaArchive createDeployment(){
@@ -47,6 +55,35 @@ public class DispositivoPersistenceTest {
                 .addClass(DispositivoPersistence.class)
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml"); 
+    }
+    
+     @Before
+    public void configTest() 
+    {   
+        try 
+        {
+        utx.begin();
+        em.joinTransaction();
+        clearData();
+        PodamFactory factory = new PodamFactoryImpl();
+        for (int i = 0; i < 3; i++) 
+        {
+            DispositivoEntity entity = factory.manufacturePojo(DispositivoEntity.class);
+            em.persist(entity);
+            data.add(entity);
+        }    
+        } 
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    /**
+     * Elimina todos los elementos de 
+     * la BD antes de hacer el test
+     */
+    private void clearData() 
+    {
+        em.createQuery("delete from DispositivoEntity").executeUpdate();
     }
     
     @Inject
@@ -129,7 +166,7 @@ public class DispositivoPersistenceTest {
    @Test
    public void findAllTest(){
        List<DispositivoEntity> list = dp.findAll();
-        System.out.println(list.size()+"   hhhhhh ");
+        System.out.println("Size:" + list.size());
         Assert.assertEquals(data.size(), list.size());
         for (DispositivoEntity ent : list) {
             boolean found = false;
