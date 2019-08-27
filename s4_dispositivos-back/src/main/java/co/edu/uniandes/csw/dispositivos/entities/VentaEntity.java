@@ -20,9 +20,11 @@ public class VentaEntity extends BaseEntity implements Serializable
 {
     private double precioReventa;
     
+    /**
     @PodamExclude
     @ManyToOne
     private VendedorEntity vendedor;
+    */
     
     /*
     @PodamExclude
@@ -44,7 +46,7 @@ public class VentaEntity extends BaseEntity implements Serializable
     public VentaEntity(double precioReventa, VendedorEntity vendedor) 
     {
         this.precioReventa = precioReventa;
-        this.vendedor = vendedor;
+        //.vendedor = vendedor;
     }
     
     /**
@@ -70,18 +72,21 @@ public class VentaEntity extends BaseEntity implements Serializable
      * @return vendedor
     */
      
+    /**
     public VendedorEntity getVendedor() 
     {
         return vendedor;
     }
-    
+    */
 
     /**
      * 
      * @param vendedor 
      */
+    /**
     public void setVendedor(VendedorEntity vendedor) 
     {
         this.vendedor = vendedor;
-    }   
+    } 
+    */
 }

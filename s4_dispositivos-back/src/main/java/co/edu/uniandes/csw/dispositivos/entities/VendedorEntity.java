@@ -26,9 +26,11 @@ public class VendedorEntity extends BaseEntity implements Serializable
     private String usuario;    
     private String contrasena;
     
+    /**
     @PodamExclude
-    @OneToMany
+    @OneToMany(mappedBy = "vendedor")
     private List<VentaEntity> ventas;
+    */
     
     /**
      * Constructor vacío
@@ -55,7 +57,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
         this.cedula = cedula;
         this.usuario = usuario;
         this.contrasena = contrasena;
-        this.ventas = ventas;
+        //this.ventas = ventas;
     }   
 
     /**
@@ -174,16 +176,20 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * 
      * @return ventas
     */
-     
+    
+    /**
     public List<VentaEntity> getVentas() {
         return ventas;
     } 
+    */
 
     /**
      * 
      * @param ventas 
      */
+    /**
     public void setVentas(List<VentaEntity> ventas) {
         this.ventas = ventas;
-    }        
+    }
+    */
 }
