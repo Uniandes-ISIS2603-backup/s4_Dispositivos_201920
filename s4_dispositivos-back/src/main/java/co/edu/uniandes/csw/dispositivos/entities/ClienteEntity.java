@@ -11,8 +11,10 @@ import javax.persistence.Entity;
 /**
  *
  * @author Carlos Salazar
- */@Entity
-public class ClienteEntity extends BaseEntity implements Serializable{
+ */
+@Entity
+public class ClienteEntity extends BaseEntity implements Serializable {
+
     private String nombre;
     private String apellido;
     private String correoElectronico;
@@ -20,20 +22,18 @@ public class ClienteEntity extends BaseEntity implements Serializable{
     private String direccion;
     private String usuario;
     private String contrasena;
-    
-    public ClienteEntity()
-    {
+
+    public ClienteEntity() {
     }
-     
-    public ClienteEntity(String pNombre, String pApellido, String pCorreoElectronico, Double pCedula, String pDireccion, String pUsuario, String pContrasena)
-    {
-     this.nombre=pNombre;
-     this.apellido=pApellido;
-     this.correoElectronico=pCorreoElectronico;
-     this.cedula=pCedula;
-     this.direccion=pDireccion;
-     this.usuario=pUsuario;
-     this.contrasena=pContrasena;
+
+    public ClienteEntity(String pNombre, String pApellido, String pCorreoElectronico, Double pCedula, String pDireccion, String pUsuario, String pContrasena) {
+        this.nombre = pNombre;
+        this.apellido = pApellido;
+        this.correoElectronico = pCorreoElectronico;
+        this.cedula = pCedula;
+        this.direccion = pDireccion;
+        this.usuario = pUsuario;
+        this.contrasena = pContrasena;
     }
 
     /**
@@ -135,22 +135,18 @@ public class ClienteEntity extends BaseEntity implements Serializable{
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        boolean resp = super.equals(this);
+    public boolean equals(Object obj) {
+        boolean resp = super.equals(obj);
         final ClienteEntity other = (ClienteEntity) obj;
-        
-        if(!resp)
-        {
+
+        if (!resp) {
             return false;
-        }
-        else
-        {
-            if(this.apellido.equalsIgnoreCase(other.apellido))
-                if(this.cedula == other.cedula && this.nombre.equalsIgnoreCase(other.nombre))
-                    if(this.correoElectronico.equalsIgnoreCase(other.correoElectronico) && this.direccion.equalsIgnoreCase(other.direccion))
-                        if(this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena))
-                            return true;
+        } else {
+            if (this.apellido.equalsIgnoreCase(other.apellido)) {
+                if (this.cedula == other.cedula && this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena) && this.nombre.equalsIgnoreCase(other.nombre) && this.correoElectronico.equalsIgnoreCase(other.correoElectronico) && this.direccion.equalsIgnoreCase(other.direccion)) {
+                    return true;
+                }
+            }
 
             return false;
         }
