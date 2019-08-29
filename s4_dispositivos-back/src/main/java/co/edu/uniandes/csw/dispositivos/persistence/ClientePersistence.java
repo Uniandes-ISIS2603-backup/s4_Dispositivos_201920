@@ -15,7 +15,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author Estudiante
+ * @author Carlos Salazar
  */
 @Stateless
 public class ClientePersistence {

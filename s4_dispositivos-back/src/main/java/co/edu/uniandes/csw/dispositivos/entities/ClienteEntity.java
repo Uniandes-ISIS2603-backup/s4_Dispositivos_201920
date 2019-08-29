@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 
 /**
  *
- * @author Estudiante
+ * @author Carlos Salazar
  */@Entity
 public class ClienteEntity extends BaseEntity implements Serializable{
     private String nombre;
@@ -25,7 +25,7 @@ public class ClienteEntity extends BaseEntity implements Serializable{
     {
     }
      
-    public ClienteEntity(String pNombre, String pApellido, String pCorreoElectronico, Double pCedula, String pDireccion, String pUsuario, String pContraseña)
+    public ClienteEntity(String pNombre, String pApellido, String pCorreoElectronico, Double pCedula, String pDireccion, String pUsuario, String pContrasena)
     {
      this.nombre=pNombre;
      this.apellido=pApellido;
@@ -33,7 +33,7 @@ public class ClienteEntity extends BaseEntity implements Serializable{
      this.cedula=pCedula;
      this.direccion=pDireccion;
      this.usuario=pUsuario;
-     this.contrasena=pContraseña;
+     this.contrasena=pContrasena;
     }
 
     /**
@@ -134,7 +134,7 @@ public class ClienteEntity extends BaseEntity implements Serializable{
         this.contrasena = contrasena;
     }
 
-        @Override
+    @Override
     public boolean equals(Object obj)
     {
         boolean resp = super.equals(this);

@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 
 /**
  *
- * @author ca.salazara
+ * @author Carlos Salazar
  */
 @Entity
 public class FacturaEntity extends BaseEntity implements Serializable {

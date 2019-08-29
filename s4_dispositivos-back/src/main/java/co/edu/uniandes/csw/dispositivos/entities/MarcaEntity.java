@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 
 /**
  *
- * @author Estudiante
+ * @author Carlos Salazar
  */
 @Entity
 public class MarcaEntity extends BaseEntity implements Serializable {
