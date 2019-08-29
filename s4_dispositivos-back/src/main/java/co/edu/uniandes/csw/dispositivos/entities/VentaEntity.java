@@ -7,8 +7,6 @@ package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -19,34 +17,24 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class VentaEntity extends BaseEntity implements Serializable
 {
     private double precioReventa;
-    
-    /**
-    @PodamExclude
-    @ManyToOne
-    private VendedorEntity vendedor;
-    */
-    
-    /*
-    @PodamExclude
-    @OneToOne
-    private FacturaEntity facturaOriginal;
-    */
 
     /**
      * Constructor vacío
      */
     public VentaEntity() 
-    {    }
+    {
+     /**
+     * Necesario para la implementación de Entity
+     */ 
+    }
 
     /**
      * Constructor que recibe parámetros 
-     * @param precioReventa
-     * @param vendedor 
+     * @param precioReventa 
      */
-    public VentaEntity(double precioReventa, VendedorEntity vendedor) 
+    public VentaEntity(double precioReventa) 
     {
         this.precioReventa = precioReventa;
-        //.vendedor = vendedor;
     }
     
     /**
@@ -66,29 +54,6 @@ public class VentaEntity extends BaseEntity implements Serializable
     {
         this.precioReventa = precioReventa;
     }
-
-    /**
-     * Retorna el vendedor asociado  
-     * @return vendedor
-    */
-     
-    /**
-    public VendedorEntity getVendedor() 
-    {
-        return vendedor;
-    }
-    */
-
-    /**
-     * 
-     * @param vendedor 
-     */
-    /**
-    public void setVendedor(VendedorEntity vendedor) 
-    {
-        this.vendedor = vendedor;
-    } 
-    */
     
     /**
      * 
@@ -97,7 +62,7 @@ public class VentaEntity extends BaseEntity implements Serializable
     @Override
     public boolean equals(Object oe)
     {
-        boolean answer = super.equals(this), end = false;
+        boolean answer = super.equals(oe), end = false;
         final VentaEntity another = (VentaEntity) oe;
         if(answer)
             if(this.getId().equals(another.getId()))

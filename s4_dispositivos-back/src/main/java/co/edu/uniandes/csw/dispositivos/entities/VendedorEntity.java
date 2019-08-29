@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Entity;
 
 /**
@@ -25,16 +24,14 @@ public class VendedorEntity extends BaseEntity implements Serializable
     private String contrasena;
     
     /**
-    @PodamExclude
-    @OneToMany(mappedBy = "vendedor")
-    private List<VentaEntity> ventas;
-    */
-    
-    /**
      * Constructor vacío
      */
     public VendedorEntity()
-    {   }
+    {
+    /**
+     * Necesario para la implementación de Entity
+     */
+    }
 
     /**
      * Constructor con parámetros
@@ -44,10 +41,10 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * @param celular
      * @param cedula
      * @param usuario
-     * @param contrasena
-     * @param ventas 
+     * @param contrasena 
      */
-    public VendedorEntity(String correoElectronico, String nombre, String apellido, int celular, int cedula, String usuario, String contrasena, List<VentaEntity> ventas) {
+    public VendedorEntity(String correoElectronico, String nombre, String apellido, int celular, int cedula, String usuario, String contrasena) 
+    {
         this.correoElectronico = correoElectronico;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -55,7 +52,6 @@ public class VendedorEntity extends BaseEntity implements Serializable
         this.cedula = cedula;
         this.usuario = usuario;
         this.contrasena = contrasena;
-        //this.ventas = ventas;
     }   
 
     /**
@@ -161,7 +157,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     public String getContrasena() {
         return contrasena;
     }
-
+    
     /**
      * 
      * @param contrasena 
@@ -169,36 +165,11 @@ public class VendedorEntity extends BaseEntity implements Serializable
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
-
-    /**
-     * 
-     * @return ventas
-    */
-    
-    /**
-    public List<VentaEntity> getVentas() {
-        return ventas;
-    } 
-    */
-
-    /**
-     * 
-     * @param ventas 
-     */
-    /**
-    public void setVentas(List<VentaEntity> ventas) {
-        this.ventas = ventas;
-    }
-    */
-    
-    /**
-     * 
-     * @param eo 
-     */
+   
     @Override
     public boolean equals(Object eo)
     {
-        boolean answer = super.equals(this), end = false;
+        boolean answer = super.equals(eo), end = false;
         final VendedorEntity another = (VendedorEntity) eo;
         if(answer)
             if((this.getId().equals(another.getId())) || (this.usuario.equals(another.usuario)) || (this.contrasena.equals(another.contrasena)))
