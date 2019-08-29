@@ -18,10 +18,6 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class CategoriaEntity extends BaseEntity{
     
     private String nombreCategoria;
-    
-    //@PodamExclude
-    //@OneToMany(mappedBy = "author")
-    //private List<DispositivoEntity> dispositivos;
 
     /**
      * Crea una categoria vacia. 
@@ -50,6 +46,31 @@ public class CategoriaEntity extends BaseEntity{
     public void setNombreCategoria(String nombreCategoria) {
         this.nombreCategoria = nombreCategoria;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean resp = super.equals(this);
+        boolean fin = false;
+        final CategoriaEntity other = (CategoriaEntity) obj;
+        
+        if(!resp)
+        {
+            return fin;
+        }
+        else
+        {
+            if(this.nombreCategoria.compareTo(other.nombreCategoria) == 0)
+            {
+                fin = true;
+                return fin;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    
     
     
     

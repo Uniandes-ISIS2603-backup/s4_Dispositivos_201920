@@ -16,32 +16,30 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Juan L
  */
 @Entity
-public class MedioDePagoEntity extends BaseEntity{
-   
+public class MedioDePagoEntity extends BaseEntity {
+
     private int numeroTarjeta;
-    
+
     private int numeroDeVerificacion;
-    
+
     private String tipoTarjeta;
-    
+
     private String tipoCredito;
-    
-    //@PodamExclude
-    //@ManyToOne(cascade = CascadeType.PERSIST)
-    //private ClienteEntity cliente;
 
     /**
-     * Crea un medio de pago vacío. 
+     * Crea un medio de pago vacío.
      */
     public MedioDePagoEntity() {
     }
 
     /**
-     * Crea un medio de pago con la información pasada por parámetro. 
+     * Crea un medio de pago con la información pasada por parámetro.
+     *
      * @param numeroTarjeta Numero de la tarjeta.
-     * @param numeroDeVerificacion  Código de verificación. Null si no tiene. 
+     * @param numeroDeVerificacion Código de verificación. Null si no tiene.
      * @param tipoTarjeta Tipo de Tarjeta. tipoTarjeta = (CREDITO, DEBITO)
-     * @param tipoCredito Tipo de crédito. tipoCredito = (VISA, MASTERCARD), NULL si no tiene crédito. 
+     * @param tipoCredito Tipo de crédito. tipoCredito = (VISA, MASTERCARD),
+     * NULL si no tiene crédito.
      */
     public MedioDePagoEntity(int numeroTarjeta, int numeroDeVerificacion, String tipoTarjeta, String tipoCredito) {
         this.numeroTarjeta = numeroTarjeta;
@@ -105,6 +103,45 @@ public class MedioDePagoEntity extends BaseEntity{
     public void setTipoCredito(String tipoCredito) {
         this.tipoCredito = tipoCredito;
     }
-    
-    
+
+    @Override
+    public boolean equals(Object obj) {
+
+        boolean resp = super.equals(this);
+        boolean fin = false;
+        final MedioDePagoEntity other = (MedioDePagoEntity) obj;
+        
+        if(!resp)
+        {
+            return fin;
+        }
+        else
+        {
+            if(this.tipoTarjeta.compareTo(other.tipoTarjeta) == 0)
+            {
+                fin = true;
+                return fin;
+            }
+            else if(this.tipoCredito.compareTo(other.tipoCredito) == 0)
+            {
+                fin = true;
+                return fin;
+            }
+            else if(this.numeroDeVerificacion  == other.numeroDeVerificacion)
+            {
+                fin = true;
+                return fin;
+            }
+            else if(this.numeroTarjeta == other.numeroTarjeta)
+            {
+                fin = true;
+                return fin;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
 }
