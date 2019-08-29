@@ -23,8 +23,6 @@ public class MedioDePagoPersistence {
 
     private static final Logger LOGGER = Logger.getLogger(CategoriaPersistence.class.getName());
 
-    //Portero que permite le entrada a esa llave "dispositivosPU", Lo inicializa en ejecucion, payara es la encargada 
-    // de realizar esto. Crea la conexion a la base de datos con ese nombre. 
     @PersistenceContext(unitName = "dispositivosPU")
     protected EntityManager em;
 
