@@ -62,4 +62,27 @@ public class AdministradorEntity extends BaseEntity
     {
         this.contrasena = pContrasena;
     }
+    
+    @Override
+    public boolean equals(Object obj)
+    {
+        boolean resp = super.equals(this);
+        final AdministradorEntity other = (AdministradorEntity) obj;
+        
+        if(!resp)
+        {
+            return false;
+        }
+        else
+        {
+            if(this.usuario.equalsIgnoreCase(other.usuario))
+            {
+                if(this.contrasena.equals(other.contrasena))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 }

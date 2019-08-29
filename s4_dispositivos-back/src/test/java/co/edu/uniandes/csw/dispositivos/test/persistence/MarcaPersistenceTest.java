@@ -26,7 +26,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author ca.salazara
+ * @author Carlos Salazar
  */
 @RunWith(Arquillian.class)
 public class MarcaPersistenceTest {

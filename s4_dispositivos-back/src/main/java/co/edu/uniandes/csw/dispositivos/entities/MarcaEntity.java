@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 
 /**
  *
- * @author Estudiante
+ * @author Carlos Salazar
  */
 @Entity
 public class MarcaEntity extends BaseEntity implements Serializable {
@@ -55,5 +55,23 @@ public class MarcaEntity extends BaseEntity implements Serializable {
         this.imagen = imagen;
     }
 
-    
+    @Override
+    public boolean equals(Object obj)
+    {
+        boolean resp = super.equals(this);
+        final MarcaEntity other = (MarcaEntity) obj;
+        
+        if(!resp)
+        {
+            return false;
+        }
+        else
+        {
+            if(this.nombreMarca.equalsIgnoreCase(other.nombreMarca))
+                if(this.imagen.equalsIgnoreCase(other.imagen))
+                        return true;
+
+            return false;
+        }
+    }
 }

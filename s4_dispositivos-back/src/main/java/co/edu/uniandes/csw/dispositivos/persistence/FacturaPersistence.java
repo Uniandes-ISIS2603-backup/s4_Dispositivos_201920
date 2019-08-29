@@ -15,7 +15,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author ca.salazara
+ * @author Carlos Salazar
  */
 @Stateless
 public class FacturaPersistence {
