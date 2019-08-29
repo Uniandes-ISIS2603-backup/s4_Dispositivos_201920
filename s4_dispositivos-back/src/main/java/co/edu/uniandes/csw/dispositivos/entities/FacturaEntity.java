@@ -86,4 +86,23 @@ public class FacturaEntity extends BaseEntity implements Serializable {
         this.dispositivos = dispositivos;
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        boolean resp = super.equals(this);
+        final FacturaEntity other = (FacturaEntity) obj;
+        
+        if(!resp)
+        {
+            return false;
+        }
+        else
+        {
+            if(this.dispositivos.equalsIgnoreCase(other.dispositivos))
+                if(this.numeroDeFactura == other.numeroDeFactura && this.totalPago == other.totalPago && this.impuestos == other.impuestos )
+                        return true;
+
+            return false;
+        }
+    }
 }

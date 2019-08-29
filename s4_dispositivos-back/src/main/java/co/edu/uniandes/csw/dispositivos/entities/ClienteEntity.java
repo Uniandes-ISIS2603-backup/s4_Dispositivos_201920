@@ -134,4 +134,25 @@ public class ClienteEntity extends BaseEntity implements Serializable{
         this.contrasena = contrasena;
     }
 
+        @Override
+    public boolean equals(Object obj)
+    {
+        boolean resp = super.equals(this);
+        final ClienteEntity other = (ClienteEntity) obj;
+        
+        if(!resp)
+        {
+            return false;
+        }
+        else
+        {
+            if(this.apellido.equalsIgnoreCase(other.apellido))
+                if(this.cedula == other.cedula && this.nombre.equalsIgnoreCase(other.nombre))
+                    if(this.correoElectronico.equalsIgnoreCase(other.correoElectronico) && this.direccion.equalsIgnoreCase(other.direccion))
+                        if(this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena))
+                            return true;
+
+            return false;
+        }
+    }
 }

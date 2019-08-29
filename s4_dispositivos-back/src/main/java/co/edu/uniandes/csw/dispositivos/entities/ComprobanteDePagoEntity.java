@@ -140,7 +140,7 @@ public class ComprobanteDePagoEntity extends BaseEntity
             if(this.fechaDeFactura.equalsIgnoreCase(other.fechaDeFactura))
                 if(this.impuestos == other.impuestos && this.numeroDeFactura == other.numeroDeFactura)
                     if(this.numeroDeTarjeta == other.numeroDeTarjeta && this.totalPago == other.totalPago)
-                        return false;
+                        return true;
             
             return false;
         }
