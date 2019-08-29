@@ -36,7 +36,7 @@ public class DispositivoPersistence {
         return em.find(DispositivoEntity.class, id);
     }
     
-    public List<DispositivoPersistence> findAll(){
+    public List<DispositivoEntity> findAll(){
         
         Query query = em.createQuery("select u from DispositivoEntity u"); 
         return query.getResultList(); 

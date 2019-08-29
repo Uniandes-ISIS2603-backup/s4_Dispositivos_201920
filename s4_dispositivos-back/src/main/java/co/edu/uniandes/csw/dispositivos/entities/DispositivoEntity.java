@@ -111,4 +111,56 @@ public class DispositivoEntity extends BaseEntity implements Serializable{
         this.promocion = promocion;
     }
     
+    /**
+     * Se sobre escribe el metodo equals
+     * @param obj a comparar 
+     * @return true si son iguales. false si son distintos
+     */
+    @Override
+    public boolean equals(Object obj){
+      boolean resp = super.equals(this); 
+      boolean fin = false; 
+      final DispositivoEntity other = (DispositivoEntity) obj; 
+      
+      if(!resp){
+          return fin; 
+      }
+      else{
+          if(this.descripcion.compareToIgnoreCase(other.descripcion) == 0){
+              fin = true; 
+              return fin; 
+          }
+          else if(this.descuento == other.descuento){
+              fin = true; 
+              return fin; 
+          }
+          else if(this.enStock == other.enStock){
+              fin = true; 
+              return fin; 
+          }
+          else if(this.modelo.compareTo(other.modelo) == 0){
+              fin = true; 
+              return fin; 
+          }
+          else if(this.nombre.compareTo(other.nombre) == 0){
+              fin = true; 
+              return fin; 
+          }
+          else if(this.precio == other.precio){
+              fin = true; 
+              return fin;
+          }
+          else if(this.precioImportacion == other.precioImportacion){
+              fin = true; 
+              return fin; 
+          }
+          else if(this.promocion == other.promocion){
+              fin = true; 
+              return fin; 
+          }
+      }
+      
+      return fin; 
+    }
+    
 }
