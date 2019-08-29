@@ -30,6 +30,7 @@ public class MedioDePagoEntity extends BaseEntity {
      * Crea un medio de pago vacío.
      */
     public MedioDePagoEntity() {
+
     }
 
     /**
@@ -107,40 +108,23 @@ public class MedioDePagoEntity extends BaseEntity {
     @Override
     public boolean equals(Object obj) {
 
-        boolean resp = super.equals(this);
+        boolean resp = super.equals(obj);
         boolean fin = false;
         final MedioDePagoEntity other = (MedioDePagoEntity) obj;
-        
-        if(!resp)
-        {
+
+        if (!resp) {
             return fin;
-        }
-        else
-        {
-            if(this.tipoTarjeta.compareTo(other.tipoTarjeta) == 0)
-            {
-                fin = true;
-                return fin;
+        } else {
+            if (this.tipoTarjeta.compareTo(other.tipoTarjeta) == 0) {
+                if (this.tipoCredito.compareTo(other.tipoCredito) == 0) {
+                    if (this.numeroDeVerificacion == other.numeroDeVerificacion) {
+                        if (this.numeroTarjeta == other.numeroTarjeta) {
+                            return true;
+                        }
+                    }
+                }
             }
-            else if(this.tipoCredito.compareTo(other.tipoCredito) == 0)
-            {
-                fin = true;
-                return fin;
-            }
-            else if(this.numeroDeVerificacion  == other.numeroDeVerificacion)
-            {
-                fin = true;
-                return fin;
-            }
-            else if(this.numeroTarjeta == other.numeroTarjeta)
-            {
-                fin = true;
-                return fin;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
     }
 
