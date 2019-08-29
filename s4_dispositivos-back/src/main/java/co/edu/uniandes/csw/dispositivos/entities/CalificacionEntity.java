@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import javax.persistence.Entity;
 
 /**
