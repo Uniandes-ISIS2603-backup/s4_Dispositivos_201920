@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.dispositivos.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,8 +19,6 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class MarcaPersistence {
-
-    private static final Logger LOGGER = Logger.getLogger(MarcaPersistence.class.getName());
 
     @PersistenceContext(unitName = "dispositivosPU")
     protected EntityManager em;
@@ -72,7 +69,6 @@ public class MarcaPersistence {
      * @param marcaId: id correspondiente a la marca a borrar.
      */
     public void delete(Long marcaId) {
-        //LOGGER.log(Level.INFO, "Borrando la marca con id={0}", marcaId);
         MarcaEntity marcaEntity = em.find(MarcaEntity.class, marcaId);
         em.remove(marcaEntity);
     }
