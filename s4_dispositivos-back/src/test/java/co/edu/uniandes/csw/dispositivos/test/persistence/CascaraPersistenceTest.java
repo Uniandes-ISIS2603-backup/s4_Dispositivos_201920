@@ -28,6 +28,12 @@ package co.edu.uniandes.csw.dispositivos.test.persistence;
  *
  * @author ISIS2603
  */
+//@RunWith(Arquillian.class)
 public class CascaraPersistenceTest {
+   // @Inject
+   // private  CascaraPersistence cascaraPersistence;
+    
+    //@PersistenceContext
+    //private EntityManager em;
     
 }

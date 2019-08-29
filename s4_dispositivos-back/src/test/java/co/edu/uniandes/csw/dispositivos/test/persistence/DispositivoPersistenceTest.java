@@ -165,7 +165,7 @@ public class DispositivoPersistenceTest {
    
    @Test
    public void findAllTest(){
-       List<DispositivoEntity> list = dp.findAll();
+       List<DispositivoEntity> list = dp.findAll(); 
         System.out.println("Size:" + list.size());
         Assert.assertEquals(data.size(), list.size());
         for (DispositivoEntity ent : list) {
