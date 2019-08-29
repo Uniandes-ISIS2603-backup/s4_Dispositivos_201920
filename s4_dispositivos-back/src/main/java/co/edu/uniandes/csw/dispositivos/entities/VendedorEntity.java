@@ -8,8 +8,6 @@ package co.edu.uniandes.csw.dispositivos.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -192,4 +190,19 @@ public class VendedorEntity extends BaseEntity implements Serializable
         this.ventas = ventas;
     }
     */
+    
+    /**
+     * 
+     * @param eo 
+     */
+    @Override
+    public boolean equals(Object eo)
+    {
+        boolean answer = super.equals(this), end = false;
+        final VendedorEntity another = (VendedorEntity) eo;
+        if(answer)
+            if((this.getId().equals(another.getId())) || (this.usuario.equals(another.usuario)) || (this.contrasena.equals(another.contrasena)))
+                end = true;
+        return end;
+    }
 }

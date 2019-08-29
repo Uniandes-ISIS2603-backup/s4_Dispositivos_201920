@@ -89,4 +89,19 @@ public class VentaEntity extends BaseEntity implements Serializable
         this.vendedor = vendedor;
     } 
     */
+    
+    /**
+     * 
+     * @param oe 
+     */
+    @Override
+    public boolean equals(Object oe)
+    {
+        boolean answer = super.equals(this), end = false;
+        final VentaEntity another = (VentaEntity) oe;
+        if(answer)
+            if(this.getId().equals(another.getId()))
+                end = true;
+        return end;
+    }
 }
