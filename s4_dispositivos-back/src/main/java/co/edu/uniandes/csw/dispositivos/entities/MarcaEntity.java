@@ -56,20 +56,16 @@ public class MarcaEntity extends BaseEntity implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        boolean resp = super.equals(this);
+    public boolean equals(Object obj) {
+        boolean resp = super.equals(obj);
         final MarcaEntity other = (MarcaEntity) obj;
-        
-        if(!resp)
-        {
+
+        if (!resp) {
             return false;
-        }
-        else
-        {
-            if(this.nombreMarca.equalsIgnoreCase(other.nombreMarca))
-                if(this.imagen.equalsIgnoreCase(other.imagen))
-                        return true;
+        } else {
+            if (this.nombreMarca.equalsIgnoreCase(other.nombreMarca) && this.imagen.equalsIgnoreCase(other.imagen)) {
+                return true;
+            }
 
             return false;
         }

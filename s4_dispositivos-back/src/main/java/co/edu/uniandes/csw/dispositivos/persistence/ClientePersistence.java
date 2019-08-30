@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.dispositivos.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.ClienteEntity;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,8 +18,6 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class ClientePersistence {
-
-    private static final Logger LOGGER = Logger.getLogger(ClientePersistence.class.getName());
 
     @PersistenceContext(unitName = "dispositivosPU")
     protected EntityManager em;
@@ -34,8 +31,8 @@ public class ClientePersistence {
      * Devuelve todas las marcas de la base de datos.
      *
      * @return una lista con todas las marcas que encuentre en la base de datos,
-     * "select u from ClienteEntity u" es como un "select * from ClienteEntity;" -
-     * "SELECT * FROM table_name" en SQL.
+     * "select u from ClienteEntity u" es como un "select * from ClienteEntity;"
+     * - "SELECT * FROM table_name" en SQL.
      */
     public List<ClienteEntity> findAll() {
         TypedQuery query = em.createQuery("select u from ClienteEntity u", ClienteEntity.class);
@@ -71,7 +68,6 @@ public class ClientePersistence {
      * @param clienteId: id correspondiente al cliente a borrar.
      */
     public void delete(Long clienteId) {
-        //LOGGER.log(Level.INFO, "Borrando el cliente con id={0}", clienteId);
         ClienteEntity clienteEntity = em.find(ClienteEntity.class, clienteId);
         em.remove(clienteEntity);
     }
