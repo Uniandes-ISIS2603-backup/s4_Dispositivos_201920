@@ -18,8 +18,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
     private String correoElectronico;    
     private String nombre;    
     private String apellido;     
-    private int celular;    
-    private int cedula;     
+    private double celular;    
+    private double cedula;     
     private String usuario;    
     private String contrasena;
     
@@ -43,7 +43,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * @param usuario
      * @param contrasena 
      */
-    public VendedorEntity(String correoElectronico, String nombre, String apellido, int celular, int cedula, String usuario, String contrasena) 
+    public VendedorEntity(String correoElectronico, String nombre, String apellido, double celular, double cedula, String usuario, String contrasena) 
     {
         this.correoElectronico = correoElectronico;
         this.nombre = nombre;
@@ -106,7 +106,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * 
      * @return celular
      */
-    public int getCelular() {
+    public double getCelular() {
         return celular;
     }
 
@@ -114,7 +114,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * 
      * @param celular 
      */
-    public void setCelular(int celular) {
+    public void setCelular(double celular) {
         this.celular = celular;
     }
 
@@ -122,7 +122,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * 
      * @return cedula
      */
-    public int getCedula() {
+    public double getCedula() {
         return cedula;
     }
 
@@ -130,7 +130,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * 
      * @param cedula 
      */
-    public void setCedula(int cedula) {
+    public void setCedula(double cedula) {
         this.cedula = cedula;
     }
 

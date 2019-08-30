@@ -79,6 +79,30 @@ public class VentaPersistenceTest
         }
     }
     
+    /**
+     * Prueba del método sobreescrito equals()
+     */
+    @Test
+    public void equalsTest()
+    {
+        VentaEntity newva1 = new VentaEntity(68000.0);
+        VentaEntity newva2 = new VentaEntity(68000.0);
+        VentaEntity newva3 = new VentaEntity(68000.0); 
+        Assert.assertTrue(newva2.equals(newva1));
+        Assert.assertTrue(newva3.equals(newva2));
+        Assert.assertTrue(newva1.equals(newva3));
+    }
+    
+    /**
+     * Prueba del método constructor
+     */
+    @Test
+    public void ventaTest()
+    {
+        VentaEntity newva = new VentaEntity(35000.0);
+        Assert.assertEquals(35000.0, newva.getPrecioReventa(), 0.0);
+    }
+    
     @Test
     public void createVentaTest()
     {
