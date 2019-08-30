@@ -13,32 +13,33 @@ import javax.persistence.Entity;
  * @author Santiago Fajardo
  */
 @Entity
-public class DispositivoEntity extends BaseEntity implements Serializable{
-    
+public class DispositivoEntity extends BaseEntity implements Serializable {
+
     /**
-     * Atributos 
+     * Atributos
      */
-    
-    private String modelo, descripcion, nombre, imagenes; 
-    
-    private double precio, precioImportacion, descuento; 
-    
-    private boolean promocion, enStock; 
-    
+    private String modelo, descripcion, nombre, imagenes;
+
+    private double precio, precioImportacion, descuento;
+
+    private boolean promocion, enStock;
+
     /**
      * Constructor vacio. Necesario para su implementacion en la DB
      */
-    public DispositivoEntity(){
-        
+    public DispositivoEntity() {
+
+        /**
+         * Constructor vacio. Necesario para su implementacion en la DB
+         */
     }
-    
+
     /**
      * Metodos
      */
-    
     //Getters 
-    public String getModelo(){
-        return modelo; 
+    public String getModelo() {
+        return modelo;
     }
 
     public String getDescripcion() {
@@ -72,95 +73,68 @@ public class DispositivoEntity extends BaseEntity implements Serializable{
     public boolean isPromocion() {
         return promocion;
     }
-    
-    
+
     //Setters
-    public void setNombre(String nombre){
-        this.nombre = nombre; 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    
-    public void setDescripcion(String descripcion){
-        this.descripcion = descripcion; 
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
-    
-    public void setImagenes(String imagenes){
+
+    public void setImagenes(String imagenes) {
         this.imagenes = imagenes;
     }
-    
-    public void setModelo(String modelo){
+
+    public void setModelo(String modelo) {
         this.modelo = modelo;
     }
-    
-    public void setDescuento(double descuento){
-        this.descuento = descuento; 
+
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
     }
-    
-    public void setPrecioImportacion(double precioImportacion){
-        this.precioImportacion = precioImportacion; 
+
+    public void setPrecioImportacion(double precioImportacion) {
+        this.precioImportacion = precioImportacion;
     }
-    
-    public void setPrecio(double precio){
+
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
-    
-    public void setEnStock(boolean enStock){
-        this.enStock = enStock; 
+
+    public void setEnStock(boolean enStock) {
+        this.enStock = enStock;
     }
-    
-    public void setPromocion(boolean promocion){
+
+    public void setPromocion(boolean promocion) {
         this.promocion = promocion;
     }
-    
+
     /**
      * Se sobre escribe el metodo equals
-     * @param obj a comparar 
+     *
+     * @param obj a comparar
      * @return true si son iguales. false si son distintos
      */
     @Override
-    public boolean equals(Object obj){
-      boolean resp = super.equals(this); 
-      boolean fin = false; 
-      final DispositivoEntity other = (DispositivoEntity) obj; 
-      
-      if(!resp){
-          return fin; 
-      }
-      else{
-          if(this.descripcion.compareToIgnoreCase(other.descripcion) == 0){
-              fin = true; 
-              return fin; 
-          }
-          else if(this.descuento == other.descuento){
-              fin = true; 
-              return fin; 
-          }
-          else if(this.enStock == other.enStock){
-              fin = true; 
-              return fin; 
-          }
-          else if(this.modelo.compareTo(other.modelo) == 0){
-              fin = true; 
-              return fin; 
-          }
-          else if(this.nombre.compareTo(other.nombre) == 0){
-              fin = true; 
-              return fin; 
-          }
-          else if(this.precio == other.precio){
-              fin = true; 
-              return fin;
-          }
-          else if(this.precioImportacion == other.precioImportacion){
-              fin = true; 
-              return fin; 
-          }
-          else if(this.promocion == other.promocion){
-              fin = true; 
-              return fin; 
-          }
-      }
-      
-      return fin; 
+    public boolean equals(Object obj)  {
+        boolean resp = super.equals(obj);
+        boolean fin = false;
+        final DispositivoEntity other = (DispositivoEntity) obj;
+
+        if (!resp) {
+            return fin;
+        } else {
+            if ((this.descripcion.compareToIgnoreCase(other.descripcion) == 0) && (this.descuento == other.descuento) && (this.enStock == other.enStock)
+                    && (this.modelo.compareTo(other.modelo) == 0) && (this.nombre.compareTo(other.nombre) == 0) && (this.precio == other.precio)
+                    && (this.precioImportacion == other.precioImportacion) && (this.promocion == other.promocion)) {
+                fin = true;
+                return fin;
+            }
+        }
+
+        return fin;
     }
-    
+
 }

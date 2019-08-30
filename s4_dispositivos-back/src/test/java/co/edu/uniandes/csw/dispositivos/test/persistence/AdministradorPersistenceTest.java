@@ -62,7 +62,7 @@ public class AdministradorPersistenceTest
      * Prueba para crear un administrador
      */
     @Test
-    public void testCreat()
+    public void testCreate()
     {
         PodamFactory factory= new PodamFactoryImpl();
         AdministradorEntity newEntity =factory.manufacturePojo(AdministradorEntity.class);
@@ -169,6 +169,31 @@ public class AdministradorPersistenceTest
         mp.delete(entity.getId());
         AdministradorEntity deleted = em.find(AdministradorEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+    /**
+     * Prueba del constructor Admin
+     */
+    @Test
+    public void testConstructorAdmin()
+    {
+        AdministradorEntity newEntity = new AdministradorEntity("usuarioPrueba", "Hola1234");      
+        
+        Assert.assertEquals("usuarioPrueba",newEntity.getUsuario());
+        Assert.assertEquals("Hola1234", newEntity.getContrasena());
+
+    }
+    /**
+     * Prueba para el método equals()
+     */
+    @Test
+    public void testEquals()
+    {
+        AdministradorEntity admin1 = new AdministradorEntity("usuario1", "contraseNa");
+        AdministradorEntity admin2 = new AdministradorEntity("usuario1", "contraseNa");
+        Assert.assertTrue(admin1.equals(admin2));
+                
+        AdministradorEntity admin3 = new AdministradorEntity("usuario2", "contraseNa");
+        Assert.assertFalse(admin1.equals(admin3));
     }
     
 }
