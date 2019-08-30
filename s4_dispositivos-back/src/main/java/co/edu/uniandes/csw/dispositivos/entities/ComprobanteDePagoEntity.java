@@ -148,10 +148,7 @@ public class ComprobanteDePagoEntity extends BaseEntity
         }
         else
         {
-            if(this.fechaDeFactura.equals(other.fechaDeFactura)&& this.impuestos == other.impuestos && this.numeroDeFactura == other.numeroDeFactura && numeroDeTarjeta.equalsIgnoreCase(other.numeroDeTarjeta))
-                        return true;
-            
-            return false;
+            return this.fechaDeFactura.equals(other.fechaDeFactura)&& this.impuestos == other.impuestos && this.numeroDeFactura == other.numeroDeFactura && numeroDeTarjeta.equalsIgnoreCase(other.numeroDeTarjeta);
         }
     }
 }
