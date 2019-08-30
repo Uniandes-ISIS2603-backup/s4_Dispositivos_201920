@@ -12,56 +12,51 @@ import javax.persistence.Entity;
  *
  * @author Zharet Bautista Montes
  */
+@Entity
+public class VentaEntity extends BaseEntity implements Serializable {
 
-@Entity 
-public class VentaEntity extends BaseEntity implements Serializable
-{
-    private double precioReventa;
+    private Double precioReventa;
 
     /**
      * Constructor vacío
      */
-    public VentaEntity() 
-    {    }
+    public VentaEntity() {
+    }
 
     /**
-     * Constructor que recibe parámetros 
+     * Constructor que recibe parámetros
+     *
      * @param precioReventa
      */
-    public VentaEntity(double precioReventa) 
-    {
+    public VentaEntity(Double precioReventa) {
         this.precioReventa = precioReventa;
-    }
-    
-    /**
-     * Retorna el precio de reventa
-     * @return precioReventa
-     */
-    public double getPrecioReventa() 
-    {
-        return precioReventa;
     }
 
     /**
-     * 
-     * @param precioReventa 
+     * Retorna el precio de reventa
+     *
+     * @return precioReventa
      */
-    public void setPrecioReventa(double precioReventa) 
-    {
+    public Double getPrecioReventa() {
+        return this.precioReventa;
+    }
+
+    /**
+     *
+     * @param precioReventa
+     */
+    public void setPrecioReventa(Double precioReventa) {
         this.precioReventa = precioReventa;
     }
-    
+
     /**
-     * 
-     * @param oe 
+     *
+     * @param oe
      */
     @Override
-    public boolean equals(Object oe)
-    {
-        boolean answer = super.equals(oe), end = false;
+    public boolean equals(Object oe) {
+        boolean answer = super.equals(oe);
         final VentaEntity another = (VentaEntity) oe;
-        if(answer && this.getId().equals(another.getId()))
-            end = true;
-        return end;
+        return answer && this.getPrecioReventa().equals(another.getPrecioReventa());
     }
 }
