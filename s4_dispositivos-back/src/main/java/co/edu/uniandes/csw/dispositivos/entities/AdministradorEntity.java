@@ -62,12 +62,22 @@ public class AdministradorEntity extends BaseEntity
     {
         this.contrasena = pContrasena;
     }
-    
+    /**
+     * Evalua un objeto con el actual
+     * @param obj Objecto a comparar
+     * @return true cuando ambos objetos son iguales, false de lo contrario
+     */
     @Override
     public boolean equals(Object obj)
     {
-        boolean resp = super.equals(this);
+        if (obj == null)
+            return false;
+
+        if (this.getClass() != obj.getClass())
+            return false;
+  
         final AdministradorEntity other = (AdministradorEntity) obj;
+        boolean resp = super.equals(other);
         
         if(!resp)
         {
@@ -75,9 +85,7 @@ public class AdministradorEntity extends BaseEntity
         }
         else
         {
-            if(this.usuario.equalsIgnoreCase(other.usuario))
-            {
-                if(this.contrasena.equals(other.contrasena))
+            if(this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena))
                 {
                     return true;
                 }
@@ -85,4 +93,4 @@ public class AdministradorEntity extends BaseEntity
             return false;
         }
     }
-}
+
