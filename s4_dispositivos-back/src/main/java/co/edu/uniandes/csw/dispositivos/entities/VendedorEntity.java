@@ -27,11 +27,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Constructor vacío
      */
     public VendedorEntity()
-    {
-    /**
-     * Necesario para la implementación de Entity
-     */
-    }
+    {   }
 
     /**
      * Constructor con parámetros
@@ -157,23 +153,26 @@ public class VendedorEntity extends BaseEntity implements Serializable
     public String getContrasena() {
         return contrasena;
     }
-    
+
     /**
      * 
      * @param contrasena 
      */
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
-    }
-   
+    }   
+    
+    /**
+     * 
+     * @param eo 
+     */
     @Override
     public boolean equals(Object eo)
     {
         boolean answer = super.equals(eo), end = false;
         final VendedorEntity another = (VendedorEntity) eo;
-        if(answer)
-            if((this.getId().equals(another.getId())) || (this.usuario.equals(another.usuario)) || (this.contrasena.equals(another.contrasena)))
-                end = true;
+        if(answer && ((this.getId().equals(another.getId())) || (this.usuario.equals(another.usuario)) || (this.contrasena.equals(another.contrasena))))
+            end = true;
         return end;
     }
 }

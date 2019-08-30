@@ -58,9 +58,9 @@ public class VendedorPersistenceTest
     @Test
     public void equalsTest()
     {
-        VendedorEntity newvr1 = new VendedorEntity("vx.chernov@hannover.edu.co", "Wilhelm Hosevich", "Chernov", 3785098657, 8267503149, "WilhelmH_C", "53-Sport");
-        VendedorEntity newvr2 = new VendedorEntity("vx.chernov@hannover.edu.co", "Wilhelm Hosevich", "Chernov", 3785098657, 8267503149, "WilhelmH_C", "53-Sport");
-        VendedorEntity newvr3 = new VendedorEntity("vx.chernov@hannover.edu.co", "Wilhelm Hosevich", "Chernov", 3785098657, 8267503149, "WilhelmH_C", "53-Sport"); 
+        VendedorEntity newvr1 = new VendedorEntity("vx.chernov@hannover.edu.co", "Wilhelm Hosevich", "Chernov", 378509865, 826750314, "WilhelmH_C", "53-Sport");
+        VendedorEntity newvr2 = new VendedorEntity("vx.chernov@hannover.edu.co", "Wilhelm Hosevich", "Chernov", 378509865, 826750314, "WilhelmH_C", "53-Sport");
+        VendedorEntity newvr3 = new VendedorEntity("vx.chernov@hannover.edu.co", "Wilhelm Hosevich", "Chernov", 378509865, 826750314, "WilhelmH_C", "53-Sport"); 
         Assert.assertTrue(newvr2.equals(newvr1));
         Assert.assertTrue(newvr3.equals(newvr2));
         Assert.assertTrue(newvr1.equals(newvr3));
@@ -72,12 +72,12 @@ public class VendedorPersistenceTest
     @Test
     public void vendedorTest()
     {
-        VendedorEntity newvr = new VendedorEntity("ei.chernov@hannover.edu.co", "Eron Ivanovich", "Chernov", 3249168324, 7532109864, "EronI_C", "Deu86Rus");
+        VendedorEntity newvr = new VendedorEntity("ei.chernov@hannover.edu.co", "Eron Ivanovich", "Chernov", 324916832, 753210986, "EronI_C", "Deu86Rus");
         Assert.assertEquals("ei.chernov@hannover.edu.co", newvr.getCorreoElectronico());
         Assert.assertEquals("Eron Ivanovich", newvr.getNombre());
         Assert.assertEquals("Chernov", newvr.getApellido());
-        Assert.assertEquals(3249168324, newvr.getCelular(), 0.0);
-        Assert.assertEquals(7532109864, newvr.getCedula(), 0.0);
+        Assert.assertEquals(324916832, newvr.getCelular(), 0.0);
+        Assert.assertEquals(753210986, newvr.getCedula(), 0.0);
         Assert.assertEquals("EronI_C", newvr.getUsuario());
         Assert.assertEquals("Deu86Rus", newvr.getContrasena());
     }

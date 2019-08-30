@@ -22,15 +22,11 @@ public class VentaEntity extends BaseEntity implements Serializable
      * Constructor vacío
      */
     public VentaEntity() 
-    {
-     /**
-     * Necesario para la implementación de Entity
-     */ 
-    }
+    {    }
 
     /**
      * Constructor que recibe parámetros 
-     * @param precioReventa 
+     * @param precioReventa
      */
     public VentaEntity(double precioReventa) 
     {
@@ -64,9 +60,8 @@ public class VentaEntity extends BaseEntity implements Serializable
     {
         boolean answer = super.equals(oe), end = false;
         final VentaEntity another = (VentaEntity) oe;
-        if(answer)
-            if(this.getId().equals(another.getId()))
-                end = true;
+        if(answer && this.getId().equals(another.getId()))
+            end = true;
         return end;
     }
 }
