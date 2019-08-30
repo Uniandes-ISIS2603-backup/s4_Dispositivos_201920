@@ -3,6 +3,7 @@ package co.edu.uniandes.csw.dispositivos.test.persistence;
 import co.edu.uniandes.csw.dispositivos.entities.ComprobanteDePagoEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.ComprobanteDePagoPersistence;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -183,5 +184,25 @@ public class ComprobanteDePagoPersistenceTest
         ComprobanteDePagoEntity deleted = em.find(ComprobanteDePagoEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-    
+    /**
+     * Prueba del constructor Admin
+     */
+    @Test
+    public void testConstructorAdmin()
+    {
+        Date date = new Date();
+        ComprobanteDePagoEntity newEntity = new ComprobanteDePagoEntity(123, 100.500, 13.456, "0", date);
+        ComprobanteDePagoEntity result=mp.create(newEntity);
+      
+        Assert.assertNotNull(result);
+        
+        ComprobanteDePagoEntity entity=em.find(ComprobanteDePagoEntity.class,result.getId());
+        Assert.assertEquals(newEntity.getId(),entity.getId());
+        Assert.assertEquals(newEntity.getNumeroDeFactura(),entity.getNumeroDeFactura());
+        Assert.assertEquals(newEntity.getImpuestos(),entity.getImpuestos(),0);
+        Assert.assertEquals(newEntity.getNumeroDeTarjeta(),entity.getNumeroDeTarjeta());
+        Assert.assertEquals(newEntity.getFechaDeFactura(), entity.getFechaDeFactura());
+        
+
+    }
 }
