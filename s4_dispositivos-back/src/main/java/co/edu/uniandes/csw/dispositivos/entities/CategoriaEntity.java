@@ -18,6 +18,9 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class CategoriaEntity extends BaseEntity {
 
+    /**
+     * Representa el nombre de una categoria. 
+     */
     private String nombreCategoria;
 
     /**

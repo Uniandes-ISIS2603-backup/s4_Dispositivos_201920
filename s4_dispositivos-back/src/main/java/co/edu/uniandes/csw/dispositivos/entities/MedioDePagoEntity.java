@@ -18,12 +18,24 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class MedioDePagoEntity extends BaseEntity {
 
+    /**
+     * Representa el numero de una tarjeta.
+     */
     private String numeroTarjeta;
 
+    /**
+     * Representa el numero de verificacion de una tarjeta. 
+     */
     private int numeroDeVerificacion;
 
+    /**
+     * Representa el tipo de tarjeta.
+     */
     private String tipoTarjeta;
 
+    /**
+     * Representa el tipo de credito. 
+     */
     private String tipoCredito;
 
     /**
