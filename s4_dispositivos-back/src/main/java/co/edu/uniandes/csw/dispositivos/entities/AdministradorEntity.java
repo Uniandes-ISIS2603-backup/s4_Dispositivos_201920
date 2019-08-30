@@ -85,12 +85,8 @@ public class AdministradorEntity extends BaseEntity
         }
         else
         {
-            if(this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena))
-                {
-                    return true;
-                }
-            }
-            return false;
+            return this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena);
         }
     }
+}
 
