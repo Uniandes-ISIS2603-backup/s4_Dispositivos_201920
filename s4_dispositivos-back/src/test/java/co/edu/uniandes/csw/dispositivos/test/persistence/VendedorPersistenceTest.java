@@ -167,13 +167,13 @@ public class VendedorPersistenceTest
     {
         VendedorEntity newEntity = new VendedorEntity("correo@correo.com", "nombre1", "apell1", 12344, 56789, "usua1", "contrase1");
       
-        Assert.assertEquals(newEntity.getApellido(),"apell1");
-        Assert.assertEquals(newEntity.getNombre(), "nombre1");
-        Assert.assertEquals(newEntity.getCorreoElectronico(),"correo@correo.com");
-        Assert.assertEquals(newEntity.getContrasena(), "contrase1");
-        Assert.assertEquals(newEntity.getUsuario(),"usua1");
-        Assert.assertEquals(newEntity.getCelular(),12344,0);        
-        Assert.assertEquals(newEntity.getCedula(),56789,0);
+        Assert.assertEquals("apell1",newEntity.getApellido());
+        Assert.assertEquals("nombre1", newEntity.getNombre());
+        Assert.assertEquals("correo@correo.com",newEntity.getCorreoElectronico());
+        Assert.assertEquals("contrase1",newEntity.getContrasena());
+        Assert.assertEquals("usua1",newEntity.getUsuario());
+        Assert.assertEquals(12344,newEntity.getCelular(),0);        
+        Assert.assertEquals(56789,newEntity.getCedula(),0);
     }
     /**
      * Prueba para el método equals()
