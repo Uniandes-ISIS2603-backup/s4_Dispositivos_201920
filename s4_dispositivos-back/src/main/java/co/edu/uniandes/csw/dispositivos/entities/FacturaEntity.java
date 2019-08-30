@@ -20,9 +20,21 @@ public class FacturaEntity extends BaseEntity implements Serializable {
     private Double impuestos;
     private String dispositivos;
 
+    /**
+     * Constructor creado vacio para no tener problemas al implementar
+     * Serializable
+     */
     public FacturaEntity() {
     }
 
+    /**
+     * Crea una nueva FacturaEntity.
+     *
+     * @param pNumeroDeFactura numero de factura a establecer.
+     * @param pTotalPago pago total a establecer.
+     * @param pImpuestos valor de impuestos a establecer.
+     * @param pDispositivios dispositivos a establecer.
+     */
     public FacturaEntity(Integer pNumeroDeFactura, Double pTotalPago, Double pImpuestos, String pDispositivos) {
         this.numeroDeFactura = pNumeroDeFactura;
         this.totalPago = pTotalPago;
@@ -86,19 +98,28 @@ public class FacturaEntity extends BaseEntity implements Serializable {
         this.dispositivos = dispositivos;
     }
 
+    /**
+     * Compara dos objetos
+     *
+     * @param obj objeto a comparar.
+     * @return true en caso de que sean iguales, false en caso de que no.
+     */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
         boolean resp = super.equals(obj);
         final FacturaEntity other = (FacturaEntity) obj;
 
-        if (!resp) {
-            return false;
-        } else {
-            if (this.dispositivos.equalsIgnoreCase(other.dispositivos) && this.numeroDeFactura == other.numeroDeFactura && this.totalPago == other.totalPago && this.impuestos == other.impuestos) {
+        if (resp) {
+            if (this.dispositivos.equalsIgnoreCase(other.dispositivos) && this.numeroDeFactura.equals(other.numeroDeFactura) && this.totalPago.equals(other.totalPago) && this.impuestos.equals(other.impuestos)) {
                 return true;
             }
-
-            return false;
         }
+        return false;
     }
 }

@@ -18,6 +18,8 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,69 +32,63 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class MarcaPersistenceTest {
-    
+
     @Inject
     private MarcaPersistence mp;
-    
-    @PersistenceContext(unitName="dispositivosPU")
+
+    @PersistenceContext(unitName = "dispositivosPU")
     private EntityManager em;
 
-        @Inject
+    @Inject
     UserTransaction utx;
 
     private List<MarcaEntity> data = new ArrayList<>();
-        
-  @Deployment
-    public static JavaArchive createDeployment() 
-    {
+
+    @Deployment
+    public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(MarcaEntity.class.getPackage())
                 .addPackage(MarcaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
+
     @Test
-    public void createTest()
-    {
-        PodamFactory factory= new PodamFactoryImpl();
-        MarcaEntity marcaEntity=factory.manufacturePojo(MarcaEntity.class);
-        MarcaEntity result=mp.create(marcaEntity);
+    public void createTest() {
+        PodamFactory factory = new PodamFactoryImpl();
+        MarcaEntity marcaEntity = factory.manufacturePojo(MarcaEntity.class);
+        MarcaEntity result = mp.create(marcaEntity);
         Assert.assertNotNull(result);
-        
-        MarcaEntity entity=em.find(MarcaEntity.class,result.getId());
-        Assert.assertEquals(marcaEntity.getNombreMarca(),entity.getNombreMarca()); 
+
+        MarcaEntity entity = em.find(MarcaEntity.class, result.getId());
+        Assert.assertEquals(marcaEntity.getNombreMarca(), entity.getNombreMarca());
         Assert.assertEquals(marcaEntity.getImagen(), entity.getImagen());
 
     }
-    
+
     @Before
-    public void configTest() 
-    {   
-        try 
-        {
-        utx.begin();
-        em.joinTransaction();
-        clearData();
-        PodamFactory factory = new PodamFactoryImpl();
-        for (int i = 0; i < 3; i++) 
-        {
-            MarcaEntity entity = factory.manufacturePojo(MarcaEntity.class);
-            em.persist(entity);
-            data.add(entity);
-        }    
-        } 
-        catch (Exception e) {
+    public void configTest() {
+        try {
+            utx.begin();
+            em.joinTransaction();
+            clearData();
+            PodamFactory factory = new PodamFactoryImpl();
+            for (int i = 0; i < 3; i++) {
+                MarcaEntity entity = factory.manufacturePojo(MarcaEntity.class);
+                em.persist(entity);
+                data.add(entity);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     private void clearData() {
         em.createQuery("delete from MarcaEntity").executeUpdate();
     }
 
     @Test
-    public void findMarcasTest() 
-    {
+    public void findMarcasTest() {
         List<MarcaEntity> list = mp.findAll();
         Assert.assertEquals(data.size(), list.size());
         for (MarcaEntity ent : list) {
@@ -110,8 +106,7 @@ public class MarcaPersistenceTest {
      * Prueba para consultar una Marca.
      */
     @Test
-    public void findMarcaTest() 
-    {
+    public void findMarcaTest() {
         MarcaEntity entity = data.get(0);
         MarcaEntity newEntity = mp.find(entity.getId());
         Assert.assertNotNull(newEntity);
@@ -123,8 +118,7 @@ public class MarcaPersistenceTest {
      * Prueba para actualizar una marca.
      */
     @Test
-    public void updateMarcaTest() 
-    {
+    public void updateMarcaTest() {
         MarcaEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
         MarcaEntity newEntity = factory.manufacturePojo(MarcaEntity.class);
@@ -143,11 +137,27 @@ public class MarcaPersistenceTest {
      * Prueba para eliminar una marca.
      */
     @Test
-    public void deleteMarcaTest() 
-    {
+    public void deleteMarcaTest() {
         MarcaEntity entity = data.get(0);
         mp.delete(entity.getId());
         MarcaEntity deleted = em.find(MarcaEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+
+    /**
+     * Prueba para crear una marca.
+     */
+    @Test
+    public void crearMarcaTest() {
+        MarcaEntity marcaPrueba = new MarcaEntity("marcaPrueba", "marcaLogo.png");
+        MarcaEntity marcaPrueba2 = new MarcaEntity("marcaPrueba", "marcaLogo.png");
+        MarcaEntity marcaPrueba3 = new MarcaEntity("marcaPruebaf", "marcaLogo.png");
+
+        Assert.assertEquals("marcaLogo.png", marcaPrueba.getImagen());
+        Assert.assertEquals("marcaPrueba", marcaPrueba.getNombreMarca());
+
+        assertTrue(marcaPrueba.equals(marcaPrueba2));
+        assertFalse(marcaPrueba.equals(marcaPrueba3));
+
     }
 }
