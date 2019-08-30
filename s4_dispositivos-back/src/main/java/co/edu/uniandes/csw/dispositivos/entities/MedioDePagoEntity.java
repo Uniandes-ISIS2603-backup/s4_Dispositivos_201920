@@ -18,7 +18,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class MedioDePagoEntity extends BaseEntity {
 
-    private int numeroTarjeta;
+    private String numeroTarjeta;
 
     private int numeroDeVerificacion;
 
@@ -42,7 +42,7 @@ public class MedioDePagoEntity extends BaseEntity {
      * @param tipoCredito Tipo de crédito. tipoCredito = (VISA, MASTERCARD),
      * NULL si no tiene crédito.
      */
-    public MedioDePagoEntity(int numeroTarjeta, int numeroDeVerificacion, String tipoTarjeta, String tipoCredito) {
+    public MedioDePagoEntity(String numeroTarjeta, int numeroDeVerificacion, String tipoTarjeta, String tipoCredito) {
         this.numeroTarjeta = numeroTarjeta;
         this.numeroDeVerificacion = numeroDeVerificacion;
         this.tipoCredito = tipoCredito;
@@ -52,14 +52,14 @@ public class MedioDePagoEntity extends BaseEntity {
     /**
      * @return the numeroTarjeta
      */
-    public int getNumeroTarjeta() {
+    public String getNumeroTarjeta() {
         return numeroTarjeta;
     }
 
     /**
      * @param numeroTarjeta the numeroTarjeta to set
      */
-    public void setNumeroTarjeta(int numeroTarjeta) {
+    public void setNumeroTarjeta(String numeroTarjeta) {
         this.numeroTarjeta = numeroTarjeta;
     }
 
@@ -118,7 +118,7 @@ public class MedioDePagoEntity extends BaseEntity {
             if (this.tipoTarjeta.compareTo(other.tipoTarjeta) == 0) {
                 if (this.tipoCredito.compareTo(other.tipoCredito) == 0) {
                     if (this.numeroDeVerificacion == other.numeroDeVerificacion) {
-                        if (this.numeroTarjeta == other.numeroTarjeta) {
+                        if (this.numeroTarjeta.compareTo(other.numeroTarjeta)== 0 ) {
                             return true;
                         }
                     }
