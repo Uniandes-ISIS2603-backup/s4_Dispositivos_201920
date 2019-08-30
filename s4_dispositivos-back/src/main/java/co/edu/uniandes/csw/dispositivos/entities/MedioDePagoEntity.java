@@ -5,11 +5,7 @@
  */
 package co.edu.uniandes.csw.dispositivos.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -24,7 +20,7 @@ public class MedioDePagoEntity extends BaseEntity {
     private String numeroTarjeta;
 
     /**
-     * Representa el numero de verificacion de una tarjeta. 
+     * Representa el numero de verificacion de una tarjeta.
      */
     private int numeroDeVerificacion;
 
@@ -34,7 +30,7 @@ public class MedioDePagoEntity extends BaseEntity {
     private String tipoTarjeta;
 
     /**
-     * Representa el tipo de credito. 
+     * Representa el tipo de credito.
      */
     private String tipoCredito;
 
@@ -120,21 +116,23 @@ public class MedioDePagoEntity extends BaseEntity {
     @Override
     public boolean equals(Object obj) {
 
+        if (obj == null) {
+            return false;
+        }
+
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+        
         boolean resp = super.equals(obj);
-        boolean fin = false;
         final MedioDePagoEntity other = (MedioDePagoEntity) obj;
 
         if (!resp) {
-            return fin;
+            return false;
         } else {
-            if (this.tipoTarjeta.compareTo(other.tipoTarjeta) == 0) {
-                if (this.tipoCredito.compareTo(other.tipoCredito) == 0) {
-                    if (this.numeroDeVerificacion == other.numeroDeVerificacion) {
-                        if (this.numeroTarjeta.compareTo(other.numeroTarjeta)== 0 ) {
-                            return true;
-                        }
-                    }
-                }
+            if (this.tipoTarjeta.compareTo(other.tipoTarjeta) == 0 && this.tipoCredito.compareTo(other.tipoCredito) == 0
+                    && this.numeroDeVerificacion == other.numeroDeVerificacion && this.numeroTarjeta.compareTo(other.numeroTarjeta) == 0) {
+                return true;
             }
             return false;
         }

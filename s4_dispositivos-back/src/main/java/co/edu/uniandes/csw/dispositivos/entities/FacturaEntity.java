@@ -15,9 +15,24 @@ import javax.persistence.Entity;
 @Entity
 public class FacturaEntity extends BaseEntity implements Serializable {
 
+    /**
+     * Atributo que modela el numero de la factura.
+     */
     private Integer numeroDeFactura;
+
+    /**
+     * Atributo que modela el total del pago de la factura.
+     */
     private Double totalPago;
+
+    /**
+     * Atributo que modela el porcentaje de impuestos de la factura.
+     */
     private Double impuestos;
+
+    /**
+     * Atributo que modela los dispositivos en la factura.
+     */
     private String dispositivos;
 
     /**
