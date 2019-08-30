@@ -32,20 +32,18 @@ import java.util.logging.Logger;
  */
 @RunWith(Arquillian.class)
 public class MedioDePagoPersistenceTest {
-
+    
     private static final Logger LOGGER = Logger.getLogger(MedioDePagoPersistence.class.getName());
-
+    
     @Inject
     private MedioDePagoPersistence medioPPersistence;
-
-    //@Inject
-    //private OrganizationPersistence organizationPersistence;
+    
     @PersistenceContext
     private EntityManager em;
-
+    
     @Inject
     UserTransaction utx;
-
+    
     private List<MedioDePagoEntity> data = new ArrayList<MedioDePagoEntity>();
 
     /**
@@ -88,7 +86,6 @@ public class MedioDePagoPersistenceTest {
      */
     private void clearData() {
         em.createQuery("delete from MedioDePagoEntity").executeUpdate();
-        //em.createQuery("delete from OrganizationEntity").executeUpdate();
     }
 
     /**
@@ -97,14 +94,10 @@ public class MedioDePagoPersistenceTest {
      */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
-
+        
         for (int i = 0; i < 3; i++) {
             MedioDePagoEntity entity = factory.manufacturePojo(MedioDePagoEntity.class);
-            //OrganizationEntity orgEntity = factory.manufacturePojo(OrganizationEntity.class);
-
-            //orgEntity.setPrize(entity);
-            //entity.setOrganization(orgEntity);
-            //em.persist(orgEntity);
+            
             em.persist(entity);
             data.add(entity);
         }
@@ -117,18 +110,30 @@ public class MedioDePagoPersistenceTest {
     public void createMedioDePagoTest() {
         PodamFactory factory = new PodamFactoryImpl();
         MedioDePagoEntity newEntity = factory.manufacturePojo(MedioDePagoEntity.class);
-        //OrganizationEntity newOrgEntity = factory.manufacturePojo(OrganizationEntity.class);
-
-        //newOrgEntity = organizationPersistence.create(newOrgEntity);
-        //newEntity.setOrganization(newOrgEntity);
+        
         MedioDePagoEntity result = medioPPersistence.create(newEntity);
-
+        
         Assert.assertNotNull(result);
-
+        
         MedioDePagoEntity entity = em.find(MedioDePagoEntity.class, result.getId());
-
+        
         Assert.assertEquals(newEntity.getNumeroTarjeta(), entity.getNumeroTarjeta());
         Assert.assertEquals(newEntity.getNumeroDeVerificacion(), entity.getNumeroDeVerificacion());
+        Assert.assertEquals(newEntity.getTipoCredito(), entity.getTipoCredito());
+        Assert.assertEquals(newEntity.getTipoTarjeta(), entity.getTipoTarjeta());
+        
+    }
+
+    /**
+     * Prueba del constructor de Medio de pago.
+     */
+    @Test
+    public void testConstructorMedioDePago() {
+        MedioDePagoEntity entity = new MedioDePagoEntity("123456789", 1234, "abc", "def");
+        Assert.assertEquals("123456789", entity.getNumeroTarjeta());
+        Assert.assertEquals(1234, entity.getNumeroDeVerificacion());
+        Assert.assertEquals("def", entity.getTipoCredito());
+        Assert.assertEquals("abc", entity.getTipoTarjeta());
     }
 
     /**
@@ -177,13 +182,13 @@ public class MedioDePagoPersistenceTest {
         MedioDePagoEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
         MedioDePagoEntity newEntity = factory.manufacturePojo(MedioDePagoEntity.class);
-
+        
         newEntity.setId(entity.getId());
-
+        
         medioPPersistence.update(newEntity);
-
+        
         MedioDePagoEntity resp = em.find(MedioDePagoEntity.class, entity.getId());
-
+        
         Assert.assertEquals(newEntity.getNumeroTarjeta(), resp.getNumeroTarjeta());
         Assert.assertEquals(newEntity.getNumeroDeVerificacion(), resp.getNumeroDeVerificacion());
     }
@@ -200,5 +205,19 @@ public class MedioDePagoPersistenceTest {
         medioPPersistence.delete(entity.getId());
         MedioDePagoEntity deleted = em.find(MedioDePagoEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+
+    /**
+     * Prueba para el metodo equals.
+     */
+    @Test
+    public void testEquals() {
+        MedioDePagoEntity entity = new MedioDePagoEntity("123456789", 1234, "abc", "def");
+        MedioDePagoEntity entity2 = new MedioDePagoEntity("123456789", 1234, "abc", "def");
+        
+        Assert.assertEquals(entity.getNumeroTarjeta(), entity2.getNumeroTarjeta());
+        
+        MedioDePagoEntity entity3 = new MedioDePagoEntity("1234", 123, "ab", "de");
+        Assert.assertFalse(entity.equals(entity3));
     }
 }
