@@ -76,7 +76,7 @@ public class ComprobanteDePagoPersistenceTest
         Assert.assertEquals(newEntity.getId(),entity.getId()); 
         Assert.assertEquals(newEntity.getImpuestos(),entity.getImpuestos(),0); 
         Assert.assertEquals(newEntity.getNumeroDeFactura(),entity.getNumeroDeFactura());
-        Assert.assertEquals(newEntity.getNumeroDeTarjeta(),entity.getNumeroDeTarjeta(),0); 
+        Assert.assertEquals(newEntity.getNumeroDeTarjeta(),entity.getNumeroDeTarjeta()); 
         Assert.assertEquals(newEntity.getTotalDePago(),entity.getTotalDePago(),0); 
 
     }
@@ -145,7 +145,7 @@ public class ComprobanteDePagoPersistenceTest
         Assert.assertEquals(newEntity.getId(),entity.getId()); 
         Assert.assertEquals(newEntity.getImpuestos(),entity.getImpuestos(),0); 
         Assert.assertEquals(newEntity.getNumeroDeFactura(),entity.getNumeroDeFactura());
-        Assert.assertEquals(newEntity.getNumeroDeTarjeta(),entity.getNumeroDeTarjeta(),0); 
+        Assert.assertEquals(newEntity.getNumeroDeTarjeta(),entity.getNumeroDeTarjeta()); 
         Assert.assertEquals(newEntity.getTotalDePago(),entity.getTotalDePago(),0); 
     }
 
@@ -170,7 +170,7 @@ public class ComprobanteDePagoPersistenceTest
         Assert.assertEquals(newEntity.getId(),resp.getId()); 
         Assert.assertEquals(newEntity.getImpuestos(),resp.getImpuestos(),0); 
         Assert.assertEquals(newEntity.getNumeroDeFactura(),resp.getNumeroDeFactura());
-        Assert.assertEquals(newEntity.getNumeroDeTarjeta(),resp.getNumeroDeTarjeta(),0); 
+        Assert.assertEquals(newEntity.getNumeroDeTarjeta(),resp.getNumeroDeTarjeta()); 
         Assert.assertEquals(newEntity.getTotalDePago(),resp.getTotalDePago(),0); 
     }
     /**
@@ -192,17 +192,26 @@ public class ComprobanteDePagoPersistenceTest
     {
         Date date = new Date();
         ComprobanteDePagoEntity newEntity = new ComprobanteDePagoEntity(123, 100.500, 13.456, "0", date);
-        ComprobanteDePagoEntity result=mp.create(newEntity);
       
-        Assert.assertNotNull(result);
+        Assert.assertEquals(123, newEntity.getNumeroDeFactura());
+        Assert.assertEquals(13.456,newEntity.getImpuestos(),0);
+        Assert.assertEquals(100.500,newEntity.getTotalDePago(),0);
+        Assert.assertEquals("0", newEntity.getNumeroDeTarjeta());
+        Assert.assertEquals(date, newEntity.getFechaDeFactura());
+    }
+    /**
+     * Prueba para el método equals()
+     */
+    @Test
+    public void testEquals()
+    {
+        Date date = new Date();
+        ComprobanteDePagoEntity elemento1 = new ComprobanteDePagoEntity(3456, 150.560, 12345, "1234567" , date);
+        ComprobanteDePagoEntity elemento2 = new ComprobanteDePagoEntity(3456, 150.560, 12345, "1234567" , date);
+        Assert.assertTrue(elemento1.equals(elemento2));
         
-        ComprobanteDePagoEntity entity=em.find(ComprobanteDePagoEntity.class,result.getId());
-        Assert.assertEquals(newEntity.getId(),entity.getId());
-        Assert.assertEquals(newEntity.getNumeroDeFactura(),entity.getNumeroDeFactura());
-        Assert.assertEquals(newEntity.getImpuestos(),entity.getImpuestos(),0);
-        Assert.assertEquals(newEntity.getNumeroDeTarjeta(),entity.getNumeroDeTarjeta());
-        Assert.assertEquals(newEntity.getFechaDeFactura(), entity.getFechaDeFactura());
-        
+        ComprobanteDePagoEntity elemento3 = new ComprobanteDePagoEntity(3456, 150.560, 12345, "1234567890" , date);
+        Assert.assertFalse(elemento1.equals(elemento3));
 
     }
 }

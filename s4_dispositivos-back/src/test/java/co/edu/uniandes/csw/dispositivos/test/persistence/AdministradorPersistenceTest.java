@@ -176,16 +176,24 @@ public class AdministradorPersistenceTest
     @Test
     public void testConstructorAdmin()
     {
-        AdministradorEntity newEntity = new AdministradorEntity("usuarioPrueba", "Hola1234");
-        AdministradorEntity result=mp.create(newEntity);
-      
-        Assert.assertNotNull(result);
+        AdministradorEntity newEntity = new AdministradorEntity("usuarioPrueba", "Hola1234");      
         
-        AdministradorEntity entity=em.find(AdministradorEntity.class,result.getId());
-        Assert.assertEquals(newEntity.getId(),entity.getId());
-        Assert.assertEquals(newEntity.getUsuario(),entity.getUsuario());
-        Assert.assertEquals(newEntity.getContrasena(),entity.getContrasena());
+        Assert.assertEquals("usuarioPrueba",newEntity.getUsuario());
+        Assert.assertEquals("Hola1234", newEntity.getContrasena());
 
+    }
+    /**
+     * Prueba para el método equals()
+     */
+    @Test
+    public void testEquals()
+    {
+        AdministradorEntity admin1 = new AdministradorEntity("usuario1", "contraseNa");
+        AdministradorEntity admin2 = new AdministradorEntity("usuario1", "contraseNa");
+        Assert.assertTrue(admin1.equals(admin2));
+                
+        AdministradorEntity admin3 = new AdministradorEntity("usuario2", "contraseNa");
+        Assert.assertFalse(admin1.equals(admin3));
     }
     
 }
