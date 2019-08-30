@@ -124,12 +124,16 @@ public class ComprobanteDePagoEntity extends BaseEntity
     {
         this.fechaDeFactura = pFecha;
     }
-    
+    /**
+     * Evalua un objeto con el actual
+     * @param obj Objecto a comparar
+     * @return true cuando ambos objetos son iguales, false de lo contrario
+     */
     @Override
     public boolean equals(Object obj)
     {
-        boolean resp = super.equals(this);
         final ComprobanteDePagoEntity other = (ComprobanteDePagoEntity) obj;
+        boolean resp = super.equals(other);
         
         if(!resp)
         {
@@ -137,9 +141,7 @@ public class ComprobanteDePagoEntity extends BaseEntity
         }
         else
         {
-            if(this.fechaDeFactura.equalsIgnoreCase(other.fechaDeFactura))
-                if(this.impuestos == other.impuestos && this.numeroDeFactura == other.numeroDeFactura)
-                    if(this.numeroDeTarjeta == other.numeroDeTarjeta && this.totalPago == other.totalPago)
+            if(this.fechaDeFactura.equalsIgnoreCase(other.fechaDeFactura)&& this.impuestos == other.impuestos && this.numeroDeFactura == other.numeroDeFactura)
                         return true;
             
             return false;
