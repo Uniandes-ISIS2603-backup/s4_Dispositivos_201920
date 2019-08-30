@@ -20,8 +20,6 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class FacturaPersistence {
 
-    private static final Logger LOGGER = Logger.getLogger(FacturaPersistence.class.getName());
-
     @PersistenceContext(unitName = "dispositivosPU")
     protected EntityManager em;
 
@@ -33,7 +31,8 @@ public class FacturaPersistence {
     /**
      * Devuelve todas las facturas de la base de datos.
      *
-     * @return una lista con todas las facturas que encuentre en la base de datos
+     * @return una lista con todas las facturas que encuentre en la base de
+     * datos
      */
     public List<FacturaEntity> findAll() {
         TypedQuery query = em.createQuery("select u from FacturaEntity u", FacturaEntity.class);
@@ -63,13 +62,12 @@ public class FacturaPersistence {
     }
 
     /**
-     * Borra una factura de la base de datos recibiendo como argumento el id de la
-     * factura
+     * Borra una factura de la base de datos recibiendo como argumento el id de
+     * la factura
      *
      * @param facturaId: id correspondiente a la factura a borrar.
      */
     public void delete(Long facturaId) {
-        //LOGGER.log(Level.INFO, "Borrando la factura con id={0}", facturaId);
         FacturaEntity facturaEntity = em.find(FacturaEntity.class, facturaId);
         em.remove(facturaEntity);
     }
