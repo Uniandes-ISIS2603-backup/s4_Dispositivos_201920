@@ -30,4 +30,5 @@ package co.edu.uniandes.csw.dispositivos.test.persistence;
  */
 public class CascaraPersistenceTest {
     
+    
 }
