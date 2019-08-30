@@ -20,7 +20,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      */
     private String modelo;
     private String descripcion;
-    private String nombre; 
+    private String nombre;
     private String imagenes;
 
     private double precio;
@@ -38,6 +38,30 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         /**
          * Constructor vacio. Necesario para su implementacion en la DB
          */
+    }
+
+ /**
+  * Metodo Constructor con Parametros.
+  * @param modelo
+  * @param descripcion
+  * @param nombre
+  * @param imagenes
+  * @param precio
+  * @param precioImportacion
+  * @param descuento
+  * @param promocion
+  * @param enStock 
+  */
+    public DispositivoEntity(String modelo, String descripcion, String nombre, String imagenes, double precio, double precioImportacion, double descuento, boolean promocion, boolean enStock) {
+        this.modelo = modelo;
+        this.descripcion = descripcion; 
+        this.nombre = nombre; 
+        this.imagenes = imagenes; 
+        this.precio = precio; 
+        this.precioImportacion = precioImportacion;
+        this.descuento = descuento; 
+        this.promocion = promocion; 
+        this.enStock = enStock;
     }
 
     /**
@@ -124,7 +148,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      * @return true si son iguales. false si son distintos
      */
     @Override
-    public boolean equals(Object obj)  {
+    public boolean equals(Object obj) {
         boolean resp = super.equals(obj);
         boolean fin = false;
         final DispositivoEntity other = (DispositivoEntity) obj;

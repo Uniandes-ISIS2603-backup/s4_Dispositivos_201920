@@ -234,4 +234,16 @@ public class DispositivoPersistenceTest {
        DispositivoEntity deleted = em.find(DispositivoEntity.class, entity.getId()); 
        Assert.assertNull(deleted);
    }
+   
+   @Test 
+   public void testEquals(){
+       DispositivoEntity d1 = new DispositivoEntity("M", "A", "S", "r", 3, 2, 1, true, false); 
+       DispositivoEntity d2 = new DispositivoEntity("M", "A", "S", "r", 3, 2, 1, true, false); 
+       DispositivoEntity d3 = new DispositivoEntity("M", "A", "S", "r", 3, 4, 1, true, false);
+       
+       DispositivoEntity entity = dp.create(d1);
+       
+       Assert.assertTrue(entity.equals(d2));
+       Assert.assertFalse(entity.equals(d3));
+   }
 }
