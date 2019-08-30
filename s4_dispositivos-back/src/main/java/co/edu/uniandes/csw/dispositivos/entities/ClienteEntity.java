@@ -23,9 +23,25 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     private String usuario;
     private String contrasena;
 
+    /**
+     * Constructor creado vacio para no tener problemas al implementar
+     * Serializable
+     */
     public ClienteEntity() {
     }
 
+    /**
+     * Crea un nuevo ClienteEntity.
+     *
+     * @param pNombre nombre a establecer.
+     * @param pApellido apellido a establecer.
+     * @param pCorreoElectronico correo a establecer.
+     * @param pCedula cedula a establecer
+     * @param pDireccion dirección a establecer.
+     * @param pUsuario usuario a estableer.
+     * @param pContrasena contrasena a establecer
+     *
+     */
     public ClienteEntity(String pNombre, String pApellido, String pCorreoElectronico, Double pCedula, String pDireccion, String pUsuario, String pContrasena) {
         this.nombre = pNombre;
         this.apellido = pApellido;
@@ -134,21 +150,32 @@ public class ClienteEntity extends BaseEntity implements Serializable {
         this.contrasena = contrasena;
     }
 
+    /**
+     * Compara dos objetos
+     *
+     * @param obj objeto a comparar.
+     * @return true en caso de que sean iguales, false en caso de que no.
+     */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
         boolean resp = super.equals(obj);
         final ClienteEntity other = (ClienteEntity) obj;
 
         if (!resp) {
             return false;
         } else {
-            if (this.apellido.equalsIgnoreCase(other.apellido)) {
-                if (this.cedula == other.cedula && this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena) && this.nombre.equalsIgnoreCase(other.nombre) && this.correoElectronico.equalsIgnoreCase(other.correoElectronico) && this.direccion.equalsIgnoreCase(other.direccion)) {
-                    return true;
-                }
+            if (this.apellido.equalsIgnoreCase(other.apellido) && this.cedula.equals(other.cedula) && this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena) && this.nombre.equalsIgnoreCase(other.nombre) && this.correoElectronico.equalsIgnoreCase(other.correoElectronico) && this.direccion.equalsIgnoreCase(other.direccion)) {
+                return true;
             }
-
-            return false;
         }
+
+        return false;
     }
 }
