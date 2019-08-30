@@ -18,10 +18,20 @@ public class MarcaEntity extends BaseEntity implements Serializable {
     private String nombreMarca;
     private String imagen;
 
+    /**
+     * Constructor creado vacio para no tener problemas al implementar
+     * Serializable
+     */
     public MarcaEntity() {
 
     }
 
+    /**
+     * Crea una nueva MarcaEntity.
+     *
+     * @param pNombreMarca nombre de la marca a establecer.
+     * @param pImagen ruta de la imagen a establecer.
+     */
     public MarcaEntity(String pNombreMarca, String pImagen) {
         this.nombreMarca = pNombreMarca;
         this.imagen = pImagen;
@@ -55,19 +65,27 @@ public class MarcaEntity extends BaseEntity implements Serializable {
         this.imagen = imagen;
     }
 
+    /**
+     * Compara dos objetos
+     *
+     * @param obj objeto a comparar.
+     * @return true en caso de que sean iguales, false en caso de que no.
+     */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
         boolean resp = super.equals(obj);
         final MarcaEntity other = (MarcaEntity) obj;
 
         if (!resp) {
             return false;
         } else {
-            if (this.nombreMarca.equalsIgnoreCase(other.nombreMarca) && this.imagen.equalsIgnoreCase(other.imagen)) {
-                return true;
-            }
-
-            return false;
+            return this.nombreMarca.equalsIgnoreCase(other.nombreMarca) && this.imagen.equalsIgnoreCase(other.imagen);
         }
     }
 }
