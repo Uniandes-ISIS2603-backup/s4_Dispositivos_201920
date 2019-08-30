@@ -31,155 +31,162 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class VendedorPersistenceTest 
 {
-    @PersistenceContext
-    protected EntityManager vrm;
-    
-    @Deployment
-    public static JavaArchive createDeployment()
+
+    @Inject
+    private VendedorPersistence mp;
+
+    @PersistenceContext(unitName="dispositivosPU")
+    private EntityManager em;
+
+    @Inject
+    UserTransaction utx;
+
+    private List<VendedorEntity> data = new ArrayList<>();
+
+  @Deployment
+    public static JavaArchive createDeployment() 
     {
         return ShrinkWrap.create(JavaArchive.class)
-                .addClass(VendedorEntity.class)
-                .addClass(VendedorPersistence.class)
+                .addPackage(VendedorEntity.class.getPackage())
+                .addPackage(VendedorPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
-    @Inject
-    VendedorPersistence vrp;
-    
-    @Inject
-    UserTransaction utxn;
-    
-    private final List<VendedorEntity> vrlist = new ArrayList<>();
-    
-    /**
-     * Prueba del método sobreescrito equals()
-     */
+
+   public VendedorPersistenceTest()
+   {
+   }
     @Test
-    public void equalsTest()
+    public void testCreate()
     {
-        VendedorEntity newvr1 = new VendedorEntity("vx.chernov@hannover.edu.co", "Wilhelm Hosevich", "Chernov", 378509865, 826750314, "WilhelmH_C", "53-Sport");
-        VendedorEntity newvr2 = new VendedorEntity("vx.chernov@hannover.edu.co", "Wilhelm Hosevich", "Chernov", 378509865, 826750314, "WilhelmH_C", "53-Sport");
-        VendedorEntity newvr3 = new VendedorEntity("vx.chernov@hannover.edu.co", "Wilhelm Hosevich", "Chernov", 378509865, 826750314, "WilhelmH_C", "53-Sport"); 
-        Assert.assertTrue(newvr2.equals(newvr1));
-        Assert.assertTrue(newvr3.equals(newvr2));
-        Assert.assertTrue(newvr1.equals(newvr3));
+        PodamFactory factory= new PodamFactoryImpl();
+        VendedorEntity newEntity =factory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity result=mp.create(newEntity);
+        Assert.assertNotNull(result);
+        
+        VendedorEntity entity=em.find(VendedorEntity.class,result.getId());
+        Assert.assertEquals(newEntity.getId(),entity.getId());
+        Assert.assertEquals(newEntity.getApellido(),entity.getApellido());
+        Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
+        Assert.assertEquals(newEntity.getCorreoElectronico(), entity.getCorreoElectronico());
+        Assert.assertEquals(newEntity.getContrasena(), entity.getContrasena());
+        Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
+        Assert.assertEquals(newEntity.getCelular(), entity.getCelular(),0);        
+        Assert.assertEquals(newEntity.getCedula(), entity.getCedula(),0);
     }
-    
     /**
-     * Prueba del método constructor
+     * Establece las configuraciones iniciales del test
      */
-    @Test
-    public void vendedorTest()
-    {
-        VendedorEntity newvr = new VendedorEntity("ei.chernov@hannover.edu.co", "Eron Ivanovich", "Chernov", 324916832, 753210986, "EronI_C", "Deu86Rus");
-        Assert.assertEquals("ei.chernov@hannover.edu.co", newvr.getCorreoElectronico());
-        Assert.assertEquals("Eron Ivanovich", newvr.getNombre());
-        Assert.assertEquals("Chernov", newvr.getApellido());
-        Assert.assertEquals(324916832, newvr.getCelular(), 0.0);
-        Assert.assertEquals(753210986, newvr.getCedula(), 0.0);
-        Assert.assertEquals("EronI_C", newvr.getUsuario());
-        Assert.assertEquals("Deu86Rus", newvr.getContrasena());
-    }
-    
     @Before
-    public void prepareTest()
-    {
-        try
+    public void configTest() 
+    {   
+        try 
         {
-            utxn.begin();
-            vrm.joinTransaction();
-            vrm.createQuery("delete from VendedorEntity").executeUpdate();
-            PodamFactory vrfactory = new PodamFactoryImpl();
-            for (int u = 0; u < 5; u++)
-            {
-                VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
-                vrm.persist(vendedor);
-                vrlist.add(vendedor);
+        utx.begin();
+        em.joinTransaction();
+        clearData();
+        PodamFactory factory = new PodamFactoryImpl();
+        for (int i = 0; i < 3; i++) 
+        {
+            VendedorEntity entity = factory.manufacturePojo(VendedorEntity.class);
+            em.persist(entity);
+            data.add(entity);
+        }    
+        } 
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    private void clearData() 
+    {
+        em.createQuery("delete from VendedorEntity").executeUpdate();
+    }
+    @Test
+    public void testFindAll() 
+    {
+        List<VendedorEntity> list = mp.findAll();
+        System.out.println(list.size()+"   hhhhhh ");
+        Assert.assertEquals(data.size(), list.size());
+        for (VendedorEntity ent : list) {
+            boolean found = false;
+            for (VendedorEntity entity : data) {
+                if (ent.getId().equals(entity.getId())) {
+                    found = true;
+                }
             }
-            utxn.commit();
-        }
-        catch(Exception e0)
-        {
-            e0.printStackTrace();
-            try 
-            {    utxn.rollback();   }
-            catch(Exception e2)
-            {    e2.printStackTrace();  }
+            Assert.assertTrue(found);
         }
     }
-    
     @Test
-    public void createVendedorTest()
+    public void testFind() 
     {
-        PodamFactory vrfactory = new PodamFactoryImpl();
-        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
-        VendedorEntity obtainedvr = vrp.create(vendedor);
-        Assert.assertNotNull(obtainedvr);
-        VendedorEntity vrentity = vrm.find(VendedorEntity.class, obtainedvr.getId());
-        Assert.assertEquals(vendedor.getId(), vrentity.getId());
-        Assert.assertEquals(vendedor.getNombre(), vrentity.getNombre());
-        Assert.assertEquals(vendedor.getApellido(), vrentity.getApellido());
-        Assert.assertEquals(vendedor.getCedula(), vrentity.getCedula());
-        Assert.assertEquals(vendedor.getCelular(), vrentity.getCelular());
-        Assert.assertEquals(vendedor.getCorreoElectronico(), vrentity.getCorreoElectronico());
-        Assert.assertEquals(vendedor.getContrasena(), vrentity.getContrasena());
+        VendedorEntity entity = data.get(0);
+        VendedorEntity newEntity = mp.find(entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(newEntity.getId(),entity.getId());
+        Assert.assertEquals(newEntity.getApellido(),entity.getApellido());
+        Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
+        Assert.assertEquals(newEntity.getCorreoElectronico(), entity.getCorreoElectronico());
+        Assert.assertEquals(newEntity.getContrasena(), entity.getContrasena());
+        Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
+        Assert.assertEquals(newEntity.getCelular(), entity.getCelular(),0);        
+        Assert.assertEquals(newEntity.getCedula(), entity.getCedula(),0);
     }
-    
     @Test
-    public void findVendedorTest()
+    public void testUpdate() 
     {
-        VendedorEntity ref = vrlist.get(0), block = vrp.find(ref.getId());
-        Assert.assertNotNull(block);
-        Assert.assertEquals(ref.getId(), block.getId());
-        Assert.assertEquals(ref.getNombre(), block.getNombre());
-        Assert.assertEquals(ref.getApellido(), block.getApellido());
-        Assert.assertEquals(ref.getCedula(), block.getCedula());
-        Assert.assertEquals(ref.getCelular(), block.getCelular());
-        Assert.assertEquals(ref.getCorreoElectronico(), block.getCorreoElectronico());
-        Assert.assertEquals(ref.getContrasena(), block.getContrasena());
+        VendedorEntity entity = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        VendedorEntity newEntity = factory.manufacturePojo(VendedorEntity.class);
+
+        newEntity.setId(entity.getId());
+
+        mp.update(newEntity);
+
+        VendedorEntity resp = em.find(VendedorEntity.class, entity.getId());
+
+        Assert.assertEquals(newEntity.getId(),entity.getId());
+        Assert.assertEquals(newEntity.getApellido(),entity.getApellido());
+        Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
+        Assert.assertEquals(newEntity.getCorreoElectronico(), entity.getCorreoElectronico());
+        Assert.assertEquals(newEntity.getContrasena(), entity.getContrasena());
+        Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
+        Assert.assertEquals(newEntity.getCelular(), entity.getCelular(),0);        
+        Assert.assertEquals(newEntity.getCedula(), entity.getCedula(),0); 
     }
-    
     @Test
-    public void findAllVendedoresTest()
+    public void testDelete() 
     {
-        List<VendedorEntity> allgotten = vrp.findAll();
-        Assert.assertEquals(allgotten.size(), vrlist.size());
-        for (VendedorEntity vrblock : allgotten)
-        {
-            boolean ticked = false;
-            for (VendedorEntity vrref : vrlist) 
-                if(vrblock.getId().equals(vrref.getId()))
-                    ticked = true;
-            Assert.assertTrue(ticked);
-        }
-    }
-    
-    @Test
-    public void updateVendedorTest()
-    {
-        VendedorEntity updating = vrlist.get(0);
-        PodamFactory vafactory = new PodamFactoryImpl();
-        VendedorEntity vendedor = vafactory.manufacturePojo(VendedorEntity.class);
-        vendedor.setId(updating.getId());
-        vrp.update(vendedor);
-        VendedorEntity updated = vrm.find(VendedorEntity.class, updating.getId());
-        Assert.assertEquals(vendedor.getId(), updated.getId());
-        Assert.assertEquals(vendedor.getId(), updated.getId());
-        Assert.assertEquals(vendedor.getNombre(), updated.getNombre());
-        Assert.assertEquals(vendedor.getApellido(), updated.getApellido());
-        Assert.assertEquals(vendedor.getCedula(), updated.getCedula());
-        Assert.assertEquals(vendedor.getCelular(), updated.getCelular());
-        Assert.assertEquals(vendedor.getCorreoElectronico(), updated.getCorreoElectronico());
-        Assert.assertEquals(vendedor.getContrasena(), updated.getContrasena());
-    }
-    
-    @Test
-    public void deleteVendedorTest()
-    {
-        VendedorEntity deleting = vrlist.get(0);
-        vrp.delete(deleting.getId());
-        VendedorEntity deleted = vrm.find(VendedorEntity.class, deleting.getId());
+        VendedorEntity entity = data.get(0);
+        mp.delete(entity.getId());
+        VendedorEntity deleted = em.find(VendedorEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+    @Test
+    public void testConstructorAdmin()
+    {
+        VendedorEntity newEntity = new VendedorEntity("correo@correo.com", "nombre1", "apell1", 12344, 56789, "usua1", "contrase1");
+      
+        Assert.assertEquals(newEntity.getApellido(),"apell1");
+        Assert.assertEquals(newEntity.getNombre(), "nombre1");
+        Assert.assertEquals(newEntity.getCorreoElectronico(),"correo@correo.com");
+        Assert.assertEquals(newEntity.getContrasena(), "contrase1");
+        Assert.assertEquals(newEntity.getUsuario(),"usua1");
+        Assert.assertEquals(newEntity.getCelular(),12344,0);        
+        Assert.assertEquals(newEntity.getCedula(),56789,0);
+    }
+    /**
+     * Prueba para el método equals()
+     */
+    @Test
+    public void testEquals()
+    {
+        VendedorEntity elemento1 = new VendedorEntity("correo@correo.com", "nombre1", "apell1", 12344, 56789, "usua1", "contrase1");
+        VendedorEntity elemento2 = new VendedorEntity("correo@correo.com", "nombre1", "apell1", 12344, 56789, "usua1", "contrase1");
+        Assert.assertTrue(elemento1.equals(elemento2));
+        
+        VendedorEntity elemento3 = new VendedorEntity("correo@correo.com", "nombre2", "apell1", 12344, 56789, "usua1", "contrase1");
+        Assert.assertFalse(elemento1.equals(elemento3));
+
     }
 }
