@@ -93,20 +93,6 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * @return the apellido
-     */
-    public String getApellido() {
-        return apellido;
-    }
-
-    /**
-     * @param apellido the apellido to set
-     */
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    /**
      * @return the correoElectronico
      */
     public String getCorreoElectronico() {
@@ -118,6 +104,20 @@ public class ClienteEntity extends BaseEntity implements Serializable {
      */
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+    
+        /**
+     * @return the apellido
+     */
+    public String getApellido() {
+        return apellido;
+    }
+
+    /**
+     * @param apellido the apellido to set
+     */
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     /**
