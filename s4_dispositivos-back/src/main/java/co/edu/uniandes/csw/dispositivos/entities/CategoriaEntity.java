@@ -19,7 +19,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class CategoriaEntity extends BaseEntity {
 
     /**
-     * Representa el nombre de una categoria. 
+     * Representa el nombre de una categoria.
      */
     private String nombreCategoria;
 
@@ -55,12 +55,18 @@ public class CategoriaEntity extends BaseEntity {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
         boolean resp = super.equals(obj);
-        boolean fin = false;
         final CategoriaEntity other = (CategoriaEntity) obj;
 
         if (!resp) {
-            return fin;
+            return false;
         } else {
             if (this.nombreCategoria.compareTo(other.nombreCategoria) == 0) {
                 return true;
