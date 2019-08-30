@@ -18,11 +18,17 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     /**
      * Atributos
      */
-    private String modelo, descripcion, nombre, imagenes;
+    private String modelo;
+    private String descripcion;
+    private String nombre; 
+    private String imagenes;
 
-    private double precio, precioImportacion, descuento;
+    private double precio;
+    private double precioImportacion;
+    private double descuento;
 
-    private boolean promocion, enStock;
+    private boolean promocion;
+    private boolean enStock;
 
     /**
      * Constructor vacio. Necesario para su implementacion en la DB
