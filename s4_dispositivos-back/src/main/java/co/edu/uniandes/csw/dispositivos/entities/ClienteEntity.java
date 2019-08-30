@@ -15,12 +15,38 @@ import javax.persistence.Entity;
 @Entity
 public class ClienteEntity extends BaseEntity implements Serializable {
 
+    /**
+     * Atributo que modela el nombre del cliente.
+     */
     private String nombre;
+
+    /**
+     * Atributo que modela el apellido del cliente.
+     */
     private String apellido;
+
+    /**
+     * Atributo que modela el email del cliente.
+     */
     private String correoElectronico;
+
+    /**
+     * Atributo que modela la cedula del cliente.
+     */
     private Double cedula;
+
+    /**
+     * Atributo que modela la direcciòn del cliente.
+     */
     private String direccion;
+
+    /**
+     * Atributo que modela el usuario del cliente.
+     */
     private String usuario;
+    /**
+     * Atributo que modela la contraseña del cliente .
+     */
     private String contrasena;
 
     /**

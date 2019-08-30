@@ -15,7 +15,14 @@ import javax.persistence.Entity;
 @Entity
 public class MarcaEntity extends BaseEntity implements Serializable {
 
+    /**
+     * Atributo que modela el nombre de la marca.
+     */
     private String nombreMarca;
+
+    /**
+     * atributo que modela la imagen de la marca.
+     */
     private String imagen;
 
     /**
