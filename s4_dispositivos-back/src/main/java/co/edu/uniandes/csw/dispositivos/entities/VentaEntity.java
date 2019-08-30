@@ -20,15 +20,16 @@ public class VentaEntity extends BaseEntity implements Serializable {
     /**
      * Constructor vacío
      */
-    public VentaEntity() {
-    }
+    public VentaEntity() 
+    {    }
 
     /**
      * Constructor que recibe parámetros
      *
      * @param precioReventa
      */
-    public VentaEntity(Double precioReventa) {
+    public VentaEntity(Double precioReventa) 
+    {
         this.precioReventa = precioReventa;
     }
 

@@ -56,24 +56,6 @@ public class VendedorPersistenceTest
    public VendedorPersistenceTest()
    {
    }
-    @Test
-    public void testCreate()
-    {
-        PodamFactory factory= new PodamFactoryImpl();
-        VendedorEntity newEntity =factory.manufacturePojo(VendedorEntity.class);
-        VendedorEntity result=mp.create(newEntity);
-        Assert.assertNotNull(result);
-        
-        VendedorEntity entity=em.find(VendedorEntity.class,result.getId());
-        Assert.assertEquals(newEntity.getId(),entity.getId());
-        Assert.assertEquals(newEntity.getApellido(),entity.getApellido());
-        Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
-        Assert.assertEquals(newEntity.getCorreoElectronico(), entity.getCorreoElectronico());
-        Assert.assertEquals(newEntity.getContrasena(), entity.getContrasena());
-        Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
-        Assert.assertEquals(newEntity.getCelular(), entity.getCelular(),0);        
-        Assert.assertEquals(newEntity.getCedula(), entity.getCedula(),0);
-    }
     /**
      * Establece las configuraciones iniciales del test
      */
@@ -84,7 +66,7 @@ public class VendedorPersistenceTest
         {
         utx.begin();
         em.joinTransaction();
-        clearData();
+        em.createQuery("delete from VendedorEntity").executeUpdate();
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) 
         {
@@ -93,27 +75,53 @@ public class VendedorPersistenceTest
             data.add(entity);
         }    
         } 
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        catch (Exception e) 
+        { System.out.println(e.getMessage()); }
     }
-    private void clearData() 
+    
+    @Test
+    public void vendedorTest()
     {
-        em.createQuery("delete from VendedorEntity").executeUpdate();
+        VendedorEntity newEntity = new VendedorEntity("correo@correo.com", "nombre1", "apell1", 12344, 56789, "usua1", "contrase1");     
+        Assert.assertEquals("apell1", newEntity.getApellido());
+        Assert.assertEquals("nombre1", newEntity.getNombre());
+        Assert.assertEquals("correo@correo.com", newEntity.getCorreoElectronico());
+        Assert.assertEquals("contrase1", newEntity.getContrasena());
+        Assert.assertEquals("usua1", newEntity.getUsuario());
+        Assert.assertEquals(12344,newEntity.getCelular(),0);        
+        Assert.assertEquals(56789,newEntity.getCedula(),0);
     }
+    
+    @Test
+    public void testCreate()
+    {
+        PodamFactory factory= new PodamFactoryImpl();
+        VendedorEntity newEntity =factory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity result=mp.create(newEntity);
+        Assert.assertNotNull(result);       
+        VendedorEntity entity=em.find(VendedorEntity.class,result.getId());
+        Assert.assertEquals(newEntity.getId(),entity.getId());
+        Assert.assertEquals(newEntity.getApellido(),entity.getApellido());
+        Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
+        Assert.assertEquals(newEntity.getCorreoElectronico(), entity.getCorreoElectronico());
+        Assert.assertEquals(newEntity.getContrasena(), entity.getContrasena());
+        Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
+        Assert.assertEquals(newEntity.getCelular(), entity.getCelular(),0);        
+        Assert.assertEquals(newEntity.getCedula(), entity.getCedula(),0);
+    }
+    
     @Test
     public void testFindAll() 
     {
         List<VendedorEntity> list = mp.findAll();
         System.out.println(list.size()+"   hhhhhh ");
         Assert.assertEquals(data.size(), list.size());
-        for (VendedorEntity ent : list) {
+        for (VendedorEntity ent : list) 
+        {
             boolean found = false;
-            for (VendedorEntity entity : data) {
-                if (ent.getId().equals(entity.getId())) {
+            for (VendedorEntity entity : data)
+                if (ent.getId().equals(entity.getId()))
                     found = true;
-                }
-            }
             Assert.assertTrue(found);
         }
     }
@@ -132,19 +140,16 @@ public class VendedorPersistenceTest
         Assert.assertEquals(newEntity.getCelular(), entity.getCelular(),0);        
         Assert.assertEquals(newEntity.getCedula(), entity.getCedula(),0);
     }
+    
     @Test
     public void testUpdate() 
     {
         VendedorEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
         VendedorEntity newEntity = factory.manufacturePojo(VendedorEntity.class);
-
         newEntity.setId(entity.getId());
-
         mp.update(newEntity);
-
         VendedorEntity resp = em.find(VendedorEntity.class, entity.getId());
-
         Assert.assertEquals(newEntity.getId(),entity.getId());
         Assert.assertEquals(newEntity.getApellido(),entity.getApellido());
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
@@ -154,6 +159,7 @@ public class VendedorPersistenceTest
         Assert.assertEquals(newEntity.getCelular(), entity.getCelular(),0);        
         Assert.assertEquals(newEntity.getCedula(), entity.getCedula(),0); 
     }
+    
     @Test
     public void testDelete() 
     {
@@ -162,19 +168,7 @@ public class VendedorPersistenceTest
         VendedorEntity deleted = em.find(VendedorEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-    @Test
-    public void testConstructorAdmin()
-    {
-        VendedorEntity newEntity = new VendedorEntity("correo@correo.com", "nombre1", "apell1", 12344, 56789, "usua1", "contrase1");
-      
-        Assert.assertEquals(newEntity.getApellido(),"apell1");
-        Assert.assertEquals(newEntity.getNombre(), "nombre1");
-        Assert.assertEquals(newEntity.getCorreoElectronico(),"correo@correo.com");
-        Assert.assertEquals(newEntity.getContrasena(), "contrase1");
-        Assert.assertEquals(newEntity.getUsuario(),"usua1");
-        Assert.assertEquals(newEntity.getCelular(),12344,0);        
-        Assert.assertEquals(newEntity.getCedula(),56789,0);
-    }
+    
     /**
      * Prueba para el método equals()
      */
@@ -183,10 +177,8 @@ public class VendedorPersistenceTest
     {
         VendedorEntity elemento1 = new VendedorEntity("correo@correo.com", "nombre1", "apell1", 12344, 56789, "usua1", "contrase1");
         VendedorEntity elemento2 = new VendedorEntity("correo@correo.com", "nombre1", "apell1", 12344, 56789, "usua1", "contrase1");
-        Assert.assertTrue(elemento1.equals(elemento2));
-        
+        Assert.assertTrue(elemento1.equals(elemento2));        
         VendedorEntity elemento3 = new VendedorEntity("correo@correo.com", "nombre2", "apell1", 12344, 56789, "usua1", "contrase1");
         Assert.assertFalse(elemento1.equals(elemento3));
-
     }
 }

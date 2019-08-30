@@ -169,22 +169,13 @@ public class VendedorEntity extends BaseEntity implements Serializable
     @Override
     public boolean equals(Object obj)
     {
-        if (obj == null)
-            return false;
-
-        if (this.getClass() != obj.getClass())
-            return false;
-  
+        if (obj == null || (this.getClass() != obj.getClass()))
+            return false; 
         final VendedorEntity other = (VendedorEntity) obj;
-        boolean resp = super.equals(other);
-        
-        if(!resp)
-        {
-            return false;
-        }
-        else
-        {
+        boolean resp = super.equals(other);       
+        if(resp)
             return this.getNombre().equalsIgnoreCase(other.getNombre()) && this.getApellido().equalsIgnoreCase(other.getApellido()) && this.getContrasena().equals(other.getContrasena()) && this.getCedula()==other.getCedula() && this.getCelular() == other.getCelular() && this.getCorreoElectronico().equalsIgnoreCase(other.getCorreoElectronico()) && this.getUsuario().equals(other.getUsuario());
-        }
-}
+        else 
+            return false; 
+    }
 }

@@ -49,6 +49,5 @@ public class VendedorPersistence
     {
         VendedorEntity wantedvr = em.find(VendedorEntity.class, vendedordID); 
         em.remove(wantedvr);
-    }
-    
+    }   
 }
