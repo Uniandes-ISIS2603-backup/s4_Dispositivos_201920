@@ -126,9 +126,9 @@ public class DispositivoEntity extends BaseEntity implements Serializable{
           return fin; 
       }
       else{
-          if((this.descripcion.compareToIgnoreCase(other.descripcion) == 0)&& (this.descuento == other.descuento) && (this.enStock == other.enStock)
-                  && (this.enStock == other.enStock) && (this.modelo.compareTo(other.modelo) == 0) && (this.nombre.compareTo(other.nombre) == 0)
-                  && (this.precio == other.precio) && (this.precioImportacion == other.precioImportacion) && (this.promocion == other.promocion)){
+          if((this.descripcion.compareToIgnoreCase(other.descripcion) == 0)&& (this.descuento == other.descuento) && (this.enStock == other.enStock) 
+                  && (this.modelo.compareTo(other.modelo) == 0) && (this.nombre.compareTo(other.nombre) == 0) && (this.precio == other.precio)
+                  && (this.precioImportacion == other.precioImportacion) && (this.promocion == other.promocion)){
               fin = true; 
               return fin; 
           }
