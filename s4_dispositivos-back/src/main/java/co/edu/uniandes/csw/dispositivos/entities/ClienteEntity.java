@@ -11,29 +11,71 @@ import javax.persistence.Entity;
 /**
  *
  * @author Carlos Salazar
- */@Entity
-public class ClienteEntity extends BaseEntity implements Serializable{
+ */
+@Entity
+public class ClienteEntity extends BaseEntity implements Serializable {
+
+    /**
+     * Atributo que modela el nombre del cliente.
+     */
     private String nombre;
+
+    /**
+     * Atributo que modela el apellido del cliente.
+     */
     private String apellido;
+
+    /**
+     * Atributo que modela el email del cliente.
+     */
     private String correoElectronico;
+
+    /**
+     * Atributo que modela la cedula del cliente.
+     */
     private Double cedula;
+
+    /**
+     * Atributo que modela la direcciòn del cliente.
+     */
     private String direccion;
+
+    /**
+     * Atributo que modela el usuario del cliente.
+     */
     private String usuario;
+    /**
+     * Atributo que modela la contraseña del cliente .
+     */
     private String contrasena;
-    
-    public ClienteEntity()
-    {
+
+    /**
+     * Constructor creado vacio para no tener problemas al implementar
+     * Serializable
+     */
+    public ClienteEntity() {
     }
-     
-    public ClienteEntity(String pNombre, String pApellido, String pCorreoElectronico, Double pCedula, String pDireccion, String pUsuario, String pContrasena)
-    {
-     this.nombre=pNombre;
-     this.apellido=pApellido;
-     this.correoElectronico=pCorreoElectronico;
-     this.cedula=pCedula;
-     this.direccion=pDireccion;
-     this.usuario=pUsuario;
-     this.contrasena=pContrasena;
+
+    /**
+     * Crea un nuevo ClienteEntity.
+     *
+     * @param pNombre nombre a establecer.
+     * @param pApellido apellido a establecer.
+     * @param pCorreoElectronico correo a establecer.
+     * @param pCedula cedula a establecer
+     * @param pDireccion dirección a establecer.
+     * @param pUsuario usuario a estableer.
+     * @param pContrasena contrasena a establecer
+     *
+     */
+    public ClienteEntity(String pNombre, String pApellido, String pCorreoElectronico, Double pCedula, String pDireccion, String pUsuario, String pContrasena) {
+        this.nombre = pNombre;
+        this.apellido = pApellido;
+        this.correoElectronico = pCorreoElectronico;
+        this.cedula = pCedula;
+        this.direccion = pDireccion;
+        this.usuario = pUsuario;
+        this.contrasena = pContrasena;
     }
 
     /**
@@ -134,25 +176,32 @@ public class ClienteEntity extends BaseEntity implements Serializable{
         this.contrasena = contrasena;
     }
 
+    /**
+     * Compara dos objetos
+     *
+     * @param obj objeto a comparar.
+     * @return true en caso de que sean iguales, false en caso de que no.
+     */
     @Override
-    public boolean equals(Object obj)
-    {
-        boolean resp = super.equals(this);
-        final ClienteEntity other = (ClienteEntity) obj;
-        
-        if(!resp)
-        {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        else
-        {
-            if(this.apellido.equalsIgnoreCase(other.apellido))
-                if(this.cedula == other.cedula && this.nombre.equalsIgnoreCase(other.nombre))
-                    if(this.correoElectronico.equalsIgnoreCase(other.correoElectronico) && this.direccion.equalsIgnoreCase(other.direccion))
-                        if(this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena))
-                            return true;
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
 
+        boolean resp = super.equals(obj);
+        final ClienteEntity other = (ClienteEntity) obj;
+
+        if (!resp) {
             return false;
+        } else {
+            if (this.apellido.equalsIgnoreCase(other.apellido) && this.cedula.equals(other.cedula) && this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena) && this.nombre.equalsIgnoreCase(other.nombre) && this.correoElectronico.equalsIgnoreCase(other.correoElectronico) && this.direccion.equalsIgnoreCase(other.direccion)) {
+                return true;
+            }
         }
+
+        return false;
     }
 }

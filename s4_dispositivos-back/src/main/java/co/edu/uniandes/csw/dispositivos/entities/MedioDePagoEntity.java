@@ -5,11 +5,7 @@
  */
 package co.edu.uniandes.csw.dispositivos.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -18,18 +14,31 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class MedioDePagoEntity extends BaseEntity {
 
-    private int numeroTarjeta;
+    /**
+     * Representa el numero de una tarjeta.
+     */
+    private String numeroTarjeta;
 
+    /**
+     * Representa el numero de verificacion de una tarjeta.
+     */
     private int numeroDeVerificacion;
 
+    /**
+     * Representa el tipo de tarjeta.
+     */
     private String tipoTarjeta;
 
+    /**
+     * Representa el tipo de credito.
+     */
     private String tipoCredito;
 
     /**
      * Crea un medio de pago vacío.
      */
     public MedioDePagoEntity() {
+
     }
 
     /**
@@ -41,7 +50,7 @@ public class MedioDePagoEntity extends BaseEntity {
      * @param tipoCredito Tipo de crédito. tipoCredito = (VISA, MASTERCARD),
      * NULL si no tiene crédito.
      */
-    public MedioDePagoEntity(int numeroTarjeta, int numeroDeVerificacion, String tipoTarjeta, String tipoCredito) {
+    public MedioDePagoEntity(String numeroTarjeta, int numeroDeVerificacion, String tipoTarjeta, String tipoCredito) {
         this.numeroTarjeta = numeroTarjeta;
         this.numeroDeVerificacion = numeroDeVerificacion;
         this.tipoCredito = tipoCredito;
@@ -51,14 +60,14 @@ public class MedioDePagoEntity extends BaseEntity {
     /**
      * @return the numeroTarjeta
      */
-    public int getNumeroTarjeta() {
+    public String getNumeroTarjeta() {
         return numeroTarjeta;
     }
 
     /**
      * @param numeroTarjeta the numeroTarjeta to set
      */
-    public void setNumeroTarjeta(int numeroTarjeta) {
+    public void setNumeroTarjeta(String numeroTarjeta) {
         this.numeroTarjeta = numeroTarjeta;
     }
 
@@ -107,40 +116,25 @@ public class MedioDePagoEntity extends BaseEntity {
     @Override
     public boolean equals(Object obj) {
 
-        boolean resp = super.equals(this);
-        boolean fin = false;
-        final MedioDePagoEntity other = (MedioDePagoEntity) obj;
-        
-        if(!resp)
-        {
-            return fin;
+        if (obj == null) {
+            return false;
         }
-        else
-        {
-            if(this.tipoTarjeta.compareTo(other.tipoTarjeta) == 0)
-            {
-                fin = true;
-                return fin;
+
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        boolean resp = super.equals(obj);
+        final MedioDePagoEntity other = (MedioDePagoEntity) obj;
+
+        if (!resp) {
+            return false;
+        } else {
+            if (this.tipoTarjeta.compareTo(other.tipoTarjeta) == 0 && this.tipoCredito.compareTo(other.tipoCredito) == 0
+                    && this.numeroDeVerificacion == other.numeroDeVerificacion && this.numeroTarjeta.compareTo(other.numeroTarjeta) == 0) {
+                return true;
             }
-            else if(this.tipoCredito.compareTo(other.tipoCredito) == 0)
-            {
-                fin = true;
-                return fin;
-            }
-            else if(this.numeroDeVerificacion  == other.numeroDeVerificacion)
-            {
-                fin = true;
-                return fin;
-            }
-            else if(this.numeroTarjeta == other.numeroTarjeta)
-            {
-                fin = true;
-                return fin;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
     }
 

@@ -1,4 +1,5 @@
 package co.edu.uniandes.csw.dispositivos.entities;
+import java.util.Date;
 import javax.persistence.Entity;
 
 /**
@@ -22,11 +23,11 @@ public class ComprobanteDePagoEntity extends BaseEntity
     /**
      * Número de tarjeta con el cual se genero la compra
      */
-    private double numeroDeTarjeta;
+    private String numeroDeTarjeta;
     /**
      * Fecha de compra de los dispositivos electronicos
      */
-    private String fechaDeFactura;
+    private Date fechaDeFactura;
     /**
      * Constructor vacio para Serializable
      */
@@ -41,7 +42,7 @@ public class ComprobanteDePagoEntity extends BaseEntity
      * @param pNumeroDeTarjeta numero de tarjeta con la cual se genro la compra
      * @param pFechaDeFac fecha de compra de los dispositivos
      */
-    public ComprobanteDePagoEntity(int pNumeroFac, double pTotalPago, double pImpuesto, double pNumeroDeTarjeta, String pFechaDeFac)
+    public ComprobanteDePagoEntity(int pNumeroFac, double pTotalPago, double pImpuesto, String pNumeroDeTarjeta, Date pFechaDeFac)
     {
         this.numeroDeFactura = pNumeroFac;
         this.totalPago = pTotalPago;
@@ -98,14 +99,14 @@ public class ComprobanteDePagoEntity extends BaseEntity
      * Retorna el numero de tarjeta con la cual se genero la compra
      * @return numero de tarjeta
      */
-    public double getNumeroDeTarjeta() {
+    public String getNumeroDeTarjeta() {
         return numeroDeTarjeta;
     }
     /**
      * Modifica el numero de tarjeta de la compra
      * @param pNumeroT nuevo numero de tarjeta
      */
-    public void setNumeroDeTarjeta(double pNumeroT) 
+    public void setNumeroDeTarjeta(String pNumeroT) 
     {
         this.numeroDeTarjeta = pNumeroT;
     }
@@ -113,23 +114,33 @@ public class ComprobanteDePagoEntity extends BaseEntity
      * Retorna la fecha de facturación de los dispositivos
      * @return fecha de facturacion
      */
-    public String getFechaDeFactura() {
+    public Date getFechaDeFactura() {
         return fechaDeFactura;
     }
     /**
      * Modifica la fecha de facturación de los dispositivos
      * @param pFecha nueva fecha de facturacion
      */
-    public void setFechaDeFactura(String pFecha) 
+    public void setFechaDeFactura(Date pFecha) 
     {
         this.fechaDeFactura = pFecha;
     }
-    
+    /**
+     * Evalua un objeto con el actual
+     * @param obj Objecto a comparar
+     * @return true cuando ambos objetos son iguales, false de lo contrario
+     */
     @Override
     public boolean equals(Object obj)
     {
-        boolean resp = super.equals(this);
+        if (obj == null)
+            return false;
+
+        if (this.getClass() != obj.getClass())
+            return false;
+  
         final ComprobanteDePagoEntity other = (ComprobanteDePagoEntity) obj;
+        boolean resp = super.equals(other);
         
         if(!resp)
         {
@@ -137,12 +148,7 @@ public class ComprobanteDePagoEntity extends BaseEntity
         }
         else
         {
-            if(this.fechaDeFactura.equalsIgnoreCase(other.fechaDeFactura))
-                if(this.impuestos == other.impuestos && this.numeroDeFactura == other.numeroDeFactura)
-                    if(this.numeroDeTarjeta == other.numeroDeTarjeta && this.totalPago == other.totalPago)
-                        return true;
-            
-            return false;
+            return this.fechaDeFactura.equals(other.fechaDeFactura)&& this.impuestos == other.impuestos && this.numeroDeFactura == other.numeroDeFactura && numeroDeTarjeta.equalsIgnoreCase(other.numeroDeTarjeta);
         }
     }
 }

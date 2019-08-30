@@ -38,8 +38,6 @@ public class CategoriaPersistenceTest {
     @Inject
     private CategoriaPersistence categoriaPersistence;
 
-    //@Inject
-    //private OrganizationPersistence organizationPersistence;
     @PersistenceContext
     private EntityManager em;
 
@@ -88,7 +86,6 @@ public class CategoriaPersistenceTest {
      */
     private void clearData() {
         em.createQuery("delete from CategoriaEntity").executeUpdate();
-        //em.createQuery("delete from OrganizationEntity").executeUpdate();
     }
 
     /**
@@ -100,11 +97,6 @@ public class CategoriaPersistenceTest {
 
         for (int i = 0; i < 3; i++) {
             CategoriaEntity entity = factory.manufacturePojo(CategoriaEntity.class);
-            //OrganizationEntity orgEntity = factory.manufacturePojo(OrganizationEntity.class);
-
-            //orgEntity.setPrize(entity);
-            //entity.setOrganization(orgEntity);
-            //em.persist(orgEntity);
             em.persist(entity);
             data.add(entity);
         }
@@ -117,10 +109,7 @@ public class CategoriaPersistenceTest {
     public void createCategoriaTest() {
         PodamFactory factory = new PodamFactoryImpl();
         CategoriaEntity newEntity = factory.manufacturePojo(CategoriaEntity.class);
-        //OrganizationEntity newOrgEntity = factory.manufacturePojo(OrganizationEntity.class);
 
-        //newOrgEntity = organizationPersistence.create(newOrgEntity);
-        //newEntity.setOrganization(newOrgEntity);
         CategoriaEntity result = categoriaPersistence.create(newEntity);
 
         Assert.assertNotNull(result);
@@ -128,6 +117,16 @@ public class CategoriaPersistenceTest {
         CategoriaEntity entity = em.find(CategoriaEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getNombreCategoria(), entity.getNombreCategoria());
+    }
+    
+    /**
+     * Test del metodo constructor de la clase Categoria.
+     */
+    @Test
+    public void testConstructorCategoria()
+    {
+        CategoriaEntity prueba = new CategoriaEntity("abc");
+        Assert.assertEquals("abc", prueba.getNombreCategoria());
     }
 
     /**
@@ -197,5 +196,20 @@ public class CategoriaPersistenceTest {
         categoriaPersistence.delete(entity.getId());
         CategoriaEntity deleted = em.find(CategoriaEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+    
+    /**
+     * Prueba del test de equals. 
+     */
+    @Test
+    public void testEqualsCategoria()
+    {
+        CategoriaEntity prueba = new CategoriaEntity("abc");
+        CategoriaEntity prueba2 = new CategoriaEntity("abc");
+        
+        Assert.assertTrue(prueba.equals(prueba2));
+        
+        CategoriaEntity prueba3 = new CategoriaEntity("efg");
+        Assert.assertFalse(prueba.equals(prueba3));
     }
 }

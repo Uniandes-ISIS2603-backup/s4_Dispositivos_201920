@@ -6,28 +6,32 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- * Clase que representa una categoria en la persistencia y permite su 
+ * Clase que representa una categoria en la persistencia y permite su
  * serialización.
+ *
  * @author Juan L
  */
 @Entity
-public class CategoriaEntity extends BaseEntity{
-    
+public class CategoriaEntity extends BaseEntity {
+
+    /**
+     * Representa el nombre de una categoria.
+     */
     private String nombreCategoria;
 
     /**
-     * Crea una categoria vacia. 
+     * Crea una categoria vacia.
      */
     public CategoriaEntity() {
+
     }
 
     /**
      * Crea un medio de pago con la informacion pasada por parámetro.
-     * @param nombreCategoria Nombre de la categoria a crear. 
+     *
+     * @param nombreCategoria Nombre de la categoria a crear.
      */
     public CategoriaEntity(String nombreCategoria) {
         this.nombreCategoria = nombreCategoria;
@@ -49,29 +53,24 @@ public class CategoriaEntity extends BaseEntity{
 
     @Override
     public boolean equals(Object obj) {
-        boolean resp = super.equals(this);
-        boolean fin = false;
-        final CategoriaEntity other = (CategoriaEntity) obj;
-        
-        if(!resp)
-        {
-            return fin;
+        if (obj == null) {
+            return false;
         }
-        else
-        {
-            if(this.nombreCategoria.compareTo(other.nombreCategoria) == 0)
-            {
-                fin = true;
-                return fin;
+
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+        boolean resp = super.equals(obj);
+        final CategoriaEntity other = (CategoriaEntity) obj;
+
+        if (!resp) {
+            return false;
+        } else {
+            if (this.nombreCategoria.compareTo(other.nombreCategoria) == 0) {
+                return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
     }
-    
-    
-    
-    
+
 }
