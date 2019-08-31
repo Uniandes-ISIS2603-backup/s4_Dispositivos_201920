@@ -59,7 +59,7 @@ public class CalificacionPersistenceTest {
     }
 
     /**
-     * 
+     *
      */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
@@ -74,7 +74,7 @@ public class CalificacionPersistenceTest {
     }
 
     /**
-     * 
+     *
      */
     @Before
     public void configTest() {
@@ -95,7 +95,7 @@ public class CalificacionPersistenceTest {
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void createCalificacionTest() {
@@ -112,7 +112,7 @@ public class CalificacionPersistenceTest {
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void getCalificacionTest() {
@@ -130,7 +130,7 @@ public class CalificacionPersistenceTest {
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void updateCalificacionTest() {
@@ -148,7 +148,7 @@ public class CalificacionPersistenceTest {
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void deleteCalificacionTest() {
@@ -157,36 +157,32 @@ public class CalificacionPersistenceTest {
         CalificacionEntity deleted = em.find(CalificacionEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
+
     /**
-     * 
+     *
      */
     @Test
-    public void equalsTest() {
-         String[] comentarios1 = {
+    public void testEquals() {
+        String[] comentarios1 = {
             "Bueno", "Malo"
         };
 
         String[] comentarios2 = {
-        "regular", "Malo"
+            "regular", "Malo"
         };
-        
+
         CalificacionEntity c1 = new CalificacionEntity(10, comentarios1);
         CalificacionEntity c2 = new CalificacionEntity(10, comentarios1);
-        CalificacionEntity c3 = new CalificacionEntity(10,  comentarios2); 
-        CalificacionEntity c4 = new CalificacionEntity(8, comentarios1); 
-        
-        CalificacionEntity entity = cp.create(c1); 
-        
+        CalificacionEntity c3 = new CalificacionEntity(10, comentarios2);
+        CalificacionEntity c4 = new CalificacionEntity(8, comentarios1);
+
+        CalificacionEntity entity = cp.create(c1);
+
         Assert.assertNotNull(entity);
-      
-        Assert.assertEquals(entity.getCalificacionNumerica(), c2.getCalificacionNumerica());
-        Assert.assertArrayEquals(entity.getComentarios(), c2.getComentarios());
-        
-        Assert.assertEquals(entity.getCalificacionNumerica(), c3.getCalificacionNumerica());
-        Assert.assertThat(entity.getComentarios(), IsNot.not(IsEqual.equalTo(c3.getComentarios())));
-        
-        Assert.assertNotEquals(entity.getCalificacionNumerica(), c4.getCalificacionNumerica());
-        Assert.assertArrayEquals(entity.getComentarios(), c4.getComentarios());
+
+        Assert.assertTrue(c1.equals(c2));
+        Assert.assertFalse(entity.equals(c3));
+        Assert.assertFalse(entity.equals(c4));
 
     }
 }

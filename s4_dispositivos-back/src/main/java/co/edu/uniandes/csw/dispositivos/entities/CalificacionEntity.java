@@ -13,7 +13,6 @@ import javax.persistence.Entity;
  *
  * @author Javier Peniche
  */
-
 @Entity
 public class CalificacionEntity extends BaseEntity implements Serializable {
 
@@ -68,6 +67,29 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
         this.comentarios = comentarios;
     }
 
+    private boolean compare(String[] arr1, String[] arr2) {
+        int lenght1 = arr1.length;
+        int lenght2 = arr2.length;
+        int counter = 0;
+        boolean equal = false;
+
+        if (lenght1 == lenght2) {
+            for (int i = 0; i < lenght1; i++) {
+                if (arr1[i].compareTo(arr2[i]) == 0) {
+                    counter++;
+                    continue;
+                } else {
+                    break;
+                }
+            }
+            if (counter == lenght1) {
+                equal = true;
+            }
+        }
+
+        return equal;
+    }
+
     @Override
     public boolean equals(Object obj) {
         boolean resp = super.equals(obj);
@@ -75,14 +97,12 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
         final CalificacionEntity other = (CalificacionEntity) obj;
 
         if (!resp) {
-            return fin;
-        } else {
             if ((this.getCalificacionNumerica() == other.getCalificacionNumerica())
-                    && (Arrays.equals(this.comentarios, other.comentarios))) {
+                    && (compare(this.comentarios, other.comentarios))) {
 
                 fin = true;
             }
         }
-        return fin; 
+        return fin;
     }
 }
