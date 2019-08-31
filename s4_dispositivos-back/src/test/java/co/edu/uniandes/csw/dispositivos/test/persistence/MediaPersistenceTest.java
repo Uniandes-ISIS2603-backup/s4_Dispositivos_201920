@@ -13,6 +13,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
+import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsNot;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -123,15 +125,43 @@ public class MediaPersistenceTest {
         mp.update(newEntity);
 
         MediaEntity resp = em.find(MediaEntity.class, entity.getId());
+        Assert.assertArrayEquals(newEntity.getLinks(), resp.getLinks());
 
-        Assert.assertEquals(newEntity.getLinks(), resp.getLinks());
     }
     
+    /**
+     * 
+     */
     @Test
     public void deleteMediaTest() {
         MediaEntity entity = data.get(0);
         mp.delete(entity.getId());
         MediaEntity deleted = em.find(MediaEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+    
+    /**
+     * 
+     */
+    @Test
+    public void equalsTest(){
+        String[] links1 = {
+            "e.com", "r.com"
+        }; 
+        
+        String[] links2 = {
+            "z.oom", "f.com"
+        };
+        
+        MediaEntity m1 = new MediaEntity(links1); 
+        MediaEntity m2 = new MediaEntity(links1);
+        MediaEntity m3 = new MediaEntity(links2); 
+        
+        MediaEntity entity = mp.create(m1);
+        
+        Assert.assertNotNull(entity);
+        
+        Assert.assertArrayEquals(entity.getLinks(), m2.getLinks());
+         Assert.assertThat(entity.getLinks(), IsNot.not(IsEqual.equalTo(m3.getLinks())));
     }
 }

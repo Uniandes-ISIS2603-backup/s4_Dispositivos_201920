@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
+import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -237,11 +238,24 @@ public class DispositivoPersistenceTest {
    
    @Test 
    public void testEquals(){
-       DispositivoEntity d1 = new DispositivoEntity("M", "A", "S", "r", 3, 2, 1, true, false); 
-       DispositivoEntity d2 = new DispositivoEntity("M", "A", "S", "r", 3, 2, 1, true, false); 
-       DispositivoEntity d3 = new DispositivoEntity("M", "A", "S", "r", 3, 4, 1, true, false);
+       
+       String[] linksA = {
+            "e.com", "r.com"
+        }; 
+        
+        String[] linksB = {
+            "z.oom", "f.com"
+        };
+       
+       MediaEntity links1 = new MediaEntity(linksA);
+       MediaEntity links2 = new MediaEntity(linksB);
+       DispositivoEntity d1 = new DispositivoEntity("M", "A", "S", links1, 3, 2, 1, true, false); 
+       DispositivoEntity d2 = new DispositivoEntity("M", "A", "S", links1, 3, 2, 1, true, false); 
+       DispositivoEntity d3 = new DispositivoEntity("M", "A", "S", links2, 3, 4, 1, true, false);
        
        DispositivoEntity entity = dp.create(d1);
+       
+       Assert.assertNotNull(entity);
        
        Assert.assertTrue(entity.equals(d2));
        Assert.assertFalse(entity.equals(d3));

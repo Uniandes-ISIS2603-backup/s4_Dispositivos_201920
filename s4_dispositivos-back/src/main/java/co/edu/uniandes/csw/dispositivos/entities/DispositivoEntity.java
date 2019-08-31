@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import javax.persistence.Entity;
 
 /**
@@ -21,7 +22,8 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     private String modelo;
     private String descripcion;
     private String nombre;
-    private String imagenes;
+    
+    private MediaEntity imagenes;
 
     private double precio;
     private double precioImportacion;
@@ -52,7 +54,9 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
   * @param promocion
   * @param enStock 
   */
-    public DispositivoEntity(String modelo, String descripcion, String nombre, String imagenes, double precio, double precioImportacion, double descuento, boolean promocion, boolean enStock) {
+    public DispositivoEntity(String modelo, String descripcion, String nombre, 
+            MediaEntity imagenes, double precio, double precioImportacion, double descuento, boolean promocion, boolean enStock) {
+        
         this.modelo = modelo;
         this.descripcion = descripcion; 
         this.nombre = nombre; 
@@ -80,7 +84,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         return nombre;
     }
 
-    public String getImagenes() {
+    public MediaEntity getImagenes() {
         return imagenes;
     }
 
@@ -113,7 +117,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public void setImagenes(String imagenes) {
+    public void setImagenes(MediaEntity imagenes) {
         this.imagenes = imagenes;
     }
 
@@ -158,7 +162,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         } else {
             if ((this.descripcion.compareToIgnoreCase(other.descripcion) == 0) && (this.descuento == other.descuento) && (this.enStock == other.enStock)
                     && (this.modelo.compareTo(other.modelo) == 0) && (this.nombre.compareTo(other.nombre) == 0) && (this.precio == other.precio)
-                    && (this.precioImportacion == other.precioImportacion) && (this.promocion == other.promocion)) {
+                    && (this.precioImportacion == other.precioImportacion) && (this.promocion == other.promocion) && (Arrays.equals(this.imagenes.getLinks(), other.imagenes.getLinks()))) {
                 fin = true;
                 return fin;
             }

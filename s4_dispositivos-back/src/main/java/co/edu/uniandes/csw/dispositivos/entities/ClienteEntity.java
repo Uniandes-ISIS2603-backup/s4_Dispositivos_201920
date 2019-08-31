@@ -91,19 +91,19 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    
     /**
-     * @return the apellido
+     * @return the contrasena
      */
-    public String getApellido() {
-        return apellido;
+    public String getContrasena() {
+        return contrasena;
     }
 
     /**
-     * @param apellido the apellido to set
+     * @param contrasena the contrasena to set
      */
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     /**
@@ -119,6 +119,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
+    
 
     /**
      * @return the cedula
@@ -134,6 +135,20 @@ public class ClienteEntity extends BaseEntity implements Serializable {
         this.cedula = cedula;
     }
 
+    /**
+     * @return the apellido
+     */
+    public String getApellido() {
+        return apellido;
+    }
+
+    /**
+     * @param apellido the apellido to set
+     */
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+    
     /**
      * @return the direccion
      */
@@ -160,20 +175,6 @@ public class ClienteEntity extends BaseEntity implements Serializable {
      */
     public void setUsuario(String usuario) {
         this.usuario = usuario;
-    }
-
-    /**
-     * @return the contrasena
-     */
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    /**
-     * @param contrasena the contrasena to set
-     */
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
     }
 
     /**
