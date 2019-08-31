@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import javax.persistence.Entity;
 
 /**
@@ -77,7 +76,6 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
             for (int i = 0; i < lenght1; i++) {
                 if (arr1[i].compareTo(arr2[i]) == 0) {
                     counter++;
-                    continue;
                 } else {
                     break;
                 }
