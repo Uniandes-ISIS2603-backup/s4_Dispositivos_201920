@@ -16,21 +16,24 @@ import javax.persistence.Entity;
  */
 @Entity
 public class MediaEntity extends BaseEntity implements Serializable {
-    
+
     private String[] links;
-    
-    public MediaEntity(){
+
+    public MediaEntity() {
         /**
-         * Constructor Vacio Para Entitiy. 
+         * Constructor Vacio Para Entitiy.
          */
-        
+
     }
+
     /**
-     * Constructor para pruebas 
-     * @param links arreglo con los links de las imagenes y videos de un dispositivo. 
+     * Constructor para pruebas
+     *
+     * @param links arreglo con los links de las imagenes y videos de un
+     * dispositivo.
      */
-    public MediaEntity(String[] links){
-        this.links = links; 
+    public MediaEntity(String[] links) {
+        this.links = links;
     }
 
     /**
@@ -46,26 +49,24 @@ public class MediaEntity extends BaseEntity implements Serializable {
     public void setLinks(String[] links) {
         this.links = links;
     }
-    
+
     /**
-     * 
+     *
      * @param obj
-     * @return 
+     * @return
      */
     @Override
-    public boolean equals(Object obj){
-        boolean resp= super.equals(obj);
-        boolean fin =false;
-        final MediaEntity other=(MediaEntity) obj;
-        
-        if(!resp){
-            return fin;
-        }
-        else{
-            if(Arrays.equals(this.links, other.links)){
-                fin=true;
+    public boolean equals(Object obj) {
+        boolean resp = super.equals(obj);
+        boolean fin = false;
+        final MediaEntity other = (MediaEntity) obj;
+
+        if (!resp) {
+            if (this.links.equals(other.links)) {
+                fin = true;
             }
         }
+
         return fin;
     }
 }

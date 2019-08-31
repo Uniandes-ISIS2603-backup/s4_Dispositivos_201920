@@ -161,7 +161,7 @@ public class MediaPersistenceTest {
         
         Assert.assertNotNull(entity);
         
-        Assert.assertArrayEquals(entity.getLinks(), m2.getLinks());
-         Assert.assertThat(entity.getLinks(), IsNot.not(IsEqual.equalTo(m3.getLinks())));
+        Assert.assertTrue(entity.equals(m2));
+        Assert.assertFalse(entity.equals(m3));
     }
 }
