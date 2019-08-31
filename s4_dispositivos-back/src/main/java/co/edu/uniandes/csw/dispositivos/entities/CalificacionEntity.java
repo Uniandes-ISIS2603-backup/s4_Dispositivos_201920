@@ -94,9 +94,10 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
     public boolean equals(Object obj) {
         boolean resp = super.equals(obj);
         boolean fin = false;
-        final CalificacionEntity other = (CalificacionEntity) obj;
 
-        if (!resp) {
+        if (!resp && obj != null) {
+            final CalificacionEntity other = (CalificacionEntity) obj;
+
             if ((this.getCalificacionNumerica() == other.getCalificacionNumerica())
                     && (compare(this.comentarios, other.comentarios))) {
 

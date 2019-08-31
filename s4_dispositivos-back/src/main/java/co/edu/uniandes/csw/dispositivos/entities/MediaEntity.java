@@ -59,9 +59,9 @@ public class MediaEntity extends BaseEntity implements Serializable {
     public boolean equals(Object obj) {
         boolean resp = super.equals(obj);
         boolean fin = false;
-        final MediaEntity other = (MediaEntity) obj;
 
-        if (!resp) {
+        if (!resp && obj != null) {
+            final MediaEntity other = (MediaEntity) obj;
             if (this.links.equals(other.links)) {
                 fin = true;
             }
