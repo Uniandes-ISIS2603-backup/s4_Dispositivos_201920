@@ -15,18 +15,35 @@ import javax.persistence.Entity;
  */
 
 @Entity
-public class CalificacionEntity extends BaseEntity implements Serializable{
+public class CalificacionEntity extends BaseEntity implements Serializable {
+
     private int calificacionNumerica;
     private String[] comentarios;
-    
-    
-    public CalificacionEntity(){     
+
+    /**
+     * Constructor vacio para el uso de Entities.
+     */
+    public CalificacionEntity() {
+        /**
+         * Constructor vacio para la implementacion.
+         */
+    }
+
+    /**
+     * Constructor para realizar Junit Tests.
+     *
+     * @param calificacion calificacion del producto.
+     * @param comentarios comentarios del producto.
+     */
+    public CalificacionEntity(int calificacion, String[] comentarios) {
+        this.calificacionNumerica = calificacion;
+        this.comentarios = comentarios;
     }
 
     /**
      * @return the calificacionNumerica
      */
-    public int getCalificacionNumerica() {
+    public long getCalificacionNumerica() {
         return calificacionNumerica;
     }
 
@@ -50,26 +67,22 @@ public class CalificacionEntity extends BaseEntity implements Serializable{
     public void setComentarios(String[] comentarios) {
         this.comentarios = comentarios;
     }
-    
+
     @Override
-    public boolean equals(Object obj){
-        boolean resp= super.equals(this);
-        boolean fin =false;
-        final CalificacionEntity other=(CalificacionEntity) obj;
-        
-        if(!resp){
+    public boolean equals(Object obj) {
+        boolean resp = super.equals(obj);
+        boolean fin = false;
+        final CalificacionEntity other = (CalificacionEntity) obj;
+
+        if (!resp) {
             return fin;
-        }
-        else{
-            if(this.getCalificacionNumerica()==other.getCalificacionNumerica()){
-                fin=true;
-                return fin;
+        } else {
+            if ((this.getCalificacionNumerica() == other.getCalificacionNumerica())
+                    && (Arrays.equals(this.comentarios, other.comentarios))) {
+
+                fin = true;
             }
-             else if(Arrays.equals(this.getComentarios(), other.getComentarios()))//.equals(equals())){
-                fin=true;
-                return fin;
-                }
         }
-    
-    
+        return fin; 
+    }
 }
