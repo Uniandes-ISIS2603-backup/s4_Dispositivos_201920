@@ -144,12 +144,23 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         this.promocion = promocion;
     }
     
+    /**
+     * Metodo no usado 
+     * @param obj Object que se compara.
+     * @return Despreciado. 
+     * @deprecated (Solo Arregla Code Smell)
+     */
     @Override
     @Deprecated
     public boolean equals(Object obj){
         return super.equals(obj);
     }
     
+    /**
+     * Metodo no usado.
+     * @return nada.
+     * @deprecated (Solo Arregla Code Smell)
+     */
     @Override
     @Deprecated
     public int hashCode(){
