@@ -47,16 +47,5 @@ public class VentaEntity extends BaseEntity implements Serializable {
      */
     public void setPrecioReventa(Double precioReventa) {
         this.precioReventa = precioReventa;
-    }
-
-    /**
-     *
-     * @param oe
-     */
-    @Override
-    public boolean equals(Object oe) {
-        boolean answer = super.equals(oe);
-        final VentaEntity another = (VentaEntity) oe;
-        return answer && this.getPrecioReventa().equals(another.getPrecioReventa());
-    }
+    } 
 }
