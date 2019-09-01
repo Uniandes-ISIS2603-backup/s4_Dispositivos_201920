@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import javax.persistence.Entity;
 
 /**
@@ -144,5 +143,29 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     public void setPromocion(boolean promocion) {
         this.promocion = promocion;
     }
+    
+    /**
+     * Metodo no usado 
+     * @param obj Object que se compara.
+     * @return Despreciado. 
+     * @deprecated (Solo Arregla Code Smell)
+     */
+    @Override
+    @Deprecated
+    public boolean equals(Object obj){
+        return super.equals(obj);
+    }
+    
+    /**
+     * Metodo no usado.
+     * @return nada.
+     * @deprecated (Solo Arregla Code Smell)
+     */
+    @Override
+    @Deprecated
+    public int hashCode(){
+        return super.hashCode();
+    }
+    
 
 }
