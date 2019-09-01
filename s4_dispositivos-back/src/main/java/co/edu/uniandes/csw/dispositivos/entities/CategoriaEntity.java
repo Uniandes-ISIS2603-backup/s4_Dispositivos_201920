@@ -50,27 +50,4 @@ public class CategoriaEntity extends BaseEntity {
     public void setNombreCategoria(String nombreCategoria) {
         this.nombreCategoria = nombreCategoria;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-        boolean resp = super.equals(obj);
-        final CategoriaEntity other = (CategoriaEntity) obj;
-
-        if (!resp) {
-            return false;
-        } else {
-            if (this.nombreCategoria.compareTo(other.nombreCategoria) == 0) {
-                return true;
-            }
-            return false;
-        }
-    }
-
 }

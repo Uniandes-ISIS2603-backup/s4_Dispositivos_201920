@@ -113,29 +113,4 @@ public class MedioDePagoEntity extends BaseEntity {
         this.tipoCredito = tipoCredito;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-
-        if (obj == null) {
-            return false;
-        }
-
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-        
-        boolean resp = super.equals(obj);
-        final MedioDePagoEntity other = (MedioDePagoEntity) obj;
-
-        if (!resp) {
-            return false;
-        } else {
-            if (this.tipoTarjeta.compareTo(other.tipoTarjeta) == 0 && this.tipoCredito.compareTo(other.tipoCredito) == 0
-                    && this.numeroDeVerificacion == other.numeroDeVerificacion && this.numeroTarjeta.compareTo(other.numeroTarjeta) == 0) {
-                return true;
-            }
-            return false;
-        }
-    }
-
 }

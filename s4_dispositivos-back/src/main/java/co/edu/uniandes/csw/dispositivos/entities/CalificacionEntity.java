@@ -65,43 +65,4 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
     public void setComentarios(String[] comentarios) {
         this.comentarios = comentarios;
     }
-
-    private boolean compare(String[] arr1, String[] arr2) {
-        int lenght1 = arr1.length;
-        int lenght2 = arr2.length;
-        int counter = 0;
-        boolean equal = false;
-
-        if (lenght1 == lenght2) {
-            for (int i = 0; i < lenght1; i++) {
-                if (arr1[i].compareTo(arr2[i]) == 0) {
-                    counter++;
-                } else {
-                    break;
-                }
-            }
-            if (counter == lenght1) {
-                equal = true;
-            }
-        }
-
-        return equal;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        boolean resp = super.equals(obj);
-        boolean fin = false;
-
-        if (!resp && obj != null) {
-            final CalificacionEntity other = (CalificacionEntity) obj;
-
-            if ((this.getCalificacionNumerica() == other.getCalificacionNumerica())
-                    && (compare(this.comentarios, other.comentarios))) {
-
-                fin = true;
-            }
-        }
-        return fin;
-    }
 }

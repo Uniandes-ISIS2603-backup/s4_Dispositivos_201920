@@ -32,27 +32,28 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class MediaPersistenceTest {
+
     @Inject
     private MediaPersistence mp;
-    
-    @PersistenceContext 
+
+    @PersistenceContext
     private EntityManager em;
-    
+
     private List<MediaEntity> data = new ArrayList<>();
-    
+
     @Inject
     UserTransaction utx;
-    
+
     @Deployment
-    public static JavaArchive deployment(){
-      return ShrinkWrap.create(JavaArchive.class)
-         .addPackage(MediaEntity.class.getPackage())
-              .addPackage(MediaPersistence.class.getPackage())
-              .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
-              .addAsManifestResource("META-INF/beans.xml", "beans.xml");
-              
+    public static JavaArchive deployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+                .addPackage(MediaEntity.class.getPackage())
+                .addPackage(MediaPersistence.class.getPackage())
+                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+                .addAsManifestResource("META-INF/beans.xml", "beans.xml");
+
     }
-    
+
     private void clearData() {
         em.createQuery("delete from MediaEntity").executeUpdate();
     }
@@ -68,7 +69,7 @@ public class MediaPersistenceTest {
             data.add(entity);
         }
     }
-    
+
     @Before
     public void configTest() {
         try {
@@ -86,23 +87,23 @@ public class MediaPersistenceTest {
             }
         }
     }
-    
+
     @Test
-    public void createMediaTest(){
-        PodamFactory factory= new PodamFactoryImpl();
+    public void createMediaTest() {
+        PodamFactory factory = new PodamFactoryImpl();
         MediaEntity newEntity = factory.manufacturePojo(MediaEntity.class);
-        MediaEntity ce= mp.create(newEntity);
-        
+        MediaEntity ce = mp.create(newEntity);
+
         Assert.assertNotNull(ce);
-        MediaEntity entity= em.find(MediaEntity.class, ce.getId());
-        
+        MediaEntity entity = em.find(MediaEntity.class, ce.getId());
+
         Assert.assertEquals(newEntity.getLinks(), entity.getLinks());
     }
-    
+
     @Test
     public void getMediaTest() {
         List<MediaEntity> list = mp.findAll();
-        Assert.assertEquals(list.size(),data.size());
+        Assert.assertEquals(list.size(), data.size());
         for (MediaEntity ent : list) {
             boolean found = false;
             for (MediaEntity entity : data) {
@@ -113,7 +114,7 @@ public class MediaPersistenceTest {
             Assert.assertTrue(found);
         }
     }
-    
+
     @Test
     public void updateMediaTest() {
         MediaEntity entity = data.get(0);
@@ -128,9 +129,9 @@ public class MediaPersistenceTest {
         Assert.assertArrayEquals(newEntity.getLinks(), resp.getLinks());
 
     }
-    
+
     /**
-     * 
+     *
      */
     @Test
     public void deleteMediaTest() {
@@ -139,29 +140,5 @@ public class MediaPersistenceTest {
         MediaEntity deleted = em.find(MediaEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-    
-    /**
-     * 
-     */
-    @Test
-    public void equalsTest(){
-        String[] links1 = {
-            "e.com", "r.com"
-        }; 
-        
-        String[] links2 = {
-            "z.oom", "f.com"
-        };
-        
-        MediaEntity m1 = new MediaEntity(links1); 
-        MediaEntity m2 = new MediaEntity(links1);
-        MediaEntity m3 = new MediaEntity(links2); 
-        
-        MediaEntity entity = mp.create(m1);
-        
-        Assert.assertNotNull(entity);
-        
-        Assert.assertTrue(entity.equals(m2));
-        Assert.assertFalse(entity.equals(m3));
-    }
+
 }

@@ -158,31 +158,4 @@ public class CalificacionPersistenceTest {
         Assert.assertNull(deleted);
     }
 
-    /**
-     *
-     */
-    @Test
-    public void testEquals() {
-        String[] comentarios1 = {
-            "Bueno", "Malo"
-        };
-
-        String[] comentarios2 = {
-            "regular", "Malo"
-        };
-
-        CalificacionEntity c1 = new CalificacionEntity(10, comentarios1);
-        CalificacionEntity c2 = new CalificacionEntity(10, comentarios1);
-        CalificacionEntity c3 = new CalificacionEntity(10, comentarios2);
-        CalificacionEntity c4 = new CalificacionEntity(8, comentarios1);
-
-        CalificacionEntity entity = cp.create(c1);
-
-        Assert.assertNotNull(entity);
-
-        Assert.assertTrue(c1.equals(c2));
-        Assert.assertFalse(entity.equals(c3));
-        Assert.assertFalse(entity.equals(c4));
-
-    }
 }

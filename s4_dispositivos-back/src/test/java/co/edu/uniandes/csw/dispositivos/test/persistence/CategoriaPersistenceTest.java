@@ -118,13 +118,12 @@ public class CategoriaPersistenceTest {
 
         Assert.assertEquals(newEntity.getNombreCategoria(), entity.getNombreCategoria());
     }
-    
+
     /**
      * Test del metodo constructor de la clase Categoria.
      */
     @Test
-    public void testConstructorCategoria()
-    {
+    public void testConstructorCategoria() {
         CategoriaEntity prueba = new CategoriaEntity("abc");
         Assert.assertEquals("abc", prueba.getNombreCategoria());
     }
@@ -197,19 +196,5 @@ public class CategoriaPersistenceTest {
         CategoriaEntity deleted = em.find(CategoriaEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-    
-    /**
-     * Prueba del test de equals. 
-     */
-    @Test
-    public void testEqualsCategoria()
-    {
-        CategoriaEntity prueba = new CategoriaEntity("abc");
-        CategoriaEntity prueba2 = new CategoriaEntity("abc");
-        
-        Assert.assertTrue(prueba.equals(prueba2));
-        
-        CategoriaEntity prueba3 = new CategoriaEntity("efg");
-        Assert.assertFalse(prueba.equals(prueba3));
-    }
+
 }

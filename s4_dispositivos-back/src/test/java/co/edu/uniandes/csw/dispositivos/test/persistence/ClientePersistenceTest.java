@@ -175,7 +175,5 @@ public class ClientePersistenceTest {
         Assert.assertEquals("usuario", clientePrueba.getUsuario());
         Assert.assertEquals("contrasena", clientePrueba.getContrasena());
 
-        assertTrue(clientePrueba.equals(clientePrueba2));
-        assertFalse(clientePrueba.equals(clientePrueba3));
     }
 }

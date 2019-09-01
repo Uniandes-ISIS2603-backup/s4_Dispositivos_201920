@@ -91,7 +91,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+
     /**
      * @return the contrasena
      */
@@ -119,7 +119,6 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
-    
 
     /**
      * @return the cedula
@@ -148,7 +147,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-    
+
     /**
      * @return the direccion
      */
@@ -177,32 +176,4 @@ public class ClienteEntity extends BaseEntity implements Serializable {
         this.usuario = usuario;
     }
 
-    /**
-     * Compara dos objetos
-     *
-     * @param obj objeto a comparar.
-     * @return true en caso de que sean iguales, false en caso de que no.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-
-        boolean resp = super.equals(obj);
-        final ClienteEntity other = (ClienteEntity) obj;
-
-        if (!resp) {
-            return false;
-        } else {
-            if (this.apellido.equalsIgnoreCase(other.apellido) && this.cedula.equals(other.cedula) && this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena) && this.nombre.equalsIgnoreCase(other.nombre) && this.correoElectronico.equalsIgnoreCase(other.correoElectronico) && this.direccion.equalsIgnoreCase(other.direccion)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }
