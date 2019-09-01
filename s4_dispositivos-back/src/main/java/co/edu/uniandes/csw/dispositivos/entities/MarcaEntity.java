@@ -72,27 +72,5 @@ public class MarcaEntity extends BaseEntity implements Serializable {
         this.imagen = imagen;
     }
 
-    /**
-     * Compara dos objetos
-     *
-     * @param obj objeto a comparar.
-     * @return true en caso de que sean iguales, false en caso de que no.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-        boolean resp = super.equals(obj);
-        final MarcaEntity other = (MarcaEntity) obj;
-
-        if (!resp) {
-            return false;
-        } else {
-            return this.nombreMarca.equalsIgnoreCase(other.nombreMarca) && this.imagen.equalsIgnoreCase(other.imagen);
-        }
-    }
+   
 }

@@ -156,8 +156,5 @@ public class MarcaPersistenceTest {
         Assert.assertEquals("marcaLogo.png", marcaPrueba.getImagen());
         Assert.assertEquals("marcaPrueba", marcaPrueba.getNombreMarca());
 
-        assertTrue(marcaPrueba.equals(marcaPrueba2));
-        assertFalse(marcaPrueba.equals(marcaPrueba3));
-
     }
 }
