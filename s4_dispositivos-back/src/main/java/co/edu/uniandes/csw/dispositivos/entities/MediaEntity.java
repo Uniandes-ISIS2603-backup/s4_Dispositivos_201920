@@ -6,8 +6,6 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
 import javax.persistence.Entity;
 
 /**
@@ -62,7 +60,7 @@ public class MediaEntity extends BaseEntity implements Serializable {
 
         if (!resp && obj != null) {
             final MediaEntity other = (MediaEntity) obj;
-            if (this.links.equals(other.links)) {
+            if (this.links == (other.links)) {
                 fin = true;
             }
         }
