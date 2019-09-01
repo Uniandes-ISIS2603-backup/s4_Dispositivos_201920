@@ -51,13 +51,27 @@ public class VentaEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     *
-     * @param oe
+     * Método no requerido
+     * @param oe Objeto a comparar
+     * @return Igual al de la superclase
+     * @deprecated (Sólo se necesita para mejorar "Code Smell")
      */
     @Override
-    public boolean equals(Object oe) {
-        boolean answer = super.equals(oe);
-        final VentaEntity another = (VentaEntity) oe;
-        return answer && this.getPrecioReventa().equals(another.getPrecioReventa());
+    @Deprecated
+    public boolean equals(Object oe) 
+    {
+        return super.equals(oe);
+    }
+    
+    /**
+     * Método no requerido
+     * @return Igual al de la superclase
+     * @deprecated (Sólo se necesita para mejorar "Code Smell")
+     */
+    @Override
+    @Deprecated
+    public int hashCode()
+    {
+        return super.hashCode();
     }
 }

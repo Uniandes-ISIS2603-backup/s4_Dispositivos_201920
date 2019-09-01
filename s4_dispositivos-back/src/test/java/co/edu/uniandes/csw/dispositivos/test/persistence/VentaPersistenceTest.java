@@ -29,13 +29,14 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Zharet Bautista Montes
  */
 @RunWith(Arquillian.class)
-public class VentaPersistenceTest {
-
-    @PersistenceContext
+public class VentaPersistenceTest 
+{
+    @PersistenceContext(unitName="dispositivosPU")
     protected EntityManager vam;
 
     @Deployment
-    public static JavaArchive createDeployment() {
+    public static JavaArchive createDeployment() 
+    {
         return ShrinkWrap.create(JavaArchive.class)
                 .addClass(VentaEntity.class)
                 .addClass(VentaPersistence.class)
@@ -69,20 +70,7 @@ public class VentaPersistenceTest {
             utxn.commit();
         } 
         catch (Exception e)
-        {    System.out.println(e.getMessage());  }
-    }
-
-    /**
-     * Prueba del método sobreescrito equals()
-     */
-    @Test
-    public void equalsTest() 
-    {
-        VentaEntity newva1 = new VentaEntity(68000.0);
-        VentaEntity newva2 = new VentaEntity(68000.0);
-        VentaEntity newva3 = new VentaEntity(68001.0);
-        Assert.assertTrue(newva2.equals(newva1));
-        Assert.assertFalse(newva3.equals(newva2));
+        {    System.out.println(e.getMessage());    }
     }
 
     /**
@@ -121,13 +109,12 @@ public class VentaPersistenceTest {
     {
         List<VentaEntity> allgotten = vap.findAll();
         Assert.assertEquals(allgotten.size(), valist.size());
-        for (VentaEntity vablock : allgotten) {
+        for (VentaEntity vablock : allgotten) 
+        {
             boolean ticked = false;
-            for (VentaEntity varef : valist) {
-                if (vablock.getId().equals(varef.getId())) {
+            for (VentaEntity varef : valist)
+                if (vablock.getId().equals(varef.getId()))
                     ticked = true;
-                }
-            }
             Assert.assertTrue(ticked);
         }
     }
@@ -135,14 +122,14 @@ public class VentaPersistenceTest {
     @Test
     public void updateVentaTest() 
     {
-        VentaEntity updating = valist.get(0);
+        VentaEntity venta = valist.get(0);
         PodamFactory vafactory = new PodamFactoryImpl();
-        VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
-        venta.setId(updating.getId());
-        vap.update(venta);
+        VentaEntity updating = vafactory.manufacturePojo(VentaEntity.class);
+        updating.setId(venta.getId());
+        vap.update(updating);
         VentaEntity updated = vam.find(VentaEntity.class, updating.getId());
-        Assert.assertEquals(venta.getId(), updated.getId());
-        Assert.assertEquals(venta.getPrecioReventa(), updated.getPrecioReventa(), 0.0);
+        Assert.assertEquals(updating.getId(), updated.getId());
+        Assert.assertEquals(updating.getPrecioReventa(), updated.getPrecioReventa(), 0.0);
     }
 
     @Test
@@ -152,5 +139,18 @@ public class VentaPersistenceTest {
         vap.delete(deleting.getId());
         VentaEntity deleted = vam.find(VentaEntity.class, deleting.getId());
         Assert.assertNull(deleted);
+    }
+    
+    /**
+     * Prueba del método sobreescrito equals()
+     */
+    @Test
+    public void equalsTest() 
+    {
+        VentaEntity newva1 = new VentaEntity(68000.0);
+        VentaEntity newva2 = new VentaEntity(68000.0);
+        VentaEntity newva3 = new VentaEntity(68001.0);
+        Assert.assertTrue(newva2.equals(newva1));
+        Assert.assertFalse(newva3.equals(newva2));
     }
 }

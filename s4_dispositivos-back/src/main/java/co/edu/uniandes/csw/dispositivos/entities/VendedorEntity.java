@@ -161,21 +161,29 @@ public class VendedorEntity extends BaseEntity implements Serializable
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }   
+    
     /**
-     * Evalua un objeto con el actual
-     * @param obj Objecto a comparar
-     * @return true cuando ambos objetos son iguales, false de lo contrario
+     * Método no requerido
+     * @param eo Objeto a comparar
+     * @return Igual al de la superclase
+     * @deprecated (Sólo se necesita para mejorar "Code Smell")
      */
     @Override
-    public boolean equals(Object obj)
+    @Deprecated
+    public boolean equals(Object eo) 
     {
-        if (obj == null || (this.getClass() != obj.getClass()))
-            return false; 
-        final VendedorEntity other = (VendedorEntity) obj;
-        boolean resp = super.equals(other);       
-        if(resp)
-            return this.getNombre().equalsIgnoreCase(other.getNombre()) && this.getApellido().equalsIgnoreCase(other.getApellido()) && this.getContrasena().equals(other.getContrasena()) && this.getCedula()==other.getCedula() && this.getCelular() == other.getCelular() && this.getCorreoElectronico().equalsIgnoreCase(other.getCorreoElectronico()) && this.getUsuario().equals(other.getUsuario());
-        else 
-            return false; 
+        return super.equals(eo);
+    }
+    
+    /**
+     * Método no requerido
+     * @return Igual al de la superclase
+     * @deprecated (Sólo se necesita para mejorar "Code Smell")
+     */
+    @Override
+    @Deprecated
+    public int hashCode()
+    {
+        return super.hashCode();
     }
 }

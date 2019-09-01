@@ -51,25 +51,28 @@ public class CalificacionEntity extends BaseEntity implements Serializable{
         this.comentarios = comentarios;
     }
     
+    /**
+     * Método no requerido
+     * @param obj Objeto a comparar
+     * @return Igual al de la superclase
+     * @deprecated (Sólo se necesita para mejorar "Code Smell")
+     */
     @Override
-    public boolean equals(Object obj){
-        boolean resp= super.equals(this);
-        boolean fin =false;
-        final CalificacionEntity other=(CalificacionEntity) obj;
-        
-        if(!resp){
-            return fin;
-        }
-        else{
-            if(this.getCalificacionNumerica()==other.getCalificacionNumerica()){
-                fin=true;
-                return fin;
-            }
-             else if(Arrays.equals(this.getComentarios(), other.getComentarios()))//.equals(equals())){
-                fin=true;
-                return fin;
-                }
-        }
+    @Deprecated
+    public boolean equals(Object obj) 
+    {
+        return super.equals(obj);
+    }
     
-    
+    /**
+     * Método no requerido
+     * @return Igual al de la superclase
+     * @deprecated (Sólo se necesita para mejorar "Code Smell")
+     */
+    @Override
+    @Deprecated
+    public int hashCode()
+    {
+        return super.hashCode();
+    }   
 }

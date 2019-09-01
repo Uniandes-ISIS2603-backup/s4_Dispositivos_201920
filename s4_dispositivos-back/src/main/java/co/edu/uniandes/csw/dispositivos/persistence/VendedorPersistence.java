@@ -18,8 +18,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class VendedorPersistence 
-{
-    
+{   
     @PersistenceContext(unitName = "dispositivosPU")
     protected EntityManager em;
     
