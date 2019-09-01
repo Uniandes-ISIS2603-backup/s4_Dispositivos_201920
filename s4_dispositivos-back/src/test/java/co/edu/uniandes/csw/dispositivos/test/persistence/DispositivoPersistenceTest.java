@@ -234,5 +234,6 @@ public class DispositivoPersistenceTest {
         DispositivoEntity deleted = em.find(DispositivoEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
+    
 
 }
