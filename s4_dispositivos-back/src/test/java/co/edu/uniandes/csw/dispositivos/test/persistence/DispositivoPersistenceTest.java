@@ -14,7 +14,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
-import org.eclipse.persistence.internal.jpa.EntityManagerImpl;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -124,7 +123,9 @@ public class DispositivoPersistenceTest {
         Assert.assertEquals(dispositivo.isEnStock(), entity.isEnStock());
         
         //Prueba crea si esta en promocion y verifica
-        Assert.assertEquals(dispositivo.isPromocion(), entity.isPromocion());        
+        Assert.assertEquals(dispositivo.isPromocion(), entity.isPromocion());   
+        
+        Assert.assertArrayEquals(dispositivo.getImagenes().getLinks(), entity.getImagenes().getLinks());
     }
     
     /**
@@ -161,7 +162,9 @@ public class DispositivoPersistenceTest {
         Assert.assertEquals(dispositivo.isEnStock(), newEntity.isEnStock());
         
         //Prueba crea si esta en promocion y verifica
-        Assert.assertEquals(dispositivo.isPromocion(), newEntity.isPromocion());          
+        Assert.assertEquals(dispositivo.isPromocion(), newEntity.isPromocion());     
+        
+        Assert.assertArrayEquals(dispositivo.getImagenes().getLinks(), newEntity.getImagenes().getLinks());
    }
    
    @Test
@@ -219,7 +222,9 @@ public class DispositivoPersistenceTest {
         Assert.assertEquals(newEntity.isEnStock(), resp.isEnStock());
         
         //Prueba crea si esta en promocion y verifica
-        Assert.assertEquals(newEntity.isPromocion(), resp.isPromocion());   
+        Assert.assertEquals(newEntity.isPromocion(), resp.isPromocion()); 
+        
+        Assert.assertArrayEquals(newEntity.getImagenes().getLinks(), resp.getImagenes().getLinks());
    }
    
    /**
