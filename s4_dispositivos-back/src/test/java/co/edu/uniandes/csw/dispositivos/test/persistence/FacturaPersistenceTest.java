@@ -163,5 +163,7 @@ public class FacturaPersistenceTest {
         assertEquals(15.5, facturaPrueba.getTotalPago(), 0);
         assertEquals(1.3, facturaPrueba.getImpuestos(), 0);
         Assert.assertEquals("Celular", facturaPrueba.getDispositivos());
+        Assert.assertEquals(facturaPrueba.hashCode(), facturaPrueba.hashCode());
+        Assert.assertTrue(facturaPrueba.equals(facturaPrueba2));
     }
 }

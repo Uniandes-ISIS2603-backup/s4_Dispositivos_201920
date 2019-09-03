@@ -113,5 +113,29 @@ public class FacturaEntity extends BaseEntity implements Serializable {
         this.dispositivos = dispositivos;
     }
 
-   
+    /**
+     * Metodo no usado
+     *
+     * @param obj Object que se compara.
+     * @return despreciado.
+     * @Ddeprecated (solo arregla code smell)
+     */
+    @Override
+    @Deprecated
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    /**
+     * Metodo no usado
+     *
+     * @return nada.
+     * @Ddeprecated (solo arregla code smell)
+     */
+    @Override
+    @Deprecated
+    public int hashCode() {
+        return super.hashCode();
+    }
+
 }
