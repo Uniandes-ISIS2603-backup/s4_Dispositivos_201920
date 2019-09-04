@@ -119,7 +119,7 @@ public class DispositivoPersistenceTest {
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(dispositivo.isPromocion(), entity.isPromocion());
 
-        Assert.assertArrayEquals(dispositivo.getImagenes().getLinks(), entity.getImagenes().getLinks());
+        Assert.assertEquals(dispositivo.getImagenes().getLink(), entity.getImagenes().getLink());
     }
 
     /**
@@ -158,7 +158,7 @@ public class DispositivoPersistenceTest {
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(dispositivo.isPromocion(), newEntity.isPromocion());
 
-        Assert.assertArrayEquals(dispositivo.getImagenes().getLinks(), newEntity.getImagenes().getLinks());
+        Assert.assertEquals(dispositivo.getImagenes().getLink(), newEntity.getImagenes().getLink());
     }
 
     @Test
@@ -218,7 +218,7 @@ public class DispositivoPersistenceTest {
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(newEntity.isPromocion(), resp.isPromocion());
 
-        Assert.assertArrayEquals(newEntity.getImagenes().getLinks(), resp.getImagenes().getLinks());
+        Assert.assertEquals(newEntity.getImagenes().getLink(), resp.getImagenes().getLink());
     }
 
     /**

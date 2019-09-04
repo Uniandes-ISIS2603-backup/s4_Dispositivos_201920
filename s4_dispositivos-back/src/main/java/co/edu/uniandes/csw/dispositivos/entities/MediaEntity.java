@@ -15,7 +15,7 @@ import javax.persistence.Entity;
 @Entity
 public class MediaEntity extends BaseEntity implements Serializable {
 
-    private String[] links;
+    private String link;
 
     public MediaEntity() {
         /**
@@ -27,24 +27,25 @@ public class MediaEntity extends BaseEntity implements Serializable {
     /**
      * Constructor para pruebas
      *
-     * @param links arreglo con los links de las imagenes y videos de un
+     * @param link el link de las imagenes y videos de un
      * dispositivo.
      */
-    public MediaEntity(String[] links) {
-        this.links = links;
+    public MediaEntity(String link) {
+        this.link = link;
     }
 
     /**
-     * @return the links
+     * Retonra el link de multimedia
+     * @return link que referencia un video o imagen
      */
-    public String[] getLinks() {
-        return links;
+    public String getLink() {
+        return link;
     }
 
     /**
-     * @param links the links to set
+     * @param link modifica el link de una imagen o dispositivo
      */
-    public void setLinks(String[] links) {
-        this.links = links;
+    public void setLinks(String link) {
+        this.link = link;
     }
 }
