@@ -3,6 +3,7 @@ import javax.persistence.Entity;
 
 /**
  *Clase que corresponde a la tabla BD para clase Administrador
+ * @author Dianis Caro
  */
 @Entity
 public class AdministradorEntity extends BaseEntity

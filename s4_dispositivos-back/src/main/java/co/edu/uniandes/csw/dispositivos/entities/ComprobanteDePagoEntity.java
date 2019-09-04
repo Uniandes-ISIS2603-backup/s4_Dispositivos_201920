@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 
 /**
  *Clase que corresponde a la tabla BD para clase ComprobanteDePago
+ * @author Dianis Caro
  */
 @Entity 
 public class ComprobanteDePagoEntity extends BaseEntity
