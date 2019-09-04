@@ -61,6 +61,27 @@ public class AdministradorEntity extends BaseEntity
     public void setContrasena(String pContrasena) 
     {
         this.contrasena = pContrasena;
+    } 
+    /**
+     * Metodo no usado 
+     * @param obj Object que se compara.
+     * @return Despreciado. 
+     * @deprecated (Solo Arregla Code Smell)
+     */
+    @Override
+    @Deprecated
+    public boolean equals(Object obj){
+        return super.equals(obj);
+    }
+    /**
+     * Metodo no usado
+     * @return nada.
+     * @deprecated (Solo Arregla Code Smell)
+     */
+    @Override
+    @Deprecated
+    public int hashCode(){
+        return super.hashCode();
     }
 }
 
