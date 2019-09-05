@@ -7,82 +7,45 @@ package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author Zharet Bautista Montes
  */
+@Entity
+public class VentaEntity extends BaseEntity implements Serializable {
 
-@Entity 
-public class VentaEntity extends BaseEntity implements Serializable
-{
-    private double precioReventa;
-    
-    /*
-    @PodamExclude
-    @ManyToOne
-    private VendedorEntity vendedor;
-    */
-    
-    /*
-    @PodamExclude
-    @OneToOne
-    private FacturaEntity facturaOriginal;
-    */
+    private Double precioReventa;
 
     /**
      * Constructor vacío
      */
-    public VentaEntity() 
-    {    }
+    public VentaEntity() {
+    }
 
     /**
-     * Constructor que recibe parámetros 
+     * Constructor que recibe parámetros
+     *
      * @param precioReventa
-     * @param vendedor 
      */
-    public VentaEntity(double precioReventa, VendedorEntity vendedor) 
-    {
+    public VentaEntity(Double precioReventa) {
         this.precioReventa = precioReventa;
-        //this.vendedor = vendedor;
     }
-    
+
     /**
      * Retorna el precio de reventa
+     *
      * @return precioReventa
      */
-    public double getPrecioReventa() 
-    {
-        return precioReventa;
+    public Double getPrecioReventa() {
+        return this.precioReventa;
     }
 
     /**
-     * 
-     * @param precioReventa 
+     *
+     * @param precioReventa
      */
-    public void setPrecioReventa(double precioReventa) 
-    {
+    public void setPrecioReventa(Double precioReventa) {
         this.precioReventa = precioReventa;
-    }
-
-    /**
-     * Retorna el vendedor asociado  
-     * @return vendedor
-     
-    public VendedorEntity getVendedor() 
-    {
-        return vendedor;
-    }
-    */
-
-    /**
-     * 
-     * @param vendedor 
-     */
-    public void setVendedor(VendedorEntity vendedor) 
-    {
-        //this.vendedor = vendedor;
-    }   
+    } 
 }

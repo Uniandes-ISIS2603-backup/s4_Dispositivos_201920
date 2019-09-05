@@ -10,30 +10,72 @@ import javax.persistence.Entity;
 
 /**
  *
- * @author Estudiante
- */@Entity
-public class ClienteEntity extends BaseEntity implements Serializable{
+ * @author Carlos Salazar
+ */
+@Entity
+public class ClienteEntity extends BaseEntity implements Serializable {
+
+    /**
+     * Atributo que modela el nombre del cliente.
+     */
     private String nombre;
+
+    /**
+     * Atributo que modela el apellido del cliente.
+     */
     private String apellido;
+
+    /**
+     * Atributo que modela el email del cliente.
+     */
     private String correoElectronico;
+
+    /**
+     * Atributo que modela la cedula del cliente.
+     */
     private Double cedula;
+
+    /**
+     * Atributo que modela la direcciòn del cliente.
+     */
     private String direccion;
+
+    /**
+     * Atributo que modela el usuario del cliente.
+     */
     private String usuario;
+    /**
+     * Atributo que modela la contraseña del cliente .
+     */
     private String contrasena;
-    
-    public ClienteEntity()
-    {
+
+    /**
+     * Constructor creado vacio para no tener problemas al implementar
+     * Serializable
+     */
+    public ClienteEntity() {
     }
-     
-    public ClienteEntity(String pNombre, String pApellido, String pCorreoElectronico, Double pCedula, String pDireccion, String pUsuario, String pContraseña)
-    {
-     this.nombre=pNombre;
-     this.apellido=pApellido;
-     this.correoElectronico=pCorreoElectronico;
-     this.cedula=pCedula;
-     this.direccion=pDireccion;
-     this.usuario=pUsuario;
-     this.contrasena=pContraseña;
+
+    /**
+     * Crea un nuevo ClienteEntity.
+     *
+     * @param pNombre nombre a establecer.
+     * @param pApellido apellido a establecer.
+     * @param pCorreoElectronico correo a establecer.
+     * @param pCedula cedula a establecer
+     * @param pDireccion dirección a establecer.
+     * @param pUsuario usuario a estableer.
+     * @param pContrasena contrasena a establecer
+     *
+     */
+    public ClienteEntity(String pNombre, String pApellido, String pCorreoElectronico, Double pCedula, String pDireccion, String pUsuario, String pContrasena) {
+        this.nombre = pNombre;
+        this.apellido = pApellido;
+        this.correoElectronico = pCorreoElectronico;
+        this.cedula = pCedula;
+        this.direccion = pDireccion;
+        this.usuario = pUsuario;
+        this.contrasena = pContrasena;
     }
 
     /**
@@ -51,17 +93,17 @@ public class ClienteEntity extends BaseEntity implements Serializable{
     }
 
     /**
-     * @return the apellido
+     * @return the contrasena
      */
-    public String getApellido() {
-        return apellido;
+    public String getContrasena() {
+        return contrasena;
     }
 
     /**
-     * @param apellido the apellido to set
+     * @param contrasena the contrasena to set
      */
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     /**
@@ -93,6 +135,20 @@ public class ClienteEntity extends BaseEntity implements Serializable{
     }
 
     /**
+     * @return the apellido
+     */
+    public String getApellido() {
+        return apellido;
+    }
+
+    /**
+     * @param apellido the apellido to set
+     */
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    /**
      * @return the direccion
      */
     public String getDireccion() {
@@ -121,38 +177,27 @@ public class ClienteEntity extends BaseEntity implements Serializable{
     }
 
     /**
-     * @return the contrasena
+     * Metodo no usado
+     *
+     * @param obj Object que se compara.
+     * @return despreciado.
+     * @Ddeprecated (solo arregla code smell)
      */
-    public String getContrasena() {
-        return contrasena;
+    @Override
+    @Deprecated
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
     /**
-     * @param contrasena the contrasena to set
+     * Metodo no usado
+     *
+     * @return nada.
+     * @Ddeprecated (solo arregla code smell)
      */
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
-        @Override
-    public boolean equals(Object obj)
-    {
-        boolean resp = super.equals(this);
-        final ClienteEntity other = (ClienteEntity) obj;
-        
-        if(!resp)
-        {
-            return false;
-        }
-        else
-        {
-            if(this.apellido.equalsIgnoreCase(other.apellido))
-                if(this.cedula == other.cedula && this.nombre.equalsIgnoreCase(other.nombre))
-                    if(this.correoElectronico.equalsIgnoreCase(other.correoElectronico) && this.direccion.equalsIgnoreCase(other.direccion))
-                        if(this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena))
-                            return true;
-
-            return false;
-        }
+    @Override
+    @Deprecated
+    public int hashCode() {
+        return super.hashCode();
     }
 }
