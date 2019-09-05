@@ -120,6 +120,12 @@ public class DispositivoPersistenceTest {
         Assert.assertEquals(dispositivo.isPromocion(), entity.isPromocion());
 
         Assert.assertArrayEquals(dispositivo.getImagenes().getLinks(), entity.getImagenes().getLinks());
+        
+        Assert.assertEquals(dispositivo.isUsado(), entity.isUsado());
+        
+        Assert.assertEquals(dispositivo.getFactura(), entity.getFactura());
+        
+        
     }
 
     /**
@@ -159,6 +165,10 @@ public class DispositivoPersistenceTest {
         Assert.assertEquals(dispositivo.isPromocion(), newEntity.isPromocion());
 
         Assert.assertArrayEquals(dispositivo.getImagenes().getLinks(), newEntity.getImagenes().getLinks());
+        
+        Assert.assertEquals(dispositivo.isUsado(), newEntity.isUsado());
+        
+        Assert.assertEquals(dispositivo.getFactura(), newEntity.getFactura());
     }
 
     @Test
@@ -219,6 +229,10 @@ public class DispositivoPersistenceTest {
         Assert.assertEquals(newEntity.isPromocion(), resp.isPromocion());
 
         Assert.assertArrayEquals(newEntity.getImagenes().getLinks(), resp.getImagenes().getLinks());
+        
+        Assert.assertEquals(newEntity.isUsado(), resp.isUsado());
+        
+        Assert.assertEquals(newEntity.getFactura(), resp.getFactura());
     }
 
     /**
