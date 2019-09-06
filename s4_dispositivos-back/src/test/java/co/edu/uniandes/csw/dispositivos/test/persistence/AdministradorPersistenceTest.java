@@ -181,8 +181,6 @@ public class AdministradorPersistenceTest {
 
         Assert.assertEquals("usuarioPrueba", newEntity.getUsuario());
         Assert.assertEquals("Hola1234", newEntity.getContrasena());
-        Assert.assertEquals("correo@uniandes.edu.co", newEntity.getContrasena());
-
+        Assert.assertEquals("correo@uniandes.edu.co", newEntity.getCorreo());
     }
-
 }
