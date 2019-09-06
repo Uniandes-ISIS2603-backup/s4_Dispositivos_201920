@@ -23,6 +23,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     private String nombre;
     
     private MediaEntity imagenes;
+    private FacturaEntity factura; 
 
     private double precio;
     private double precioImportacion;
@@ -30,6 +31,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
 
     private boolean promocion;
     private boolean enStock;
+    private boolean usado; 
 
     /**
      * Constructor vacio. Necesario para su implementacion en la DB
@@ -54,7 +56,9 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
   * @param enStock 
   */
     public DispositivoEntity(String modelo, String descripcion, String nombre, 
-            MediaEntity imagenes, double precio, double precioImportacion, double descuento, boolean promocion, boolean enStock) {
+            MediaEntity imagenes, double precio, double precioImportacion, double descuento, boolean promocion, boolean enStock, 
+            FacturaEntity factura, boolean usado) 
+    {
         
         this.modelo = modelo;
         this.descripcion = descripcion; 
@@ -65,6 +69,8 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         this.descuento = descuento; 
         this.promocion = promocion; 
         this.enStock = enStock;
+        this.usado = usado; 
+        this.factura = factura; 
     }
 
     /**
@@ -106,6 +112,14 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     public boolean isPromocion() {
         return promocion;
     }
+    
+    public boolean isUsado(){
+        return usado; 
+    }
+    
+    public FacturaEntity getFactura(){
+        return factura; 
+    }
 
     //Setters
     public void setNombre(String nombre) {
@@ -142,6 +156,14 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
 
     public void setPromocion(boolean promocion) {
         this.promocion = promocion;
+    }
+    
+    public void setUsado(boolean usado){
+        this.usado = usado; 
+    }
+    
+    public void setFactura(FacturaEntity factura){
+        this.factura = factura; 
     }
     
     /**
