@@ -118,18 +118,15 @@ public class DispositivoPersistenceTest {
 
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(dispositivo.isPromocion(), entity.isPromocion());
-
-<<<<<<< HEAD
+         
         Assert.assertEquals(dispositivo.getImagenes().getLink(), entity.getImagenes().getLink());
-=======
-        Assert.assertArrayEquals(dispositivo.getImagenes().getLinks(), entity.getImagenes().getLinks());
+
+        Assert.assertEquals(dispositivo.getImagenes().getLink(), entity.getImagenes().getLink());
         
         Assert.assertEquals(dispositivo.isUsado(), entity.isUsado());
         
         Assert.assertEquals(dispositivo.getFactura(), entity.getFactura());
         
-        
->>>>>>> bf0c663bad2b3ebe8d2d5ab1644d343d17886b3e
     }
 
     /**
@@ -168,15 +165,13 @@ public class DispositivoPersistenceTest {
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(dispositivo.isPromocion(), newEntity.isPromocion());
 
-<<<<<<< HEAD
         Assert.assertEquals(dispositivo.getImagenes().getLink(), newEntity.getImagenes().getLink());
-=======
-        Assert.assertArrayEquals(dispositivo.getImagenes().getLinks(), newEntity.getImagenes().getLinks());
+        
+        Assert.assertEquals(dispositivo.getImagenes().getLink(), newEntity.getImagenes().getLink());
         
         Assert.assertEquals(dispositivo.isUsado(), newEntity.isUsado());
         
         Assert.assertEquals(dispositivo.getFactura(), newEntity.getFactura());
->>>>>>> bf0c663bad2b3ebe8d2d5ab1644d343d17886b3e
     }
 
     @Test
@@ -236,15 +231,13 @@ public class DispositivoPersistenceTest {
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(newEntity.isPromocion(), resp.isPromocion());
 
-<<<<<<< HEAD
         Assert.assertEquals(newEntity.getImagenes().getLink(), resp.getImagenes().getLink());
-=======
-        Assert.assertArrayEquals(newEntity.getImagenes().getLinks(), resp.getImagenes().getLinks());
+
+        Assert.assertEquals(newEntity.getImagenes().getLink(), resp.getImagenes().getLink());
         
         Assert.assertEquals(newEntity.isUsado(), resp.isUsado());
         
         Assert.assertEquals(newEntity.getFactura(), resp.getFactura());
->>>>>>> bf0c663bad2b3ebe8d2d5ab1644d343d17886b3e
     }
 
     /**
