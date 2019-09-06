@@ -17,6 +17,10 @@ public class AdministradorEntity extends BaseEntity
      */
     private String contrasena;
     /**
+     * Correo institucional
+     */
+    private String correo;
+    /**
      * Constructor vacio para Serializable
      */
     public AdministradorEntity()
@@ -26,9 +30,10 @@ public class AdministradorEntity extends BaseEntity
      * @param pUsuario usuario de indetificacion
      * @param pContrasena contrasena de verificacion
      */
-    public AdministradorEntity(String pUsuario, String pContrasena)
+    public AdministradorEntity(String pUsuario, String pContrasena, String pCorreo)
     {
         this.usuario = pUsuario;
+        this.correo = pCorreo;
         this.contrasena = pContrasena;
     }
     /**
@@ -63,6 +68,22 @@ public class AdministradorEntity extends BaseEntity
     {
         this.contrasena = pContrasena;
     } 
+    /**
+     * Retorna la correo
+     * @return correo
+     */
+    public String getCorreo()
+    {
+        return correo;
+    }
+    /**
+     * Modifica la correo
+     * @param pCorreo nuevo correo
+     */
+    public void setCorreo(String pCorreo) 
+    {
+        this.correo = pCorreo;
+    }
     /**
      * Metodo no usado 
      * @param obj Object que se compara.
