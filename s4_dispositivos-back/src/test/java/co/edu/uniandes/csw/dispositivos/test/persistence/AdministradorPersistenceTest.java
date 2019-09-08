@@ -21,6 +21,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  * Test de persistencia de la clase AdminstradorEntity
+ * @author Dianis Caro
  */
 @RunWith(Arquillian.class)
 public class AdministradorPersistenceTest {
@@ -75,6 +76,7 @@ public class AdministradorPersistenceTest {
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
         Assert.assertEquals(newEntity.getContrasena(), entity.getContrasena());
+        Assert.assertEquals(newEntity.getCorreo(), entity.getCorreo());
     }
 
     /**
@@ -134,6 +136,8 @@ public class AdministradorPersistenceTest {
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
         Assert.assertEquals(newEntity.getContrasena(), entity.getContrasena());
+        Assert.assertEquals(newEntity.getCorreo(), entity.getCorreo());
+
     }
 
     /**
@@ -154,6 +158,7 @@ public class AdministradorPersistenceTest {
         Assert.assertEquals(newEntity.getId(), resp.getId());
         Assert.assertEquals(newEntity.getUsuario(), resp.getUsuario());
         Assert.assertEquals(newEntity.getContrasena(), resp.getContrasena());
+        Assert.assertEquals(newEntity.getCorreo(), resp.getCorreo());
     }
 
     /**
@@ -172,11 +177,10 @@ public class AdministradorPersistenceTest {
      */
     @Test
     public void testConstructorAdmin() {
-        AdministradorEntity newEntity = new AdministradorEntity("usuarioPrueba", "Hola1234");
+        AdministradorEntity newEntity = new AdministradorEntity("usuarioPrueba", "Hola1234","correo@uniandes.edu.co");
 
         Assert.assertEquals("usuarioPrueba", newEntity.getUsuario());
         Assert.assertEquals("Hola1234", newEntity.getContrasena());
-
+        Assert.assertEquals("correo@uniandes.edu.co", newEntity.getCorreo());
     }
-
 }

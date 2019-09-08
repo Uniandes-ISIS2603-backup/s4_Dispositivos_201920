@@ -22,6 +22,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  * Test de persistencia de la clase ComprobanteDePagoEntity
+ * @author Dianis Caro
  */
 @RunWith(Arquillian.class)
 public class ComprobanteDePagoPersistenceTest {

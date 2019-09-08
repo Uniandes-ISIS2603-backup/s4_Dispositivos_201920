@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 
 /**
  *Clase que corresponde a la tabla BD para clase ComprobanteDePago
+ * @author Dianis Caro
  */
 @Entity 
 public class ComprobanteDePagoEntity extends BaseEntity
@@ -125,5 +126,25 @@ public class ComprobanteDePagoEntity extends BaseEntity
     {
         this.fechaDeFactura = pFecha;
     }
-   
+   /**
+     * Metodo no usado 
+     * @param obj Object que se compara.
+     * @return Despreciado. 
+     * @deprecated (Solo Arregla Code Smell)
+     */
+    @Override
+    @Deprecated
+    public boolean equals(Object obj){
+        return super.equals(obj);
+    }
+    /**
+     * Metodo no usado
+     * @return nada.
+     * @deprecated (Solo Arregla Code Smell)
+     */
+    @Override
+    @Deprecated
+    public int hashCode(){
+        return super.hashCode();
+    }
 }

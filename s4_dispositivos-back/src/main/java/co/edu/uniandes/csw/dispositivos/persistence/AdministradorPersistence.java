@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 /**
  *Persistencia de la clase AdminstradorEntity
+ * @author Dianis Caro
  */
 @Stateless
 public class AdministradorPersistence 
