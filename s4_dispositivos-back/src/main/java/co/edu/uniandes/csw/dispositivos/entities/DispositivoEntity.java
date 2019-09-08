@@ -31,6 +31,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
 
     private boolean promocion;
     private boolean enStock;
+    private boolean esImportado; 
     private boolean usado; 
 
     /**
@@ -57,7 +58,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
   */
     public DispositivoEntity(String modelo, String descripcion, String nombre, 
             MediaEntity imagenes, double precio, double precioImportacion, double descuento, boolean promocion, boolean enStock, 
-            FacturaEntity factura, boolean usado) 
+            FacturaEntity factura, boolean usado, boolean esImportado) 
     {
         
         this.modelo = modelo;
@@ -71,12 +72,9 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         this.enStock = enStock;
         this.usado = usado; 
         this.factura = factura; 
+        this.esImportado = esImportado;
     }
 
-    /**
-     * Metodos
-     */
-    //Getters 
     public String getModelo() {
         return modelo;
     }
@@ -93,6 +91,10 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         return imagenes;
     }
 
+    public FacturaEntity getFactura() {
+        return factura;
+    }
+
     public double getPrecio() {
         return precio;
     }
@@ -105,67 +107,72 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         return descuento;
     }
 
+    public boolean isPromocion() {
+        return promocion;
+    }
+
     public boolean isEnStock() {
         return enStock;
     }
 
-    public boolean isPromocion() {
-        return promocion;
-    }
-    
-    public boolean isUsado(){
-        return usado; 
-    }
-    
-    public FacturaEntity getFactura(){
-        return factura; 
+    public boolean isEsImportado() {
+        return esImportado;
     }
 
-    //Setters
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public void setImagenes(MediaEntity imagenes) {
-        this.imagenes = imagenes;
+    public boolean isUsado() {
+        return usado;
     }
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
 
-    public void setDescuento(double descuento) {
-        this.descuento = descuento;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public void setPrecioImportacion(double precioImportacion) {
-        this.precioImportacion = precioImportacion;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setImagenes(MediaEntity imagenes) {
+        this.imagenes = imagenes;
+    }
+
+    public void setFactura(FacturaEntity factura) {
+        this.factura = factura;
     }
 
     public void setPrecio(double precio) {
         this.precio = precio;
     }
 
-    public void setEnStock(boolean enStock) {
-        this.enStock = enStock;
+    public void setPrecioImportacion(double precioImportacion) {
+        this.precioImportacion = precioImportacion;
+    }
+
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
     }
 
     public void setPromocion(boolean promocion) {
         this.promocion = promocion;
     }
-    
-    public void setUsado(boolean usado){
-        this.usado = usado; 
+
+    public void setEnStock(boolean enStock) {
+        this.enStock = enStock;
     }
-    
-    public void setFactura(FacturaEntity factura){
-        this.factura = factura; 
+
+    public void setEsImportado(boolean esImportado) {
+        this.esImportado = esImportado;
     }
-    
+
+    public void setUsado(boolean usado) {
+        this.usado = usado;
+    }
+
+
+
     /**
      * Metodo no usado 
      * @param obj Object que se compara.
@@ -174,7 +181,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      */
     @Override
     @Deprecated
-    public boolean equals(Object obj){
+    public boolean equals(Object obj) {
         return super.equals(obj);
     }
     
