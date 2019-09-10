@@ -66,7 +66,7 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
         this.comentarios = comentarios;
     }
 }
-<<<<<<< HEAD
+
     
     
 
