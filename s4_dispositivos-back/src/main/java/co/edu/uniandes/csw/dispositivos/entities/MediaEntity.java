@@ -35,4 +35,22 @@ public class MediaEntity extends BaseEntity implements Serializable {
     public void setLinks(List<String> links) {
         this.links = links;
     }
+    
+    @Override
+    public boolean equals(Object obj){
+        boolean resp= super.equals(this);
+        boolean fin =false;
+        final MediaEntity other=(MediaEntity) obj;
+        
+        if(!resp){
+            return fin;
+        }
+        else{
+            if(this.getLinks()==other.getLinks()){
+                fin=true;
+            }
+        }
+        return fin;
+    }
 }
+

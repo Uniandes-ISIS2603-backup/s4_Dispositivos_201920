@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import javax.persistence.Entity;
 
 /**
@@ -50,5 +51,27 @@ public class CalificacionEntity extends BaseEntity implements Serializable{
         this.comentarios = comentarios;
     }
     
+    @Override
+    public boolean equals(Object obj){
+        boolean resp= super.equals(this);
+        boolean fin =false;
+        final CalificacionEntity other=(CalificacionEntity) obj;
+        
+        if(!resp){
+            return fin;
+        }
+        else{
+            if(this.getCalificacionNumerica()==other.getCalificacionNumerica()){
+                fin=true;
+                return fin;
+            }
+             else if(Arrays.equals(this.getComentarios(), other.getComentarios()))//.equals(equals())){
+                fin=true;
+                return fin;
+                }
+        }
+            
+    }
     
-}
+    
+
