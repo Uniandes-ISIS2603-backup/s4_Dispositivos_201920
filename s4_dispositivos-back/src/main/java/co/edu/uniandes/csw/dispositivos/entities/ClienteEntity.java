@@ -6,7 +6,13 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
+import javax.mail.internet.InternetAddress;
 import javax.persistence.Entity;
+import uk.co.jemos.podam.common.AttributeStrategy;
+import uk.co.jemos.podam.common.PodamDoubleValue;
+import uk.co.jemos.podam.common.PodamExclude;
+import uk.co.jemos.podam.common.PodamStrategyValue;
+import uk.co.jemos.podam.exceptions.PodamMockeryException;
 
 /**
  *
@@ -28,11 +34,13 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     /**
      * Atributo que modela el email del cliente.
      */
+    //@PodamStrategyValue(emailStrategy.class)
     private String correoElectronico;
 
     /**
      * Atributo que modela la cedula del cliente.
      */
+    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
     private Double cedula;
 
     /**
@@ -110,6 +118,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
      * @return the correoElectronico
      */
     public String getCorreoElectronico() {
+        System.out.println(correoElectronico);
         return correoElectronico;
     }
 
@@ -199,5 +208,16 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     @Deprecated
     public int hashCode() {
         return super.hashCode();
+    }
+
+    private static class emailStrategy implements AttributeStrategy<String> {
+
+        @Override
+        /**
+         * Retorna un email válido.
+         */
+        public String getValue() throws PodamMockeryException {
+            return new InternetAddress().getAddress();
+        }
     }
 }

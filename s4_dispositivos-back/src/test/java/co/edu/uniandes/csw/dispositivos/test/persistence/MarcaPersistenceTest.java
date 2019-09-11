@@ -158,4 +158,17 @@ public class MarcaPersistenceTest {
         Assert.assertEquals(marcaPrueba3.hashCode(), marcaPrueba3.hashCode());
         Assert.assertTrue(marcaPrueba.equals(marcaPrueba2));
     }
+
+    /**
+     * Prueba para encontrar una marca por su nombre.
+     */
+    @Test
+    public void buscarMarcaPorNombreTest() {
+        MarcaEntity marcaPrueba = new MarcaEntity("marcaPrueba", "marcaLogo.png");
+        mp.create(marcaPrueba);
+        Assert.assertNotNull(mp.findByNombre("marcaPrueba"));
+        Assert.assertNull(mp.findByNombre("marcaPruebe"));
+        Assert.assertEquals("marcaLogo.png", marcaPrueba.getImagen());
+        Assert.assertEquals("marcaPrueba", marcaPrueba.getNombreMarca());
+    }
 }

@@ -71,4 +71,26 @@ public class ClientePersistence {
         ClienteEntity clienteEntity = em.find(ClienteEntity.class, clienteId);
         em.remove(clienteEntity);
     }
+
+    /**
+     * Busca si hay algùn cliente con la cèdula que se envía de argumento
+     *
+     * @param cedula: cèdula del cliente que se está buscando
+     * @return null si no existe ningùn cliente con el código del parametro. Si
+     * existe alguna devuelve la primera.
+     */
+    public ClienteEntity findByCedula(Double cedula) {
+        TypedQuery query = em.createQuery("Select c From ClienteEntity c where c.cedula = :cedula", ClienteEntity.class);
+        query = query.setParameter("cedula", cedula);
+        List<ClienteEntity> sameCode = query.getResultList();
+        ClienteEntity result;
+        if (sameCode == null) {
+            result = null;
+        } else if (sameCode.isEmpty()) {
+            result = null;
+        } else {
+            result = sameCode.get(0);
+        }
+        return result;
+    }
 }

@@ -166,4 +166,20 @@ public class FacturaPersistenceTest {
         Assert.assertEquals(facturaPrueba.hashCode(), facturaPrueba.hashCode());
         Assert.assertTrue(facturaPrueba.equals(facturaPrueba2));
     }
+
+    /**
+     * Prueba para encontrar una factura por su codigo.
+     */
+    @Test
+    public void buscarFacturaPorCodigoTest() {
+        FacturaEntity facturaPrueba = new FacturaEntity(200, 15.5, 1.3, "Celular");
+        mp.create(facturaPrueba);
+        Assert.assertNotNull(mp.findByCode(200));
+        Assert.assertNull(mp.findByCode(241));
+        assertEquals(200, facturaPrueba.getNumeroDeFactura(), 0);
+        assertEquals(15.5, facturaPrueba.getTotalPago(), 0);
+        assertEquals(1.3, facturaPrueba.getImpuestos(), 0);
+        Assert.assertEquals("Celular", facturaPrueba.getDispositivos());
+
+    }
 }
