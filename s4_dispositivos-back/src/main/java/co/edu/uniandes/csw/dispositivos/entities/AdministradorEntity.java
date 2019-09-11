@@ -24,7 +24,9 @@ public class AdministradorEntity extends BaseEntity
      * Constructor vacio para Serializable
      */
     public AdministradorEntity()
-    {}
+    {
+       //Clase constructora 
+    }
     /**
      * Constructor de la clase
      * @param pUsuario usuario de indetificacion
