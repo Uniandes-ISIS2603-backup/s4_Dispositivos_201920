@@ -12,7 +12,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- * 
+ * Clase que evalua reglas de negocio para Administrador
  * @author Dianis Caro
  */
 @Stateless
@@ -25,11 +25,20 @@ public class AdministradorLogic
      *
      * @param admin
      * @return
+     * @throws BusinessLogicException
      */
     public AdministradorEntity createAdministrador(AdministradorEntity admin) throws BusinessLogicException
  {
-     
-     admin = persistence.create(admin);
-     return admin;
+     if(admin.getUsuario()==null)
+         throw new BusinessLogicException("El usuario suministrado es nulo");
+     if(admin.getContrasena()==null)
+         throw new BusinessLogicException("La constraseña suministrada es nula");
+     if(admin.getCorreo().endsWith("@wireless.com"))
+         throw new BusinessLogicException("El correo ingresado no es corporativo");
+     else
+     {
+        admin = persistence.create(admin);
+        return admin;
+     }
  }
 }
