@@ -34,6 +34,7 @@ public class ComprobanteDePagoEntity extends BaseEntity
      */
     public ComprobanteDePagoEntity()
     { 
+        //Clase constructora 
     }
     /**
      * Constructor de la clase

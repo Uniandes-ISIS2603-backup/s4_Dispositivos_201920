@@ -21,6 +21,13 @@ public class AdministradorLogic
 {
  @Inject
  private AdministradorPersistence persistence;
+    /**
+     * Constructor de la clase
+     */
+    public AdministradorLogic()
+    {
+        //Clase constructora 
+    }
  
     /**
      *Se encarga de crear un administrador en la base de datos
@@ -75,8 +82,33 @@ public class AdministradorLogic
         AdministradorEntity admin = persistence.find(adminId);
         if (admin == null) 
         {
-            
+            throw new BusinessLogicException("El administrador con el id buscado no existe.");
         }
         return admin;
+    }
+     /**
+     * Actualiza la información de un Administrador
+     * @param adminId: id del Administrador para buscarla en la base de datos.
+     * @param adminEntity: administrador con los cambios para actualizar.
+     * @return el administrador con los cambios actualizados en la base de datos.
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    public AdministradorEntity updateOrganization(Long adminId, AdministradorEntity adminEntity) throws BusinessLogicException
+    {
+        AdministradorEntity admin = persistence.find(adminId);
+        if (admin == null) 
+        {
+            throw new BusinessLogicException("El administrador con el id buscado no existe.");
+        }
+        AdministradorEntity newAuthorEntity = persistence.update(adminEntity);
+        return newAuthorEntity;
+    }
+    /**
+     * Elimina una instancia de Administrador de la base de datos
+     * @param adminId Identificador de la instancia a eliminar
+     */
+    public void deleteAuthor(Long adminId)
+    {
+        persistence.delete(adminId);
     }
 }

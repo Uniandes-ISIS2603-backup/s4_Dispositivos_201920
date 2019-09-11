@@ -9,14 +9,18 @@ import co.edu.uniandes.csw.dispositivos.ejb.AdministradorLogic;
 import co.edu.uniandes.csw.dispositivos.entities.AdministradorEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.AdministradorPersistence;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -33,9 +37,51 @@ public class AdministradorLogicTest
     
     @PersistenceContext(unitName = "dispositivosPU")
     private EntityManager em;
-    
+
     @Inject 
     private AdministradorLogic adminLogic;
+
+    @Inject
+    private UserTransaction utx;
+
+    private List<AdministradorEntity> data = new ArrayList<AdministradorEntity>();
+    /**
+     * Configuración inicial de la prueba
+     */
+    @Before
+    public void configTest() {
+        try {
+            utx.begin();
+            clearData();
+            insertData();
+            utx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                utx.rollback();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+    /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las pruebas
+     */
+    private void insertData() {
+        for (int i = 0; i < 3; i++) 
+        {
+            AdministradorEntity adminEntity = factory.manufacturePojo(AdministradorEntity.class);
+            adminEntity.setCorreo("correoW"+i+"@wireless.com");
+            em.persist(adminEntity);
+            data.add(adminEntity);
+        }
+    }
+    /**
+     * Limpia las tablas que están implicadas en la prueba
+     */
+    private void clearData() {
+        em.createQuery("delete from AdministradorEntity").executeUpdate();
+    }
     /**
      * Construye el despliegue de la prueba a realizar
      * @return jar, es decir JavaArchive.
@@ -65,9 +111,7 @@ public class AdministradorLogicTest
         Assert.assertEquals(entity.getUsuario(), result.getUsuario());
         Assert.assertEquals(entity.getContrasena(), result.getContrasena());
         Assert.assertEquals(entity.getCorreo(), result.getCorreo());
-
     }
-    
     /**
      * Test para crear un administrador sin usuario
      * @throws BusinessLogicException si una regla de negocio no se cumple
@@ -146,4 +190,5 @@ public class AdministradorLogicTest
         adminEntity2.setUsuario("admin");
         adminLogic.createAdministrador(adminEntity2);
     }
+    
 }
