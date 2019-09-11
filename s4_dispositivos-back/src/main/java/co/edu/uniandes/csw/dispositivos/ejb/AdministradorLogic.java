@@ -93,7 +93,7 @@ public class AdministradorLogic
      * @return el administrador con los cambios actualizados en la base de datos.
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
-    public AdministradorEntity updateOrganization(Long adminId, AdministradorEntity adminEntity) throws BusinessLogicException
+    public AdministradorEntity updateAdministrador(Long adminId, AdministradorEntity adminEntity) throws BusinessLogicException
     {
         AdministradorEntity admin = persistence.find(adminId);
         if (admin == null) 
@@ -107,7 +107,7 @@ public class AdministradorLogic
      * Elimina una instancia de Administrador de la base de datos
      * @param adminId Identificador de la instancia a eliminar
      */
-    public void deleteAuthor(Long adminId)
+    public void deleteAdministrador(Long adminId)
     {
         persistence.delete(adminId);
     }
