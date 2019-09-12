@@ -54,18 +54,18 @@ public class ComprobanteDePagoLogic
      * @return el ComprobanteDePago con los cambios actualizados en la base de datos.
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
-     public ComprobanteDePagoEntity updateAdministrador(Long comprobanteId, ComprobanteDePagoEntity comprobanteEntity) throws BusinessLogicException {
+     public ComprobanteDePagoEntity updateComprobanteDePago(Long comprobanteId, ComprobanteDePagoEntity comprobanteEntity) throws BusinessLogicException {
         if (comprobanteEntity.getNumeroDeFactura()<=0) 
             throw new BusinessLogicException("El número de factura del Comprobante de pago está vacío o es negativo");
-        if (comprobanteEntity.getTotalDePago()<=0)
-            throw new BusinessLogicException("El total a pagar del Comprobante está en cero o es negativo");
+        if (0>=comprobanteEntity.getTotalDePago())
+            throw new BusinessLogicException("El total a pagar del Comprobante está en cero o es negativo ");
         if (comprobanteEntity.getImpuestos()<=0)
             throw new BusinessLogicException("Los impuestos del Comprobante están en cero o es negativo");
         if(comprobanteEntity.getFechaDeFactura()==null)
             throw new BusinessLogicException("La fecha del Comprobante está vacía");
         if(comprobanteEntity.getNumeroDeTarjeta()==null || comprobanteEntity.getNumeroDeTarjeta().trim().equals(""))
             throw new BusinessLogicException("No se ha registrado el número de tarjeta");
-        if(comprobanteEntity.getNumeroDeTarjeta().length()==16)
+        if(comprobanteEntity.getNumeroDeTarjeta().length()!=16)
             throw new BusinessLogicException("El número de tarjeta no cuenta con 16 dígitos");
         if (persistence.findByNumFactura(comprobanteEntity.getNumeroDeFactura()) != null)
             throw new BusinessLogicException("Ya existe una comprobante de pago con el mismo número de factura");
@@ -98,7 +98,7 @@ public class ComprobanteDePagoLogic
             throw new BusinessLogicException("La fecha del Comprobante está vacía");
         if(comprobanteEntity.getNumeroDeTarjeta()==null || comprobanteEntity.getNumeroDeTarjeta().trim().equals(""))
             throw new BusinessLogicException("No se ha registrado el número de tarjeta");
-        if(comprobanteEntity.getNumeroDeTarjeta().length()==16)
+        if(16!=comprobanteEntity.getNumeroDeTarjeta().length())
             throw new BusinessLogicException("El número de tarjeta no cuenta con 16 dígitos");
         if (persistence.findByNumFactura(comprobanteEntity.getNumeroDeFactura()) != null)
             throw new BusinessLogicException("Ya existe una comprobante de pago con el mismo número de factura");

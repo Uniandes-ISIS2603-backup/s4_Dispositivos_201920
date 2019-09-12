@@ -147,7 +147,7 @@ public class ComprobanteDePagoLogicTest
         ComprobanteDePagoEntity entity = data.get(0);
         ComprobanteDePagoEntity pojoEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
         pojoEntity.setId(entity.getId());
-        comprobanteLogic.updateAdministrador(pojoEntity.getId(), pojoEntity);
+        comprobanteLogic.updateComprobanteDePago(pojoEntity.getId(), pojoEntity);
         ComprobanteDePagoEntity resp = em.find(ComprobanteDePagoEntity.class, entity.getId());
         Assert.assertNotNull(resp);
         Assert.assertEquals(resp.getId(), entity.getId());
@@ -157,5 +157,26 @@ public class ComprobanteDePagoLogicTest
         Assert.assertEquals(resp.getNumeroDeFactura(), entity.getNumeroDeFactura());
         Assert.assertEquals(resp.getNumeroDeTarjeta(), entity.getNumeroDeTarjeta());
         Assert.assertEquals(resp.getTotalDePago(), entity.getTotalDePago(), 0);
+    }
+    /**
+     * Test para crear un ComprobanteDePago con todas las reglas de negocio
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test
+    public  void createAdministrador() throws BusinessLogicException
+    {
+        ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+        ComprobanteDePagoEntity result = comprobanteLogic.createComprobante(comprobanteEntity);
+        Assert.assertNotNull(result);
+        
+        ComprobanteDePagoEntity entity = em.find(ComprobanteDePagoEntity.class, result.getId());
+        Assert.assertNotNull(entity);
+        Assert.assertEquals(entity.getId(), result.getId());
+        Assert.assertEquals(entity.getFechaDeFactura(), result.getFechaDeFactura());
+        Assert.assertEquals(entity.getId(), result.getId());
+        Assert.assertEquals(entity.getImpuestos(), result.getImpuestos(), 0);
+        Assert.assertEquals(entity.getNumeroDeFactura(), result.getNumeroDeFactura());
+        Assert.assertEquals(entity.getNumeroDeTarjeta(), result.getNumeroDeTarjeta());
+        Assert.assertEquals(entity.getTotalDePago(), result.getTotalDePago(), 0);
     }
 }

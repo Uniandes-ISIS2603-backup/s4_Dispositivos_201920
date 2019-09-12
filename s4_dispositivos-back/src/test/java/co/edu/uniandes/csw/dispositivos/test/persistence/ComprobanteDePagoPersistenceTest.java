@@ -183,14 +183,13 @@ public class ComprobanteDePagoPersistenceTest {
     }
 
     /**
-     * Prueba del constructor Admin
+     * Prueba del constructor Comprobante
      */
     @Test
-    public void testConstructorAdmin() {
+    public void testConstructorComprobante() {
         Date date = new Date();
         ComprobanteDePagoEntity newEntity = new ComprobanteDePagoEntity(123, 100.500, 13.456, "0", date);
-
-        Assert.assertEquals(123, newEntity.getNumeroDeFactura());
+        Assert.assertEquals(123, newEntity.getNumeroDeFactura(),0);
         Assert.assertEquals(13.456, newEntity.getImpuestos(), 0);
         Assert.assertEquals(100.500, newEntity.getTotalDePago(), 0);
         Assert.assertEquals("0", newEntity.getNumeroDeTarjeta());

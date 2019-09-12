@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamDoubleValue;
+import uk.co.jemos.podam.common.PodamIntValue;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
@@ -17,14 +19,17 @@ public class ComprobanteDePagoEntity extends BaseEntity
     /**
      * Numero de factura emitido
      */
-    private int numeroDeFactura;
+    @PodamIntValue(minValue = 1, maxValue = Integer.MAX_VALUE)
+    private Integer numeroDeFactura;
     /**
      * Total pagado en la transacción por los dispositivos
      */
+    @PodamDoubleValue(minValue = 1, maxValue = Double.MAX_VALUE)
     private double totalPago;
     /**
      * Impuestos generados a los productos
      */
+    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
     private double impuestos;
     /**
      * Número de tarjeta con el cual se genero la compra
@@ -52,7 +57,7 @@ public class ComprobanteDePagoEntity extends BaseEntity
      * @param pNumeroDeTarjeta numero de tarjeta con la cual se genro la compra
      * @param pFechaDeFac fecha de compra de los dispositivos
      */
-    public ComprobanteDePagoEntity(int pNumeroFac, double pTotalPago, double pImpuesto, String pNumeroDeTarjeta, Date pFechaDeFac)
+    public ComprobanteDePagoEntity(Integer pNumeroFac, double pTotalPago, double pImpuesto, String pNumeroDeTarjeta, Date pFechaDeFac)
     {
         this.numeroDeFactura = pNumeroFac;
         this.totalPago = pTotalPago;
@@ -64,14 +69,14 @@ public class ComprobanteDePagoEntity extends BaseEntity
      * Retorna el numero de facturacion
      * @return numero de factura solicitado
      */
-    public int getNumeroDeFactura() {
+    public Integer getNumeroDeFactura() {
         return numeroDeFactura;
     }
     /**
      * Modifica el numero de facturacion
      * @param pNumFac nuevo numero de factura
      */
-    public void setNumeroDeFactura(int pNumFac) 
+    public void setNumeroDeFactura(Integer pNumFac) 
     {
         this.numeroDeFactura = pNumFac;
     }
