@@ -18,8 +18,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -157,5 +155,18 @@ public class MarcaPersistenceTest {
         Assert.assertEquals("marcaPrueba", marcaPrueba.getNombreMarca());
         Assert.assertEquals(marcaPrueba3.hashCode(), marcaPrueba3.hashCode());
         Assert.assertTrue(marcaPrueba.equals(marcaPrueba2));
+    }
+
+    /**
+     * Prueba para encontrar una marca por su nombre.
+     */
+    @Test
+    public void buscarMarcaPorNombreTest() {
+        MarcaEntity marcaPrueba = new MarcaEntity("marcaPrueba", "marcaLogo.png");
+        mp.create(marcaPrueba);
+        Assert.assertNotNull(mp.findByNombre("marcaPrueba"));
+        Assert.assertNull(mp.findByNombre("marcaPruebe"));
+        Assert.assertEquals("marcaLogo.png", marcaPrueba.getImagen());
+        Assert.assertEquals("marcaPrueba", marcaPrueba.getNombreMarca());
     }
 }

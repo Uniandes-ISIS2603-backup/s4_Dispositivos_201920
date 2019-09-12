@@ -188,6 +188,5 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     public int hashCode(){
         return super.hashCode();
     }
-    
 
 }

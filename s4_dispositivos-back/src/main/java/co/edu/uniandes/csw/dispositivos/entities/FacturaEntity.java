@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import uk.co.jemos.podam.common.PodamDoubleValue;
+import uk.co.jemos.podam.common.PodamIntValue;
 
 /**
  *
@@ -18,16 +20,19 @@ public class FacturaEntity extends BaseEntity implements Serializable {
     /**
      * Atributo que modela el numero de la factura.
      */
+    @PodamIntValue(minValue = 1, maxValue = Integer.MAX_VALUE)
     private Integer numeroDeFactura;
 
     /**
      * Atributo que modela el total del pago de la factura.
      */
+    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
     private Double totalPago;
 
     /**
      * Atributo que modela el porcentaje de impuestos de la factura.
      */
+    @PodamDoubleValue(minValue = 0.0, maxValue = Double.MAX_VALUE)
     private Double impuestos;
 
     /**
@@ -48,7 +53,7 @@ public class FacturaEntity extends BaseEntity implements Serializable {
      * @param pNumeroDeFactura numero de factura a establecer.
      * @param pTotalPago pago total a establecer.
      * @param pImpuestos valor de impuestos a establecer.
-     * @param pDispositivios dispositivos a establecer.
+     * @param pDispositivos dispositivos a establecer.
      */
     public FacturaEntity(Integer pNumeroDeFactura, Double pTotalPago, Double pImpuestos, String pDispositivos) {
         this.numeroDeFactura = pNumeroDeFactura;

@@ -13,8 +13,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
-import org.hamcrest.core.IsEqual;
-import org.hamcrest.core.IsNot;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -97,7 +95,7 @@ public class MediaPersistenceTest {
         Assert.assertNotNull(ce);
         MediaEntity entity = em.find(MediaEntity.class, ce.getId());
 
-        Assert.assertEquals(newEntity.getLinks(), entity.getLinks());
+        Assert.assertEquals(newEntity.getLink(), entity.getLink());
     }
 
     @Test
@@ -126,7 +124,7 @@ public class MediaPersistenceTest {
         mp.update(newEntity);
 
         MediaEntity resp = em.find(MediaEntity.class, entity.getId());
-        Assert.assertArrayEquals(newEntity.getLinks(), resp.getLinks());
+        Assert.assertEquals(newEntity.getLink(), resp.getLink());
 
     }
 
