@@ -1,6 +1,11 @@
 package co.edu.uniandes.csw.dispositivos.entities;
+import co.edu.uniandes.csw.dispositivos.podam.DateStrategy;
+import co.edu.uniandes.csw.dispositivos.podam.NumeroDeTarjetaStrategy;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *Clase que corresponde a la tabla BD para clase ComprobanteDePago
@@ -24,10 +29,13 @@ public class ComprobanteDePagoEntity extends BaseEntity
     /**
      * Número de tarjeta con el cual se genero la compra
      */
+    @PodamStrategyValue(NumeroDeTarjetaStrategy.class)
     private String numeroDeTarjeta;
     /**
      * Fecha de compra de los dispositivos electronicos
      */
+    @Temporal(TemporalType.DATE)
+    @PodamStrategyValue(DateStrategy.class)
     private Date fechaDeFactura;
     /**
      * Constructor vacio para Serializable

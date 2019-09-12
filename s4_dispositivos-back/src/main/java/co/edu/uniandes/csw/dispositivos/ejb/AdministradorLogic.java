@@ -33,7 +33,7 @@ public class AdministradorLogic
      *Se encarga de crear un administrador en la base de datos
      * @param admin Objeto de AdministadorEntity con los datos nuevos
      * @return Objeto de AmdinistorEntity con los datos nuevos y su ID
-     * @throws BusinessLogicException Cuando se cumple una de las reglas de negocio
+     * @throws BusinessLogicException Cuando no se cumple una de las reglas de negocio
      *         1. Usuario es nulo
      *         2. La contraseña es nula
      *         3. El correo suministrado no termina en @wireless.com

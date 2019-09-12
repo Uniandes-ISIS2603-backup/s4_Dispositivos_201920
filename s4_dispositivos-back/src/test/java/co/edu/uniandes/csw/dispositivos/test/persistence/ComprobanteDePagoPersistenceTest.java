@@ -196,5 +196,21 @@ public class ComprobanteDePagoPersistenceTest {
         Assert.assertEquals("0", newEntity.getNumeroDeTarjeta());
         Assert.assertEquals(date, newEntity.getFechaDeFactura());
     }
-
+    /**
+     * Prueba para consultar un comprobante de pago por número de factura
+     */
+    @Test
+    public void testFindByNumFactura() 
+    {
+        ComprobanteDePagoEntity entity = data.get(0);
+        ComprobanteDePagoEntity newEntity = mp.findByNumFactura(entity.getNumeroDeFactura());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getFechaDeFactura(), entity.getFechaDeFactura());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getImpuestos(), entity.getImpuestos(), 0);
+        Assert.assertEquals(newEntity.getNumeroDeFactura(), entity.getNumeroDeFactura());
+        Assert.assertEquals(newEntity.getNumeroDeTarjeta(), entity.getNumeroDeTarjeta());
+        Assert.assertEquals(newEntity.getTotalDePago(), entity.getTotalDePago(), 0);
+    }
 }
