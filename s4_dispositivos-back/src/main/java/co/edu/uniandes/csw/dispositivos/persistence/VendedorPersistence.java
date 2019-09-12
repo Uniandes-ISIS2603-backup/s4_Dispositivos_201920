@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -31,6 +32,15 @@ public class VendedorPersistence
     public VendedorEntity find(Long vendedorfID)
     {
         return em.find(VendedorEntity.class, vendedorfID);
+    }
+    
+    public VendedorEntity findByCedula(double idCard)
+    {
+        TypedQuery<VendedorEntity> tq = em.createQuery("select e from VendedorEntity e where e.cedula = :cedula", VendedorEntity.class);
+        tq = tq.setParameter("cedula", idCard); 
+        List<VendedorEntity> cedulaFound = tq.getResultList();
+        VendedorEntity gotten = (cedulaFound == null || cedulaFound.isEmpty()) ? null : cedulaFound.get(0); 
+        return gotten; 
     }
     
     public List<VendedorEntity> findAll()

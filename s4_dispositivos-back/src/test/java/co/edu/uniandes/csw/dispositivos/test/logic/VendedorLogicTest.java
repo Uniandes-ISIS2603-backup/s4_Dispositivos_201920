@@ -9,14 +9,18 @@ import co.edu.uniandes.csw.dispositivos.ejb.VendedorLogic;
 import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.VendedorPersistence;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -47,6 +51,41 @@ public class VendedorLogicTest
     
     @Inject
     private VendedorLogic vrlogic;
+    
+    @Inject
+    UserTransaction utxn;
+
+    private final List<VendedorEntity> vrlist = new ArrayList<>();
+    
+    /**
+     * Establece las configuraciones iniciales del test
+     */
+    @Before
+    public void prepareTest() 
+    {   
+        try 
+        {
+            utxn.begin();
+            vrm.joinTransaction();
+            vrm.createQuery("delete from VendedorEntity").executeUpdate();
+            PodamFactory vrfactory = new PodamFactoryImpl();
+            for (int i = 0; i < 5; i++) 
+            {
+                VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
+                vrm.persist(vendedor);
+                vrlist.add(vendedor);
+            }
+            utxn.commit();
+        } 
+        catch (Exception e1) 
+        {   
+            e1.printStackTrace(); 
+            try
+            { utxn.rollback(); }
+            catch(Exception e2)
+            { e2.printStackTrace();  }
+        }
+    }
     
     @Test
     public void createVendedorTest() throws BusinessLogicException 

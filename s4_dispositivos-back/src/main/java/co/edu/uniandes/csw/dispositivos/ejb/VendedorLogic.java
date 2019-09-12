@@ -24,6 +24,9 @@ public class VendedorLogic
     
     public VendedorEntity createVendedor(VendedorEntity vendedor) throws BusinessLogicException
     {
+        if(vrpersistence.findByCedula(vendedor.getCedula()) != null)
+        { throw new BusinessLogicException("El vendedor ya existe"); }
+        
         if(vendedor==null)
         { throw new BusinessLogicException("Algún campo está vacío"); }
         
@@ -31,12 +34,12 @@ public class VendedorLogic
         return vendedor; 
     }
     
-    public VendedorEntity findVendedor(Long idfVendedor) throws BusinessLogicException
+    public VendedorEntity findByCedulaVendedor(Double cedulaVendedorf) throws BusinessLogicException
     {
-        if(idfVendedor==null)
-        { throw new BusinessLogicException("Algo salió mal"); }
+        if(cedulaVendedorf == null)
+        { throw new BusinessLogicException("No se recibió ninguna cédula"); }
         
-        VendedorEntity obtainedvr = vrpersistence.find(idfVendedor); 
+        VendedorEntity obtainedvr = vrpersistence.findByCedula(cedulaVendedorf); 
         return obtainedvr;
     }
     
@@ -49,17 +52,18 @@ public class VendedorLogic
     public VendedorEntity updateVendedor(VendedorEntity uvrEntity) throws BusinessLogicException
     {
         if(uvrEntity==null)
-        { throw new BusinessLogicException("Algo salió mal"); }
+        { throw new BusinessLogicException("El vendedor no existe"); }
         
         VendedorEntity changedvr = vrpersistence.update(uvrEntity); 
         return changedvr;
     }
     
-    public void deleteVendedor(Long iddVendedor) throws BusinessLogicException
+    public void deleteVendedor(Double cedulaVendedord) throws BusinessLogicException
     {
-        if(iddVendedor==null)
-        { throw new BusinessLogicException("Algo salió mal"); }
+        if(cedulaVendedord ==null)
+        { throw new BusinessLogicException("No se recibió ninguna cédula"); }
         
-        vrpersistence.delete(iddVendedor); 
+        VendedorEntity rejectedvr = vrpersistence.findByCedula(cedulaVendedord);
+        vrpersistence.delete(rejectedvr.getId()); 
     }
 }
