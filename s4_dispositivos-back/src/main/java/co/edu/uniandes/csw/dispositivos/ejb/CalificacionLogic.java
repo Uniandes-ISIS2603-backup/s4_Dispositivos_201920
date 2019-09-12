@@ -8,9 +8,7 @@ package co.edu.uniandes.csw.dispositivos.ejb;
 import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.List;
-import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -49,10 +47,6 @@ public class CalificacionLogic {
     
     public CalificacionEntity getCalificacion(Long editorialsId) {
         CalificacionEntity editorialEntity = persistence.find(editorialsId);
-        if (editorialEntity == null) {
-            LOGGER.log(Level.SEVERE, "La calificacion con el id = {0} no existe", editorialsId);
-        }
-        LOGGER.log(Level.INFO, "Termina proceso de consultar la calificacion con id = {0}", editorialsId);
         return editorialEntity;
     }
     
