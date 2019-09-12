@@ -9,8 +9,9 @@ import org.apache.commons.lang3.RandomStringUtils;
 import uk.co.jemos.podam.common.AttributeStrategy;
 
 /**
+ * Clase que genera correos de la forma String*8+@prueba.edu.co
  *
- * @author Estudiante
+ * @author Carlos Salazar
  */
 public class EmailStrategy implements AttributeStrategy<String> {
 
@@ -19,6 +20,6 @@ public class EmailStrategy implements AttributeStrategy<String> {
      * Retorna un email válido.
      */
     public String getValue() {
-        return RandomStringUtils.randomAlphabetic(8) + "@prueba.edu.co";
+        return RandomStringUtils.randomAlphanumeric(8) + "@prueba.edu.co";
     }
 }
