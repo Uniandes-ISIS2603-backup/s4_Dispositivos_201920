@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.dispositivos.ejb;
 import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.MediaPersistence;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.List;
 import java.util.logging.Level;
 import javax.ejb.Stateless;
@@ -49,10 +48,6 @@ public class MediaLogic {
     
     public MediaEntity getMedia(Long editorialsId) {
         MediaEntity editorialEntity = persistence.find(editorialsId);
-        if (editorialEntity == null) {
-            LOGGER.log(Level.SEVERE, "La media con el id = {0} no existe", editorialsId);
-        }
-        LOGGER.log(Level.INFO, "Termina proceso de consultar la media con id = {0}", editorialsId);
         return editorialEntity;
     }
     
