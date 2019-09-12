@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
+import javax.validation.constraints.AssertTrue;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -330,6 +331,16 @@ public class ClienteLogicTest {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setCorreoElectronico("joesmi:;th@example.com.co");
         ClienteEntity result = clienteLogic.createCliente(newEntity);
+    }
+
+    /**
+     * Prueba para validar crear un cliente con email válido .
+     *
+     */
+    @Test
+    public void crearClienteEmailvalidoTest() {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        Assert.assertTrue(clienteLogic.validarEmail(newEntity.getCorreoElectronico()));
     }
 
 }

@@ -73,7 +73,7 @@ public class ClienteLogic {
      * @return Lista de entidades de tipo cliente.
      * @param email email a validar.
      */
-    public static boolean validarEmail(String email) {
+    public boolean validarEmail(String email) {
         boolean result = true;
         try {
             InternetAddress emailAddr = new InternetAddress(email);
