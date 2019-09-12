@@ -37,7 +37,9 @@ public class ClienteLogic {
      * Si el usuario del cliente está vacío <br>
      * Si la contraseña del cliente está vacía <br>
      * Si la cédula del cliente es menor o igual a 0 o es igual a null <br>
-     * Si ya existe un cliente con la misma cédula.
+     * Si ya existe un cliente con la misma cédula.<br>
+     * Si ya existe un cliente con el mismo email.<br>
+     * Si ya existe un cliente con el mismo usuario.
      */
     public ClienteEntity createCliente(ClienteEntity cliente) throws BusinessLogicException {
         if (cliente.getApellido() == null || cliente.getApellido().trim().equals("")) {
@@ -58,6 +60,8 @@ public class ClienteLogic {
             throw new BusinessLogicException("Ya existe un cliente con la misma cédula");
         } else if (cp.findByEmail(cliente.getCorreoElectronico()) != null) {
             throw new BusinessLogicException("Ya existe un cliente con el mismo email");
+        } else if (cp.findByUsuario(cliente.getUsuario()) != null) {
+            throw new BusinessLogicException("Ya existe un cliente con el mismo usuario");
         }
         cliente = cp.create(cliente);
         return cliente;
@@ -115,7 +119,9 @@ public class ClienteLogic {
      * Si el usuario del cliente está vacío <br>
      * Si la contraseña del cliente está vacía <br>
      * Si la cédula del cliente es menor o igual a 0 o es igual a null <br>
-     * Si ya existe un cliente con la misma cédula.
+     * Si ya existe un cliente con la misma cédula.<br>
+     * Si ya existe un cliente con el mismo email.<br>
+     * Si ya existe un cliente con el mismo usuario.
      */
     public ClienteEntity updateCliente(Long clienteId, ClienteEntity clienteEntity) throws BusinessLogicException {
         if (clienteEntity.getApellido() == null || clienteEntity.getApellido().trim().equals("")) {
@@ -136,6 +142,8 @@ public class ClienteLogic {
             throw new BusinessLogicException("Ya existe un cliente con la misma cédula");
         } else if (cp.findByEmail(clienteEntity.getCorreoElectronico()) != null) {
             throw new BusinessLogicException("Ya existe un cliente con el mismo email");
+        } else if (cp.findByUsuario(clienteEntity.getUsuario()) != null) {
+            throw new BusinessLogicException("Ya existe un cliente con el mismo usuario");
         }
         ClienteEntity newEntity = cp.update(clienteEntity);
         return newEntity;

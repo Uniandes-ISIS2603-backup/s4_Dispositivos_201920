@@ -241,6 +241,19 @@ public class ClienteLogicTest {
     }
 
     /**
+     * Prueba para crear un cliente con el mismo usuario de un cliente que ya
+     * existe.
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createClienteMismoUsuarioTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setUsuario(data.get(0).getUsuario());
+        clienteLogic.createCliente(newEntity);
+    }
+
+    /**
      * Prueba para consultar la lista de clientes.
      */
     @Test

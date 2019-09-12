@@ -115,4 +115,26 @@ public class ClientePersistence {
         }
         return result;
     }
+
+    /**
+     * Busca si hay algùn cliente con el usuario que se envía de argumento
+     *
+     * @param usuario: usuario del cliente que se está buscando
+     * @return null si no existe ningùn cliente con el código del parametro. Si
+     * existe alguna devuelve la primera.
+     */
+    public ClienteEntity findByUsuario(String usuario) {
+        TypedQuery query = em.createQuery("Select c From ClienteEntity c where c.usuario = :usuario", ClienteEntity.class);
+        query = query.setParameter("usuario", usuario);
+        List<ClienteEntity> sameCode = query.getResultList();
+        ClienteEntity result;
+        if (sameCode == null) {
+            result = null;
+        } else if (sameCode.isEmpty()) {
+            result = null;
+        } else {
+            result = sameCode.get(0);
+        }
+        return result;
+    }
 }
