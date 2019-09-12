@@ -228,6 +228,32 @@ public class ClienteLogicTest {
     }
 
     /**
+     * Prueba para crear un cliente con el mismo email de un cliente que ya
+     * existe.
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createClienteMismoEmailTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setCorreoElectronico(data.get(0).getCorreoElectronico());
+        clienteLogic.createCliente(newEntity);
+    }
+
+    /**
+     * Prueba para crear un cliente con el mismo usuario de un cliente que ya
+     * existe.
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createClienteMismoUsuarioTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setUsuario(data.get(0).getUsuario());
+        clienteLogic.createCliente(newEntity);
+    }
+
+    /**
      * Prueba para consultar la lista de clientes.
      */
     @Test
@@ -293,4 +319,17 @@ public class ClienteLogicTest {
         ClienteEntity deleted = em.find(ClienteEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
+
+    /**
+     * Prueba para validar crear un cliente con email inválido .
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void crearClienteEmailInvalidoTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setCorreoElectronico("joesmi:;th@example.com.co");
+        ClienteEntity result = clienteLogic.createCliente(newEntity);
+    }
+
 }

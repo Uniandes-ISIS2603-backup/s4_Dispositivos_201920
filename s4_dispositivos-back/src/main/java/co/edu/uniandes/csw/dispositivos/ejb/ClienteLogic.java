@@ -11,6 +11,8 @@ import co.edu.uniandes.csw.dispositivos.persistence.ClientePersistence;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 /**
  *
@@ -35,14 +37,16 @@ public class ClienteLogic {
      * Si el usuario del cliente está vacío <br>
      * Si la contraseña del cliente está vacía <br>
      * Si la cédula del cliente es menor o igual a 0 o es igual a null <br>
-     * Si ya existe un cliente con la misma cédula.
+     * Si ya existe un cliente con la misma cédula.<br>
+     * Si ya existe un cliente con el mismo email.<br>
+     * Si ya existe un cliente con el mismo usuario.
      */
     public ClienteEntity createCliente(ClienteEntity cliente) throws BusinessLogicException {
         if (cliente.getApellido() == null || cliente.getApellido().trim().equals("")) {
             throw new BusinessLogicException("El apellido del cliente está vacío");
         } else if (cliente.getNombre() == null || cliente.getNombre().trim().equals("")) {
             throw new BusinessLogicException("El nombre del cliente está vacío");
-        } else if (cliente.getCorreoElectronico() == null || cliente.getCorreoElectronico().trim().equals("")) {
+        } else if (cliente.getCorreoElectronico() == null || cliente.getCorreoElectronico().trim().equals("") || !validarEmail(cliente.getCorreoElectronico())) {
             throw new BusinessLogicException("El correo del cliente está vacío");
         } else if (cliente.getDireccion() == null || cliente.getDireccion().trim().equals("")) {
             throw new BusinessLogicException("La dirección del cliente está vacía");
@@ -54,9 +58,30 @@ public class ClienteLogic {
             throw new BusinessLogicException("La cédula del cliente es menor o igual a 0 o es igual a null");
         } else if (cp.findByCedula(cliente.getCedula()) != null) {
             throw new BusinessLogicException("Ya existe un cliente con la misma cédula");
+        } else if (cp.findByEmail(cliente.getCorreoElectronico()) != null) {
+            throw new BusinessLogicException("Ya existe un cliente con el mismo email");
+        } else if (cp.findByUsuario(cliente.getUsuario()) != null) {
+            throw new BusinessLogicException("Ya existe un cliente con el mismo usuario");
         }
         cliente = cp.create(cliente);
         return cliente;
+    }
+
+    /**
+     * Dice si el email es válido.
+     *
+     * @return Lista de entidades de tipo cliente.
+     * @param email email a validar.
+     */
+    public static boolean validarEmail(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
     }
 
     /**
@@ -94,7 +119,9 @@ public class ClienteLogic {
      * Si el usuario del cliente está vacío <br>
      * Si la contraseña del cliente está vacía <br>
      * Si la cédula del cliente es menor o igual a 0 o es igual a null <br>
-     * Si ya existe un cliente con la misma cédula.
+     * Si ya existe un cliente con la misma cédula.<br>
+     * Si ya existe un cliente con el mismo email.<br>
+     * Si ya existe un cliente con el mismo usuario.
      */
     public ClienteEntity updateCliente(Long clienteId, ClienteEntity clienteEntity) throws BusinessLogicException {
         if (clienteEntity.getApellido() == null || clienteEntity.getApellido().trim().equals("")) {
@@ -113,6 +140,10 @@ public class ClienteLogic {
             throw new BusinessLogicException("La cédula del cliente es menor o igual a 0 o es igual a null");
         } else if (cp.findByCedula(clienteEntity.getCedula()) != null) {
             throw new BusinessLogicException("Ya existe un cliente con la misma cédula");
+        } else if (cp.findByEmail(clienteEntity.getCorreoElectronico()) != null) {
+            throw new BusinessLogicException("Ya existe un cliente con el mismo email");
+        } else if (cp.findByUsuario(clienteEntity.getUsuario()) != null) {
+            throw new BusinessLogicException("Ya existe un cliente con el mismo usuario");
         }
         ClienteEntity newEntity = cp.update(clienteEntity);
         return newEntity;
