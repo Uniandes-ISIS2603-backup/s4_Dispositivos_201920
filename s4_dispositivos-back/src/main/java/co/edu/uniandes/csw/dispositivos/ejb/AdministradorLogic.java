@@ -43,11 +43,11 @@ public class AdministradorLogic
      */
     public AdministradorEntity createAdministrador(AdministradorEntity admin) throws BusinessLogicException
     {
-     if(admin.getUsuario()==null)
+     if(admin.getUsuario()==null || admin.getUsuario().trim().equals(""))
          throw new BusinessLogicException("El usuario suministrado es nulo");
-     if(admin.getContrasena()==null)
+     if(admin.getContrasena()==null || admin.getContrasena().trim().equals(""))
          throw new BusinessLogicException("La constraseña suministrada es nula");
-     if(admin.getCorreo()==null)
+     if(admin.getCorreo()==null || admin.getCorreo().trim().equals(""))
          throw new BusinessLogicException("El correo suministrado es nulo");
      if(!admin.getCorreo().endsWith("@wireless.com"))
          throw new BusinessLogicException("El correo ingresado no es corporativo");
@@ -67,24 +67,18 @@ public class AdministradorLogic
      */
     public List<AdministradorEntity> getAdministradores() 
     {
-        List<AdministradorEntity> lista = persistence.findAll();
-        return lista;
+        List<AdministradorEntity> admins = persistence.findAll();
+        return admins;
     }
     /**
      * Obtiene los datos de una instancia de Administrador a partir de su ID
      * @param adminId Identificador de la instancia a consultar
      * @return Instancia de Administrador con los datos del Administrador Id consultado.
-     * @throws BusinessLogicException Cuando se cumple una de las reglas de neocio
-     *         1. EL id proporcionado no existe
      */
-    public AdministradorEntity getAdministrador(Long adminId) throws BusinessLogicException
+    public AdministradorEntity getAdministrador(Long adminId) 
     {
-        AdministradorEntity admin = persistence.find(adminId);
-        if (admin == null) 
-        {
-            throw new BusinessLogicException("El administrador con el id buscado no existe.");
-        }
-        return admin;
+        AdministradorEntity facturaEntity = persistence.find(adminId);  
+        return facturaEntity;
     }
      /**
      * Actualiza la información de un Administrador
@@ -93,15 +87,19 @@ public class AdministradorLogic
      * @return el administrador con los cambios actualizados en la base de datos.
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
-    public AdministradorEntity updateAdministrador(Long adminId, AdministradorEntity adminEntity) throws BusinessLogicException
-    {
-        AdministradorEntity admin = persistence.find(adminId);
-        if (admin == null) 
-        {
-            throw new BusinessLogicException("El administrador con el id buscado no existe.");
-        }
-        AdministradorEntity newAuthorEntity = persistence.update(adminEntity);
-        return newAuthorEntity;
+     public AdministradorEntity updateAdministrador(Long adminId, AdministradorEntity adminEntity) throws BusinessLogicException {
+        if (adminEntity.getUsuario()== null || adminEntity.getUsuario().trim().equals("")) 
+            throw new BusinessLogicException("El usuario del administrador está vacío");
+        if (adminEntity.getContrasena().trim().equals("") || adminEntity.getContrasena()== null)
+            throw new BusinessLogicException("La contraseña del administrador está vacía");
+        if (adminEntity.getCorreo().trim().equals("") || adminEntity.getCorreo()== null)
+            throw new BusinessLogicException("El correo del administrador está vacío");
+        if (persistence.findByEmail(adminEntity.getCorreo()) != null)
+            throw new BusinessLogicException("Ya existe una administrador con el mismo correo");
+        if (persistence.findByUser(adminEntity.getUsuario()) != null)
+            throw new BusinessLogicException("Ya existe una administrador con el mismo usuario");
+        AdministradorEntity newEntity = persistence.update(adminEntity);
+        return newEntity;
     }
     /**
      * Elimina una instancia de Administrador de la base de datos

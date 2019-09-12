@@ -71,7 +71,6 @@ public class AdministradorLogicTest
         for (int i = 0; i < 3; i++) 
         {
             AdministradorEntity adminEntity = factory.manufacturePojo(AdministradorEntity.class);
-            adminEntity.setCorreo("correoW"+i+"@wireless.com");
             em.persist(adminEntity);
             data.add(adminEntity);
         }
@@ -103,7 +102,6 @@ public class AdministradorLogicTest
     public  void createAdministrador() throws BusinessLogicException
     {
         AdministradorEntity adminEntity = factory.manufacturePojo(AdministradorEntity.class);
-        adminEntity.setCorreo("correoW@wireless.com");
         AdministradorEntity result = adminLogic.createAdministrador(adminEntity);
         Assert.assertNotNull(result);
         
@@ -146,6 +144,39 @@ public class AdministradorLogicTest
         adminLogic.createAdministrador(adminEntity);
     }
     /**
+     * Test para crear un correo sin caractéres
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public  void createAdministradorCorreoVacio() throws BusinessLogicException
+    {
+        AdministradorEntity adminEntity = factory.manufacturePojo(AdministradorEntity.class);
+        adminEntity.setCorreo("");
+        adminLogic.createAdministrador(adminEntity);
+    }
+    /**
+     * Test para crear un usuario sin caractéres
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public  void createAdministradorUsuarioVacio() throws BusinessLogicException
+    {
+        AdministradorEntity adminEntity = factory.manufacturePojo(AdministradorEntity.class);
+        adminEntity.setUsuario("");
+        adminLogic.createAdministrador(adminEntity);
+    }
+    /**
+     * Test para crear una contraseña sin caractéres
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public  void createAdministradorContrasenaVacio() throws BusinessLogicException
+    {
+        AdministradorEntity adminEntity = factory.manufacturePojo(AdministradorEntity.class);
+        adminEntity.setContrasena("");
+        adminLogic.createAdministrador(adminEntity);
+    }
+    /**
      * Test para crear un administrador sin correo corporativo
      * @throws BusinessLogicException si una regla de negocio no se cumple
      */
@@ -164,12 +195,11 @@ public class AdministradorLogicTest
     public  void createAdministradorCorreoExistente() throws BusinessLogicException
     {
         AdministradorEntity adminEntity = factory.manufacturePojo(AdministradorEntity.class);
-        adminEntity.setCorreo("correo@wireless.com");
         AdministradorEntity result = adminLogic.createAdministrador(adminEntity);
         Assert.assertNotNull(result);
         
         AdministradorEntity adminEntity2 = factory.manufacturePojo(AdministradorEntity.class);
-        adminEntity2.setCorreo("correo@wireless.com");
+        adminEntity2.setCorreo(adminEntity.getCorreo());
         adminLogic.createAdministrador(adminEntity2);
     }
      /**
@@ -180,15 +210,67 @@ public class AdministradorLogicTest
     public  void createAdministradorUsuarioExistente() throws BusinessLogicException
     {
         AdministradorEntity adminEntity = factory.manufacturePojo(AdministradorEntity.class);
-        adminEntity.setCorreo("correo1@wireless.com");
         adminEntity.setUsuario("admin");
         AdministradorEntity result = adminLogic.createAdministrador(adminEntity);
         Assert.assertNotNull(result);
         
         AdministradorEntity adminEntity2 = factory.manufacturePojo(AdministradorEntity.class);
-        adminEntity2.setCorreo("correo2@wireless.com");
         adminEntity2.setUsuario("admin");
         adminLogic.createAdministrador(adminEntity2);
     }
-    
+    /**
+     * Prueba para eliminar un administrador
+     */
+    @Test
+    public void deleteMarcaTest() {
+        AdministradorEntity entity = data.get(1);
+        adminLogic.deleteAdministrador(entity.getId());
+        AdministradorEntity deleted = em.find(AdministradorEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
+    /**
+     * Prueba para consultar un administrador
+     */
+    @Test
+    public void getAdministradorTest() {
+        AdministradorEntity entity = data.get(0);
+        AdministradorEntity resultEntity = adminLogic.getAdministrador(entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getUsuario(), resultEntity.getUsuario());
+        Assert.assertEquals(entity.getContrasena(), resultEntity.getContrasena());
+        Assert.assertEquals(entity.getCorreo(), resultEntity.getCorreo());
+    }
+    /**
+     * Prueba para consultar la lista de Administradores
+     */
+    @Test
+    public void getAdministradoresTest() {
+        List<AdministradorEntity> list = adminLogic.getAdministradores();
+        Assert.assertEquals(data.size(), list.size());
+        for (AdministradorEntity entity : list) {
+            boolean found = false;
+            for (AdministradorEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+    /**
+     * Prueba para actualizar una Marca.
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test
+    public void updateMarcaTest() throws BusinessLogicException
+    {
+        AdministradorEntity entity = data.get(0);
+        AdministradorEntity pojoEntity = factory.manufacturePojo(AdministradorEntity.class);
+        pojoEntity.setId(entity.getId());
+        adminLogic.updateAdministrador(pojoEntity.getId(), pojoEntity);
+        AdministradorEntity resp = em.find(AdministradorEntity.class, entity.getId());
+        Assert.assertEquals(pojoEntity.getUsuario(), resp.getUsuario());
+        Assert.assertEquals(pojoEntity.getContrasena(), resp.getContrasena());
+        Assert.assertEquals(pojoEntity.getCorreo(), resp.getCorreo());
+    }
 }
