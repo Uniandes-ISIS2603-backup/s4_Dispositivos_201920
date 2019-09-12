@@ -194,6 +194,23 @@ public class ClientePersistenceTest {
         Assert.assertEquals("direccion", clientePrueba.getDireccion());
         Assert.assertEquals("usuario", clientePrueba.getUsuario());
         Assert.assertEquals("contrasena", clientePrueba.getContrasena());
+    }
 
+    /**
+     * Prueba para encontrar un cliente por su email.
+     */
+    @Test
+    public void buscarClientePorEmailTest() {
+        ClienteEntity clientePrueba = new ClienteEntity("nombre", "apellido", "email", 2.3, "direccion", "usuario", "contrasena");
+        mp.create(clientePrueba);
+        Assert.assertNotNull(mp.findByEmail("email"));
+        Assert.assertNull(mp.findByEmail("eamil"));
+        Assert.assertEquals("nombre", clientePrueba.getNombre());
+        Assert.assertEquals("apellido", clientePrueba.getApellido());
+        Assert.assertEquals("email", clientePrueba.getCorreoElectronico());
+        Assert.assertEquals(2.3, clientePrueba.getCedula(), 0);
+        Assert.assertEquals("direccion", clientePrueba.getDireccion());
+        Assert.assertEquals("usuario", clientePrueba.getUsuario());
+        Assert.assertEquals("contrasena", clientePrueba.getContrasena());
     }
 }
