@@ -73,7 +73,7 @@ public class ComprobanteDePagoPersistence
      * @return null si no existe ningun ComprobanteDePago con el número de factura
      * Si existe alguno devuelve el primero.
      */
-    public ComprobanteDePagoEntity findByNumFactura(int numFactura) 
+    public ComprobanteDePagoEntity findByNumFactura(Integer numFactura) 
     {
         TypedQuery query = em.createQuery("Select e From ComprobanteDePagoEntity e where e.numeroDeFactura = :numFac", ComprobanteDePagoEntity.class);
         query = query.setParameter("numFac", numFactura);

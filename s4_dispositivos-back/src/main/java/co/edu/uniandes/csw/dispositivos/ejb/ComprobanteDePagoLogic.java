@@ -88,11 +88,11 @@ public class ComprobanteDePagoLogic
      */
     public ComprobanteDePagoEntity createComprobante(ComprobanteDePagoEntity comprobanteEntity) throws BusinessLogicException
     {
-        if (comprobanteEntity.getNumeroDeFactura()<0) 
+        if (comprobanteEntity.getNumeroDeFactura()==null ||comprobanteEntity.getNumeroDeFactura()<=0) 
             throw new BusinessLogicException("El número de factura del Comprobante de pago está vacío o es negativo");
-        if (0>comprobanteEntity.getTotalDePago())
+        if (comprobanteEntity.getTotalDePago()==null ||0.0>=comprobanteEntity.getTotalDePago())
             throw new BusinessLogicException("El total a pagar del Comprobante está en cero o es negativo");
-        if (comprobanteEntity.getImpuestos()<0)
+        if (comprobanteEntity.getImpuestos()==null || comprobanteEntity.getImpuestos()<=0.0)
             throw new BusinessLogicException("Los impuestos del Comprobante están en cero o es negativo");
         if(comprobanteEntity.getFechaDeFactura()==null)
             throw new BusinessLogicException("La fecha del Comprobante está vacía");

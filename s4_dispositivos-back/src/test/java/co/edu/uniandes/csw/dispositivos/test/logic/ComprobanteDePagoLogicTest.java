@@ -28,23 +28,25 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  * Test de lógica de la clase ComprobanteDePagoLogic
+ *
  * @author Dianis Caro
  */
 @RunWith(Arquillian.class)
-public class ComprobanteDePagoLogicTest 
-{
+public class ComprobanteDePagoLogicTest {
+
     private PodamFactory factory = new PodamFactoryImpl();
-    
+
     @PersistenceContext(unitName = "dispositivosPU")
     private EntityManager em;
 
-    @Inject 
+    @Inject
     private ComprobanteDePagoLogic comprobanteLogic;
 
     @Inject
     private UserTransaction utx;
 
     private List<ComprobanteDePagoEntity> data = new ArrayList<ComprobanteDePagoEntity>();
+
     /**
      * Configuración inicial de la prueba
      */
@@ -64,25 +66,29 @@ public class ComprobanteDePagoLogicTest
             }
         }
     }
+
     /**
-     * Inserta los datos iniciales para el correcto funcionamiento de las pruebas
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas
      */
     private void insertData() {
-        for (int i = 0; i < 3; i++) 
-        {
+        for (int i = 0; i < 3; i++) {
             ComprobanteDePagoEntity adminEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
             em.persist(adminEntity);
             data.add(adminEntity);
         }
     }
+
     /**
      * Limpia las tablas que están implicadas en la prueba
      */
     private void clearData() {
         em.createQuery("delete from ComprobanteDePagoEntity").executeUpdate();
     }
+
     /**
      * Construye el despliegue de la prueba a realizar
+     *
      * @return jar, es decir JavaArchive.
      */
     @Deployment
@@ -94,6 +100,7 @@ public class ComprobanteDePagoLogicTest
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
+
     /**
      * Prueba para eliminar un comprobante
      */
@@ -104,6 +111,7 @@ public class ComprobanteDePagoLogicTest
         ComprobanteDePagoEntity deleted = em.find(ComprobanteDePagoEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
+
     /**
      * Prueba para consultar un comprobante
      */
@@ -120,6 +128,7 @@ public class ComprobanteDePagoLogicTest
         Assert.assertEquals(resultEntity.getNumeroDeTarjeta(), entity.getNumeroDeTarjeta());
         Assert.assertEquals(resultEntity.getTotalDePago(), entity.getTotalDePago());
     }
+
     /**
      * Prueba para consultar la lista de Comprobantes
      */
@@ -137,13 +146,15 @@ public class ComprobanteDePagoLogicTest
             Assert.assertTrue(found);
         }
     }
+
     /**
      * Prueba para actualizar una Comprobante de pago
-     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     *
+     * @throws
+     * co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
     @Test
-    public void updateComprobanteTest() throws BusinessLogicException
-    {
+    public void updateComprobanteTest() throws BusinessLogicException {
         ComprobanteDePagoEntity entity = data.get(0);
         ComprobanteDePagoEntity pojoEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
         pojoEntity.setId(entity.getId());
@@ -158,17 +169,18 @@ public class ComprobanteDePagoLogicTest
         Assert.assertEquals(resp.getNumeroDeTarjeta(), entity.getNumeroDeTarjeta());
         Assert.assertEquals(resp.getTotalDePago(), entity.getTotalDePago());
     }
+
     /**
      * Test para crear un ComprobanteDePago con todas las reglas de negocio
+     *
      * @throws BusinessLogicException si una regla de negocio no se cumple
      */
     @Test
-    public  void createAdministrador() throws BusinessLogicException
-    {
+    public void createComprobanteTest() throws BusinessLogicException {
         ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
         ComprobanteDePagoEntity result = comprobanteLogic.createComprobante(comprobanteEntity);
         Assert.assertNotNull(result);
-        
+
         ComprobanteDePagoEntity entity = em.find(ComprobanteDePagoEntity.class, result.getId());
         Assert.assertNotNull(entity);
         Assert.assertEquals(entity.getId(), result.getId());
@@ -179,13 +191,15 @@ public class ComprobanteDePagoLogicTest
         Assert.assertEquals(entity.getNumeroDeTarjeta(), result.getNumeroDeTarjeta());
         Assert.assertEquals(entity.getTotalDePago(), result.getTotalDePago());
     }
+
     /**
-     * Test para crear un comprobante de pago con un número de dígitos diferente a 16
+     * Test para crear un comprobante de pago con un número de dígitos diferente
+     * a 16
+     *
      * @throws BusinessLogicException si una regla de negocio no se cumple
      */
     @Test(expected = BusinessLogicException.class)
-    public  void createNumeroTarjetaDiferente16() throws BusinessLogicException
-    {
+    public void createNumeroTarjetaDiferente16() throws BusinessLogicException {
         ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
         comprobanteEntity.setNumeroDeTarjeta("1234567890");
         comprobanteLogic.createComprobante(comprobanteEntity);
