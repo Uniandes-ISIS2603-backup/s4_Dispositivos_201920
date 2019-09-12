@@ -25,19 +25,16 @@ public class VentaLogic
     
     public VentaEntity createVenta(VentaEntity venta) throws BusinessLogicException
     {
-        if(venta==null)
-        { throw new BusinessLogicException("Algún campo está vacío"); }
+        if(venta.getPrecioReventa() < 0)
+        { throw new BusinessLogicException("El precio de reventa no puede ser negativo"); }
         
         venta = vapersistence.create(venta); 
         return venta; 
     }
     
     public VentaEntity findVenta(Long idfVenta) throws BusinessLogicException
-    {
-        if(idfVenta==null)
-        { throw new BusinessLogicException("Algo salió mal"); }
-        
-        VentaEntity obtainedvr = vapersistence.find(idfVenta); 
+    {       
+        VentaEntity obtainedvr = vapersistence.find(idfVenta);      
         return obtainedvr;
     }
     
@@ -49,18 +46,12 @@ public class VentaLogic
     
     public VentaEntity updateVenta(VentaEntity uvaEntity) throws BusinessLogicException
     {
-        if(uvaEntity==null)
-        { throw new BusinessLogicException("Algo salió mal"); }
-        
         VentaEntity changedva = vapersistence.update(uvaEntity); 
         return changedva;
     }
     
     public void deleteVenta(Long iddVenta) throws BusinessLogicException
     {
-        if(iddVenta==null)
-        { throw new BusinessLogicException("Algo salió mal"); }
-        
         vapersistence.delete(iddVenta); 
     }
 }

@@ -69,8 +69,14 @@ public class VentaPersistenceTest
             }
             utxn.commit();
         } 
-        catch (Exception e)
-        {    System.out.println(e.getMessage());    }
+        catch (Exception e1) 
+        {   
+            e1.printStackTrace(); 
+            try
+            { utxn.rollback(); }
+            catch(Exception e2)
+            { e2.printStackTrace();  }
+        }    
     }
 
     /**

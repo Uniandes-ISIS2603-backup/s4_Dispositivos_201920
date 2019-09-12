@@ -27,11 +27,17 @@ public class VendedorLogic
         if(vrpersistence.findByCedula(vendedor.getCedula()) != null)
         { throw new BusinessLogicException("El vendedor ya existe"); }
         
-        if(vendedor==null)
-        { throw new BusinessLogicException("Algún campo está vacío"); }
+        if((((((vendedor.getNombre() == null || vendedor.getApellido() == null) || vendedor.getUsuario() == null) || vendedor.getContrasena() == null) || vendedor.getCedula() < 0) || vendedor.getCelular() < 0) || vendedor.getCorreoElectronico()==null)
+        {  throw new BusinessLogicException("Algún campo está vacío"); }
         
         vendedor = vrpersistence.create(vendedor); 
         return vendedor; 
+    }
+    
+    public VendedorEntity findVendedor(Long idfVendedor)
+    {
+        VendedorEntity obtainedvr = vrpersistence.find(idfVendedor);         
+        return obtainedvr; 
     }
     
     public VendedorEntity findByCedulaVendedor(Double cedulaVendedorf) throws BusinessLogicException
@@ -51,19 +57,12 @@ public class VendedorLogic
     
     public VendedorEntity updateVendedor(VendedorEntity uvrEntity) throws BusinessLogicException
     {
-        if(uvrEntity==null)
-        { throw new BusinessLogicException("El vendedor no existe"); }
-        
         VendedorEntity changedvr = vrpersistence.update(uvrEntity); 
         return changedvr;
     }
     
-    public void deleteVendedor(Double cedulaVendedord) throws BusinessLogicException
+    public void deleteVendedor(Long iddVendedor) throws BusinessLogicException
     {
-        if(cedulaVendedord ==null)
-        { throw new BusinessLogicException("No se recibió ninguna cédula"); }
-        
-        VendedorEntity rejectedvr = vrpersistence.findByCedula(cedulaVendedord);
-        vrpersistence.delete(rejectedvr.getId()); 
+        vrpersistence.delete(iddVendedor); 
     }
 }

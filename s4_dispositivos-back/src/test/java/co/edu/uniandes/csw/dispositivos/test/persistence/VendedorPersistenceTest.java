@@ -127,8 +127,8 @@ public class VendedorPersistenceTest
         Assert.assertEquals(block.getCorreoElectronico(), ref.getCorreoElectronico());
         Assert.assertEquals(block.getContrasena(), ref.getContrasena());
         Assert.assertEquals(block.getUsuario(), ref.getUsuario());
-        Assert.assertEquals(block.getCelular(), ref.getCelular(),0);        
-        Assert.assertEquals(block.getCedula(), ref.getCedula(),0);
+        Assert.assertEquals(block.getCelular(), ref.getCelular(), 0);        
+        Assert.assertEquals(block.getCedula(), ref.getCedula(), 0);
     }
     
     @Test

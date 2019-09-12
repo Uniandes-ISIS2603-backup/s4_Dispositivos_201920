@@ -33,7 +33,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class VendedorLogicTest 
 {
-    @PersistenceContext(unitName="dispositivosPU")
+    @PersistenceContext
     protected EntityManager vrm;
     
     @Deployment
@@ -96,32 +96,99 @@ public class VendedorLogicTest
     }
     
     @Test(expected=BusinessLogicException.class)
-    public void createNullVendedorTest() throws BusinessLogicException
+    public void createNullFirstnameVendedorTest() throws BusinessLogicException
     {
-        
+        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setNombre(null);
+        vrlogic.createVendedor(vendedor); 
+    }
+    
+    @Test(expected=BusinessLogicException.class)
+    public void createNullLastnameVendedorTest() throws BusinessLogicException
+    {
+        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setApellido(null);
+        vrlogic.createVendedor(vendedor); 
+    }
+    
+    @Test(expected=BusinessLogicException.class)
+    public void createNullUserVendedorTest() throws BusinessLogicException
+    {
+        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setUsuario(null);
+        vrlogic.createVendedor(vendedor); 
+    }
+    
+    @Test(expected=BusinessLogicException.class)
+    public void createNullPasswordVendedorTest() throws BusinessLogicException
+    {
+        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setContrasena(null);
+        vrlogic.createVendedor(vendedor); 
+    }
+    
+    @Test(expected=BusinessLogicException.class)
+    public void createNullEmailVendedorTest() throws BusinessLogicException
+    {
+        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setCorreoElectronico(null);
+        vrlogic.createVendedor(vendedor); 
     }
     
     @Test
     public void findVendedorTest() throws BusinessLogicException
     {
-        
+        VendedorEntity ref = vrlist.get(0), block = vrlogic.findVendedor(ref.getId());
+        Assert.assertNotNull(block);
+        Assert.assertEquals(block.getId(),ref.getId());
+        Assert.assertEquals(block.getApellido(),ref.getApellido());
+        Assert.assertEquals(block.getNombre(), ref.getNombre());
+        Assert.assertEquals(block.getCorreoElectronico(), ref.getCorreoElectronico());
+        Assert.assertEquals(block.getContrasena(), ref.getContrasena());
+        Assert.assertEquals(block.getUsuario(), ref.getUsuario());
+        Assert.assertEquals(block.getCelular(), ref.getCelular(), 0);        
+        Assert.assertEquals(block.getCedula(), ref.getCedula(), 0);
     }
     
     @Test
     public void findAllVendedoresTest() throws BusinessLogicException
     {
-        
+        List<VendedorEntity> allgotten = vrlogic.findAllVendedores();
+        Assert.assertEquals(allgotten.size(), vrlist.size());
+        for (VendedorEntity vrblock : allgotten) 
+        {
+            boolean ticked = false;
+            for (VendedorEntity vrref : vrlist)
+                if (vrblock.getId().equals(vrref.getId()))
+                    ticked = true;
+            Assert.assertTrue(ticked);
+        }
     }
     
     @Test
     public void updateVendedorTest() throws BusinessLogicException
     {
-        
+        VendedorEntity vendedor = vrlist.get(0);
+        VendedorEntity updating = vrlfactory.manufacturePojo(VendedorEntity.class);
+        updating.setId(vendedor.getId());
+        vrlogic.updateVendedor(updating);
+        VendedorEntity updated = vrm.find(VendedorEntity.class, vendedor.getId());
+        Assert.assertEquals(updating.getId(), updated.getId());
+        Assert.assertEquals(updating.getApellido(), updated.getApellido());
+        Assert.assertEquals(updating.getNombre(), updated.getNombre());
+        Assert.assertEquals(updating.getCorreoElectronico(), updated.getCorreoElectronico());
+        Assert.assertEquals(updating.getContrasena(), updated.getContrasena());
+        Assert.assertEquals(updating.getUsuario(), updated.getUsuario());
+        Assert.assertEquals(updating.getCelular(), updated.getCelular(),0);        
+        Assert.assertEquals(updating.getCedula(), updated.getCedula(),0);
     }
     
     @Test
     public void deleteVendedorTest() throws BusinessLogicException
     {
-        
+        VendedorEntity vrentity = vrlist.get(0); 
+        vrlogic.deleteVendedor(vrentity.getId());
+        VendedorEntity gonevr = vrm.find(VendedorEntity.class, vrentity.getId()); 
+        Assert.assertNull(gonevr);
     }
 }
