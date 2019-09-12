@@ -25,12 +25,12 @@ public class ComprobanteDePagoEntity extends BaseEntity
      * Total pagado en la transacción por los dispositivos
      */
     @PodamDoubleValue(minValue = 1, maxValue = Double.MAX_VALUE)
-    private double totalPago;
+    private Double totalPago;
     /**
      * Impuestos generados a los productos
      */
     @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
-    private double impuestos;
+    private Double impuestos;
     /**
      * Número de tarjeta con el cual se genero la compra
      */
@@ -57,7 +57,7 @@ public class ComprobanteDePagoEntity extends BaseEntity
      * @param pNumeroDeTarjeta numero de tarjeta con la cual se genro la compra
      * @param pFechaDeFac fecha de compra de los dispositivos
      */
-    public ComprobanteDePagoEntity(Integer pNumeroFac, double pTotalPago, double pImpuesto, String pNumeroDeTarjeta, Date pFechaDeFac)
+    public ComprobanteDePagoEntity(Integer pNumeroFac, Double pTotalPago, Double pImpuesto, String pNumeroDeTarjeta, Date pFechaDeFac)
     {
         this.numeroDeFactura = pNumeroFac;
         this.totalPago = pTotalPago;
@@ -84,14 +84,14 @@ public class ComprobanteDePagoEntity extends BaseEntity
      * Retorna el total a pagar por los dispositivos
      * @return total a pagar
      */
-    public double getTotalDePago() {
+    public Double getTotalDePago() {
         return totalPago;
     }
     /**
      * Modifica el total a pgar por los dispositivos
      * @param pTotalPago nuevo total a pagar
      */
-    public void setTotalDePago(double pTotalPago) 
+    public void setTotalDePago(Double pTotalPago) 
     {
         this.totalPago = pTotalPago;
     }
@@ -99,14 +99,14 @@ public class ComprobanteDePagoEntity extends BaseEntity
      * Retorna el impuesto generado para los dispositivos
      * @return impuesto de los productos
      */
-    public double getImpuestos() {
+    public Double getImpuestos() {
         return impuestos;
     }
     /**
      * Modifica el impuesto establecido para los dispositivos
      * @param pImpuestos nuevo impuesto
      */
-    public void setImpuestos(double pImpuestos) 
+    public void setImpuestos(Double pImpuestos) 
     {
         this.impuestos = pImpuestos;
     }

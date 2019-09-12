@@ -115,10 +115,10 @@ public class ComprobanteDePagoLogicTest
         Assert.assertEquals(resultEntity.getId(), entity.getId());
         Assert.assertEquals(resultEntity.getFechaDeFactura(), entity.getFechaDeFactura());
         Assert.assertEquals(resultEntity.getId(), entity.getId());
-        Assert.assertEquals(resultEntity.getImpuestos(), entity.getImpuestos(), 0);
+        Assert.assertEquals(resultEntity.getImpuestos(), entity.getImpuestos());
         Assert.assertEquals(resultEntity.getNumeroDeFactura(), entity.getNumeroDeFactura());
         Assert.assertEquals(resultEntity.getNumeroDeTarjeta(), entity.getNumeroDeTarjeta());
-        Assert.assertEquals(resultEntity.getTotalDePago(), entity.getTotalDePago(), 0);
+        Assert.assertEquals(resultEntity.getTotalDePago(), entity.getTotalDePago());
     }
     /**
      * Prueba para consultar la lista de Comprobantes
@@ -153,10 +153,10 @@ public class ComprobanteDePagoLogicTest
         Assert.assertEquals(resp.getId(), entity.getId());
         Assert.assertEquals(resp.getFechaDeFactura(), entity.getFechaDeFactura());
         Assert.assertEquals(resp.getId(), entity.getId());
-        Assert.assertEquals(resp.getImpuestos(), entity.getImpuestos(), 0);
+        Assert.assertEquals(resp.getImpuestos(), entity.getImpuestos());
         Assert.assertEquals(resp.getNumeroDeFactura(), entity.getNumeroDeFactura());
         Assert.assertEquals(resp.getNumeroDeTarjeta(), entity.getNumeroDeTarjeta());
-        Assert.assertEquals(resp.getTotalDePago(), entity.getTotalDePago(), 0);
+        Assert.assertEquals(resp.getTotalDePago(), entity.getTotalDePago());
     }
     /**
      * Test para crear un ComprobanteDePago con todas las reglas de negocio
@@ -174,9 +174,20 @@ public class ComprobanteDePagoLogicTest
         Assert.assertEquals(entity.getId(), result.getId());
         Assert.assertEquals(entity.getFechaDeFactura(), result.getFechaDeFactura());
         Assert.assertEquals(entity.getId(), result.getId());
-        Assert.assertEquals(entity.getImpuestos(), result.getImpuestos(), 0);
+        Assert.assertEquals(entity.getImpuestos(), result.getImpuestos());
         Assert.assertEquals(entity.getNumeroDeFactura(), result.getNumeroDeFactura());
         Assert.assertEquals(entity.getNumeroDeTarjeta(), result.getNumeroDeTarjeta());
-        Assert.assertEquals(entity.getTotalDePago(), result.getTotalDePago(), 0);
+        Assert.assertEquals(entity.getTotalDePago(), result.getTotalDePago());
+    }
+    /**
+     * Test para crear un comprobante de pago con un número de dígitos diferente a 16
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public  void createNumeroTarjetaDiferente16() throws BusinessLogicException
+    {
+        ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+        comprobanteEntity.setNumeroDeTarjeta("1234567890");
+        comprobanteLogic.createComprobante(comprobanteEntity);
     }
 }
