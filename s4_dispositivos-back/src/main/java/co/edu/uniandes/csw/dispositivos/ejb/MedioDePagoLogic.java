@@ -111,7 +111,7 @@ public class MedioDePagoLogic {
         if (ret == false) {
             throw new BusinessLogicException("No puede ser actualizada el medio de pago.");
         } else {
-            persistence.create(medioPago);
+            persistence.update(medioPago);
             LOGGER.log(Level.INFO, "Termina proceso de actualizar un medio de pago.");
             return medioPago;
         }

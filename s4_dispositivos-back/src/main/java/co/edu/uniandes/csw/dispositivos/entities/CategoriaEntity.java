@@ -56,7 +56,7 @@ public class CategoriaEntity extends BaseEntity {
      *
      * @param obj Object que se compara.
      * @return despreciado.
-     * @Ddeprecated (solo arregla code smell)
+     * @deprecated (solo arregla code smell)
      */
     @Override
     @Deprecated
@@ -68,7 +68,7 @@ public class CategoriaEntity extends BaseEntity {
      * Metodo no usado
      *
      * @return nada.
-     * @Ddeprecated (solo arregla code smell)
+     * @deprecated (solo arregla code smell)
      */
     @Override
     @Deprecated

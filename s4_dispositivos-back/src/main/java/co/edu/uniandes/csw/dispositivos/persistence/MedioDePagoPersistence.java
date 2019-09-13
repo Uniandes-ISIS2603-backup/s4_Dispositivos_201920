@@ -39,14 +39,14 @@ public class MedioDePagoPersistence {
     /**
      * Crea un medio de pago con la informaición recibida de la entidad.
      *
-     * @param MedioPagoEntity La entidad que representa el nuevo medio de pago.
+     * @param medioPagoEntity La entidad que representa el nuevo medio de pago.
      * @return La entidad creada.
      */
-    public MedioDePagoEntity create(MedioDePagoEntity MedioPagoEntity) {
+    public MedioDePagoEntity create(MedioDePagoEntity medioPagoEntity) {
         LOGGER.log(Level.INFO, "Creando un medio de pago nuevo");
-        em.persist(MedioPagoEntity);
+        em.persist(medioPagoEntity);
         LOGGER.log(Level.INFO, "Medio de pago creado");
-        return MedioPagoEntity;
+        return medioPagoEntity;
     }
 
     /**
@@ -68,8 +68,8 @@ public class MedioDePagoPersistence {
      */
     public void delete(Long medioPagoId) {
         LOGGER.log(Level.INFO, "Borrando medio de pago con id = {0}", medioPagoId);
-        MedioDePagoEntity MedioPEntity = em.find(MedioDePagoEntity.class, medioPagoId);
-        em.remove(MedioPEntity);
+        MedioDePagoEntity medioPEntity = em.find(MedioDePagoEntity.class, medioPagoId);
+        em.remove(medioPEntity);
         LOGGER.log(Level.INFO, "Saliendo de borrar Medio de pago con id = {0}", medioPagoId);
     }
 

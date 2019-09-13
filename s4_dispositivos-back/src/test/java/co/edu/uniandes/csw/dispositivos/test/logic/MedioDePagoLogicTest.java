@@ -112,8 +112,6 @@ public class MedioDePagoLogicTest {
 
         MedioDePagoEntity newEntity = factory.manufacturePojo(MedioDePagoEntity.class);
 
-        newEntity.setNumeroTarjeta("51000000");
-        newEntity.setNumeroDeVerificacion("123");
         MedioDePagoEntity result = medioLogic.createMedioDePago(newEntity);
         Assert.assertNotNull(result);
         MedioDePagoEntity entity = em.find(MedioDePagoEntity.class, result.getId());
@@ -220,24 +218,6 @@ public class MedioDePagoLogicTest {
      */
     @Test
     public void updateCategoriaTest() throws BusinessLogicException {
-        /**
-         * MedioDePagoEntity entity = data.get(0); MedioDePagoEntity pojoEntity
-         * = factory.manufacturePojo(MedioDePagoEntity.class);
-         * pojoEntity.setId(entity.getId());
-         * pojoEntity.setNumeroTarjeta("51000000");
-         * pojoEntity.setNumeroDeVerificacion("123");
-         * medioLogic.updateMedioDePago(entity.getId(), pojoEntity);
-         * MedioDePagoEntity resp = em.find(MedioDePagoEntity.class,
-         * entity.getId()); resp.setNumeroTarjeta("51000000");
-         * resp.setNumeroDeVerificacion("123");
-         * Assert.assertEquals(pojoEntity.getId(), resp.getId());
-         * Assert.assertEquals(entity.getNumeroDeVerificacion(),
-         * resp.getNumeroDeVerificacion());
-         * Assert.assertEquals(entity.getNumeroTarjeta(),
-         * resp.getNumeroTarjeta());
-         * Assert.assertEquals(entity.getTipoCredito(), resp.getTipoCredito());
-         * Assert.assertEquals(entity.getTipoTarjeta(), resp.getTipoTarjeta());
-         */
 
         MedioDePagoEntity entity = data.get(0);
         
@@ -245,16 +225,15 @@ public class MedioDePagoLogicTest {
 
         pojoEntity.setId(entity.getId());
         pojoEntity.setNumeroTarjeta("400");
-        pojoEntity.setNumeroDeVerificacion("123");
         
-        MedioDePagoEntity result = medioLogic.createMedioDePago(pojoEntity);
         
+        pojoEntity.setNumeroTarjeta("410");
         medioLogic.updateMedioDePago(pojoEntity.getId(), pojoEntity);
         
         MedioDePagoEntity resp = em.find(MedioDePagoEntity.class, entity.getId());
         
-        Assert.assertEquals(result.getId(), resp.getId());
-        Assert.assertEquals(result.getNumeroDeVerificacion(), resp.getNumeroDeVerificacion());
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getNumeroDeVerificacion(), resp.getNumeroDeVerificacion());
     }
 
     /**

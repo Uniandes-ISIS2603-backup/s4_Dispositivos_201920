@@ -5,7 +5,10 @@
  */
 package co.edu.uniandes.csw.dispositivos.entities;
 
+import co.edu.uniandes.csw.dispositivos.podam.MedioDePagoStrategy;
+import co.edu.uniandes.csw.dispositivos.podam.MetodoDePagoStrategy;
 import javax.persistence.Entity;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *
@@ -17,11 +20,13 @@ public class MedioDePagoEntity extends BaseEntity {
     /**
      * Representa el numero de una tarjeta.
      */
+    @PodamStrategyValue(MetodoDePagoStrategy.class)
     private String numeroTarjeta;
 
     /**
      * Representa el numero de verificacion de una tarjeta.
      */
+    @PodamStrategyValue(MedioDePagoStrategy.class)
     private String numeroDeVerificacion;
 
     /**
@@ -118,7 +123,7 @@ public class MedioDePagoEntity extends BaseEntity {
      *
      * @param obj Object que se compara.
      * @return despreciado.
-     * @Ddeprecated (solo arregla code smell)
+     * @deprecated (solo arregla code smell)
      */
     @Override
     @Deprecated
@@ -130,7 +135,7 @@ public class MedioDePagoEntity extends BaseEntity {
      * Metodo no usado
      *
      * @return nada.
-     * @Ddeprecated (solo arregla code smell)
+     * @deprecated (solo arregla code smell)
      */
     @Override
     @Deprecated
