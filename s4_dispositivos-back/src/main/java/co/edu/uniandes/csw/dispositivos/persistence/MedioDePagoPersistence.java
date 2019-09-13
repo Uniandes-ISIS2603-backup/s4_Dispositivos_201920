@@ -83,4 +83,28 @@ public class MedioDePagoPersistence {
         TypedQuery query = em.createQuery("select u from MedioDePagoEntity u", MedioDePagoEntity.class);
         return query.getResultList();
     }
+    
+            /**
+     * Busca si hay algun medio de pago con el mismo numero de la tarjeta que se envía de argumento
+     *
+     * @param pNumeroTarjeta: Numero del medio de pago que se está buscando
+     * @return null si no existe ningun medio de pago con el numero de tarjeta del argumento.
+     * Si existe alguna devuelve la primera.
+     */
+    public MedioDePagoEntity findByNumeroTarjeta(String pNumeroTarjeta) {
+        LOGGER.log(Level.INFO, "Consultando medio de pago por numero de tarjeta ", pNumeroTarjeta);
+        TypedQuery query = em.createQuery("Select u From MedioDePagoEntity u where u.numeroTarjeta = :numTarje", MedioDePagoEntity.class);
+        query = query.setParameter("numTarje", pNumeroTarjeta);
+        List<MedioDePagoEntity> sameNumber = query.getResultList();
+        MedioDePagoEntity result;
+        if (sameNumber == null) {
+            result = null;
+        } else if (sameNumber.isEmpty()) {
+            result = null;
+        } else {
+            result = sameNumber.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar un medio de pago por el numero de tarjeta ", pNumeroTarjeta);
+        return result;
+    }
 }

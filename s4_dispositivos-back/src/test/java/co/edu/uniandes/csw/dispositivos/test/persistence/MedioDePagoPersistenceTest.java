@@ -32,18 +32,18 @@ import java.util.logging.Logger;
  */
 @RunWith(Arquillian.class)
 public class MedioDePagoPersistenceTest {
-    
+
     private static final Logger LOGGER = Logger.getLogger(MedioDePagoPersistence.class.getName());
-    
+
     @Inject
     private MedioDePagoPersistence medioPPersistence;
-    
+
     @PersistenceContext
     private EntityManager em;
-    
+
     @Inject
     UserTransaction utx;
-    
+
     private List<MedioDePagoEntity> data = new ArrayList<MedioDePagoEntity>();
 
     /**
@@ -94,10 +94,10 @@ public class MedioDePagoPersistenceTest {
      */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
-        
+
         for (int i = 0; i < 3; i++) {
             MedioDePagoEntity entity = factory.manufacturePojo(MedioDePagoEntity.class);
-            
+
             em.persist(entity);
             data.add(entity);
         }
@@ -110,18 +110,18 @@ public class MedioDePagoPersistenceTest {
     public void createMedioDePagoTest() {
         PodamFactory factory = new PodamFactoryImpl();
         MedioDePagoEntity newEntity = factory.manufacturePojo(MedioDePagoEntity.class);
-        
+
         MedioDePagoEntity result = medioPPersistence.create(newEntity);
-        
+
         Assert.assertNotNull(result);
-        
+
         MedioDePagoEntity entity = em.find(MedioDePagoEntity.class, result.getId());
-        
+
         Assert.assertEquals(newEntity.getNumeroTarjeta(), entity.getNumeroTarjeta());
         Assert.assertEquals(newEntity.getNumeroDeVerificacion(), entity.getNumeroDeVerificacion());
         Assert.assertEquals(newEntity.getTipoCredito(), entity.getTipoCredito());
         Assert.assertEquals(newEntity.getTipoTarjeta(), entity.getTipoTarjeta());
-        
+
     }
 
     /**
@@ -129,7 +129,7 @@ public class MedioDePagoPersistenceTest {
      */
     @Test
     public void testConstructorMedioDePago() {
-        MedioDePagoEntity entity = new MedioDePagoEntity("123456789", 1234, "abc", "def");
+        MedioDePagoEntity entity = new MedioDePagoEntity("123456789", "1234", "abc", "def");
         Assert.assertEquals("123456789", entity.getNumeroTarjeta());
         Assert.assertEquals(1234, entity.getNumeroDeVerificacion());
         Assert.assertEquals("def", entity.getTipoCredito());
@@ -182,13 +182,13 @@ public class MedioDePagoPersistenceTest {
         MedioDePagoEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
         MedioDePagoEntity newEntity = factory.manufacturePojo(MedioDePagoEntity.class);
-        
+
         newEntity.setId(entity.getId());
-        
+
         medioPPersistence.update(newEntity);
-        
+
         MedioDePagoEntity resp = em.find(MedioDePagoEntity.class, entity.getId());
-        
+
         Assert.assertEquals(newEntity.getNumeroTarjeta(), resp.getNumeroTarjeta());
         Assert.assertEquals(newEntity.getNumeroDeVerificacion(), resp.getNumeroDeVerificacion());
     }
@@ -212,12 +212,26 @@ public class MedioDePagoPersistenceTest {
      */
     @Test
     public void testEquals() {
-        MedioDePagoEntity entity = new MedioDePagoEntity("123456789", 1234, "abc", "def");
-        MedioDePagoEntity entity2 = new MedioDePagoEntity("123456789", 1234, "abc", "def");
-        
+        MedioDePagoEntity entity = new MedioDePagoEntity("123456789", "1234", "abc", "def");
+        MedioDePagoEntity entity2 = new MedioDePagoEntity("123456789", "1234", "abc", "def");
+
         Assert.assertEquals(entity.getNumeroTarjeta(), entity2.getNumeroTarjeta());
-        
-        MedioDePagoEntity entity3 = new MedioDePagoEntity("1234", 123, "ab", "de");
+
+        MedioDePagoEntity entity3 = new MedioDePagoEntity("1234", "123", "ab", "de");
         Assert.assertFalse(entity.equals(entity3));
+    }
+
+    /**
+     * Prueba para consultar una categoria por nombre.
+     */
+    @Test
+    public void findMedioDePagoByNumeroTajetaTest() {
+        MedioDePagoEntity entity = data.get(0);
+        MedioDePagoEntity newEntity = medioPPersistence.findByNumeroTarjeta(entity.getNumeroTarjeta());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getNumeroTarjeta(), newEntity.getNumeroTarjeta());
+
+        newEntity = medioPPersistence.findByNumeroTarjeta(null);
+        Assert.assertNull(newEntity);
     }
 }

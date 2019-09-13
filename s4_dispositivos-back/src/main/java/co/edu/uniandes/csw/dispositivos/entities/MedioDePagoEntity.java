@@ -22,7 +22,7 @@ public class MedioDePagoEntity extends BaseEntity {
     /**
      * Representa el numero de verificacion de una tarjeta.
      */
-    private int numeroDeVerificacion;
+    private String numeroDeVerificacion;
 
     /**
      * Representa el tipo de tarjeta.
@@ -50,7 +50,7 @@ public class MedioDePagoEntity extends BaseEntity {
      * @param tipoCredito Tipo de crédito. tipoCredito = (VISA, MASTERCARD),
      * NULL si no tiene crédito.
      */
-    public MedioDePagoEntity(String numeroTarjeta, int numeroDeVerificacion, String tipoTarjeta, String tipoCredito) {
+    public MedioDePagoEntity(String numeroTarjeta, String numeroDeVerificacion, String tipoTarjeta, String tipoCredito) {
         this.numeroTarjeta = numeroTarjeta;
         this.numeroDeVerificacion = numeroDeVerificacion;
         this.tipoCredito = tipoCredito;
@@ -74,14 +74,14 @@ public class MedioDePagoEntity extends BaseEntity {
     /**
      * @return the numeroDeVerificacion
      */
-    public int getNumeroDeVerificacion() {
+    public String getNumeroDeVerificacion() {
         return numeroDeVerificacion;
     }
 
     /**
      * @param numeroDeVerificacion the numeroDeVerificacion to set
      */
-    public void setNumeroDeVerificacion(int numeroDeVerificacion) {
+    public void setNumeroDeVerificacion(String numeroDeVerificacion) {
         this.numeroDeVerificacion = numeroDeVerificacion;
     }
 
