@@ -50,4 +50,29 @@ public class CategoriaEntity extends BaseEntity {
     public void setNombreCategoria(String nombreCategoria) {
         this.nombreCategoria = nombreCategoria;
     }
+    
+        /**
+     * Metodo no usado
+     *
+     * @param obj Object que se compara.
+     * @return despreciado.
+     * @deprecated (solo arregla code smell)
+     */
+    @Override
+    @Deprecated
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    /**
+     * Metodo no usado
+     *
+     * @return nada.
+     * @deprecated (solo arregla code smell)
+     */
+    @Override
+    @Deprecated
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

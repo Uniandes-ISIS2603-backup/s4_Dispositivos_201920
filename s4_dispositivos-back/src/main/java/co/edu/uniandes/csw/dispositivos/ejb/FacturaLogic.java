@@ -54,8 +54,7 @@ public class FacturaLogic {
      * @return Lista de entidades de tipo factura.
      */
     public List<FacturaEntity> getFacturas() {
-        List<FacturaEntity> facturas = fp.findAll();
-        return facturas;
+        return fp.findAll();
     }
 
     /**
@@ -65,8 +64,7 @@ public class FacturaLogic {
      * @return La factura encontrada, null si no la encuentra.
      */
     public FacturaEntity getFactura(Long facturaId) {
-        FacturaEntity facturaEntity = fp.find(facturaId);
-        return facturaEntity;
+        return fp.find(facturaId);
     }
 
     /**
@@ -94,8 +92,7 @@ public class FacturaLogic {
         } else if (fp.findByCode(facturaEntity.getNumeroDeFactura()) != null) {
             throw new BusinessLogicException("Ya existe una factura con el mismo número");
         }
-        FacturaEntity newEntity = fp.update(facturaEntity);
-        return newEntity;
+        return fp.update(facturaEntity);
     }
 
     /**

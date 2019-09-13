@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.dispositivos.test.persistence;
+package co.edu.uniandes.csw.dispositivos.test.logic;
 
+import co.edu.uniandes.csw.dispositivos.ejb.CategoriaLogic;
 import co.edu.uniandes.csw.dispositivos.entities.CategoriaEntity;
+import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.CategoriaPersistence;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
+import javax.validation.constraints.AssertTrue;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -31,18 +32,18 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Juan L
  */
 @RunWith(Arquillian.class)
-public class CategoriaPersistenceTest {
+public class CategoriaLogicTest {
 
-    private static final Logger LOGGER = Logger.getLogger(CategoriaPersistence.class.getName());
+    private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private CategoriaPersistence categoriaPersistence;
+    private CategoriaLogic categoriaLogic;
 
     @PersistenceContext
     private EntityManager em;
 
     @Inject
-    UserTransaction utx;
+    private UserTransaction utx;
 
     private List<CategoriaEntity> data = new ArrayList<CategoriaEntity>();
 
@@ -55,6 +56,7 @@ public class CategoriaPersistenceTest {
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(CategoriaEntity.class.getPackage())
+                .addPackage(CategoriaLogic.class.getPackage())
                 .addPackage(CategoriaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
@@ -67,7 +69,6 @@ public class CategoriaPersistenceTest {
     public void configTest() {
         try {
             utx.begin();
-            em.joinTransaction();
             clearData();
             insertData();
             utx.commit();
@@ -103,42 +104,45 @@ public class CategoriaPersistenceTest {
     }
 
     /**
-     * Prueba para crear un medio de pago.
+     * Prueba para crear un categoria.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
     @Test
-    public void createCategoriaTest() {
-        PodamFactory factory = new PodamFactoryImpl();
+    public void createCategoriaTest() throws BusinessLogicException {
+
         CategoriaEntity newEntity = factory.manufacturePojo(CategoriaEntity.class);
-
-        CategoriaEntity result = categoriaPersistence.create(newEntity);
-
+        CategoriaEntity result = categoriaLogic.createCategoria(newEntity);
         Assert.assertNotNull(result);
-
         CategoriaEntity entity = em.find(CategoriaEntity.class, result.getId());
-
+        Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getNombreCategoria(), entity.getNombreCategoria());
     }
 
     /**
-     * Test del metodo constructor de la clase Categoria.
+     * Prueba para crear una categoria con el mismo nombre de un categoria que
+     * ya existe.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
-    @Test
-    public void testConstructorCategoria() {
-        CategoriaEntity prueba = new CategoriaEntity("abc");
-        Assert.assertEquals("abc", prueba.getNombreCategoria());
+    @Test(expected = BusinessLogicException.class)
+    public void createCategoriaConMismoNombreTest() throws BusinessLogicException {
+        CategoriaEntity newEntity = factory.manufacturePojo(CategoriaEntity.class);
+        newEntity.setNombreCategoria(data.get(0).getNombreCategoria());
+        categoriaLogic.createCategoria(newEntity);
     }
 
     /**
-     * Prueba para consultar la lista de medios de pagos.
+     * Prueba para consultar la lista de categorias.
      */
     @Test
-    public void getCategoriaFindAllTest() {
-        List<CategoriaEntity> list = categoriaPersistence.findAll();
+    public void getCategoriasTest() {
+        List<CategoriaEntity> list = categoriaLogic.getCategorias();
         Assert.assertEquals(data.size(), list.size());
-        for (CategoriaEntity ent : list) {
+        for (CategoriaEntity entity : list) {
             boolean found = false;
-            for (CategoriaEntity entity : data) {
-                if (ent.getId().equals(entity.getId())) {
+            for (CategoriaEntity entity2 : data) {
+                if (entity.getId().equals(entity2.getId())) {
                     found = true;
                 }
             }
@@ -147,67 +151,48 @@ public class CategoriaPersistenceTest {
     }
 
     /**
-     * Busca si hay alguna categoria con el id que se envía de argumento
-     *
-     * @param cateoriaId: id correspondiente a la categoria buscada.
-     * @return una categoria.
+     * Prueba para consultar un Categoria.
      */
     @Test
     public void getCategoriaTest() {
         CategoriaEntity entity = data.get(0);
-        CategoriaEntity newEntity = categoriaPersistence.find(entity.getId());
-        Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getNombreCategoria(), newEntity.getNombreCategoria());
+        CategoriaEntity resultEntity = categoriaLogic.getCategoria(entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getNombreCategoria(), resultEntity.getNombreCategoria());
     }
-
-    /**
-     * Actualiza una Categoria.
-     *
-     * @param categoriaEntity: categoria que viene con los nuevos cambios. Por
-     * ejemplo el nombre pudo cambiar. En ese caso, se haria uso del método
-     * update.
-     * @return una categoria con los cambios aplicados.
+    
+        /**
+     * Prueba para actualizar una categoria.
      */
     @Test
-    public void updateCategoriaTest() {
+    public void updateCategoriaTest() throws BusinessLogicException {
         CategoriaEntity entity = data.get(0);
-        PodamFactory factory = new PodamFactoryImpl();
-        CategoriaEntity newEntity = factory.manufacturePojo(CategoriaEntity.class);
-
-        newEntity.setId(entity.getId());
-
-        categoriaPersistence.update(newEntity);
-
+        CategoriaEntity pojoEntity = factory.manufacturePojo(CategoriaEntity.class);
+        pojoEntity.setId(entity.getId());
+        categoriaLogic.updateCategoria(pojoEntity.getId(), pojoEntity);
         CategoriaEntity resp = em.find(CategoriaEntity.class, entity.getId());
-
-        Assert.assertEquals(newEntity.getNombreCategoria(), resp.getNombreCategoria());
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getNombreCategoria(), resp.getNombreCategoria());
     }
 
     /**
-     * Borra una categoria de la base de datos recibiendo como argumento el id
-     * de categoria.
+     * Prueba para eliminar un categoria.
      *
-     * @param medioId: id correspondiente a la categoria a borrar.
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
     @Test
-    public void deleteCategoriaTest() {
-        CategoriaEntity entity = data.get(0);
-        categoriaPersistence.delete(entity.getId());
+    public void deleteMedioDePagoTest() throws BusinessLogicException {
+        CategoriaEntity entity = data.get(1);
+        categoriaLogic.deleteCategoria(entity.getId());
         CategoriaEntity deleted = em.find(CategoriaEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
     
-    /**
-     * Prueba para consultar una categoria por nombre.
-     */
     @Test
-    public void findEditorialByNameTest() {
-        CategoriaEntity entity = data.get(0);
-        CategoriaEntity newEntity = categoriaPersistence.findByName(entity.getNombreCategoria());
-        Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getNombreCategoria(), newEntity.getNombreCategoria());
-
-        newEntity = categoriaPersistence.findByName(null);
-        Assert.assertNull(newEntity);
+    public void verificarReglasNegocioCategoriaTest() throws BusinessLogicException
+    {
+        CategoriaEntity entity = new CategoriaEntity("Esta No Existe");
+        Assert.assertTrue(categoriaLogic.verificaLasReglasNegocioCategoria(entity));
     }
 }
