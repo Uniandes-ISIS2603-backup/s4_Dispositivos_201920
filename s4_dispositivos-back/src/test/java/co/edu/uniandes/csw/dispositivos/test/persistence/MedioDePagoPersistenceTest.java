@@ -131,7 +131,7 @@ public class MedioDePagoPersistenceTest {
     public void testConstructorMedioDePago() {
         MedioDePagoEntity entity = new MedioDePagoEntity("123456789", "1234", "abc", "def");
         Assert.assertEquals("123456789", entity.getNumeroTarjeta());
-        Assert.assertEquals(1234, entity.getNumeroDeVerificacion());
+        Assert.assertEquals("1234", entity.getNumeroDeVerificacion());
         Assert.assertEquals("def", entity.getTipoCredito());
         Assert.assertEquals("abc", entity.getTipoTarjeta());
     }
@@ -205,20 +205,6 @@ public class MedioDePagoPersistenceTest {
         medioPPersistence.delete(entity.getId());
         MedioDePagoEntity deleted = em.find(MedioDePagoEntity.class, entity.getId());
         Assert.assertNull(deleted);
-    }
-
-    /**
-     * Prueba para el metodo equals.
-     */
-    @Test
-    public void testEquals() {
-        MedioDePagoEntity entity = new MedioDePagoEntity("123456789", "1234", "abc", "def");
-        MedioDePagoEntity entity2 = new MedioDePagoEntity("123456789", "1234", "abc", "def");
-
-        Assert.assertEquals(entity.getNumeroTarjeta(), entity2.getNumeroTarjeta());
-
-        MedioDePagoEntity entity3 = new MedioDePagoEntity("1234", "123", "ab", "de");
-        Assert.assertFalse(entity.equals(entity3));
     }
 
     /**

@@ -106,4 +106,6 @@ public class CategoriaPersistence {
         LOGGER.log(Level.INFO, "Saliendo de consultar categoria por nombre ", pNombreCategoria);
         return result;
     }
+    
+    
 }

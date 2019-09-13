@@ -112,30 +112,30 @@ public class MedioDePagoEntity extends BaseEntity {
     public void setTipoCredito(String tipoCredito) {
         this.tipoCredito = tipoCredito;
     }
-
+    
+        /**
+     * Metodo no usado
+     *
+     * @param obj Object que se compara.
+     * @return despreciado.
+     * @Ddeprecated (solo arregla code smell)
+     */
     @Override
+    @Deprecated
     public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 
-        if (obj == null) {
-            return false;
-        }
-
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-        
-        boolean resp = super.equals(obj);
-        final MedioDePagoEntity other = (MedioDePagoEntity) obj;
-
-        if (!resp) {
-            return false;
-        } else {
-            if (this.tipoTarjeta.compareTo(other.tipoTarjeta) == 0 && this.tipoCredito.compareTo(other.tipoCredito) == 0
-                    && this.numeroDeVerificacion == other.numeroDeVerificacion && this.numeroTarjeta.compareTo(other.numeroTarjeta) == 0) {
-                return true;
-            }
-            return false;
-        }
+    /**
+     * Metodo no usado
+     *
+     * @return nada.
+     * @Ddeprecated (solo arregla code smell)
+     */
+    @Override
+    @Deprecated
+    public int hashCode() {
+        return super.hashCode();
     }
 
 }

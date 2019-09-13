@@ -10,18 +10,35 @@ import javax.persistence.Entity;
 
 /**
  *
- * @author Estudiante
+ * @author Carlos Salazar
  */
 @Entity
 public class MarcaEntity extends BaseEntity implements Serializable {
 
+    /**
+     * Atributo que modela el nombre de la marca.
+     */
     private String nombreMarca;
+
+    /**
+     * atributo que modela la imagen de la marca.
+     */
     private String imagen;
 
+    /**
+     * Constructor creado vacio para no tener problemas al implementar
+     * Serializable
+     */
     public MarcaEntity() {
 
     }
 
+    /**
+     * Crea una nueva MarcaEntity.
+     *
+     * @param pNombreMarca nombre de la marca a establecer.
+     * @param pImagen ruta de la imagen a establecer.
+     */
     public MarcaEntity(String pNombreMarca, String pImagen) {
         this.nombreMarca = pNombreMarca;
         this.imagen = pImagen;
@@ -55,23 +72,29 @@ public class MarcaEntity extends BaseEntity implements Serializable {
         this.imagen = imagen;
     }
 
+    /**
+     * Metodo no usado
+     *
+     * @param obj Object que se compara.
+     * @return despreciado.
+     * @Ddeprecated (solo arregla code smell)
+     */
     @Override
-    public boolean equals(Object obj)
-    {
-        boolean resp = super.equals(this);
-        final MarcaEntity other = (MarcaEntity) obj;
-        
-        if(!resp)
-        {
-            return false;
-        }
-        else
-        {
-            if(this.nombreMarca.equalsIgnoreCase(other.nombreMarca))
-                if(this.imagen.equalsIgnoreCase(other.imagen))
-                        return true;
-
-            return false;
-        }
+    @Deprecated
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
+
+    /**
+     * Metodo no usado
+     *
+     * @return nada.
+     * @Ddeprecated (solo arregla code smell)
+     */
+    @Override
+    @Deprecated
+    public int hashCode() {
+        return super.hashCode();
+    }
+
 }

@@ -196,20 +196,6 @@ public class CategoriaPersistenceTest {
         CategoriaEntity deleted = em.find(CategoriaEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-
-    /**
-     * Prueba del test de equals.
-     */
-    @Test
-    public void testEqualsCategoria() {
-        CategoriaEntity prueba = new CategoriaEntity("abc");
-        CategoriaEntity prueba2 = new CategoriaEntity("abc");
-
-        Assert.assertTrue(prueba.equals(prueba2));
-
-        CategoriaEntity prueba3 = new CategoriaEntity("efg");
-        Assert.assertFalse(prueba.equals(prueba3));
-    }
     
     /**
      * Prueba para consultar una categoria por nombre.
