@@ -343,4 +343,16 @@ public class ClienteLogicTest {
         Assert.assertTrue(clienteLogic.validarEmail(newEntity.getCorreoElectronico()));
     }
 
+    /**
+     * Prueba para validar un string vacío o null.
+     *
+     */
+    @Test
+    public void validarVacioONullTest() {
+        Assert.assertTrue(clienteLogic.validarNoVacioONull("                      "));
+        Assert.assertTrue(clienteLogic.validarNoVacioONull(null));
+        Assert.assertTrue(clienteLogic.validarNoVacioONull(""));
+        Assert.assertFalse(clienteLogic.validarNoVacioONull("           .           "));
+
+    }
 }

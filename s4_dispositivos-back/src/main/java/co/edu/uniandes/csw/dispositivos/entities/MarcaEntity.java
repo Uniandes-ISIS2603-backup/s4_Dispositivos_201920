@@ -77,7 +77,7 @@ public class MarcaEntity extends BaseEntity implements Serializable {
      *
      * @param obj Object que se compara.
      * @return despreciado.
-     * @Ddeprecated (solo arregla code smell)
+     * @deprecated (solo arregla code smell)
      */
     @Override
     @Deprecated
@@ -89,7 +89,7 @@ public class MarcaEntity extends BaseEntity implements Serializable {
      * Metodo no usado
      *
      * @return nada.
-     * @Ddeprecated (solo arregla code smell)
+     * @deprecated (solo arregla code smell)
      */
     @Override
     @Deprecated

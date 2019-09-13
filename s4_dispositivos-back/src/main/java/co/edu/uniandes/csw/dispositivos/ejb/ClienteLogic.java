@@ -42,17 +42,19 @@ public class ClienteLogic {
      * Si ya existe un cliente con el mismo usuario.
      */
     public ClienteEntity createCliente(ClienteEntity cliente) throws BusinessLogicException {
-        if (cliente.getApellido() == null || cliente.getApellido().trim().equals("")) {
-            throw new BusinessLogicException("El apellido del cliente está vacío");
-        } else if (cliente.getNombre() == null || cliente.getNombre().trim().equals("")) {
-            throw new BusinessLogicException("El nombre del cliente está vacío");
-        } else if (cliente.getCorreoElectronico() == null || cliente.getCorreoElectronico().trim().equals("") || !validarEmail(cliente.getCorreoElectronico())) {
-            throw new BusinessLogicException("El correo del cliente está vacío");
-        } else if (cliente.getDireccion() == null || cliente.getDireccion().trim().equals("")) {
-            throw new BusinessLogicException("La dirección del cliente está vacía");
-        } else if (cliente.getUsuario() == null || cliente.getUsuario().trim().equals("")) {
-            throw new BusinessLogicException("El usuario del cliente está vacío");
-        } else if (cliente.getContrasena() == null || cliente.getContrasena().trim().equals("")) {
+        if (validarNoVacioONull(cliente.getApellido())) {
+            throw new BusinessLogicException("El apellido del cliente está vacío o es nulo");
+        } else if (validarNoVacioONull(cliente.getNombre())) {
+            throw new BusinessLogicException("El nombre del cliente está vacío o es nulo");
+        } else if (validarNoVacioONull(cliente.getCorreoElectronico())) {
+            throw new BusinessLogicException("El correo del cliente está vacío o es nulo");
+        } else if (!validarEmail(cliente.getCorreoElectronico())) {
+            throw new BusinessLogicException("La dirección del cliente es incorrecta");
+        } else if (validarNoVacioONull(cliente.getDireccion())) {
+            throw new BusinessLogicException("La dirección del cliente es nula o vacía");
+        } else if (validarNoVacioONull(cliente.getUsuario())) {
+            throw new BusinessLogicException("El usuario del cliente es nulo o vacío");
+        } else if (validarNoVacioONull(cliente.getContrasena())) {
             throw new BusinessLogicException("La contraseña del cliente está vacía");
         } else if (cliente.getCedula() == null || cliente.getCedula() <= 0.0) {
             throw new BusinessLogicException("La cédula del cliente es menor o igual a 0 o es igual a null");
@@ -90,8 +92,7 @@ public class ClienteLogic {
      * @return Lista de entidades de tipo cliente.
      */
     public List<ClienteEntity> getClientes() {
-        List<ClienteEntity> clientes = cp.findAll();
-        return clientes;
+        return cp.findAll();
     }
 
     /**
@@ -101,8 +102,7 @@ public class ClienteLogic {
      * @return El cliente encontrado, null si no lo encuentra.
      */
     public ClienteEntity getCliente(Long clienteId) {
-        ClienteEntity clienteEntity = cp.find(clienteId);
-        return clienteEntity;
+        return cp.find(clienteId);
     }
 
     /**
@@ -124,17 +124,19 @@ public class ClienteLogic {
      * Si ya existe un cliente con el mismo usuario.
      */
     public ClienteEntity updateCliente(Long clienteId, ClienteEntity clienteEntity) throws BusinessLogicException {
-        if (clienteEntity.getApellido() == null || clienteEntity.getApellido().trim().equals("")) {
-            throw new BusinessLogicException("El apellido del cliente está vacío");
-        } else if (clienteEntity.getNombre() == null || clienteEntity.getNombre().trim().equals("")) {
-            throw new BusinessLogicException("El nombre del cliente está vacío");
-        } else if (clienteEntity.getCorreoElectronico() == null || clienteEntity.getCorreoElectronico().trim().equals("")) {
-            throw new BusinessLogicException("El correo del cliente está vacío");
-        } else if (clienteEntity.getDireccion() == null || clienteEntity.getDireccion().trim().equals("")) {
-            throw new BusinessLogicException("La dirección del cliente está vacía");
-        } else if (clienteEntity.getUsuario() == null || clienteEntity.getUsuario().trim().equals("")) {
-            throw new BusinessLogicException("El usuario del cliente está vacío");
-        } else if (clienteEntity.getContrasena() == null || clienteEntity.getContrasena().trim().equals("")) {
+        if (validarNoVacioONull(clienteEntity.getApellido())) {
+            throw new BusinessLogicException("El apellido del cliente está vacío o es nulo");
+        } else if (validarNoVacioONull(clienteEntity.getNombre())) {
+            throw new BusinessLogicException("El nombre del cliente está vacío o es nulo");
+        } else if (validarNoVacioONull(clienteEntity.getCorreoElectronico())) {
+            throw new BusinessLogicException("El correo del cliente está vacío o es nulo");
+        } else if (!validarEmail(clienteEntity.getCorreoElectronico())) {
+            throw new BusinessLogicException("La dirección del cliente es incorrecta");
+        } else if (validarNoVacioONull(clienteEntity.getDireccion())) {
+            throw new BusinessLogicException("La dirección del cliente es nula o vacía");
+        } else if (validarNoVacioONull(clienteEntity.getUsuario())) {
+            throw new BusinessLogicException("El usuario del cliente es nulo o vacío");
+        } else if (validarNoVacioONull(clienteEntity.getContrasena())) {
             throw new BusinessLogicException("La contraseña del cliente está vacía");
         } else if (clienteEntity.getCedula() == null || clienteEntity.getCedula() <= 0.0) {
             throw new BusinessLogicException("La cédula del cliente es menor o igual a 0 o es igual a null");
@@ -145,8 +147,11 @@ public class ClienteLogic {
         } else if (cp.findByUsuario(clienteEntity.getUsuario()) != null) {
             throw new BusinessLogicException("Ya existe un cliente con el mismo usuario");
         }
-        ClienteEntity newEntity = cp.update(clienteEntity);
-        return newEntity;
+        return cp.update(clienteEntity);
+    }
+
+    public boolean validarNoVacioONull(String aValidar) {
+        return aValidar == null || aValidar.trim().equals("");
     }
 
     /**
