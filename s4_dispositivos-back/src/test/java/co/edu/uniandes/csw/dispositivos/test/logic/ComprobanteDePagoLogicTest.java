@@ -243,7 +243,7 @@ public class ComprobanteDePagoLogicTest {
      * @throws BusinessLogicException si una regla de negocio no se cumple
      */
     @Test(expected = BusinessLogicException.class)
-    public  void createAdministradorUsuarioExistente() throws BusinessLogicException
+    public  void createNumeroFacturaExistente() throws BusinessLogicException
     {
         ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
         ComprobanteDePagoEntity result = comprobanteLogic.createComprobante(comprobanteEntity);
