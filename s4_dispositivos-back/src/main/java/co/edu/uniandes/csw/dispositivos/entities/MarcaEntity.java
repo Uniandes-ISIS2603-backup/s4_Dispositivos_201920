@@ -62,7 +62,7 @@ public class MarcaEntity extends BaseEntity implements Serializable {
      * @return the imagen
      */
     public String getImagen() {
-        return imagen;
+        return this.imagen;
     }
 
     /**

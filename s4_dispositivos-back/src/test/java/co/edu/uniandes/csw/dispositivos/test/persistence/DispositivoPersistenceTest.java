@@ -118,8 +118,15 @@ public class DispositivoPersistenceTest {
 
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(dispositivo.isPromocion(), entity.isPromocion());
+         
+        Assert.assertEquals(dispositivo.getImagenes().getLink(), entity.getImagenes().getLink());
 
-        Assert.assertArrayEquals(dispositivo.getImagenes().getLinks(), entity.getImagenes().getLinks());
+        Assert.assertEquals(dispositivo.getImagenes().getLink(), entity.getImagenes().getLink());
+        
+        Assert.assertEquals(dispositivo.isUsado(), entity.isUsado());
+        
+        Assert.assertEquals(dispositivo.getFactura(), entity.getFactura());
+        
     }
 
     /**
@@ -158,7 +165,13 @@ public class DispositivoPersistenceTest {
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(dispositivo.isPromocion(), newEntity.isPromocion());
 
-        Assert.assertArrayEquals(dispositivo.getImagenes().getLinks(), newEntity.getImagenes().getLinks());
+        Assert.assertEquals(dispositivo.getImagenes().getLink(), newEntity.getImagenes().getLink());
+        
+        Assert.assertEquals(dispositivo.getImagenes().getLink(), newEntity.getImagenes().getLink());
+        
+        Assert.assertEquals(dispositivo.isUsado(), newEntity.isUsado());
+        
+        Assert.assertEquals(dispositivo.getFactura(), newEntity.getFactura());
     }
 
     @Test
@@ -218,7 +231,13 @@ public class DispositivoPersistenceTest {
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(newEntity.isPromocion(), resp.isPromocion());
 
-        Assert.assertArrayEquals(newEntity.getImagenes().getLinks(), resp.getImagenes().getLinks());
+        Assert.assertEquals(newEntity.getImagenes().getLink(), resp.getImagenes().getLink());
+
+        Assert.assertEquals(newEntity.getImagenes().getLink(), resp.getImagenes().getLink());
+        
+        Assert.assertEquals(newEntity.isUsado(), resp.isUsado());
+        
+        Assert.assertEquals(newEntity.getFactura(), resp.getFactura());
     }
 
     /**

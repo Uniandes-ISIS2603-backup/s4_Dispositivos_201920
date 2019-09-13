@@ -21,6 +21,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  * Test de persistencia de la clase AdminstradorEntity
+ * @author Dianis Caro
  */
 @RunWith(Arquillian.class)
 public class AdministradorPersistenceTest {
@@ -40,10 +41,8 @@ public class AdministradorPersistenceTest {
     UserTransaction utx;
 
     private List<AdministradorEntity> data = new ArrayList<>();
-
     /**
      * Construye el despliegue de la prueba a realizar
-     *
      * @return jar, es decir JavaArchive.
      */
     @Deployment
@@ -54,13 +53,11 @@ public class AdministradorPersistenceTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-
     /**
      * Constructor de la clase
      */
     public AdministradorPersistenceTest() {
     }
-
     /**
      * Prueba para crear un administrador
      */
@@ -75,8 +72,8 @@ public class AdministradorPersistenceTest {
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
         Assert.assertEquals(newEntity.getContrasena(), entity.getContrasena());
+        Assert.assertEquals(newEntity.getCorreo(), entity.getCorreo());
     }
-
     /**
      * Establece las configuraciones iniciales del test
      */
@@ -96,14 +93,12 @@ public class AdministradorPersistenceTest {
             System.out.println(e.getMessage());
         }
     }
-
     /**
      * Elimina todos los elementos de la BD antes de hacer el test
      */
     private void clearData() {
         em.createQuery("delete from AdministradorEntity").executeUpdate();
     }
-
     /**
      * Prueba para obtener todos los administradores
      */
@@ -122,7 +117,6 @@ public class AdministradorPersistenceTest {
             Assert.assertTrue(found);
         }
     }
-
     /**
      * Prueba para consultar un administrador
      */
@@ -134,8 +128,8 @@ public class AdministradorPersistenceTest {
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
         Assert.assertEquals(newEntity.getContrasena(), entity.getContrasena());
+        Assert.assertEquals(newEntity.getCorreo(), entity.getCorreo());
     }
-
     /**
      * Prueba para actualizar un administrador
      */
@@ -154,8 +148,8 @@ public class AdministradorPersistenceTest {
         Assert.assertEquals(newEntity.getId(), resp.getId());
         Assert.assertEquals(newEntity.getUsuario(), resp.getUsuario());
         Assert.assertEquals(newEntity.getContrasena(), resp.getContrasena());
+        Assert.assertEquals(newEntity.getCorreo(), resp.getCorreo());
     }
-
     /**
      * Prueba para eliminar un administrador
      */
@@ -166,17 +160,43 @@ public class AdministradorPersistenceTest {
         AdministradorEntity deleted = em.find(AdministradorEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-
     /**
      * Prueba del constructor Admin
      */
     @Test
     public void testConstructorAdmin() {
-        AdministradorEntity newEntity = new AdministradorEntity("usuarioPrueba", "Hola1234");
+        AdministradorEntity newEntity = new AdministradorEntity("usuarioPrueba", "Hola1234","correo@uniandes.edu.co");
 
         Assert.assertEquals("usuarioPrueba", newEntity.getUsuario());
         Assert.assertEquals("Hola1234", newEntity.getContrasena());
-
+        Assert.assertEquals("correo@uniandes.edu.co", newEntity.getCorreo());
     }
-
+    /**
+     * Prueba para consultar un administrador por usuario
+     */
+    @Test
+    public void testFindByUser() 
+    {
+        AdministradorEntity entity = data.get(0);
+        AdministradorEntity newEntity = mp.findByUser(entity.getUsuario());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
+        Assert.assertEquals(newEntity.getContrasena(), entity.getContrasena());
+        Assert.assertEquals(newEntity.getCorreo(), entity.getCorreo());
+    }
+    /**
+     * Prueba para consultar un administrador por correo
+     */
+    @Test
+    public void testFindByEmail() 
+    {
+        AdministradorEntity entity = data.get(0);
+        AdministradorEntity newEntity = mp.findByEmail(entity.getCorreo());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
+        Assert.assertEquals(newEntity.getContrasena(), entity.getContrasena());
+        Assert.assertEquals(newEntity.getCorreo(), entity.getCorreo());
+    }
 }
