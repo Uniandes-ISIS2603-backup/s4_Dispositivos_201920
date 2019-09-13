@@ -74,6 +74,8 @@ public class ComprobanteDePagoPersistenceTest {
         Assert.assertNotNull(result);
 
         ComprobanteDePagoEntity entity = em.find(ComprobanteDePagoEntity.class, result.getId());
+        
+        System.out.println("-------------------------------------------------------------------" + entity.getTotalDePago());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getFechaDeFactura(), entity.getFechaDeFactura());
         Assert.assertEquals(newEntity.getId(), entity.getId());

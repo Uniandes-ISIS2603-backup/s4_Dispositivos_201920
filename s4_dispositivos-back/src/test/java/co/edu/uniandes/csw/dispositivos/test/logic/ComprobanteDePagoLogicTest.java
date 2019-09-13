@@ -66,7 +66,6 @@ public class ComprobanteDePagoLogicTest {
             }
         }
     }
-
     /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
      * pruebas
@@ -78,17 +77,14 @@ public class ComprobanteDePagoLogicTest {
             data.add(adminEntity);
         }
     }
-
     /**
      * Limpia las tablas que están implicadas en la prueba
      */
     private void clearData() {
         em.createQuery("delete from ComprobanteDePagoEntity").executeUpdate();
     }
-
     /**
      * Construye el despliegue de la prueba a realizar
-     *
      * @return jar, es decir JavaArchive.
      */
     @Deployment
@@ -100,7 +96,6 @@ public class ComprobanteDePagoLogicTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-
     /**
      * Prueba para eliminar un comprobante
      */
@@ -111,7 +106,6 @@ public class ComprobanteDePagoLogicTest {
         ComprobanteDePagoEntity deleted = em.find(ComprobanteDePagoEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-
     /**
      * Prueba para consultar un comprobante
      */
@@ -128,7 +122,6 @@ public class ComprobanteDePagoLogicTest {
         Assert.assertEquals(resultEntity.getNumeroDeTarjeta(), entity.getNumeroDeTarjeta());
         Assert.assertEquals(resultEntity.getTotalDePago(), entity.getTotalDePago());
     }
-
     /**
      * Prueba para consultar la lista de Comprobantes
      */
@@ -146,12 +139,9 @@ public class ComprobanteDePagoLogicTest {
             Assert.assertTrue(found);
         }
     }
-
     /**
      * Prueba para actualizar una Comprobante de pago
-     *
-     * @throws
-     * co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
     @Test
     public void updateComprobanteTest() throws BusinessLogicException {
@@ -161,18 +151,15 @@ public class ComprobanteDePagoLogicTest {
         comprobanteLogic.updateComprobanteDePago(pojoEntity.getId(), pojoEntity);
         ComprobanteDePagoEntity resp = em.find(ComprobanteDePagoEntity.class, entity.getId());
         Assert.assertNotNull(resp);
-        Assert.assertEquals(resp.getId(), entity.getId());
-        Assert.assertEquals(resp.getFechaDeFactura(), entity.getFechaDeFactura());
-        Assert.assertEquals(resp.getId(), entity.getId());
-        Assert.assertEquals(resp.getImpuestos(), entity.getImpuestos());
-        Assert.assertEquals(resp.getNumeroDeFactura(), entity.getNumeroDeFactura());
-        Assert.assertEquals(resp.getNumeroDeTarjeta(), entity.getNumeroDeTarjeta());
-        Assert.assertEquals(resp.getTotalDePago(), entity.getTotalDePago());
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getNumeroDeFactura(), resp.getNumeroDeFactura());
+        Assert.assertEquals(pojoEntity.getImpuestos(), resp.getImpuestos());
+        Assert.assertEquals(pojoEntity.getNumeroDeTarjeta(), resp.getNumeroDeTarjeta());
+        Assert.assertEquals(pojoEntity.getTotalDePago(), resp.getTotalDePago());
+        Assert.assertEquals(pojoEntity.getFechaDeFactura(), resp.getFechaDeFactura());
     }
-
     /**
      * Test para crear un ComprobanteDePago con todas las reglas de negocio
-     *
      * @throws BusinessLogicException si una regla de negocio no se cumple
      */
     @Test
@@ -191,11 +178,8 @@ public class ComprobanteDePagoLogicTest {
         Assert.assertEquals(entity.getNumeroDeTarjeta(), result.getNumeroDeTarjeta());
         Assert.assertEquals(entity.getTotalDePago(), result.getTotalDePago());
     }
-
     /**
-     * Test para crear un comprobante de pago con un número de dígitos diferente
-     * a 16
-     *
+     * Test para crear un comprobante de pago con un número de dígitos diferente a 16
      * @throws BusinessLogicException si una regla de negocio no se cumple
      */
     @Test(expected = BusinessLogicException.class)
@@ -203,5 +187,70 @@ public class ComprobanteDePagoLogicTest {
         ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
         comprobanteEntity.setNumeroDeTarjeta("1234567890");
         comprobanteLogic.createComprobante(comprobanteEntity);
+    }
+    /**
+     * Test para crear un comprobante de pago con una fecha en null
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createFechaNull() throws BusinessLogicException {
+        ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+        comprobanteEntity.setFechaDeFactura(null);
+        comprobanteLogic.createComprobante(comprobanteEntity);
+    }
+    /**
+     * Test para crear un comprobante de pago con un total de pago en null
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createTotalDePagoNull() throws BusinessLogicException {
+        ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+        comprobanteEntity.setTotalDePago(null);
+        comprobanteLogic.createComprobante(comprobanteEntity);
+    }
+    /**
+     * Test para crear un comprobante de pago con un nùmero de factura en null
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createNumeroDeFacturaNull() throws BusinessLogicException {
+        ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+        comprobanteEntity.setNumeroDeFactura(null);
+        comprobanteLogic.createComprobante(comprobanteEntity);
+    }
+    /**
+     * Test para crear un comprobante de pago con impuestos null
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createImpuestosNull() throws BusinessLogicException {
+        ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+        comprobanteEntity.setImpuestos(null);
+        comprobanteLogic.createComprobante(comprobanteEntity);
+    }
+    /**
+     * Test para crear un comprobante de pago con un nùmero de tarjeta en null
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createNumeroDeTarjetaNull() throws BusinessLogicException {
+        ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+        comprobanteEntity.setNumeroDeTarjeta(null);
+        comprobanteLogic.createComprobante(comprobanteEntity);
+    }
+     /**
+     * Test para crear un comprobante con nùmero de factura existente
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public  void createAdministradorUsuarioExistente() throws BusinessLogicException
+    {
+        ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+        ComprobanteDePagoEntity result = comprobanteLogic.createComprobante(comprobanteEntity);
+        Assert.assertNotNull(result);
+        
+        ComprobanteDePagoEntity comprobanteEntity2 = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+        comprobanteEntity2.setNumeroDeFactura(comprobanteEntity.getNumeroDeFactura());
+        comprobanteLogic.createComprobante(comprobanteEntity2);
     }
 }

@@ -24,8 +24,8 @@ public class ComprobanteDePagoEntity extends BaseEntity
     /**
      * Total pagado en la transacción por los dispositivos
      */
-    @PodamDoubleValue(minValue = 1, maxValue = Double.MAX_VALUE)
-    private Double totalPago;
+    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
+    private Double totalDePago;
     /**
      * Impuestos generados a los productos
      */
@@ -60,7 +60,7 @@ public class ComprobanteDePagoEntity extends BaseEntity
     public ComprobanteDePagoEntity(Integer pNumeroFac, Double pTotalPago, Double pImpuesto, String pNumeroDeTarjeta, Date pFechaDeFac)
     {
         this.numeroDeFactura = pNumeroFac;
-        this.totalPago = pTotalPago;
+        this.totalDePago = pTotalPago;
         this.impuestos = pImpuesto;
         this.numeroDeTarjeta = pNumeroDeTarjeta;
         this.fechaDeFactura = pFechaDeFac;
@@ -85,7 +85,7 @@ public class ComprobanteDePagoEntity extends BaseEntity
      * @return total a pagar
      */
     public Double getTotalDePago() {
-        return totalPago;
+        return totalDePago;
     }
     /**
      * Modifica el total a pgar por los dispositivos
@@ -93,7 +93,7 @@ public class ComprobanteDePagoEntity extends BaseEntity
      */
     public void setTotalDePago(Double pTotalPago) 
     {
-        this.totalPago = pTotalPago;
+        this.totalDePago = pTotalPago;
     }
     /**
      * Retorna el impuesto generado para los dispositivos
