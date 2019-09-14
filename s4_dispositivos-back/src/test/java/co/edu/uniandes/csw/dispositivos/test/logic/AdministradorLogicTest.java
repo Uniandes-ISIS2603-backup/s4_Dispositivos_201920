@@ -273,4 +273,76 @@ public class AdministradorLogicTest
         Assert.assertEquals(pojoEntity.getContrasena(), resp.getContrasena());
         Assert.assertEquals(pojoEntity.getCorreo(), resp.getCorreo());
     }
+    /**
+     * Test para actualizar una contraseña sin caractéres
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public  void updateAdministradorContrasenaVacio() throws BusinessLogicException
+    {
+        AdministradorEntity entity = data.get(0);
+        AdministradorEntity adminUpdate = entity;
+        adminUpdate.setContrasena("");
+        adminLogic.updateAdministrador(entity.getId(), entity);
+    }
+    /**
+     * Test para actualizar un usuario sin caractéres
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public  void updateAdministradorUsuarioVacio() throws BusinessLogicException
+    {
+        AdministradorEntity entity = data.get(0);
+        AdministradorEntity adminUpdate = entity;
+        adminUpdate.setUsuario("");
+        adminLogic.updateAdministrador(entity.getId(), entity);
+    }
+    /**
+     * Test para actualizar un correo sin caractéres
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public  void updateAdministradorCorreoVacio() throws BusinessLogicException
+    {
+        AdministradorEntity entity = data.get(0);
+        AdministradorEntity adminUpdate = entity;
+        adminUpdate.setCorreo("");
+        adminLogic.updateAdministrador(entity.getId(), entity);
+    }
+    /**
+     * Test para actualizar un correo no institucional
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateAdministradorCorreoNoInstitucional() throws BusinessLogicException
+    {
+        AdministradorEntity entity = data.get(0);
+        AdministradorEntity adminUpdate = entity;
+        adminUpdate.setCorreo("prueba@uniandes.edu.co");
+        adminLogic.updateAdministrador(entity.getId(), entity);
+    }
+    /**
+     * Test para actualizar un correo que ya existe
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateAdministradorCorreoExistente() throws BusinessLogicException
+    {
+        AdministradorEntity entity = data.get(0);
+        AdministradorEntity adminUpdate = data.get(1);
+        adminUpdate.setCorreo(entity.getCorreo());
+        adminLogic.updateAdministrador(adminUpdate.getId(), entity);
+    }
+    /**
+     * Test para actualizar un usuario que ya existe
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateAdministradorUsuarioExistente() throws BusinessLogicException
+    {
+        AdministradorEntity entity = data.get(0);
+        AdministradorEntity adminUpdate = data.get(1);
+        adminUpdate.setUsuario(entity.getUsuario());
+        adminLogic.updateAdministrador(adminUpdate.getId(), adminUpdate);
+    }
 }

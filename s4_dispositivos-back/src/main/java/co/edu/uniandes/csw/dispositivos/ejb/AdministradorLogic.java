@@ -94,6 +94,8 @@ public class AdministradorLogic
             throw new BusinessLogicException("La contraseña del administrador está vacía");
         if (adminEntity.getCorreo().trim().equals("") || adminEntity.getCorreo()== null)
             throw new BusinessLogicException("El correo del administrador está vacío");
+        if(!adminEntity.getCorreo().endsWith("@wireless.com"))
+            throw new BusinessLogicException("El correo ingresado no es corporativo");
         if (persistence.findByEmail(adminEntity.getCorreo()) != null)
             throw new BusinessLogicException("Ya existe una administrador con el mismo correo");
         if (persistence.findByUser(adminEntity.getUsuario()) != null)
