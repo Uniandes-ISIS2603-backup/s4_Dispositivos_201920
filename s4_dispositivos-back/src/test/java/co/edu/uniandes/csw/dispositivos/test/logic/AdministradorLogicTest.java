@@ -281,8 +281,7 @@ public class AdministradorLogicTest
     public  void updateAdministradorContrasenaVacio() throws BusinessLogicException
     {
         AdministradorEntity entity = data.get(0);
-        AdministradorEntity adminUpdate = entity;
-        adminUpdate.setContrasena("");
+        entity.setContrasena("");
         adminLogic.updateAdministrador(entity.getId(), entity);
     }
     /**
@@ -293,8 +292,7 @@ public class AdministradorLogicTest
     public  void updateAdministradorUsuarioVacio() throws BusinessLogicException
     {
         AdministradorEntity entity = data.get(0);
-        AdministradorEntity adminUpdate = entity;
-        adminUpdate.setUsuario("");
+        entity.setUsuario("");
         adminLogic.updateAdministrador(entity.getId(), entity);
     }
     /**
@@ -305,8 +303,7 @@ public class AdministradorLogicTest
     public  void updateAdministradorCorreoVacio() throws BusinessLogicException
     {
         AdministradorEntity entity = data.get(0);
-        AdministradorEntity adminUpdate = entity;
-        adminUpdate.setCorreo("");
+        entity.setCorreo("");
         adminLogic.updateAdministrador(entity.getId(), entity);
     }
     /**
@@ -317,8 +314,7 @@ public class AdministradorLogicTest
     public void updateAdministradorCorreoNoInstitucional() throws BusinessLogicException
     {
         AdministradorEntity entity = data.get(0);
-        AdministradorEntity adminUpdate = entity;
-        adminUpdate.setCorreo("prueba@uniandes.edu.co");
+        entity.setCorreo("prueba@uniandes.edu.co");
         adminLogic.updateAdministrador(entity.getId(), entity);
     }
     /**

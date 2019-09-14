@@ -261,8 +261,7 @@ public class ComprobanteDePagoLogicTest {
     public  void updateComprobanteNumeroFacturaCero() throws BusinessLogicException
     {
         ComprobanteDePagoEntity entity = data.get(0);
-        ComprobanteDePagoEntity comprobanteUpdate = entity;
-        comprobanteUpdate.setNumeroDeFactura(0);
+        entity.setNumeroDeFactura(0);
         comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
     }
     /**
@@ -273,8 +272,7 @@ public class ComprobanteDePagoLogicTest {
     public  void updateComprobanteTotalDePagoCero() throws BusinessLogicException
     {
         ComprobanteDePagoEntity entity = data.get(0);
-        ComprobanteDePagoEntity comprobanteUpdate = entity;
-        comprobanteUpdate.setTotalDePago(0.0);
+        entity.setTotalDePago(0.0);
         comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
     }
     /**
@@ -285,8 +283,7 @@ public class ComprobanteDePagoLogicTest {
     public  void updateComprobanteImpuestosCero() throws BusinessLogicException
     {
         ComprobanteDePagoEntity entity = data.get(0);
-        ComprobanteDePagoEntity comprobanteUpdate = entity;
-        comprobanteUpdate.setImpuestos(0.0);
+        entity.setImpuestos(0.0);
         comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
     }
     /**
@@ -297,8 +294,7 @@ public class ComprobanteDePagoLogicTest {
     public  void updateComprobanteTarjetaVacio() throws BusinessLogicException
     {
         ComprobanteDePagoEntity entity = data.get(0);
-        ComprobanteDePagoEntity comprobanteUpdate = entity;
-        comprobanteUpdate.setNumeroDeTarjeta("");
+        entity.setNumeroDeTarjeta("");
         comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
     }
     /**
@@ -309,8 +305,7 @@ public class ComprobanteDePagoLogicTest {
     public  void updateComprobanteTarjeta16() throws BusinessLogicException
     {
         ComprobanteDePagoEntity entity = data.get(0);
-        ComprobanteDePagoEntity comprobanteUpdate = entity;
-        comprobanteUpdate.setNumeroDeTarjeta("1234567890");
+        entity.setNumeroDeTarjeta("1234567890");
         comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
     }
     /**
