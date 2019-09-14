@@ -39,9 +39,7 @@ public class MedioDePagoLogic {
 
         LOGGER.log(Level.INFO, "Inicia proceso de creación de un medio de pago.");
 
-        boolean ret = verificarLasReglasNegocioMedioDePago(medioDePagoEntity);
-
-        if (ret == false) {
+        if (!verificarLasReglasNegocioMedioDePago(medioDePagoEntity)) {
             throw new BusinessLogicException("No pudo realizarse la creacion de un metodo de pago.");
         } else {
             persistence.create(medioDePagoEntity);
@@ -106,9 +104,7 @@ public class MedioDePagoLogic {
     public MedioDePagoEntity updateMedioDePago(Long pMedio, MedioDePagoEntity medioPago) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar un medio de pago.");
 
-        boolean ret = verificarLasReglasNegocioMedioDePago(medioPago);
-
-        if (ret == false) {
+        if (!verificarLasReglasNegocioMedioDePago(medioPago)) {
             throw new BusinessLogicException("No puede ser actualizada el medio de pago.");
         } else {
             persistence.update(medioPago);
@@ -137,7 +133,7 @@ public class MedioDePagoLogic {
         }
 
         if (medioDePagoEntity.getNumeroTarjeta().split("").length > 16) {
-            throw new BusinessLogicException("La cantidad de numeros no corresponde con la cantidad esperada." + " la cantidad es " + medioDePagoEntity.getNumeroTarjeta().split("").length);
+            throw new BusinessLogicException("La cantidad de numeros no corresponde con la esperada. Siendo " + medioDePagoEntity.getNumeroTarjeta().split("").length);
         }
 
         try {
@@ -148,23 +144,23 @@ public class MedioDePagoLogic {
             throw new BusinessLogicException("Los valores ingresados no corresponden a un valor numerico.");
         }
 
-        if (medioDePagoEntity.getNumeroDeVerificacion().split("").length < 0 && medioDePagoEntity.getNumeroDeVerificacion().split("").length > 3) {
-            throw new BusinessLogicException("La cantidad de numeros no corresponde con la cantidad esperada." + " la cantidad es " + medioDePagoEntity.getNumeroTarjeta().split("").length);
+        if (medioDePagoEntity.getNumeroDeVerificacion().split("").length <= 0 && medioDePagoEntity.getNumeroDeVerificacion().split("").length > 3) {
+            throw new BusinessLogicException("La cantidad de numeros no corresponde con la esperada. Siendo " + medioDePagoEntity.getNumeroTarjeta().split("").length);
         }
 
         try {
             Integer.parseInt(medioDePagoEntity.getNumeroDeVerificacion());
 
         } catch (Exception e) {
-            throw new BusinessLogicException("La cantidad de numeros no corresponde con la cantidad esperada." + " la cantidad es " + medioDePagoEntity.getNumeroDeVerificacion().split("").length);
+            throw new BusinessLogicException("La cantidad de numeros no corresponde con la esperada. Siendo " + medioDePagoEntity.getNumeroDeVerificacion().split("").length);
         }
 
-        if (medioDePagoEntity.getTipoTarjeta().equalsIgnoreCase("VISA") && medioDePagoEntity.getNumeroTarjeta().startsWith("4") == false) {
+        if (medioDePagoEntity.getTipoTarjeta().equalsIgnoreCase("VISA") && !medioDePagoEntity.getNumeroTarjeta().startsWith("4")) {
             char a = medioDePagoEntity.getNumeroTarjeta().charAt(0);
             throw new BusinessLogicException("Al ser una tarjeta del tipo Visa, debe iniciar con el numero 4 y este inicia con " + a);
         }
 
-        if (medioDePagoEntity.getTipoTarjeta().equalsIgnoreCase("MASTERCARD") && medioDePagoEntity.getNumeroTarjeta().startsWith("51") == false && medioDePagoEntity.getNumeroTarjeta().startsWith("52") == false && medioDePagoEntity.getNumeroTarjeta().startsWith("53") == false && medioDePagoEntity.getNumeroTarjeta().startsWith("54") == false && medioDePagoEntity.getNumeroTarjeta().startsWith("55") == false) {
+        if (medioDePagoEntity.getTipoTarjeta().equalsIgnoreCase("MASTERCARD") && !medioDePagoEntity.getNumeroTarjeta().startsWith("51") && !medioDePagoEntity.getNumeroTarjeta().startsWith("52") && !medioDePagoEntity.getNumeroTarjeta().startsWith("53") && !medioDePagoEntity.getNumeroTarjeta().startsWith("54") && !medioDePagoEntity.getNumeroTarjeta().startsWith("55")) {
             char a = medioDePagoEntity.getNumeroTarjeta().charAt(0);
             char b = medioDePagoEntity.getNumeroTarjeta().charAt(1);
             throw new BusinessLogicException("Al ser una tarjeta del tipo Mastercard, debe estar entre el rango de 51 a 55 y este inicia con " + a + b);
