@@ -11,7 +11,7 @@ import java.util.Random;
 import uk.co.jemos.podam.common.AttributeStrategy;
 
 /**
- * Strategy ara generar correos
+ * Strategy para generar correos corporativos
  * @author Dianis Caro
  */
 public class CorreoWirelessStrategy implements AttributeStrategy<String>

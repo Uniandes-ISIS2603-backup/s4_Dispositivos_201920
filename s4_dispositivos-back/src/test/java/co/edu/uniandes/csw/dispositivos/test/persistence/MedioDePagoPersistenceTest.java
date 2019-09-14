@@ -129,9 +129,9 @@ public class MedioDePagoPersistenceTest {
      */
     @Test
     public void testConstructorMedioDePago() {
-        MedioDePagoEntity entity = new MedioDePagoEntity("123456789", 1234, "abc", "def");
+        MedioDePagoEntity entity = new MedioDePagoEntity("123456789", "1234", "abc", "def");
         Assert.assertEquals("123456789", entity.getNumeroTarjeta());
-        Assert.assertEquals(1234, entity.getNumeroDeVerificacion());
+        Assert.assertEquals("1234", entity.getNumeroDeVerificacion());
         Assert.assertEquals("def", entity.getTipoCredito());
         Assert.assertEquals("abc", entity.getTipoTarjeta());
     }
@@ -205,5 +205,19 @@ public class MedioDePagoPersistenceTest {
         medioPPersistence.delete(entity.getId());
         MedioDePagoEntity deleted = em.find(MedioDePagoEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+
+    /**
+     * Prueba para consultar una categoria por nombre.
+     */
+    @Test
+    public void findMedioDePagoByNumeroTajetaTest() {
+        MedioDePagoEntity entity = data.get(0);
+        MedioDePagoEntity newEntity = medioPPersistence.findByNumeroTarjeta(entity.getNumeroTarjeta());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getNumeroTarjeta(), newEntity.getNumeroTarjeta());
+
+        newEntity = medioPPersistence.findByNumeroTarjeta(null);
+        Assert.assertNull(newEntity);
     }
 }

@@ -41,8 +41,7 @@ public class MarcaLogic {
      * @return Lista de entidades de tipo marca.
      */
     public List<MarcaEntity> getMarcas() {
-        List<MarcaEntity> facturas = mp.findAll();
-        return facturas;
+        return mp.findAll();
     }
 
     /**
@@ -52,8 +51,7 @@ public class MarcaLogic {
      * @return La marca encontrada, null si no la encuentra.
      */
     public MarcaEntity getMarca(Long marcaId) {
-        MarcaEntity facturaEntity = mp.find(marcaId);
-        return facturaEntity;
+        return mp.find(marcaId);
     }
 
     /**
@@ -75,8 +73,7 @@ public class MarcaLogic {
         } else if (mp.findByNombre(marcaEntity.getNombreMarca()) != null) {
             throw new BusinessLogicException("Ya existe una marca con el mismo nombre");
         }
-        MarcaEntity newEntity = mp.update(marcaEntity);
-        return newEntity;
+        return mp.update(marcaEntity);
     }
 
     /**
