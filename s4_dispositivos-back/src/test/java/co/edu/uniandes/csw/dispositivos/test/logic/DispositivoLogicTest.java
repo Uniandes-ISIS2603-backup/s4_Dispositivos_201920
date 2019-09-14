@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.dispositivos.test.logic;
 
 import co.edu.uniandes.csw.dispositivos.ejb.DispositivoLogic;
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
+import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
+import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
 import javax.inject.Inject;
@@ -21,6 +23,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -50,7 +53,12 @@ public class DispositivoLogicTest {
     @Test
     public void createDispositivo() throws BusinessLogicException {
 
+        MediaEntity correctMedia = new MediaEntity("https://www.google.com/imgs");
+        FacturaEntity correctFactura = new FacturaEntity(140, 245000.0, 34000.0, "Macbook pro");
+
         DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        newEntity.setFactura(correctFactura);
+        newEntity.setImagenes(correctMedia);
         DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
         Assert.assertNotNull(result);
     }
