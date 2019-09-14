@@ -23,7 +23,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
-import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -40,6 +39,9 @@ public class DispositivoLogicTest {
     @Inject
     private DispositivoLogic dispositivoLogic;
 
+    @Inject
+    private DispositivoPersistence dp;
+
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -53,13 +55,48 @@ public class DispositivoLogicTest {
     @Test
     public void createDispositivo() throws BusinessLogicException {
 
-        MediaEntity correctMedia = new MediaEntity("https://www.google.com/imgs");
-        FacturaEntity correctFactura = new FacturaEntity(140, 245000.0, 34000.0, "Macbook pro");
+        DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+
+        Assert.assertNotNull(result);
+
+        DispositivoEntity comparador = em.find(DispositivoEntity.class, result.getId());
+
+        Assert.assertEquals(comparador.getId(), result.getId());
+        Assert.assertEquals(comparador.getDescripcion(), result.getDescripcion());
+        Assert.assertEquals(comparador.getDescuento(), result.getDescuento());
+        Assert.assertEquals(comparador.getFactura(), result.getFactura());
+        Assert.assertEquals(comparador.getImagenes(), result.getImagenes());
+        Assert.assertEquals(comparador.getModelo(), result.getModelo());
+        Assert.assertEquals(comparador.getNombre(), result.getNombre());
+        Assert.assertEquals(comparador.getPrecio(), result.getPrecio());
+        Assert.assertEquals(comparador.getPrecioImportacion(), result.getPrecioImportacion());
+        Assert.assertEquals(comparador.isEnStock(), result.isEnStock());
+        Assert.assertEquals(comparador.isEsImportado(), result.isEsImportado());
+        Assert.assertEquals(comparador.isPromocion(), result.isPromocion());
+        Assert.assertEquals(comparador.isUsado(), result.isUsado());
+    }
+
+    /**
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createDispositivoNull() throws BusinessLogicException {
+        DispositivoEntity nuevo = null;
+        dispositivoLogic.createDispositivo(nuevo);
+    }
+
+    /**
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createFacturaDispositivoNull() throws BusinessLogicException {
 
         DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
-        newEntity.setFactura(correctFactura);
-        newEntity.setImagenes(correctMedia);
         DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
-        Assert.assertNotNull(result);
+
+        dispositivoLogic.createDispositivo(result);
     }
 }

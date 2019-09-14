@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import uk.co.jemos.podam.common.PodamDoubleValue;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -21,13 +23,18 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     private String modelo;
     private String descripcion;
     private String nombre;
-
+    @PodamExclude
     private MediaEntity imagenes;
+    @PodamExclude
     private FacturaEntity factura;
+    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
+    private Double precio;
 
-    private double precio;
-    private double precioImportacion;
-    private double descuento;
+    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
+    private Double precioImportacion;
+
+    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
+    private Double descuento;
 
     private boolean promocion;
     private boolean enStock;
@@ -45,21 +52,21 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * Metodo Constructor con Parametros.
+     * Metodo Constructor Con Parametros
      *
      * @param modelo
      * @param descripcion
      * @param nombre
-     * @param imagenes
      * @param precio
      * @param precioImportacion
      * @param descuento
      * @param promocion
      * @param enStock
+     * @param usado
+     * @param esImportado
      */
-    public DispositivoEntity(String modelo, String descripcion, String nombre,
-            MediaEntity imagenes, double precio, double precioImportacion, double descuento, boolean promocion, boolean enStock,
-            FacturaEntity factura, boolean usado, boolean esImportado) {
+    public DispositivoEntity(String modelo, String descripcion, String nombre, double precio, double precioImportacion,
+            double descuento, boolean promocion, boolean enStock, boolean usado, boolean esImportado, MediaEntity imagenes, FacturaEntity factura) {
 
         this.modelo = modelo;
         this.descripcion = descripcion;
@@ -95,15 +102,15 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         return factura;
     }
 
-    public double getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public double getPrecioImportacion() {
+    public Double getPrecioImportacion() {
         return precioImportacion;
     }
 
-    public double getDescuento() {
+    public Double getDescuento() {
         return descuento;
     }
 
@@ -143,15 +150,15 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         this.factura = factura;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
-    public void setPrecioImportacion(double precioImportacion) {
+    public void setPrecioImportacion(Double precioImportacion) {
         this.precioImportacion = precioImportacion;
     }
 
-    public void setDescuento(double descuento) {
+    public void setDescuento(Double descuento) {
         this.descuento = descuento;
     }
 
