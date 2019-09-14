@@ -222,7 +222,7 @@ public class AdministradorLogicTest
      * Prueba para eliminar un administrador
      */
     @Test
-    public void deleteMarcaTest() {
+    public void deleteAdministradorTest() {
         AdministradorEntity entity = data.get(1);
         adminLogic.deleteAdministrador(entity.getId());
         AdministradorEntity deleted = em.find(AdministradorEntity.class, entity.getId());
@@ -258,11 +258,11 @@ public class AdministradorLogicTest
         }
     }
     /**
-     * Prueba para actualizar una Marca.
+     * Prueba para actualizar una Administrador
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
     @Test
-    public void updateMarcaTest() throws BusinessLogicException
+    public void updateAdministradorTest() throws BusinessLogicException
     {
         AdministradorEntity entity = data.get(0);
         AdministradorEntity pojoEntity = factory.manufacturePojo(AdministradorEntity.class);
