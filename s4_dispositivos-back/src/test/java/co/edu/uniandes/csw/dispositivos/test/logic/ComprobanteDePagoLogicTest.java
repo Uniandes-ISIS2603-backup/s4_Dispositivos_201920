@@ -294,7 +294,7 @@ public class ComprobanteDePagoLogicTest {
      * @throws BusinessLogicException si una regla de negocio no se cumple
      */
     @Test(expected = BusinessLogicException.class)
-    public  void updateComprobanteTarjetaVacío() throws BusinessLogicException
+    public  void updateComprobanteTarjetaVacio() throws BusinessLogicException
     {
         ComprobanteDePagoEntity entity = data.get(0);
         ComprobanteDePagoEntity comprobanteUpdate = entity;
