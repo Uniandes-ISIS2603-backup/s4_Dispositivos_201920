@@ -183,6 +183,83 @@ public class FacturaLogicTest {
         facturaLogic.createFactura(newEntity);
     }
 
+    @Test(expected = BusinessLogicException.class)
+    public void updateFacturaDispositivosNullTest() throws BusinessLogicException {
+        FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
+        newEntity.setDispositivos(null);
+        FacturaEntity entity = data.get(0);
+        FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateFacturaDispositivosVacioTest() throws BusinessLogicException {
+        FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
+        newEntity.setDispositivos("");
+        FacturaEntity entity = data.get(0);
+        FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateFacturaNumeroNullTest() throws BusinessLogicException {
+        FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
+        newEntity.setNumeroDeFactura(null);
+        FacturaEntity entity = data.get(0);
+        FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateFacturaNumeroNegaOCeroTest() throws BusinessLogicException {
+        FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
+        newEntity.setNumeroDeFactura(0);
+        FacturaEntity entity = data.get(0);
+        FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateFacturaImpuestosNullTest() throws BusinessLogicException {
+        FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
+        newEntity.setImpuestos(null);
+        FacturaEntity entity = data.get(0);
+        FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateFacturaImpuestosNegativosTest() throws BusinessLogicException {
+        FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
+        newEntity.setImpuestos(-1.572);
+        FacturaEntity entity = data.get(0);
+        FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateFacturaTotalPagoNullTest() throws BusinessLogicException {
+        FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
+        newEntity.setTotalPago(null);
+        FacturaEntity entity = data.get(0);
+        FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateFacturaTotalPagoNegOCeroTest() throws BusinessLogicException {
+        FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
+        newEntity.setTotalPago(-0.12);
+        FacturaEntity entity = data.get(0);
+        FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
+    }
+
+    /**
+     * Prueba para crear una factura con el mismo número de una factura que ya
+     * existe.
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateFacturaConMismoNumeroTest() throws BusinessLogicException {
+        FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
+        newEntity.setNumeroDeFactura(data.get(0).getNumeroDeFactura());
+        facturaLogic.updateFactura(data.get(1).getId(), newEntity);
+    }
+
     /**
      * Prueba para consultar la lista de facturas.
      */

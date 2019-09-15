@@ -68,7 +68,7 @@ public class MarcaLogic {
     public MarcaEntity updateMarca(Long marcaId, MarcaEntity marcaEntity) throws BusinessLogicException {
         if (marcaEntity.getNombreMarca() == null || marcaEntity.getNombreMarca().trim().equals("")) {
             throw new BusinessLogicException("El nombre de la marca está vacío");
-        } else if (marcaEntity.getImagen().trim().equals("") || marcaEntity.getImagen() == null) {
+        } else if (marcaEntity.getImagen() == null || marcaEntity.getImagen().trim().equals("")) {
             throw new BusinessLogicException("La imagen de la marca está vacía");
         } else if (mp.findByNombre(marcaEntity.getNombreMarca()) != null) {
             throw new BusinessLogicException("Ya existe una marca con el mismo nombre");

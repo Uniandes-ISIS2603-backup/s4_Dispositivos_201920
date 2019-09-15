@@ -254,6 +254,156 @@ public class ClienteLogicTest {
         clienteLogic.createCliente(newEntity);
     }
 
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteNombreNullTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setNombre(null);
+        ClienteEntity entity = data.get(0);
+        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteApellidoNullTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setApellido(null);
+        ClienteEntity entity = data.get(0);
+        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteCorreoNullTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setCorreoElectronico(null);
+        ClienteEntity entity = data.get(0);
+        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteDireccionNullTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setDireccion(null);
+        ClienteEntity entity = data.get(0);
+        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteUsuarioNullTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setUsuario(null);
+        ClienteEntity entity = data.get(0);
+        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteContrasenaNullTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setContrasena(null);
+        ClienteEntity entity = data.get(0);
+        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteCedulaNullTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setCedula(null);
+        ClienteEntity entity = data.get(0);
+        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteNombreVacioTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setNombre("                        ");
+        ClienteEntity entity = data.get(0);
+        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteApellidoVacioTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setApellido("");
+        ClienteEntity result = clienteLogic.createCliente(newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteCorreoVacioTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setCorreoElectronico("  ");
+        ClienteEntity entity = data.get(0);
+        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteDireccionVaciaTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setDireccion("                                                                            ");
+        ClienteEntity entity = data.get(0);
+        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteUsuarioVacioTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setUsuario("                                                                                                                         ");
+        ClienteEntity entity = data.get(0);
+        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteContrasenaVaciaTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setContrasena("");
+        ClienteEntity entity = data.get(0);
+        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteCedulaNegOCeroTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setCedula(-0.1);
+        ClienteEntity entity = data.get(0);
+        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
+    }
+
+    /**
+     * Prueba para crear un cliente con el mismo número de cèdula de un cliente
+     * que ya existe.
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteMismaCedulaTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setCedula(data.get(1).getCedula());
+        ClienteEntity result = clienteLogic.updateCliente(data.get(0).getId(), newEntity);
+    }
+
+    /**
+     * Prueba para crear un cliente con el mismo email de un cliente que ya
+     * existe.
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteMismoEmailTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setCorreoElectronico(data.get(1).getCorreoElectronico());
+        ClienteEntity result = clienteLogic.updateCliente(data.get(0).getId(), newEntity);
+    }
+
+    /**
+     * Prueba para crear un cliente con el mismo usuario de un cliente que ya
+     * existe.
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteMismoUsuarioTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setUsuario(data.get(1).getUsuario());
+        ClienteEntity result = clienteLogic.updateCliente(data.get(0).getId(), newEntity);
+    }
+
     /**
      * Prueba para consultar la lista de clientes.
      */
