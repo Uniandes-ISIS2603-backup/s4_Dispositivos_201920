@@ -11,7 +11,6 @@ import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -88,9 +87,38 @@ public class DispositivoLogic {
      * @param dispositivo
      * @return
      */
-    public DispositivoEntity deleteDispositivo(DispositivoEntity dispositivo) {
-        return null;
+    public void deleteDispositivo(DispositivoEntity dispositivo) {
 
+        persistence.delete(dispositivo.getId());
     }
 
+    /**
+     *
+     * @param dispositivo
+     * @return
+     * @throws BusinessLogicException
+     */
+    public DispositivoEntity update(DispositivoEntity dispositivo) throws BusinessLogicException {
+
+        if (persistence.find(dispositivo.getId()) != null) {
+            throw new BusinessLogicException("Ya existe un dispositivo con este Id");
+        }
+        if (dispositivo.getPrecio() < 0) {
+            throw new BusinessLogicException("El precio es menor al permitido");
+        }
+        if (dispositivo.getPrecioImportacion() < 0) {
+            throw new BusinessLogicException("El precio de importacion es menor al esperado");
+        }
+        if (dispositivo.getDescuento() > dispositivo.getPrecio()) {
+            throw new BusinessLogicException("El descuento es mayor al precio del dispositivo");
+        }
+        if (dispositivo.getNombre() == null) {
+            throw new BusinessLogicException("El nombre del dispositivo no puede ser null");
+        }
+        if (dispositivo.getDescripcion() == null) {
+            throw new BusinessLogicException("La descripcion del dispositivo no puede ser null");
+        }
+
+        return persistence.update(dispositivo);
+    }
 }

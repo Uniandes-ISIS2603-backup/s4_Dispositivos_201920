@@ -7,8 +7,6 @@ package co.edu.uniandes.csw.dispositivos.test.logic;
 
 import co.edu.uniandes.csw.dispositivos.ejb.DispositivoLogic;
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
-import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
-import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
 import javax.inject.Inject;
@@ -92,10 +90,11 @@ public class DispositivoLogicTest {
      * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void createFacturaDispositivoNull() throws BusinessLogicException {
+    public void createNombreDispositivoNull() throws BusinessLogicException {
 
         DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
         DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+        result.setNombre(null);
 
         dispositivoLogic.createDispositivo(result);
     }
