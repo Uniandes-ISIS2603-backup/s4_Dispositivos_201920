@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
-import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,15 +117,14 @@ public class DispositivoPersistenceTest {
 
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(dispositivo.isPromocion(), entity.isPromocion());
-         
-        Assert.assertEquals(dispositivo.getImagenes().getLink(), entity.getImagenes().getLink());
 
-        Assert.assertEquals(dispositivo.getImagenes().getLink(), entity.getImagenes().getLink());
-        
+//        Assert.assertEquals(dispositivo.getImagenes().getLink(), entity.getImagenes().getLink());
+//        Assert.assertEquals(dispositivo.getImagenes().getLink(), entity.getImagenes().getLink());
         Assert.assertEquals(dispositivo.isUsado(), entity.isUsado());
-        
-        Assert.assertEquals(dispositivo.getFactura(), entity.getFactura());
-        
+
+//        Assert.assertEquals(dispositivo.getFactura(), entity.getFactura());
+        Assert.assertEquals(dispositivo.isEsImportado(), entity.isEsImportado());
+
     }
 
     /**
@@ -165,13 +163,13 @@ public class DispositivoPersistenceTest {
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(dispositivo.isPromocion(), newEntity.isPromocion());
 
-        Assert.assertEquals(dispositivo.getImagenes().getLink(), newEntity.getImagenes().getLink());
-        
-        Assert.assertEquals(dispositivo.getImagenes().getLink(), newEntity.getImagenes().getLink());
-        
+//        Assert.assertEquals(dispositivo.getImagenes().getLink(), newEntity.getImagenes().getLink());
+//        Assert.assertEquals(dispositivo.getImagenes().getLink(), newEntity.getImagenes().getLink());
         Assert.assertEquals(dispositivo.isUsado(), newEntity.isUsado());
-        
-        Assert.assertEquals(dispositivo.getFactura(), newEntity.getFactura());
+
+//        Assert.assertEquals(dispositivo.getFactura(), newEntity.getFactura());
+        Assert.assertEquals(dispositivo.isEsImportado(), newEntity.isEsImportado());
+
     }
 
     @Test
@@ -231,13 +229,13 @@ public class DispositivoPersistenceTest {
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(newEntity.isPromocion(), resp.isPromocion());
 
-        Assert.assertEquals(newEntity.getImagenes().getLink(), resp.getImagenes().getLink());
-
-        Assert.assertEquals(newEntity.getImagenes().getLink(), resp.getImagenes().getLink());
-        
+//        Assert.assertEquals(newEntity.getImagenes().getLink(), resp.getImagenes().getLink());
+//        Assert.assertEquals(newEntity.getImagenes().getLink(), resp.getImagenes().getLink());
         Assert.assertEquals(newEntity.isUsado(), resp.isUsado());
-        
-        Assert.assertEquals(newEntity.getFactura(), resp.getFactura());
+
+//        Assert.assertEquals(newEntity.getFactura(), resp.getFactura());
+        Assert.assertEquals(newEntity.isEsImportado(), resp.isEsImportado());
+
     }
 
     /**
@@ -253,6 +251,5 @@ public class DispositivoPersistenceTest {
         DispositivoEntity deleted = em.find(DispositivoEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-    
 
 }
