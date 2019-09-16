@@ -15,7 +15,7 @@ import javax.persistence.Entity;
 @Entity
 public class VentaEntity extends BaseEntity implements Serializable {
 
-    private Double precioReventa;
+    private double precioReventa;
 
     /**
      * Constructor vacío
