@@ -152,6 +152,52 @@ public class MarcaLogicTest {
         marcaLogic.createMarca(newEntity);
     }
 
+    @Test(expected = BusinessLogicException.class)
+    public void updateMarcaNombreNullTest() throws BusinessLogicException {
+        MarcaEntity newEntity = factory.manufacturePojo(MarcaEntity.class);
+        newEntity.setNombreMarca(null);
+        MarcaEntity entity = data.get(0);
+        MarcaEntity result = marcaLogic.updateMarca(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateMarcaImagenNullTest() throws BusinessLogicException {
+        MarcaEntity newEntity = factory.manufacturePojo(MarcaEntity.class);
+        newEntity.setImagen(null);
+        MarcaEntity entity = data.get(0);
+        MarcaEntity result = marcaLogic.updateMarca(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateMarcaNombreVacioTest() throws BusinessLogicException {
+        MarcaEntity newEntity = factory.manufacturePojo(MarcaEntity.class);
+        newEntity.setNombreMarca("                    ");
+        MarcaEntity entity = data.get(0);
+        MarcaEntity result = marcaLogic.updateMarca(entity.getId(), newEntity);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void updateMarcaImagenVaciaTest() throws BusinessLogicException {
+        MarcaEntity newEntity = factory.manufacturePojo(MarcaEntity.class);
+        newEntity.setImagen("");
+        MarcaEntity entity = data.get(0);
+        MarcaEntity result = marcaLogic.updateMarca(entity.getId(), newEntity);
+    }
+
+    /**
+     * Prueba para crear una marca con el mismo nombre de una marca que ya
+     * existe.
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateMarcaConMismoNombreTest() throws BusinessLogicException {
+        MarcaEntity newEntity = factory.manufacturePojo(MarcaEntity.class);
+        newEntity.setNombreMarca(data.get(0).getNombreMarca());
+        MarcaEntity entity = data.get(1);
+        MarcaEntity result = marcaLogic.updateMarca(entity.getId(), newEntity);
+    }
+
     /**
      * Prueba para consultar la lista de Marcas.
      */

@@ -253,4 +253,71 @@ public class ComprobanteDePagoLogicTest {
         comprobanteEntity2.setNumeroDeFactura(comprobanteEntity.getNumeroDeFactura());
         comprobanteLogic.createComprobante(comprobanteEntity2);
     }
+    /**
+     * Test para actualizar un numero de factura en 0
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public  void updateComprobanteNumeroFacturaCero() throws BusinessLogicException
+    {
+        ComprobanteDePagoEntity entity = data.get(0);
+        entity.setNumeroDeFactura(0);
+        comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
+    }
+    /**
+     * Test para actualizar el total de pago en 0
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public  void updateComprobanteTotalDePagoCero() throws BusinessLogicException
+    {
+        ComprobanteDePagoEntity entity = data.get(0);
+        entity.setTotalDePago(0.0);
+        comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
+    }
+    /**
+     * Test para actualizar los impuestos en 0
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public  void updateComprobanteImpuestosCero() throws BusinessLogicException
+    {
+        ComprobanteDePagoEntity entity = data.get(0);
+        entity.setImpuestos(0.0);
+        comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
+    }
+    /**
+     * Test para actualizar el número de tarjeta vacío
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public  void updateComprobanteTarjetaVacio() throws BusinessLogicException
+    {
+        ComprobanteDePagoEntity entity = data.get(0);
+        entity.setNumeroDeTarjeta("");
+        comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
+    }
+    /**
+     * Test para actualizarla numero de Tarjeta con dígitos diferentes a 16
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public  void updateComprobanteTarjeta16() throws BusinessLogicException
+    {
+        ComprobanteDePagoEntity entity = data.get(0);
+        entity.setNumeroDeTarjeta("1234567890");
+        comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
+    }
+    /**
+     * Test para actualizarla numero de factura existente
+     * @throws BusinessLogicException si una regla de negocio no se cumple
+     */
+    @Test(expected = BusinessLogicException.class)
+    public  void updateComprobanteFcaturaExistente() throws BusinessLogicException
+    {
+        ComprobanteDePagoEntity entity = data.get(0);
+        ComprobanteDePagoEntity comprobanteUpdate = data.get(1);
+        comprobanteUpdate.setNumeroDeFactura(entity.getNumeroDeFactura());
+        comprobanteLogic.updateComprobanteDePago(comprobanteUpdate.getId(), comprobanteUpdate);
+    }
 }

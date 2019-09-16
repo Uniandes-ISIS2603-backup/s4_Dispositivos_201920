@@ -5,9 +5,7 @@
  */
 package co.edu.uniandes.csw.dispositivos.podam;
 
-import java.nio.charset.Charset;
-import java.security.SecureRandom;
-import java.util.Random;
+import org.apache.commons.lang3.RandomStringUtils;
 import uk.co.jemos.podam.common.AttributeStrategy;
 
 /**
@@ -17,14 +15,10 @@ import uk.co.jemos.podam.common.AttributeStrategy;
 public class CorreoWirelessStrategy implements AttributeStrategy<String>
 {
     @Override
-    public String getValue()
-    {
-        SecureRandom num = new SecureRandom();
-        
-        int numero = Math.abs(num.nextInt(7)+4);
-        byte[] array = new byte[numero];
-        new Random().nextBytes(array);
-        String generatedString = new String(array, Charset.forName("UTF-8"));
-        return (generatedString += "@wireless.com");
+    /**
+     * Retorna un email válido.
+     */
+    public String getValue() {
+        return RandomStringUtils.randomAlphanumeric(8) + "@wireless.com";
     }
 }
