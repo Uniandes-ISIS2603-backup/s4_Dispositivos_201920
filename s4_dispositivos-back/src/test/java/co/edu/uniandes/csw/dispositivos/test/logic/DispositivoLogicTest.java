@@ -98,4 +98,46 @@ public class DispositivoLogicTest {
 
         dispositivoLogic.createDispositivo(result);
     }
+
+    /**
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createDescripcionDispositivoNull() throws BusinessLogicException {
+
+        DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+        result.setDescripcion(null);
+
+        dispositivoLogic.createDispositivo(result);
+    }
+
+    /**
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createModeloDispositivoNull() throws BusinessLogicException {
+
+        DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+        result.setModelo(null);
+
+        dispositivoLogic.createDispositivo(result);
+    }
+
+    /**
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createPrecioZeroDispositivo() throws BusinessLogicException {
+        DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+        result.setPrecio(0.0);
+
+        dispositivoLogic.createDispositivo(result);
+
+    }
 }
