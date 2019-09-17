@@ -9,10 +9,10 @@ package co.edu.uniandes.csw.dispositivos.enu;
  *
  * @author Estudiante
  */
-public enum MedioPago {
+public enum Tipo {
 
-    PAYPAL,
-    PSE,
-    TARJETA_CREDITO,
-    TARJETA_DEBITO
+    CELULAR,
+    TABLET,
+    COMPUTADOR
+
 }
