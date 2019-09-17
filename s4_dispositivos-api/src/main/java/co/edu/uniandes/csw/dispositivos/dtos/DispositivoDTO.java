@@ -5,11 +5,13 @@
  */
 package co.edu.uniandes.csw.dispositivos.dtos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Estudiante
  */
-public class DispositivoDTO {
+public class DispositivoDTO implements Serializable {
 
     private String nombre;
     private String descripcion;
@@ -23,6 +25,13 @@ public class DispositivoDTO {
     private boolean enStock;
     private boolean esImportado;
     private boolean usado;
+
+    /**
+     *
+     */
+    public DispositivoDTO() {
+
+    }
 
     /**
      *
