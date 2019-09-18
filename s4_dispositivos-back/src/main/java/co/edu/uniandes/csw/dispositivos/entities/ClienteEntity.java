@@ -5,8 +5,11 @@
  */
 package co.edu.uniandes.csw.dispositivos.entities;
 
+import co.edu.uniandes.csw.dispositivos.podam.EmailStrategy;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import uk.co.jemos.podam.common.PodamDoubleValue;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *
@@ -28,11 +31,13 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     /**
      * Atributo que modela el email del cliente.
      */
+    @PodamStrategyValue(EmailStrategy.class)
     private String correoElectronico;
 
     /**
      * Atributo que modela la cedula del cliente.
      */
+    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
     private Double cedula;
 
     /**
@@ -91,7 +96,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+
     /**
      * @return the contrasena
      */
@@ -119,7 +124,6 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
-    
 
     /**
      * @return the cedula
@@ -148,7 +152,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-    
+
     /**
      * @return the direccion
      */
@@ -178,31 +182,28 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * Compara dos objetos
+     * Metodo no usado
      *
-     * @param obj objeto a comparar.
-     * @return true en caso de que sean iguales, false en caso de que no.
+     * @param obj Object que se compara.
+     * @return despreciado.
+     * @deprecated (solo arregla code smell)
      */
     @Override
+    @Deprecated
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-
-        boolean resp = super.equals(obj);
-        final ClienteEntity other = (ClienteEntity) obj;
-
-        if (!resp) {
-            return false;
-        } else {
-            if (this.apellido.equalsIgnoreCase(other.apellido) && this.cedula.equals(other.cedula) && this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena) && this.nombre.equalsIgnoreCase(other.nombre) && this.correoElectronico.equalsIgnoreCase(other.correoElectronico) && this.direccion.equalsIgnoreCase(other.direccion)) {
-                return true;
-            }
-        }
-
-        return false;
+        return super.equals(obj);
     }
+
+    /**
+     * Metodo no usado
+     *
+     * @return nada.
+     * @deprecated (solo arregla code smell)
+     */
+    @Override
+    @Deprecated
+    public int hashCode() {
+        return super.hashCode();
+    }
+
 }
