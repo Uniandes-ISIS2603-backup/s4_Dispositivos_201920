@@ -49,29 +49,4 @@ public class VentaEntity extends BaseEntity implements Serializable {
     public void setPrecioReventa(Double precioReventa) {
         this.precioReventa = precioReventa;
     }
-
-    /**
-     * Método no requerido
-     * @param oe Objeto a comparar
-     * @return Igual al de la superclase
-     * @deprecated (Sólo se necesita para mejorar "Code Smell")
-     */
-    @Override
-    @Deprecated
-    public boolean equals(Object oe) 
-    {
-        return super.equals(oe);
-    }
-    
-    /**
-     * Método no requerido
-     * @return Igual al de la superclase
-     * @deprecated (Sólo se necesita para mejorar "Code Smell")
-     */
-    @Override
-    @Deprecated
-    public int hashCode()
-    {
-        return super.hashCode();
-    }
 }

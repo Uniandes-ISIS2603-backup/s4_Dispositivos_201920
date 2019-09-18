@@ -26,8 +26,8 @@ public class VendedorEntity extends BaseEntity implements Serializable {
     /**
      * Constructor vacío
      */
-    public VendedorEntity() {
-    }
+    public VendedorEntity() 
+    {    }
 
     /**
      * Constructor con parámetros
@@ -161,29 +161,4 @@ public class VendedorEntity extends BaseEntity implements Serializable {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }   
-    
-    /**
-     * Método no requerido
-     * @param eo Objeto a comparar
-     * @return Igual al de la superclase
-     * @deprecated (Sólo se necesita para mejorar "Code Smell")
-     */
-    @Override
-    @Deprecated
-    public boolean equals(Object eo) 
-    {
-        return super.equals(eo);
-    }
-    
-    /**
-     * Método no requerido
-     * @return Igual al de la superclase
-     * @deprecated (Sólo se necesita para mejorar "Code Smell")
-     */
-    @Override
-    @Deprecated
-    public int hashCode()
-    {
-        return super.hashCode();
-    }
 }
