@@ -157,6 +157,6 @@ public class VentaPersistenceTest
         VentaEntity newva2 = new VentaEntity(68000.0);
         VentaEntity newva3 = new VentaEntity(68001.0);
         Assert.assertTrue(newva2.equals(newva1));
-        Assert.assertFalse(newva3.equals(newva2));
+        Assert.assertFalse(newva3.equals(newva2))
     }
 }

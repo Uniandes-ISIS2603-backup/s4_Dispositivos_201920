@@ -31,12 +31,19 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class VendedorPersistenceTest 
 {
-    @PersistenceContext(unitName="dispositivosPU")
+    @Inject
+    private VendedorPersistence mp;
+
+    @PersistenceContext(unitName = "dispositivosPU")
     private EntityManager vrm;
 
+    @Inject
+    UserTransaction utx;
+
+    private List<VendedorEntity> vrlist = new ArrayList<>();
+
     @Deployment
-    public static JavaArchive createDeployment() 
-    {
+    public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(VendedorEntity.class.getPackage())
                 .addPackage(VendedorPersistence.class.getPackage())
@@ -49,9 +56,7 @@ public class VendedorPersistenceTest
     
     @Inject
     UserTransaction utxn;
-
-    private final List<VendedorEntity> vrlist = new ArrayList<>();
-    
+  
     /**
      * Establece las configuraciones iniciales del test
      */

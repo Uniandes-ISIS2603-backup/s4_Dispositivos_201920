@@ -5,7 +5,10 @@
  */
 package co.edu.uniandes.csw.dispositivos.entities;
 
+import co.edu.uniandes.csw.dispositivos.podam.MedioDePagoStrategy;
+import co.edu.uniandes.csw.dispositivos.podam.MetodoDePagoStrategy;
 import javax.persistence.Entity;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *
@@ -17,12 +20,14 @@ public class MedioDePagoEntity extends BaseEntity {
     /**
      * Representa el numero de una tarjeta.
      */
+    @PodamStrategyValue(MetodoDePagoStrategy.class)
     private String numeroTarjeta;
 
     /**
      * Representa el numero de verificacion de una tarjeta.
      */
-    private int numeroDeVerificacion;
+    @PodamStrategyValue(MedioDePagoStrategy.class)
+    private String numeroDeVerificacion;
 
     /**
      * Representa el tipo de tarjeta.
@@ -50,7 +55,7 @@ public class MedioDePagoEntity extends BaseEntity {
      * @param tipoCredito Tipo de crédito. tipoCredito = (VISA, MASTERCARD),
      * NULL si no tiene crédito.
      */
-    public MedioDePagoEntity(String numeroTarjeta, int numeroDeVerificacion, String tipoTarjeta, String tipoCredito) {
+    public MedioDePagoEntity(String numeroTarjeta, String numeroDeVerificacion, String tipoTarjeta, String tipoCredito) {
         this.numeroTarjeta = numeroTarjeta;
         this.numeroDeVerificacion = numeroDeVerificacion;
         this.tipoCredito = tipoCredito;
@@ -74,14 +79,14 @@ public class MedioDePagoEntity extends BaseEntity {
     /**
      * @return the numeroDeVerificacion
      */
-    public int getNumeroDeVerificacion() {
+    public String getNumeroDeVerificacion() {
         return numeroDeVerificacion;
     }
 
     /**
      * @param numeroDeVerificacion the numeroDeVerificacion to set
      */
-    public void setNumeroDeVerificacion(int numeroDeVerificacion) {
+    public void setNumeroDeVerificacion(String numeroDeVerificacion) {
         this.numeroDeVerificacion = numeroDeVerificacion;
     }
 
@@ -112,30 +117,30 @@ public class MedioDePagoEntity extends BaseEntity {
     public void setTipoCredito(String tipoCredito) {
         this.tipoCredito = tipoCredito;
     }
-
+    
+        /**
+     * Metodo no usado
+     *
+     * @param obj Object que se compara.
+     * @return despreciado.
+     * @deprecated (solo arregla code smell)
+     */
     @Override
+    @Deprecated
     public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 
-        if (obj == null) {
-            return false;
-        }
-
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-        
-        boolean resp = super.equals(obj);
-        final MedioDePagoEntity other = (MedioDePagoEntity) obj;
-
-        if (!resp) {
-            return false;
-        } else {
-            if (this.tipoTarjeta.compareTo(other.tipoTarjeta) == 0 && this.tipoCredito.compareTo(other.tipoCredito) == 0
-                    && this.numeroDeVerificacion == other.numeroDeVerificacion && this.numeroTarjeta.compareTo(other.numeroTarjeta) == 0) {
-                return true;
-            }
-            return false;
-        }
+    /**
+     * Metodo no usado
+     *
+     * @return nada.
+     * @deprecated (solo arregla code smell)
+     */
+    @Override
+    @Deprecated
+    public int hashCode() {
+        return super.hashCode();
     }
 
 }

@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Entity;
 
 /**
@@ -15,41 +14,38 @@ import javax.persistence.Entity;
  */
 @Entity
 public class MediaEntity extends BaseEntity implements Serializable {
-    
-    private List<String> links;
-    
-    public MediaEntity(){
-        
+
+    private String link;
+
+    public MediaEntity() {
+        /**
+         * Constructor Vacio Para Entitiy.
+         */
+
     }
 
     /**
-     * @return the links
+     * Constructor para pruebas
+     *
+     * @param link el link de las imagenes y videos de un
+     * dispositivo.
      */
-    public List<String> getLinks() {
-        return links;
+    public MediaEntity(String link) {
+        this.link = link;
     }
 
     /**
-     * @param links the links to set
+     * Retonra el link de multimedia
+     * @return link que referencia un video o imagen
      */
-    public void setLinks(List<String> links) {
-        this.links = links;
+    public String getLink() {
+        return link;
     }
-    
-    @Override
-    public boolean equals(Object obj){
-        boolean resp= super.equals(this);
-        boolean fin =false;
-        final MediaEntity other=(MediaEntity) obj;
-        
-        if(!resp){
-            return fin;
-        }
-        else{
-            if(this.getLinks()==other.getLinks()){
-                fin=true;
-            }
-        }
-        return fin;
+
+    /**
+     * @param link modifica el link de una imagen o dispositivo
+     */
+    public void setLinks(String link) {
+        this.link = link;
     }
 }

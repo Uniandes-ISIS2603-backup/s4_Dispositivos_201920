@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import uk.co.jemos.podam.common.PodamDoubleValue;
+import uk.co.jemos.podam.common.PodamIntValue;
 
 /**
  *
@@ -18,16 +20,19 @@ public class FacturaEntity extends BaseEntity implements Serializable {
     /**
      * Atributo que modela el numero de la factura.
      */
+    @PodamIntValue(minValue = 1, maxValue = Integer.MAX_VALUE)
     private Integer numeroDeFactura;
 
     /**
      * Atributo que modela el total del pago de la factura.
      */
+    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
     private Double totalPago;
 
     /**
      * Atributo que modela el porcentaje de impuestos de la factura.
      */
+    @PodamDoubleValue(minValue = 0.0, maxValue = Double.MAX_VALUE)
     private Double impuestos;
 
     /**
@@ -48,7 +53,7 @@ public class FacturaEntity extends BaseEntity implements Serializable {
      * @param pNumeroDeFactura numero de factura a establecer.
      * @param pTotalPago pago total a establecer.
      * @param pImpuestos valor de impuestos a establecer.
-     * @param pDispositivios dispositivos a establecer.
+     * @param pDispositivos dispositivos a establecer.
      */
     public FacturaEntity(Integer pNumeroDeFactura, Double pTotalPago, Double pImpuestos, String pDispositivos) {
         this.numeroDeFactura = pNumeroDeFactura;
@@ -114,27 +119,28 @@ public class FacturaEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * Compara dos objetos
+     * Metodo no usado
      *
-     * @param obj objeto a comparar.
-     * @return true en caso de que sean iguales, false en caso de que no.
+     * @param obj Object que se compara.
+     * @return despreciado.
+     * @deprecated (solo arregla code smell)
      */
     @Override
+    @Deprecated
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-        boolean resp = super.equals(obj);
-        final FacturaEntity other = (FacturaEntity) obj;
-
-        if (resp) {
-            if (this.dispositivos.equalsIgnoreCase(other.dispositivos) && this.numeroDeFactura.equals(other.numeroDeFactura) && this.totalPago.equals(other.totalPago) && this.impuestos.equals(other.impuestos)) {
-                return true;
-            }
-        }
-        return false;
+        return super.equals(obj);
     }
+
+    /**
+     * Metodo no usado
+     *
+     * @return nada.
+     * @deprecated (solo arregla code smell)
+     */
+    @Override
+    @Deprecated
+    public int hashCode() {
+        return super.hashCode();
+    }
+
 }
