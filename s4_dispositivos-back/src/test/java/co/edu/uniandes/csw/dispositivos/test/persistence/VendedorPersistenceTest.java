@@ -173,17 +173,4 @@ public class VendedorPersistenceTest
         VendedorEntity deleted = vrm.find(VendedorEntity.class, deleting.getId());
         Assert.assertNull(deleted);
     }
-    
-    /**
-     * Prueba del método sobreescrito equals()
-     */
-    @Test
-    public void equalsTest()
-    {
-        VendedorEntity newvr1 = new VendedorEntity("vx.chernov@russland.com", "Wilhelm", "Hosevich", 94130, 57268, "W_Hosevich", "35-Sport");
-        VendedorEntity newvr2 = new VendedorEntity("vx.chernov@russland.com", "Wilhelm", "Hosevich", 94130, 57268, "W_Hosevich", "35-Sport");
-        VendedorEntity newvr3 = new VendedorEntity("vx.chernov@russland.com", "Wilhelm", "Hosevich", 94130, 57268, "E_Ivanovich", "Deu86Rus");
-        Assert.assertTrue(newvr2.equals(newvr1));        
-        Assert.assertFalse(newvr3.equals(newvr1));
-    }
 }
