@@ -18,8 +18,8 @@ public class VendedorDTO implements Serializable
     private String correoElectronico;    
     private String nombre;    
     private String apellido;     
-    private double celular;    
-    private double cedula;     
+    private Double celular;    
+    private Double cedula;     
     private String usuario;    
     private String contrasena;
     

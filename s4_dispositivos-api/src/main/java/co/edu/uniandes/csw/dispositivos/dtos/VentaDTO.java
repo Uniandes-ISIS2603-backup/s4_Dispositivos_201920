@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class VentaDTO implements Serializable
 {
     private Long id; 
-    private double precioReventa;   
+    private Double precioReventa;   
     private VendedorDTO vendedor;
     
     /**
