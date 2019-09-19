@@ -10,10 +10,7 @@
     <packaging>pom</packaging>
     <name>s4_dispositivos</name>
  
-    <modules>
-        <module>s4_dispositivos-back</module>
-        <module>s4_dispositivos-api</module>
-    </modules>
+    <modules></modules>
     
     <repositories>
         <repository>
