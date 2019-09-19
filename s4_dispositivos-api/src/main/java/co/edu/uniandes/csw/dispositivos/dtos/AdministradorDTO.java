@@ -11,7 +11,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * Objeto de transferencia de datos de Administrador. Los DTO contienen
+ * Objeto de transferencia de datos de Administrador. Los DTO co    ntienen
  * las representaciones de los JSON que se transfieren entre el cliente y el
  * servidor.
  * @author Dianis Caro
