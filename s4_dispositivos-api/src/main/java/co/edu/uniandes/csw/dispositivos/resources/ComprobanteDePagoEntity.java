@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.dispositivos.enu;
+package co.edu.uniandes.csw.dispositivos.resources;
 
 /**
  *
  * @author Estudiante
  */
-public enum MedioPago {
-
-    PAYPAL,
-    PSE,
-    TARJETA_CREDITO,
-    TARJETA_DEBITO
+class ComprobanteDePagoEntity {
+    
 }
