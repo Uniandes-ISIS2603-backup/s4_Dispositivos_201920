@@ -3,41 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.dispositivos.entities;
+package co.edu.uniandes.csw.dispositivos.dtos;
 
-import co.edu.uniandes.csw.dispositivos.podam.DateStrategy;
+import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import uk.co.jemos.podam.common.PodamDoubleValue;
-import uk.co.jemos.podam.common.PodamIntValue;
-import uk.co.jemos.podam.common.PodamStrategyValue;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
  * @author Carlos Salazar
  */
-@Entity
-public class FacturaEntity extends BaseEntity implements Serializable {
+public class FacturaDTO implements Serializable {
+
+    /**
+     * atributo que modela el id de la factura.
+     */
+    private Long id;
 
     /**
      * Atributo que modela el numero de la factura.
      */
-    @PodamIntValue(minValue = 1, maxValue = Integer.MAX_VALUE)
     private Integer numeroDeFactura;
 
     /**
      * Atributo que modela el total del pago de la factura.
      */
-    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
     private Double totalPago;
 
     /**
      * Atributo que modela el porcentaje de impuestos de la factura.
      */
-    @PodamDoubleValue(minValue = 0.0, maxValue = Double.MAX_VALUE)
     private Double impuestos;
 
     /**
@@ -48,32 +45,57 @@ public class FacturaEntity extends BaseEntity implements Serializable {
     /**
      * Fecha de pago de los dispositivos electronicos
      */
-    @Temporal(TemporalType.DATE)
-    @PodamStrategyValue(DateStrategy.class)
     private Date fechaDePago;
 
     /**
      * Constructor creado vacio para no tener problemas al implementar
      * Serializable
      */
-    public FacturaEntity() {
+    public FacturaDTO() {
     }
 
     /**
-     * Crea una nueva FacturaEntity.
+     * Constructor a partir de la entidad
      *
-     * @param pNumeroDeFactura numero de factura a establecer.
-     * @param pTotalPago pago total a establecer.
-     * @param pImpuestos valor de impuestos a establecer.
-     * @param pDispositivos dispositivos a establecer.
-     * @param pFechaDePago fecha de pago a establecer.
+     * @param factura La entidad de la factura.
      */
-    public FacturaEntity(Integer pNumeroDeFactura, Double pTotalPago, Double pImpuestos, String pDispositivos, Date pFechaDePago) {
-        this.numeroDeFactura = pNumeroDeFactura;
-        this.totalPago = pTotalPago;
-        this.impuestos = pImpuestos;
-        this.dispositivos = pDispositivos;
-        this.fechaDePago = pFechaDePago;
+    public FacturaDTO(FacturaEntity factura) {
+        if (factura != null) {
+            this.id = factura.getId();
+            this.numeroDeFactura = factura.getNumeroDeFactura();
+            this.totalPago = factura.getTotalPago();
+            this.impuestos = factura.getImpuestos();
+            this.dispositivos = factura.getDispositivos();
+            this.fechaDePago = factura.getFechaDePago();
+        }
+    }
+
+    /**
+     * Método para transformar el DTO a una entidad.
+     *
+     * @return La entidad de la factura asociada.
+     */
+    public FacturaEntity toEntity() {
+        FacturaEntity facturaEntity = new FacturaEntity();
+        facturaEntity.setId(this.getId());
+        facturaEntity.setNumeroDeFactura(this.getNumeroDeFactura());
+        facturaEntity.setTotalPago(this.getTotalPago());
+        facturaEntity.setImpuestos(this.getImpuestos());
+        facturaEntity.setDispositivos(this.getDispositivos());
+        facturaEntity.setFechaDePago(this.getFechaDePago());
+        return facturaEntity;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+
+    /**
+     * @return the numeroDeFactura
+     */
+    public Long getId() {
+        return id;
     }
 
     /**
@@ -133,31 +155,6 @@ public class FacturaEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * Metodo no usado
-     *
-     * @param obj Object que se compara.
-     * @return despreciado.
-     * @deprecated (solo arregla code smell)
-     */
-    @Override
-    @Deprecated
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    /**
-     * Metodo no usado
-     *
-     * @return nada.
-     * @deprecated (solo arregla code smell)
-     */
-    @Override
-    @Deprecated
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    /**
      * @return the fechaDePago
      */
     public Date getFechaDePago() {
@@ -170,5 +167,4 @@ public class FacturaEntity extends BaseEntity implements Serializable {
     public void setFechaDePago(Date fechaDePago) {
         this.fechaDePago = fechaDePago;
     }
-
 }
