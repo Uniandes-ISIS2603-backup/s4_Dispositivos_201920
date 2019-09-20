@@ -1,5 +1,7 @@
 package co.edu.uniandes.csw.dispositivos.entities;
+import co.edu.uniandes.csw.dispositivos.podam.CorreoWirelessStrategy;
 import javax.persistence.Entity;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *Clase que corresponde a la tabla BD para clase Administrador
@@ -19,12 +21,15 @@ public class AdministradorEntity extends BaseEntity
     /**
      * Correo institucional
      */
+    @PodamStrategyValue(CorreoWirelessStrategy.class)
     private String correo;
     /**
      * Constructor vacio para Serializable
      */
     public AdministradorEntity()
-    {}
+    {
+       //Clase constructora 
+    }
     /**
      * Constructor de la clase
      * @param pUsuario usuario de indetificacion

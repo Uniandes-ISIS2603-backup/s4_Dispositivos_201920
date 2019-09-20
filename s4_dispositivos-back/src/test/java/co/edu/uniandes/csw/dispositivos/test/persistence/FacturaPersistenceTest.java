@@ -8,6 +8,9 @@ package co.edu.uniandes.csw.dispositivos.test.persistence;
 import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -19,8 +22,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -116,6 +117,8 @@ public class FacturaPersistenceTest {
         Assert.assertEquals(entity.getImpuestos(), newEntity.getImpuestos());
         Assert.assertEquals(entity.getNumeroDeFactura(), newEntity.getNumeroDeFactura());
         Assert.assertEquals(entity.getTotalPago(), newEntity.getTotalPago());
+        Assert.assertEquals(entity.getFechaDePago(), newEntity.getFechaDePago());
+
     }
 
     /**
@@ -137,6 +140,8 @@ public class FacturaPersistenceTest {
         Assert.assertEquals(newEntity.getImpuestos(), resp.getImpuestos());
         Assert.assertEquals(newEntity.getNumeroDeFactura(), resp.getNumeroDeFactura());
         Assert.assertEquals(newEntity.getTotalPago(), resp.getTotalPago());
+        Assert.assertEquals(resp.getFechaDePago(), newEntity.getFechaDePago());
+
     }
 
     /**
@@ -155,9 +160,10 @@ public class FacturaPersistenceTest {
      */
     @Test
     public void crearFacturaTest() {
-        FacturaEntity facturaPrueba = new FacturaEntity(200, 15.5, 1.3, "Celular");
-        FacturaEntity facturaPrueba2 = new FacturaEntity(200, 15.5, 1.3, "Celular");
-        FacturaEntity facturaPrueba3 = new FacturaEntity(201, 15.5, 1.3, "Celular");
+        Date fecha = new GregorianCalendar(2016, Calendar.SEPTEMBER, 22).getTime();
+        FacturaEntity facturaPrueba = new FacturaEntity(200, 15.5, 1.3, "Celular", fecha);
+        FacturaEntity facturaPrueba2 = new FacturaEntity(200, 15.5, 1.3, "Celular", fecha);
+        FacturaEntity facturaPrueba3 = new FacturaEntity(201, 15.5, 1.3, "Celular", fecha);
 
         assertEquals(200, facturaPrueba.getNumeroDeFactura(), 0);
         assertEquals(15.5, facturaPrueba.getTotalPago(), 0);
@@ -165,5 +171,26 @@ public class FacturaPersistenceTest {
         Assert.assertEquals("Celular", facturaPrueba.getDispositivos());
         Assert.assertEquals(facturaPrueba.hashCode(), facturaPrueba.hashCode());
         Assert.assertTrue(facturaPrueba.equals(facturaPrueba2));
+        assertEquals(fecha, facturaPrueba.getFechaDePago());
+
+    }
+
+    /**
+     * Prueba para encontrar una factura por su codigo.
+     */
+    @Test
+    public void buscarFacturaPorCodigoTest() {
+        Date fecha = new GregorianCalendar(2016, Calendar.SEPTEMBER, 22).getTime();
+
+        FacturaEntity facturaPrueba = new FacturaEntity(200, 15.5, 1.3, "Celular", fecha);
+        mp.create(facturaPrueba);
+        Assert.assertNotNull(mp.findByCode(200));
+        Assert.assertNull(mp.findByCode(241));
+        assertEquals(200, facturaPrueba.getNumeroDeFactura(), 0);
+        assertEquals(15.5, facturaPrueba.getTotalPago(), 0);
+        assertEquals(fecha, facturaPrueba.getFechaDePago());
+        assertEquals(1.3, facturaPrueba.getImpuestos(), 0);
+        Assert.assertEquals("Celular", facturaPrueba.getDispositivos());
+
     }
 }

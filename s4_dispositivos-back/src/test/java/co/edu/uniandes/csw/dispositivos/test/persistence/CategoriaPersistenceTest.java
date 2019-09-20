@@ -196,5 +196,18 @@ public class CategoriaPersistenceTest {
         CategoriaEntity deleted = em.find(CategoriaEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
+    
+    /**
+     * Prueba para consultar una categoria por nombre.
+     */
+    @Test
+    public void findEditorialByNameTest() {
+        CategoriaEntity entity = data.get(0);
+        CategoriaEntity newEntity = categoriaPersistence.findByName(entity.getNombreCategoria());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getNombreCategoria(), newEntity.getNombreCategoria());
 
+        newEntity = categoriaPersistence.findByName(null);
+        Assert.assertNull(newEntity);
+    }
 }
