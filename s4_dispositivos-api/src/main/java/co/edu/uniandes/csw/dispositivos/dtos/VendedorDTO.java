@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.dispositivos.dtos;
 
-import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
 import java.io.Serializable;
 
 /**
@@ -14,12 +13,11 @@ import java.io.Serializable;
  */
 public class VendedorDTO implements Serializable
 {
-    private Long id; 
     private String correoElectronico;    
     private String nombre;    
     private String apellido;     
-    private Double celular;    
-    private Double cedula;     
+    private double celular;    
+    private double cedula;     
     private String usuario;    
     private String contrasena;
     
@@ -28,39 +26,6 @@ public class VendedorDTO implements Serializable
      */
     public VendedorDTO() 
     {    }
-    
-    /**
-     * Constructor a partir de la entidad
-     * @param vrentity
-     */
-    public VendedorDTO(VendedorEntity vrentity) 
-    {  
-        if(vrentity != null)
-        {
-            id = vrentity.getId(); 
-            correoElectronico = vrentity.getCorreoElectronico();    
-            nombre = vrentity.getNombre();    
-            apellido = vrentity.getApellido();     
-            celular = vrentity.getCelular();    
-            cedula = vrentity.getCedula();     
-            usuario = vrentity.getUsuario();    
-            contrasena = vrentity.getContrasena();
-        }
-    }
-    
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     /**
      * @return the correoElectronico
@@ -158,19 +123,5 @@ public class VendedorDTO implements Serializable
      */
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
-    }
-    
-    public VendedorEntity toEntity()
-    {
-        VendedorEntity vendedor = new VendedorEntity();
-        vendedor.setId(id);
-        vendedor.setNombre(nombre);
-        vendedor.setApellido(apellido);
-        vendedor.setCedula(cedula);
-        vendedor.setCorreoElectronico(correoElectronico);
-        vendedor.setUsuario(usuario);
-        vendedor.setContrasena(contrasena);
-        vendedor.setCelular(celular);
-        return vendedor; 
     }
 }

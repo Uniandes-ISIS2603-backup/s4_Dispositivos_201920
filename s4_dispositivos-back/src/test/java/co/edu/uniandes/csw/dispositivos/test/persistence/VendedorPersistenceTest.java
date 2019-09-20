@@ -31,19 +31,12 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class VendedorPersistenceTest 
 {
-    @Inject
-    private VendedorPersistence mp;
-
-    @PersistenceContext(unitName = "dispositivosPU")
+    @PersistenceContext(unitName="dispositivosPU")
     private EntityManager vrm;
 
-    @Inject
-    UserTransaction utx;
-
-    private List<VendedorEntity> vrlist = new ArrayList<>();
-
     @Deployment
-    public static JavaArchive createDeployment() {
+    public static JavaArchive createDeployment() 
+    {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(VendedorEntity.class.getPackage())
                 .addPackage(VendedorPersistence.class.getPackage())
@@ -56,7 +49,9 @@ public class VendedorPersistenceTest
     
     @Inject
     UserTransaction utxn;
-  
+
+    private final List<VendedorEntity> vrlist = new ArrayList<>();
+    
     /**
      * Establece las configuraciones iniciales del test
      */
@@ -177,5 +172,18 @@ public class VendedorPersistenceTest
         vrp.delete(deleting.getId());
         VendedorEntity deleted = vrm.find(VendedorEntity.class, deleting.getId());
         Assert.assertNull(deleted);
+    }
+    
+    /**
+     * Prueba del método sobreescrito equals()
+     */
+    @Test
+    public void equalsTest()
+    {
+        VendedorEntity newvr1 = new VendedorEntity("vx.chernov@russland.com", "Wilhelm", "Hosevich", 94130, 57268, "W_Hosevich", "35-Sport");
+        VendedorEntity newvr2 = new VendedorEntity("vx.chernov@russland.com", "Wilhelm", "Hosevich", 94130, 57268, "W_Hosevich", "35-Sport");
+        VendedorEntity newvr3 = new VendedorEntity("vx.chernov@russland.com", "Wilhelm", "Hosevich", 94130, 57268, "E_Ivanovich", "Deu86Rus");
+        Assert.assertTrue(newvr2.equals(newvr1));        
+        Assert.assertFalse(newvr3.equals(newvr1));
     }
 }

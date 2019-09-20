@@ -12,13 +12,15 @@ import java.util.List;
  *
  * @author Zharet Bautista Montes
  */
-public class VendedorDetailDTO extends VendedorDTO implements Serializable
+public class VentaDetailDTO extends VentaDTO implements Serializable
 {
-    private List<VentaDTO> ventas; 
+    private VendedorDTO vendedor; 
+    
+    //private List<MediaDTO> fotos; 
     
     /**
      * Constructor vacío
      */
-    public VendedorDetailDTO() 
+    public VentaDetailDTO() 
     {    }
 }

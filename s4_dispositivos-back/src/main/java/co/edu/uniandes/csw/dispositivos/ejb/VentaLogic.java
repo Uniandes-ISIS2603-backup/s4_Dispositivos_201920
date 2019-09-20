@@ -32,7 +32,7 @@ public class VentaLogic
         return venta; 
     }
     
-    public VentaEntity findVenta(Long idfVenta)
+    public VentaEntity findVenta(Long idfVenta) throws BusinessLogicException
     {       
         VentaEntity obtainedvr = vapersistence.find(idfVenta);      
         return obtainedvr;

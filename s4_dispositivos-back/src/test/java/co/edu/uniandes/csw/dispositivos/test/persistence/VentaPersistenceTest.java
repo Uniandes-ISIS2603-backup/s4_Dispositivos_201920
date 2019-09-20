@@ -146,4 +146,17 @@ public class VentaPersistenceTest
         VentaEntity deleted = vam.find(VentaEntity.class, deleting.getId());
         Assert.assertNull(deleted);
     }
+    
+    /**
+     * Prueba del método sobreescrito equals()
+     */
+    @Test
+    public void equalsTest() 
+    {
+        VentaEntity newva1 = new VentaEntity(68000.0);
+        VentaEntity newva2 = new VentaEntity(68000.0);
+        VentaEntity newva3 = new VentaEntity(68001.0);
+        Assert.assertTrue(newva2.equals(newva1));
+        Assert.assertFalse(newva3.equals(newva2));
+    }
 }

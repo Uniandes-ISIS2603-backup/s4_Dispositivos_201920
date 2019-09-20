@@ -21,9 +21,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     private String modelo;
     private String descripcion;
     private String nombre;
-    
-    private MediaEntity imagenes;
-    private FacturaEntity factura; 
+    private String imagenes;
 
     private double precio;
     private double precioImportacion;
@@ -31,7 +29,6 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
 
     private boolean promocion;
     private boolean enStock;
-    private boolean usado; 
 
     /**
      * Constructor vacio. Necesario para su implementacion en la DB
@@ -55,11 +52,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
   * @param promocion
   * @param enStock 
   */
-    public DispositivoEntity(String modelo, String descripcion, String nombre, 
-            MediaEntity imagenes, double precio, double precioImportacion, double descuento, boolean promocion, boolean enStock, 
-            FacturaEntity factura, boolean usado) 
-    {
-        
+    public DispositivoEntity(String modelo, String descripcion, String nombre, String imagenes, double precio, double precioImportacion, double descuento, boolean promocion, boolean enStock) {
         this.modelo = modelo;
         this.descripcion = descripcion; 
         this.nombre = nombre; 
@@ -69,8 +62,6 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         this.descuento = descuento; 
         this.promocion = promocion; 
         this.enStock = enStock;
-        this.usado = usado; 
-        this.factura = factura; 
     }
 
     /**
@@ -89,7 +80,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         return nombre;
     }
 
-    public MediaEntity getImagenes() {
+    public String getImagenes() {
         return imagenes;
     }
 
@@ -112,14 +103,6 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     public boolean isPromocion() {
         return promocion;
     }
-    
-    public boolean isUsado(){
-        return usado; 
-    }
-    
-    public FacturaEntity getFactura(){
-        return factura; 
-    }
 
     //Setters
     public void setNombre(String nombre) {
@@ -130,7 +113,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public void setImagenes(MediaEntity imagenes) {
+    public void setImagenes(String imagenes) {
         this.imagenes = imagenes;
     }
 
@@ -157,36 +140,31 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     public void setPromocion(boolean promocion) {
         this.promocion = promocion;
     }
-    
-    public void setUsado(boolean usado){
-        this.usado = usado; 
-    }
-    
-    public void setFactura(FacturaEntity factura){
-        this.factura = factura; 
-    }
-    
+
     /**
-     * Metodo no usado 
-     * @param obj Object que se compara.
-     * @return Despreciado. 
-     * @deprecated (Solo Arregla Code Smell)
+     * Se sobre escribe el metodo equals
+     *
+     * @param obj a comparar
+     * @return true si son iguales. false si son distintos
      */
     @Override
-    @Deprecated
-    public boolean equals(Object obj){
-        return super.equals(obj);
-    }
-    
-    /**
-     * Metodo no usado.
-     * @return nada.
-     * @deprecated (Solo Arregla Code Smell)
-     */
-    @Override
-    @Deprecated
-    public int hashCode(){
-        return super.hashCode();
+    public boolean equals(Object obj) {
+        boolean resp = super.equals(obj);
+        boolean fin = false;
+        final DispositivoEntity other = (DispositivoEntity) obj;
+
+        if (!resp) {
+            return fin;
+        } else {
+            if ((this.descripcion.compareToIgnoreCase(other.descripcion) == 0) && (this.descuento == other.descuento) && (this.enStock == other.enStock)
+                    && (this.modelo.compareTo(other.modelo) == 0) && (this.nombre.compareTo(other.nombre) == 0) && (this.precio == other.precio)
+                    && (this.precioImportacion == other.precioImportacion) && (this.promocion == other.promocion)) {
+                fin = true;
+                return fin;
+            }
+        }
+
+        return fin;
     }
 
 }
