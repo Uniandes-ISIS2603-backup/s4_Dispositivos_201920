@@ -290,6 +290,7 @@ public class FacturaLogicTest {
         Assert.assertEquals(entity.getImpuestos(), resultEntity.getImpuestos());
         Assert.assertEquals(entity.getNumeroDeFactura(), resultEntity.getNumeroDeFactura());
         Assert.assertEquals(entity.getTotalPago(), resultEntity.getTotalPago());
+        Assert.assertEquals(entity.getFechaDePago(), resultEntity.getFechaDePago());
     }
 
     /**
@@ -308,6 +309,8 @@ public class FacturaLogicTest {
         Assert.assertEquals(pojoEntity.getImpuestos(), resp.getImpuestos());
         Assert.assertEquals(pojoEntity.getNumeroDeFactura(), resp.getNumeroDeFactura());
         Assert.assertEquals(pojoEntity.getTotalPago(), resp.getTotalPago());
+        Assert.assertEquals(pojoEntity.getFechaDePago(), resp.getFechaDePago());
+
     }
 
     /**
