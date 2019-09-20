@@ -39,13 +39,16 @@ public class CategoriaLogic {
 
         LOGGER.log(Level.INFO, "Inicia proceso de creación de una categoria.");
 
-        boolean ret = verificaLasReglasNegocioCategoria(categoriaEntity);
-        if (ret == true) {
+        if (verificaLasReglasNegocioCategoria(categoriaEntity)) {
             persistence.create(categoriaEntity);
             LOGGER.log(Level.INFO, "Termina proceso de creación de una categoria.");
+        return categoriaEntity;
+        }
+        else
+        {
+            throw new BusinessLogicException("No pudo realizarse la creacion de una categoria.");
         }
 
-        return categoriaEntity;
     }
 
     /**
@@ -91,7 +94,7 @@ public class CategoriaLogic {
      */
     public CategoriaEntity updateCategoria(Long pCategoriaId, CategoriaEntity categoriaEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la categoria con id = {0}", pCategoriaId);
-        if (persistence.findByName(categoriaEntity.getNombreCategoria()) == null) {
+        if (verificaLasReglasNegocioCategoria(categoriaEntity)) {
             CategoriaEntity newEntity = persistence.update(categoriaEntity);
             LOGGER.log(Level.INFO, "Termina proceso de actualizar la categoria con id = {0}", categoriaEntity.getId());
             return newEntity;
