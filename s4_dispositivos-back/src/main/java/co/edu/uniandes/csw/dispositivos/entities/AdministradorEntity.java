@@ -10,6 +10,10 @@ public class AdministradorEntity extends BaseEntity
     /**
      * Usuario de identificacion en la plataforma
      */
+    private String correo;
+    /**
+     * Usuario de identificacion en la plataforma
+     */
     private String usuario;
     /**
      * ContraseNa de verificacion en la plataforma
@@ -87,6 +91,20 @@ public class AdministradorEntity extends BaseEntity
         {
             return this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena);
         }
+    }
+
+    /**
+     * @return the correo
+     */
+    public String getCorreo() {
+        return correo;
+    }
+
+    /**
+     * @param correo the correo to set
+     */
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 }
 
