@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *Persistencia de la clase ComprobanteDePagoEntity
+ * @author Dianis Caro
  */
 @Stateless
 public class ComprobanteDePagoPersistence 
