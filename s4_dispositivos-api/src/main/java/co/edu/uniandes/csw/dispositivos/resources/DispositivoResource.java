@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.dispositivos.resources;
 
+import co.edu.uniandes.csw.dispositivos.dtos.DispositivoDTO;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

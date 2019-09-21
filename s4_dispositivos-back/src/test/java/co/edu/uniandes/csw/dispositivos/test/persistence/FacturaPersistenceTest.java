@@ -22,8 +22,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -171,11 +169,6 @@ public class FacturaPersistenceTest {
         assertEquals(15.5, facturaPrueba.getTotalPago(), 0);
         assertEquals(1.3, facturaPrueba.getImpuestos(), 0);
         Assert.assertEquals("Celular", facturaPrueba.getDispositivos());
-<<<<<<< HEAD
-
-        assertTrue(facturaPrueba.equals(facturaPrueba2));
-        assertFalse(facturaPrueba.equals(facturaPrueba3));
-=======
         Assert.assertEquals(facturaPrueba.hashCode(), facturaPrueba.hashCode());
         Assert.assertTrue(facturaPrueba.equals(facturaPrueba2));
         assertEquals(fecha, facturaPrueba.getFechaDePago());
@@ -198,7 +191,6 @@ public class FacturaPersistenceTest {
         assertEquals(fecha, facturaPrueba.getFechaDePago());
         assertEquals(1.3, facturaPrueba.getImpuestos(), 0);
         Assert.assertEquals("Celular", facturaPrueba.getDispositivos());
->>>>>>> origin/Develop
 
     }
 }
