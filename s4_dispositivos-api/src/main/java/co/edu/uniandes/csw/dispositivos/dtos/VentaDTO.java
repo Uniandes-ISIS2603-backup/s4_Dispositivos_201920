@@ -16,7 +16,6 @@ public class VentaDTO implements Serializable
 {
     private Long id; 
     private Double precioReventa;   
-    private VendedorDTO vendedor;
     
     /**
      * Constructor vacío
@@ -33,9 +32,7 @@ public class VentaDTO implements Serializable
         if(vaentity != null)
         {
             id = vaentity.getId();
-            precioReventa = vaentity.getPrecioReventa();
-            //if(vaentity.getVendedor() != null) vendedor = new VendedorDTO(vaentity.getVendedor());
-            //else vendedor = null; 
+            precioReventa = vaentity.getPrecioReventa(); 
         }
     }
 
@@ -68,29 +65,12 @@ public class VentaDTO implements Serializable
     {
         this.precioReventa = precioReventa;
     }
-
-    /**
-     * @return the vendedor
-     */
-    public VendedorDTO getVendedor() {
-        return vendedor;
-    }
-
-    /**
-     * @param vendedor the vendedor to set
-     */
-    public void setVendedor(VendedorDTO vendedor) {
-        this.vendedor = vendedor;
-    }
     
     public VentaEntity toEntity()
     {
         VentaEntity venta = new VentaEntity();
         venta.setId(id);
         venta.setPrecioReventa(precioReventa);
-        if(vendedor != null) {
-        //venta.setVendedor(vendedor.toEntity)
-        }
         return venta;     
     }
 }

@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.dispositivos.dtos;
 
+import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import java.io.Serializable;
 import java.util.List;
 
@@ -23,4 +24,44 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
      */
     public VentaDetailDTO() 
     {    }
+    
+    /**
+     * Constructor basado en las entidad
+     * @param refva
+     */
+    public VentaDetailDTO(VentaEntity refva) 
+    {
+        super(refva);
+        if(refva != null)
+        {    
+            //vendedor = refva.getVendedor();
+        }
+    }
+    
+    /**
+     * @return the vendedor
+     */
+    public VendedorDTO getVendedor() 
+    {
+        return vendedor;
+    }
+
+    /**
+     * @param vendedor the vendedor to set
+     */
+    public void setVendedor(VendedorDTO vendedor) 
+    {
+        this.vendedor = vendedor;
+    }
+    
+    @Override
+    public VentaEntity toEntity()
+    {
+        VentaEntity extventa = super.toEntity();
+        if(vendedor != null)
+        {
+            //extventa.setVendedor(vendedor); 
+        }
+        return extventa; 
+    }
 }
