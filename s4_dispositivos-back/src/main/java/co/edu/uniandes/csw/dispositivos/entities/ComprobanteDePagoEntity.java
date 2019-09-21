@@ -1,9 +1,17 @@
 package co.edu.uniandes.csw.dispositivos.entities;
+import co.edu.uniandes.csw.dispositivos.podam.DateStrategy;
+import co.edu.uniandes.csw.dispositivos.podam.NumeroDeTarjetaStrategy;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamDoubleValue;
+import uk.co.jemos.podam.common.PodamIntValue;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *Clase que corresponde a la tabla BD para clase ComprobanteDePago
+ * @author Dianis Caro
  */
 @Entity 
 public class ComprobanteDePagoEntity extends BaseEntity
@@ -11,28 +19,35 @@ public class ComprobanteDePagoEntity extends BaseEntity
     /**
      * Numero de factura emitido
      */
-    private int numeroDeFactura;
+    @PodamIntValue(minValue = 1, maxValue = Integer.MAX_VALUE)
+    private Integer numeroDeFactura;
     /**
      * Total pagado en la transacción por los dispositivos
      */
-    private double totalPago;
+    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
+    private Double totalDePago;
     /**
      * Impuestos generados a los productos
      */
-    private double impuestos;
+    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
+    private Double impuestos;
     /**
      * Número de tarjeta con el cual se genero la compra
      */
+    @PodamStrategyValue(NumeroDeTarjetaStrategy.class)
     private String numeroDeTarjeta;
     /**
      * Fecha de compra de los dispositivos electronicos
      */
+    @Temporal(TemporalType.DATE)
+    @PodamStrategyValue(DateStrategy.class)
     private Date fechaDeFactura;
     /**
      * Constructor vacio para Serializable
      */
     public ComprobanteDePagoEntity()
     { 
+        //Clase constructora 
     }
     /**
      * Constructor de la clase
@@ -42,10 +57,10 @@ public class ComprobanteDePagoEntity extends BaseEntity
      * @param pNumeroDeTarjeta numero de tarjeta con la cual se genro la compra
      * @param pFechaDeFac fecha de compra de los dispositivos
      */
-    public ComprobanteDePagoEntity(int pNumeroFac, double pTotalPago, double pImpuesto, String pNumeroDeTarjeta, Date pFechaDeFac)
+    public ComprobanteDePagoEntity(Integer pNumeroFac, Double pTotalPago, Double pImpuesto, String pNumeroDeTarjeta, Date pFechaDeFac)
     {
         this.numeroDeFactura = pNumeroFac;
-        this.totalPago = pTotalPago;
+        this.totalDePago = pTotalPago;
         this.impuestos = pImpuesto;
         this.numeroDeTarjeta = pNumeroDeTarjeta;
         this.fechaDeFactura = pFechaDeFac;
@@ -54,14 +69,14 @@ public class ComprobanteDePagoEntity extends BaseEntity
      * Retorna el numero de facturacion
      * @return numero de factura solicitado
      */
-    public int getNumeroDeFactura() {
+    public Integer getNumeroDeFactura() {
         return numeroDeFactura;
     }
     /**
      * Modifica el numero de facturacion
      * @param pNumFac nuevo numero de factura
      */
-    public void setNumeroDeFactura(int pNumFac) 
+    public void setNumeroDeFactura(Integer pNumFac) 
     {
         this.numeroDeFactura = pNumFac;
     }
@@ -69,29 +84,29 @@ public class ComprobanteDePagoEntity extends BaseEntity
      * Retorna el total a pagar por los dispositivos
      * @return total a pagar
      */
-    public double getTotalDePago() {
-        return totalPago;
+    public Double getTotalDePago() {
+        return totalDePago;
     }
     /**
      * Modifica el total a pgar por los dispositivos
      * @param pTotalPago nuevo total a pagar
      */
-    public void setTotalDePago(double pTotalPago) 
+    public void setTotalDePago(Double pTotalPago) 
     {
-        this.totalPago = pTotalPago;
+        this.totalDePago = pTotalPago;
     }
     /**
      * Retorna el impuesto generado para los dispositivos
      * @return impuesto de los productos
      */
-    public double getImpuestos() {
+    public Double getImpuestos() {
         return impuestos;
     }
     /**
      * Modifica el impuesto establecido para los dispositivos
      * @param pImpuestos nuevo impuesto
      */
-    public void setImpuestos(double pImpuestos) 
+    public void setImpuestos(Double pImpuestos) 
     {
         this.impuestos = pImpuestos;
     }
@@ -125,30 +140,25 @@ public class ComprobanteDePagoEntity extends BaseEntity
     {
         this.fechaDeFactura = pFecha;
     }
-    /**
-     * Evalua un objeto con el actual
-     * @param obj Objecto a comparar
-     * @return true cuando ambos objetos son iguales, false de lo contrario
+   /**
+     * Metodo no usado 
+     * @param obj Object que se compara.
+     * @return Despreciado. 
+     * @deprecated (Solo Arregla Code Smell)
      */
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-            return false;
-
-        if (this.getClass() != obj.getClass())
-            return false;
-  
-        final ComprobanteDePagoEntity other = (ComprobanteDePagoEntity) obj;
-        boolean resp = super.equals(other);
-        
-        if(!resp)
-        {
-            return false;
-        }
-        else
-        {
-            return this.fechaDeFactura.equals(other.fechaDeFactura)&& this.impuestos == other.impuestos && this.numeroDeFactura == other.numeroDeFactura && numeroDeTarjeta.equalsIgnoreCase(other.numeroDeTarjeta);
-        }
+    @Deprecated
+    public boolean equals(Object obj){
+        return super.equals(obj);
+    }
+    /**
+     * Metodo no usado
+     * @return nada.
+     * @deprecated (Solo Arregla Code Smell)
+     */
+    @Override
+    @Deprecated
+    public int hashCode(){
+        return super.hashCode();
     }
 }

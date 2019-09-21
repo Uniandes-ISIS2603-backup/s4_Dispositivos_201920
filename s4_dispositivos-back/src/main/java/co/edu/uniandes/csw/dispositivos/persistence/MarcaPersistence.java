@@ -72,4 +72,26 @@ public class MarcaPersistence {
         MarcaEntity marcaEntity = em.find(MarcaEntity.class, marcaId);
         em.remove(marcaEntity);
     }
+    
+    /**
+     * Busca si hay alguna marca con el nombre que se envía de argumento
+     *
+     * @param nombre: nombre de la marca que se está buscando
+     * @return null si no existe ninguna marca con el valor del parametro. Si
+     * existe alguna devuelve la primera.
+     */
+    public MarcaEntity findByNombre(String nombre) {
+        TypedQuery query = em.createQuery("Select m From MarcaEntity m where m.nombreMarca = :marca", MarcaEntity.class);
+        query = query.setParameter("marca", nombre);
+        List<MarcaEntity> sameCode = query.getResultList();
+        MarcaEntity result;
+        if (sameCode == null) {
+            result = null;
+        } else if (sameCode.isEmpty()) {
+            result = null;
+        } else {
+            result = sameCode.get(0);
+        }
+        return result;
+    }
 }

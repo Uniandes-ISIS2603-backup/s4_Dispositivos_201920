@@ -94,7 +94,7 @@ public class MediaPersistenceTest {
         Assert.assertNotNull(ce);
         MediaEntity entity= em.find(MediaEntity.class, ce.getId());
         
-        Assert.assertEquals(newEntity.getLinks(), entity.getLinks());
+        Assert.assertEquals(newEntity.getLink(), entity.getLink());
     }
     
     @Test
@@ -124,7 +124,7 @@ public class MediaPersistenceTest {
 
         MediaEntity resp = em.find(MediaEntity.class, entity.getId());
 
-        Assert.assertEquals(newEntity.getLinks(), resp.getLinks());
+        Assert.assertEquals(newEntity.getLink(), resp.getLink());
     }
     
     @Test

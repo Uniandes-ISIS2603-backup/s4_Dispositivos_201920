@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import uk.co.jemos.podam.common.PodamDoubleValue;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -21,14 +23,23 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     private String modelo;
     private String descripcion;
     private String nombre;
-    private String imagenes;
+    @PodamExclude
+    private MediaEntity imagenes;
+    @PodamExclude
+    private FacturaEntity factura;
+    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
+    private Double precio;
 
-    private double precio;
-    private double precioImportacion;
-    private double descuento;
+    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
+    private Double precioImportacion;
+
+    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
+    private Double descuento;
 
     private boolean promocion;
     private boolean enStock;
+    private boolean esImportado;
+    private boolean usado;
 
     /**
      * Constructor vacio. Necesario para su implementacion en la DB
@@ -40,34 +51,37 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
          */
     }
 
- /**
-  * Metodo Constructor con Parametros.
-  * @param modelo
-  * @param descripcion
-  * @param nombre
-  * @param imagenes
-  * @param precio
-  * @param precioImportacion
-  * @param descuento
-  * @param promocion
-  * @param enStock 
-  */
-    public DispositivoEntity(String modelo, String descripcion, String nombre, String imagenes, double precio, double precioImportacion, double descuento, boolean promocion, boolean enStock) {
+    /**
+     * Metodo Constructor Con Parametros
+     *
+     * @param modelo
+     * @param descripcion
+     * @param nombre
+     * @param precio
+     * @param precioImportacion
+     * @param descuento
+     * @param promocion
+     * @param enStock
+     * @param usado
+     * @param esImportado
+     */
+    public DispositivoEntity(String modelo, String descripcion, String nombre, double precio, double precioImportacion,
+            double descuento, boolean promocion, boolean enStock, boolean usado, boolean esImportado, MediaEntity imagenes, FacturaEntity factura) {
+
         this.modelo = modelo;
-        this.descripcion = descripcion; 
-        this.nombre = nombre; 
-        this.imagenes = imagenes; 
-        this.precio = precio; 
+        this.descripcion = descripcion;
+        this.nombre = nombre;
+        this.imagenes = imagenes;
+        this.precio = precio;
         this.precioImportacion = precioImportacion;
-        this.descuento = descuento; 
-        this.promocion = promocion; 
+        this.descuento = descuento;
+        this.promocion = promocion;
         this.enStock = enStock;
+        this.usado = usado;
+        this.factura = factura;
+        this.esImportado = esImportado;
     }
 
-    /**
-     * Metodos
-     */
-    //Getters 
     public String getModelo() {
         return modelo;
     }
@@ -80,91 +94,113 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         return nombre;
     }
 
-    public String getImagenes() {
+    public MediaEntity getImagenes() {
         return imagenes;
     }
 
-    public double getPrecio() {
+    public FacturaEntity getFactura() {
+        return factura;
+    }
+
+    public Double getPrecio() {
         return precio;
     }
 
-    public double getPrecioImportacion() {
+    public Double getPrecioImportacion() {
         return precioImportacion;
     }
 
-    public double getDescuento() {
+    public Double getDescuento() {
         return descuento;
-    }
-
-    public boolean isEnStock() {
-        return enStock;
     }
 
     public boolean isPromocion() {
         return promocion;
     }
 
-    //Setters
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public boolean isEnStock() {
+        return enStock;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public boolean isEsImportado() {
+        return esImportado;
     }
 
-    public void setImagenes(String imagenes) {
-        this.imagenes = imagenes;
+    public boolean isUsado() {
+        return usado;
     }
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
 
-    public void setDescuento(double descuento) {
-        this.descuento = descuento;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public void setPrecioImportacion(double precioImportacion) {
-        this.precioImportacion = precioImportacion;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setPrecio(double precio) {
+    public void setImagenes(MediaEntity imagenes) {
+        this.imagenes = imagenes;
+    }
+
+    public void setFactura(FacturaEntity factura) {
+        this.factura = factura;
+    }
+
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
-    public void setEnStock(boolean enStock) {
-        this.enStock = enStock;
+    public void setPrecioImportacion(Double precioImportacion) {
+        this.precioImportacion = precioImportacion;
+    }
+
+    public void setDescuento(Double descuento) {
+        this.descuento = descuento;
     }
 
     public void setPromocion(boolean promocion) {
         this.promocion = promocion;
     }
 
+    public void setEnStock(boolean enStock) {
+        this.enStock = enStock;
+    }
+
+    public void setEsImportado(boolean esImportado) {
+        this.esImportado = esImportado;
+    }
+
+    public void setUsado(boolean usado) {
+        this.usado = usado;
+    }
+
     /**
-     * Se sobre escribe el metodo equals
+     * Metodo no usado
      *
-     * @param obj a comparar
-     * @return true si son iguales. false si son distintos
+     * @param obj Object que se compara.
+     * @return Despreciado.
+     * @deprecated (Solo Arregla Code Smell)
      */
     @Override
+    @Deprecated
     public boolean equals(Object obj) {
-        boolean resp = super.equals(obj);
-        boolean fin = false;
-        final DispositivoEntity other = (DispositivoEntity) obj;
+        return super.equals(obj);
+    }
 
-        if (!resp) {
-            return fin;
-        } else {
-            if ((this.descripcion.compareToIgnoreCase(other.descripcion) == 0) && (this.descuento == other.descuento) && (this.enStock == other.enStock)
-                    && (this.modelo.compareTo(other.modelo) == 0) && (this.nombre.compareTo(other.nombre) == 0) && (this.precio == other.precio)
-                    && (this.precioImportacion == other.precioImportacion) && (this.promocion == other.promocion)) {
-                fin = true;
-                return fin;
-            }
-        }
-
-        return fin;
+    /**
+     * Metodo no usado.
+     *
+     * @return nada.
+     * @deprecated (Solo Arregla Code Smell)
+     */
+    @Override
+    @Deprecated
+    public int hashCode() {
+        return super.hashCode();
     }
 
 }

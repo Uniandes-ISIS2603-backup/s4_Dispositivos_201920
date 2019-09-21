@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *Persistencia de la clase ComprobanteDePagoEntity
@@ -65,5 +66,25 @@ public class ComprobanteDePagoPersistence
         ComprobanteDePagoEntity entity = em.find(ComprobanteDePagoEntity.class, comprobanteId);
         em.remove(entity);
     }
-
+    /**
+     * Busca si hay algun ComprobanteDePago con el número de factura que se envía como parámetro
+     * @param numFactura Número de factura del ComprobanteDePago que se está buscando
+     * @return null si no existe ningun ComprobanteDePago con el número de factura
+     * Si existe alguno devuelve el primero.
+     */
+    public ComprobanteDePagoEntity findByNumFactura(Integer numFactura) 
+    {
+        TypedQuery query = em.createQuery("Select e From ComprobanteDePagoEntity e where e.numeroDeFactura = :numFac", ComprobanteDePagoEntity.class);
+        query = query.setParameter("numFac", numFactura);
+        List<ComprobanteDePagoEntity> sameNumFac = query.getResultList();
+        ComprobanteDePagoEntity result;
+        if (sameNumFac == null) {
+            result = null;
+        } else if (sameNumFac.isEmpty()) {
+            result = null;
+        } else {
+            result = sameNumFac.get(0);
+        }
+        return result;
+    }
 }
