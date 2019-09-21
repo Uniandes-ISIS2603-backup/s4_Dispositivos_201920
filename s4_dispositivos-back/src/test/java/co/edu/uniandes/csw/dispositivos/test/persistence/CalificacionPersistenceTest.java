@@ -38,7 +38,7 @@ public class CalificacionPersistenceTest {
     private EntityManager em;
 
     private List<CalificacionEntity> data = new ArrayList<>();
-    
+
     @Inject
     UserTransaction utx;
 
@@ -56,6 +56,9 @@ public class CalificacionPersistenceTest {
         em.createQuery("delete from CalificacionEntity").executeUpdate();
     }
 
+    /**
+     *
+     */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
@@ -67,7 +70,10 @@ public class CalificacionPersistenceTest {
             data.add(entity);
         }
     }
-    
+
+    /**
+     *
+     */
     @Before
     public void configTest() {
         try {
@@ -86,6 +92,9 @@ public class CalificacionPersistenceTest {
         }
     }
 
+    /**
+     *
+     */
     @Test
     public void createCalificacionTest() {
         PodamFactory factory = new PodamFactoryImpl();
@@ -100,10 +109,13 @@ public class CalificacionPersistenceTest {
         Assert.assertEquals(newEntity.getCalificacionNumerica(), entity.getCalificacionNumerica());
     }
 
+    /**
+     *
+     */
     @Test
     public void getCalificacionTest() {
         List<CalificacionEntity> list = cp.findAll();
-        Assert.assertEquals(list.size(),data.size());
+        Assert.assertEquals(list.size(), data.size());
         for (CalificacionEntity ent : list) {
             boolean found = false;
             for (CalificacionEntity entity : data) {
@@ -114,7 +126,10 @@ public class CalificacionPersistenceTest {
             Assert.assertTrue(found);
         }
     }
-    
+
+    /**
+     *
+     */
     @Test
     public void updateCalificacionTest() {
         CalificacionEntity entity = data.get(0);
@@ -129,7 +144,10 @@ public class CalificacionPersistenceTest {
 
         Assert.assertEquals(newEntity.getCalificacionNumerica(), resp.getCalificacionNumerica());
     }
-    
+
+    /**
+     *
+     */
     @Test
     public void deleteCalificacionTest() {
         CalificacionEntity entity = data.get(0);
@@ -137,4 +155,5 @@ public class CalificacionPersistenceTest {
         CalificacionEntity deleted = em.find(CalificacionEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
+
 }

@@ -18,8 +18,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -162,7 +160,7 @@ public class ClientePersistenceTest {
      * Prueba para crear un cliente.
      */
     @Test
-    public void crearMarcaTest() {
+    public void crearClienteTest() {
         ClienteEntity clientePrueba = new ClienteEntity("nombre", "apellido", "email", 2.3, "direccion", "usuario", "contrasena");
         ClienteEntity clientePrueba2 = new ClienteEntity("nombre", "apellido", "email", 2.3, "direccion", "usuario", "contrasena");
         ClienteEntity clientePrueba3 = new ClienteEntity("nombre", "apellido", "email", 2.4, "direccion", "usuario", "contrasena");
@@ -174,8 +172,61 @@ public class ClientePersistenceTest {
         Assert.assertEquals("direccion", clientePrueba.getDireccion());
         Assert.assertEquals("usuario", clientePrueba.getUsuario());
         Assert.assertEquals("contrasena", clientePrueba.getContrasena());
+        Assert.assertEquals(clientePrueba3.hashCode(), clientePrueba3.hashCode());
+        Assert.assertTrue(clientePrueba.equals(clientePrueba2));
+    }
 
-        assertTrue(clientePrueba.equals(clientePrueba2));
-        assertFalse(clientePrueba.equals(clientePrueba3));
+    /**
+     * Prueba para encontrar un cliente por su cedula.
+     */
+    @Test
+    public void buscarClientePorCedulaTest() {
+        ClienteEntity clientePrueba = new ClienteEntity("nombre", "apellido", "email", 2.3, "direccion", "usuario", "contrasena");
+        mp.create(clientePrueba);
+        Assert.assertNotNull(mp.findByCedula(2.3));
+        Assert.assertNull(mp.findByCedula(3.5));
+        Assert.assertEquals("nombre", clientePrueba.getNombre());
+        Assert.assertEquals("apellido", clientePrueba.getApellido());
+        Assert.assertEquals("email", clientePrueba.getCorreoElectronico());
+        Assert.assertEquals(2.3, clientePrueba.getCedula(), 0);
+        Assert.assertEquals("direccion", clientePrueba.getDireccion());
+        Assert.assertEquals("usuario", clientePrueba.getUsuario());
+        Assert.assertEquals("contrasena", clientePrueba.getContrasena());
+    }
+
+    /**
+     * Prueba para encontrar un cliente por su email.
+     */
+    @Test
+    public void buscarClientePorEmailTest() {
+        ClienteEntity clientePrueba = new ClienteEntity("nombre", "apellido", "email", 2.3, "direccion", "usuario", "contrasena");
+        mp.create(clientePrueba);
+        Assert.assertNotNull(mp.findByEmail("email"));
+        Assert.assertNull(mp.findByEmail("eamil"));
+        Assert.assertEquals("nombre", clientePrueba.getNombre());
+        Assert.assertEquals("apellido", clientePrueba.getApellido());
+        Assert.assertEquals("email", clientePrueba.getCorreoElectronico());
+        Assert.assertEquals(2.3, clientePrueba.getCedula(), 0);
+        Assert.assertEquals("direccion", clientePrueba.getDireccion());
+        Assert.assertEquals("usuario", clientePrueba.getUsuario());
+        Assert.assertEquals("contrasena", clientePrueba.getContrasena());
+    }
+
+    /**
+     * Prueba para encontrar un cliente por su usuario.
+     */
+    @Test
+    public void buscarClientePorUsuarioTest() {
+        ClienteEntity clientePrueba = new ClienteEntity("nombre", "apellido", "email", 2.3, "direccion", "usuario", "contrasena");
+        mp.create(clientePrueba);
+        Assert.assertNotNull(mp.findByUsuario("usuario"));
+        Assert.assertNull(mp.findByUsuario("oirausu"));
+        Assert.assertEquals("nombre", clientePrueba.getNombre());
+        Assert.assertEquals("apellido", clientePrueba.getApellido());
+        Assert.assertEquals("email", clientePrueba.getCorreoElectronico());
+        Assert.assertEquals(2.3, clientePrueba.getCedula(), 0);
+        Assert.assertEquals("direccion", clientePrueba.getDireccion());
+        Assert.assertEquals("usuario", clientePrueba.getUsuario());
+        Assert.assertEquals("contrasena", clientePrueba.getContrasena());
     }
 }

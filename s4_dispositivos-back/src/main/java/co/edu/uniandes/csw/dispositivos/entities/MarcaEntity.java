@@ -62,7 +62,7 @@ public class MarcaEntity extends BaseEntity implements Serializable {
      * @return the imagen
      */
     public String getImagen() {
-        return imagen;
+        return this.imagen;
     }
 
     /**
@@ -73,26 +73,28 @@ public class MarcaEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * Compara dos objetos
+     * Metodo no usado
      *
-     * @param obj objeto a comparar.
-     * @return true en caso de que sean iguales, false en caso de que no.
+     * @param obj Object que se compara.
+     * @return despreciado.
+     * @deprecated (solo arregla code smell)
      */
     @Override
+    @Deprecated
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-        boolean resp = super.equals(obj);
-        final MarcaEntity other = (MarcaEntity) obj;
-
-        if (!resp) {
-            return false;
-        } else {
-            return this.nombreMarca.equalsIgnoreCase(other.nombreMarca) && this.imagen.equalsIgnoreCase(other.imagen);
-        }
+        return super.equals(obj);
     }
+
+    /**
+     * Metodo no usado
+     *
+     * @return nada.
+     * @deprecated (solo arregla code smell)
+     */
+    @Override
+    @Deprecated
+    public int hashCode() {
+        return super.hashCode();
+    }
+
 }

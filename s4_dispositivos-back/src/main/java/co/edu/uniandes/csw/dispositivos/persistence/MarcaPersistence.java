@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.dispositivos.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -72,7 +71,7 @@ public class MarcaPersistence {
         MarcaEntity marcaEntity = em.find(MarcaEntity.class, marcaId);
         em.remove(marcaEntity);
     }
-    
+
     /**
      * Busca si hay alguna marca con el nombre que se envía de argumento
      *
@@ -94,4 +93,5 @@ public class MarcaPersistence {
         }
         return result;
     }
+
 }

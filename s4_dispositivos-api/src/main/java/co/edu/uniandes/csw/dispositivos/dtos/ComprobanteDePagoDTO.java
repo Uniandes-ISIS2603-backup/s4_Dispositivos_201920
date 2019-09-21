@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.dispositivos.dtos;
 
-
 import co.edu.uniandes.csw.dispositivos.entities.ComprobanteDePagoEntity;
 import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;

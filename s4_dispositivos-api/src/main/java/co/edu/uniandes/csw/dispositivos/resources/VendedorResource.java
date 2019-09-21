@@ -40,18 +40,24 @@ public class VendedorResource
     @POST
     public VendedorDTO createVendedor(VendedorDTO vendedor) throws BusinessLogicException
     {
+        /**
         VendedorDTO newvendedor = new VendedorDTO(vendedorvrlogic.createVendedor(vendedor.toEntity()));
         return newvendedor;
+        */
+        return null;
     }
 
     @GET
     public List<VendedorDetailDTO> getAllVendedores() throws BusinessLogicException
     {
+        /**
         List<VendedorEntity> vrconteo = vendedorvrlogic.findAllVendedores(); 
         List<VendedorDetailDTO> vrlisted = new ArrayList<>();
         for(VendedorEntity vendedor : vrconteo)
             vrlisted.add(new VendedorDetailDTO(vendedor));
         return vrlisted; 
+        */
+        return null;
     }
 
     @GET
@@ -69,21 +75,26 @@ public class VendedorResource
     @Path("{vendedorID: \\d+}")
     public VendedorDetailDTO updateVendedor(@PathParam("vendedorID") Long idVendedor, VendedorDetailDTO vrdto) throws BusinessLogicException
     {
+        /**
         vrdto.setId(idVendedor);
         if(vendedorvrlogic.findVendedor(idVendedor) == null)
             throw new WebApplicationException("No se encuentra el recurso /vendedor/" + idVendedor, 404);
         VendedorDetailDTO detailVendedor = new VendedorDetailDTO(vendedorvrlogic.updateVendedor(vrdto.toEntity()));
-        return detailVendedor; 
+        return detailVendedor;
+        */
+        return null;
     }
 
     @DELETE
     @Path("{vendedorID: \\d+}")
     public void deleteVendedor(@PathParam("vendedorID") Long idVendedor) throws BusinessLogicException
     {
+        /**
         VendedorEntity notvendedor = vendedorvrlogic.findVendedor(idVendedor); 
         if(notvendedor == null)
             throw new WebApplicationException("No se encuentra el recurso /vendedor/" + idVendedor, 404); 
 
         vendedorvrlogic.deleteVendedor(idVendedor);
+        */
     }
 }

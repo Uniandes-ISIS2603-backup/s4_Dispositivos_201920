@@ -1,16 +1,15 @@
 package co.edu.uniandes.csw.dispositivos.entities;
+import co.edu.uniandes.csw.dispositivos.podam.CorreoWirelessStrategy;
 import javax.persistence.Entity;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *Clase que corresponde a la tabla BD para clase Administrador
+ * @author Dianis Caro
  */
 @Entity
 public class AdministradorEntity extends BaseEntity
 {
-    /**
-     * Usuario de identificacion en la plataforma
-     */
-    private String correo;
     /**
      * Usuario de identificacion en la plataforma
      */
@@ -20,18 +19,26 @@ public class AdministradorEntity extends BaseEntity
      */
     private String contrasena;
     /**
+     * Correo institucional
+     */
+    @PodamStrategyValue(CorreoWirelessStrategy.class)
+    private String correo;
+    /**
      * Constructor vacio para Serializable
      */
     public AdministradorEntity()
-    {}
+    {
+       //Clase constructora 
+    }
     /**
      * Constructor de la clase
      * @param pUsuario usuario de indetificacion
      * @param pContrasena contrasena de verificacion
      */
-    public AdministradorEntity(String pUsuario, String pContrasena)
+    public AdministradorEntity(String pUsuario, String pContrasena, String pCorreo)
     {
         this.usuario = pUsuario;
+        this.correo = pCorreo;
         this.contrasena = pContrasena;
     }
     /**
@@ -65,46 +72,42 @@ public class AdministradorEntity extends BaseEntity
     public void setContrasena(String pContrasena) 
     {
         this.contrasena = pContrasena;
-    }
+    } 
     /**
-     * Evalua un objeto con el actual
-     * @param obj Objecto a comparar
-     * @return true cuando ambos objetos son iguales, false de lo contrario
+     * Retorna la correo
+     * @return correo
      */
-    @Override
-    public boolean equals(Object obj)
+    public String getCorreo()
     {
-        if (obj == null)
-            return false;
-
-        if (this.getClass() != obj.getClass())
-            return false;
-  
-        final AdministradorEntity other = (AdministradorEntity) obj;
-        boolean resp = super.equals(other);
-        
-        if(!resp)
-        {
-            return false;
-        }
-        else
-        {
-            return this.usuario.equalsIgnoreCase(other.usuario) && this.contrasena.equals(other.contrasena);
-        }
-    }
-
-    /**
-     * @return the correo
-     */
-    public String getCorreo() {
         return correo;
     }
-
     /**
-     * @param correo the correo to set
+     * Modifica la correo
+     * @param pCorreo nuevo correo
      */
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setCorreo(String pCorreo) 
+    {
+        this.correo = pCorreo;
+    }
+    /**
+     * Metodo no usado 
+     * @param obj Object que se compara.
+     * @return Despreciado. 
+     * @deprecated (Solo Arregla Code Smell)
+     */
+    @Override
+    @Deprecated
+    public boolean equals(Object obj){
+        return super.equals(obj);
+    }
+    /**
+     * Metodo no usado
+     * @return nada.
+     * @deprecated (Solo Arregla Code Smell)
+     */
+    @Override
+    @Deprecated
+    public int hashCode(){
+        return super.hashCode();
     }
 }
-

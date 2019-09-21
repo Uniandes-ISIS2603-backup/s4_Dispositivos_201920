@@ -50,7 +50,7 @@ public class VendedorPersistenceTest
     @Inject
     UserTransaction utxn;
 
-    private final List<VendedorEntity> vrlist = new ArrayList<>();
+    private List<VendedorEntity> vrlist = new ArrayList<>();
     
     /**
      * Establece las configuraciones iniciales del test
@@ -88,7 +88,7 @@ public class VendedorPersistenceTest
     @Test
     public void vendedorTest()
     {
-        VendedorEntity newvr = new VendedorEntity("ei.chernov@russland.com", "Eron", "Ivanovich", 75321, 98640, "E_Ivanovich", "Deu86Rus");     
+        VendedorEntity newvr = new VendedorEntity("ei.chernov@russland.com", "Eron", "Ivanovich", 75321.0, 98640.0, "E_Ivanovich", "Deu86Rus");     
         Assert.assertEquals("Ivanovich", newvr.getApellido());
         Assert.assertEquals("Eron", newvr.getNombre());
         Assert.assertEquals("ei.chernov@russland.com", newvr.getCorreoElectronico());
@@ -172,18 +172,5 @@ public class VendedorPersistenceTest
         vrp.delete(deleting.getId());
         VendedorEntity deleted = vrm.find(VendedorEntity.class, deleting.getId());
         Assert.assertNull(deleted);
-    }
-    
-    /**
-     * Prueba del método sobreescrito equals()
-     */
-    @Test
-    public void equalsTest()
-    {
-        VendedorEntity newvr1 = new VendedorEntity("vx.chernov@russland.com", "Wilhelm", "Hosevich", 94130, 57268, "W_Hosevich", "35-Sport");
-        VendedorEntity newvr2 = new VendedorEntity("vx.chernov@russland.com", "Wilhelm", "Hosevich", 94130, 57268, "W_Hosevich", "35-Sport");
-        VendedorEntity newvr3 = new VendedorEntity("vx.chernov@russland.com", "Wilhelm", "Hosevich", 94130, 57268, "E_Ivanovich", "Deu86Rus");
-        Assert.assertTrue(newvr2.equals(newvr1));        
-        Assert.assertFalse(newvr3.equals(newvr1));
     }
 }

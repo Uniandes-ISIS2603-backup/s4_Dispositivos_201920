@@ -35,50 +35,64 @@ public class VentaResource
     @POST
     public VentaDTO createVenta(VentaDTO venta) throws BusinessLogicException
     {
+        /**
         VentaDTO newventa = new VentaDTO(valogic.createVenta(venta.toEntity()));
         return newventa;
+        */
+        return null;
     }
 
     @GET
     public List<VentaDTO> getAllVentas() throws BusinessLogicException
     {
+        /**
         List<VentaEntity> vaconteo = valogic.findAllVentas(); 
         List<VentaDTO> valisted = new ArrayList<>();
         for(VentaEntity vendedor : vaconteo)
             valisted.add(new VentaDTO(vendedor));
-        return valisted; 
+        return valisted;
+        */
+        return null; 
     }
 
     @GET
     @Path("{ventaID: \\d+}")
     public VentaDTO getVenta(@PathParam("ventaID") Long idVenta) throws BusinessLogicException
     {
+        /**
         VentaEntity wantedva = valogic.findVenta(idVenta);
         if(wantedva == null)
             throw new WebApplicationException("No se encuentra el recurso /venta/" + idVenta, 404);
         VentaDTO vadetail = new VentaDTO(wantedva);
         return vadetail;
+        */
+        return null; 
     }
 
     @PUT
     @Path("{ventaID: \\d+}")
     public VentaDTO updateVenta(@PathParam("ventaID") Long idVenta, VentaDTO vadto) throws BusinessLogicException
     {
+        /**
         vadto.setId(idVenta);
         if(valogic.findVenta(idVenta) == null)
             throw new WebApplicationException("No se encuentra el recurso /venta/" + idVenta, 404);
         VentaDTO detailVenta = new VentaDTO(valogic.updateVenta(vadto.toEntity()));
-        return detailVenta; 
+        return detailVenta;
+        */
+        return null;
     }
 
     @DELETE
     @Path("{ventaID: \\d+}")
     public void deleteVenta(@PathParam("ventaID") Long idVenta) throws BusinessLogicException
     {
+        /**
         VentaEntity notventa = valogic.findVenta(idVenta); 
         if(notventa == null)
             throw new WebApplicationException("No se encuentra el recurso /venta/" + idVenta, 404); 
 
         valogic.deleteVenta(idVenta);
+        */
     }
 }
