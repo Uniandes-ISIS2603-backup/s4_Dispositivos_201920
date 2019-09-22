@@ -50,6 +50,14 @@ public class CategoriaEntity extends BaseEntity {
         return nombreCategoria;
     }
 
+    public List<DispositivoEntity> getDispositivos() {
+        return dispositivos;
+    }
+
+    public void setDispositivos(List<DispositivoEntity> dispositivos) {
+        this.dispositivos = dispositivos;
+    }
+
     /**
      * @param nombreCategoria the nombreCategoria to set
      */

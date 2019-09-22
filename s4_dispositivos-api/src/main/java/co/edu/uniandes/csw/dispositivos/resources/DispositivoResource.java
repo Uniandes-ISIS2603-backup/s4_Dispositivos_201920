@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.dispositivos.resources;
 
 import co.edu.uniandes.csw.dispositivos.dtos.DispositivoDTO;
 import co.edu.uniandes.csw.dispositivos.ejb.DispositivoLogic;
+import co.edu.uniandes.csw.dispositivos.ejb.MarcaLogic;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -32,6 +33,9 @@ public class DispositivoResource {
 
     @Inject
     private DispositivoLogic dispositivoLogic;
+
+    @Inject
+    private MarcaLogic marcaLogic;
 
     /**
      *
