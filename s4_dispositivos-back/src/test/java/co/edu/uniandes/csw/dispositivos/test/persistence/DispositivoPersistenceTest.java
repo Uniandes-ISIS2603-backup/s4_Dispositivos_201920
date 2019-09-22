@@ -5,8 +5,14 @@
  */
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
+import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
+import co.edu.uniandes.csw.dispositivos.entities.CategoriaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
+import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
+import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.CategoriaPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.MarcaPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -51,6 +57,12 @@ public class DispositivoPersistenceTest {
         return ShrinkWrap.create(JavaArchive.class)
                 .addClass(DispositivoEntity.class)
                 .addClass(DispositivoPersistence.class)
+                .addClass(MarcaPersistence.class)
+                .addClass(MarcaEntity.class)
+                .addClass(CategoriaEntity.class)
+                .addClass(CategoriaPersistence.class)
+                .addClass(CalificacionEntity.class)
+                .addClass(CalificacionPersistence.class)
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -118,12 +130,15 @@ public class DispositivoPersistenceTest {
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(dispositivo.isPromocion(), entity.isPromocion());
 
-//        Assert.assertEquals(dispositivo.getImagenes().getLink(), entity.getImagenes().getLink());
-//        Assert.assertEquals(dispositivo.getImagenes().getLink(), entity.getImagenes().getLink());
         Assert.assertEquals(dispositivo.isUsado(), entity.isUsado());
 
-//        Assert.assertEquals(dispositivo.getFactura(), entity.getFactura());
         Assert.assertEquals(dispositivo.isEsImportado(), entity.isEsImportado());
+
+        Assert.assertEquals(dispositivo.getTipo(), entity.getTipo());
+
+        Assert.assertEquals(dispositivo.getMarca(), entity.getMarca());
+
+        Assert.assertEquals(dispositivo.getEstado(), entity.getEstado());
 
     }
 
@@ -163,12 +178,17 @@ public class DispositivoPersistenceTest {
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(dispositivo.isPromocion(), newEntity.isPromocion());
 
-//        Assert.assertEquals(dispositivo.getImagenes().getLink(), newEntity.getImagenes().getLink());
-//        Assert.assertEquals(dispositivo.getImagenes().getLink(), newEntity.getImagenes().getLink());
         Assert.assertEquals(dispositivo.isUsado(), newEntity.isUsado());
 
-//        Assert.assertEquals(dispositivo.getFactura(), newEntity.getFactura());
         Assert.assertEquals(dispositivo.isEsImportado(), newEntity.isEsImportado());
+
+        Assert.assertEquals(dispositivo.isEsImportado(), newEntity.isEsImportado());
+
+        Assert.assertEquals(dispositivo.getTipo(), newEntity.getTipo());
+
+        Assert.assertEquals(dispositivo.getMarca(), newEntity.getMarca());
+
+        Assert.assertEquals(dispositivo.getEstado(), newEntity.getEstado());
 
     }
 
@@ -229,12 +249,17 @@ public class DispositivoPersistenceTest {
         //Prueba crea si esta en promocion y verifica
         Assert.assertEquals(newEntity.isPromocion(), resp.isPromocion());
 
-//        Assert.assertEquals(newEntity.getImagenes().getLink(), resp.getImagenes().getLink());
-//        Assert.assertEquals(newEntity.getImagenes().getLink(), resp.getImagenes().getLink());
         Assert.assertEquals(newEntity.isUsado(), resp.isUsado());
 
-//        Assert.assertEquals(newEntity.getFactura(), resp.getFactura());
         Assert.assertEquals(newEntity.isEsImportado(), resp.isEsImportado());
+
+        Assert.assertEquals(newEntity.isEsImportado(), resp.isEsImportado());
+
+        Assert.assertEquals(newEntity.getTipo(), resp.getTipo());
+
+        Assert.assertEquals(newEntity.getMarca(), resp.getMarca());
+
+        Assert.assertEquals(newEntity.getEstado(), resp.getEstado());
 
     }
 

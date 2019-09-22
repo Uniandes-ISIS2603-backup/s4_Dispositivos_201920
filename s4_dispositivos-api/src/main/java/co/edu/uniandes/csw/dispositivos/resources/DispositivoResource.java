@@ -30,6 +30,9 @@ public class DispositivoResource {
 
     private static final Logger LOGGER = Logger.getLogger(DispositivoResource.class.getName());
 
+    @Inject
+    private DispositivoLogic dispositivoLogic;
+
     /**
      *
      * @param dispositivo
@@ -46,6 +49,7 @@ public class DispositivoResource {
      * @return
      */
     @GET
+    @Path("{dispositivosId: \\d+}")
     public DispositivoDTO getDispositivo(Long id) {
         return null;
     }
@@ -55,6 +59,7 @@ public class DispositivoResource {
      * @return
      */
     @PUT
+    @Path("{dispositivosId: \\d+}")
     public DispositivoDTO updateDispositivo() {
         return null;
     }
