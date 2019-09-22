@@ -124,4 +124,3 @@ public class MediaLogicTest {
         mediaLogic.createMedia(newEntity);
     }
 }
-   

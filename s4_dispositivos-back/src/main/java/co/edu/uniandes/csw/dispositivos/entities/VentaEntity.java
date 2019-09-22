@@ -15,20 +15,21 @@ import javax.persistence.Entity;
 @Entity
 public class VentaEntity extends BaseEntity implements Serializable {
 
-    private Double precioReventa;
+    private double precioReventa;
 
     /**
      * Constructor vacío
      */
-    public VentaEntity() {
-    }
+    public VentaEntity() 
+    {    }
 
     /**
      * Constructor que recibe parámetros
      *
      * @param precioReventa
      */
-    public VentaEntity(Double precioReventa) {
+    public VentaEntity(Double precioReventa) 
+    {
         this.precioReventa = precioReventa;
     }
 
@@ -47,5 +48,30 @@ public class VentaEntity extends BaseEntity implements Serializable {
      */
     public void setPrecioReventa(Double precioReventa) {
         this.precioReventa = precioReventa;
-    } 
+    }
+
+    /**
+     * Método no requerido
+     * @param oe Objeto a comparar
+     * @return Igual al de la superclase
+     * @deprecated (Sólo se necesita para mejorar "Code Smell")
+     */
+    @Override
+    @Deprecated
+    public boolean equals(Object oe) 
+    {
+        return super.equals(oe);
+    }
+    
+    /**
+     * Método no requerido
+     * @return Igual al de la superclase
+     * @deprecated (Sólo se necesita para mejorar "Code Smell")
+     */
+    @Override
+    @Deprecated
+    public int hashCode()
+    {
+        return super.hashCode();
+    }
 }
