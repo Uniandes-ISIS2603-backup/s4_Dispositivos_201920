@@ -6,6 +6,8 @@
 package co.edu.uniandes.csw.dispositivos.dtos;
 
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
+import co.edu.uniandes.csw.dispositivos.enu.EstadoDispositivo;
+import co.edu.uniandes.csw.dispositivos.enu.Tipo;
 import java.io.Serializable;
 
 /**
@@ -29,6 +31,9 @@ public class DispositivoDTO implements Serializable {
 
     private MarcaDTO marca;
     private CategoriaDTO categoria;
+
+    private Tipo tipo;
+    private EstadoDispositivo estado;
 
     /**
      *
@@ -54,6 +59,8 @@ public class DispositivoDTO implements Serializable {
             this.precioImportacion = dispositivo.getPrecioImportacion();
             this.promocion = dispositivo.isPromocion();
             this.usado = dispositivo.isUsado();
+            this.tipo = dispositivo.getTipo();
+            this.estado = dispositivo.getEstado();
             if (dispositivo.getMarca() != null) {
                 this.marca = new MarcaDTO(dispositivo.getMarca());
             } else {
@@ -79,6 +86,8 @@ public class DispositivoDTO implements Serializable {
         entity.setPrecioImportacion(this.precioImportacion);
         entity.setPromocion(this.promocion);
         entity.setUsado(this.usado);
+        entity.setTipo(this.tipo);
+        entity.setEstado(this.estado);
 
         if (this.marca != null) {
             entity.setMarca(this.marca.toEntity());
@@ -166,6 +175,14 @@ public class DispositivoDTO implements Serializable {
         return usado;
     }
 
+    public MarcaDTO getMarca() {
+        return marca;
+    }
+
+    public CategoriaDTO getCategoria() {
+        return categoria;
+    }
+
     /**
      *
      * @param nombre
@@ -244,6 +261,14 @@ public class DispositivoDTO implements Serializable {
      */
     public void setUsado(boolean usado) {
         this.usado = usado;
+    }
+
+    public void setMarca(MarcaDTO marca) {
+        this.marca = marca;
+    }
+
+    public void setCategoria(CategoriaDTO categoria) {
+        this.categoria = categoria;
     }
 
 }

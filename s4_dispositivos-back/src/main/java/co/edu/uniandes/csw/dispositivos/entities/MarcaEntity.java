@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -26,6 +27,7 @@ public class MarcaEntity extends BaseEntity implements Serializable {
     /**
      * atributo que modela la imagen de la marca.
      */
+    @PodamExclude
     private String imagen;
 
     @OneToMany(mappedBy = "marca", cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -55,6 +57,22 @@ public class MarcaEntity extends BaseEntity implements Serializable {
      */
     public String getNombreMarca() {
         return nombreMarca;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<DispositivoEntity> getDispositivos() {
+        return dispositivos;
+    }
+
+    /**
+     *
+     * @param dispositivos
+     */
+    public void setDispositivos(List<DispositivoEntity> dispositivos) {
+        this.dispositivos = dispositivos;
     }
 
     /**
