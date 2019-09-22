@@ -37,8 +37,7 @@ public class DispositivoResource {
     @Inject
     private MarcaLogic marcaLogic;
 
-    @Inject
-    private /**
+    /**
      *
      * @param dispositivo
      * @return
