@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.dispositivos.dtos;
 
+import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import java.io.Serializable;
 
 /**
@@ -31,6 +32,42 @@ public class DispositivoDTO implements Serializable {
      */
     public DispositivoDTO() {
 
+    }
+
+    /**
+     * Convierte DTO a ENTITY
+     *
+     * @param dispositivo
+     */
+    public DispositivoDTO(DispositivoEntity dispositivo) {
+        if (dispositivo != null) {
+            this.nombre = dispositivo.getNombre();
+            this.descripcion = dispositivo.getDescripcion();
+            this.descuento = dispositivo.getDescuento();
+            this.enStock = dispositivo.isEnStock();
+            this.esImportado = dispositivo.isEsImportado();
+            this.modelo = dispositivo.getNombre();
+            this.precio = dispositivo.getPrecio();
+            this.precioImportacion = dispositivo.getPrecioImportacion();
+            this.promocion = dispositivo.isPromocion();
+            this.usado = dispositivo.isUsado();
+        }
+    }
+
+    public DispositivoEntity toEntity() {
+        DispositivoEntity entity = new DispositivoEntity();
+        entity.setDescripcion(this.descripcion);
+        entity.setDescuento(this.descuento);
+        entity.setEnStock(this.enStock);
+        entity.setEsImportado(this.isEsImportado());
+        entity.setModelo(this.modelo);
+        entity.setNombre(this.nombre);
+        entity.setPrecio(this.precio);
+        entity.setPrecioImportacion(this.precioImportacion);
+        entity.setPromocion(this.promocion);
+        entity.setUsado(this.usado);
+
+        return entity;
     }
 
     /**
