@@ -5,8 +5,15 @@
  */
 package co.edu.uniandes.csw.dispositivos.entities;
 
+import co.edu.uniandes.csw.dispositivos.enu.EstadoDispositivo;
+import co.edu.uniandes.csw.dispositivos.enu.Tipo;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamDoubleValue;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -18,28 +25,50 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class DispositivoEntity extends BaseEntity implements Serializable {
 
     /**
-     * Atributos
+     * Strings
      */
     private String modelo;
     private String descripcion;
     private String nombre;
+
+    /**
+     * Clases
+     */
     @PodamExclude
     private MediaEntity imagenes;
     @PodamExclude
     private FacturaEntity factura;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private MarcaEntity marca;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private CategoriaEntity categoria;
+    @PodamExclude
+    @OneToMany(mappedBy = "dispositivo", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CalificacionEntity> calificaciones;
+
+    /**
+     * Doubles
+     */
     @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
     private Double precio;
-
     @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
     private Double precioImportacion;
-
     @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
     private Double descuento;
 
+    /**
+     * Booleans
+     */
     private boolean promocion;
     private boolean enStock;
     private boolean esImportado;
     private boolean usado;
+
+    /**
+     * Enums
+     */
+    private Tipo tipo;
+    private EstadoDispositivo estado;
 
     /**
      * Constructor vacio. Necesario para su implementacion en la DB
@@ -64,9 +93,16 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      * @param enStock
      * @param usado
      * @param esImportado
+     * @param imagenes
+     * @param factura
+     * @param tipo
+     * @param estado
+     * @param marca
+     * @param calificaciones
      */
     public DispositivoEntity(String modelo, String descripcion, String nombre, double precio, double precioImportacion,
-            double descuento, boolean promocion, boolean enStock, boolean usado, boolean esImportado, MediaEntity imagenes, FacturaEntity factura) {
+            double descuento, boolean promocion, boolean enStock, boolean usado, boolean esImportado, MediaEntity imagenes, FacturaEntity factura,
+            Tipo tipo, EstadoDispositivo estado, MarcaEntity marca, List<CalificacionEntity> calificaciones) {
 
         this.modelo = modelo;
         this.descripcion = descripcion;
@@ -80,6 +116,10 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         this.usado = usado;
         this.factura = factura;
         this.esImportado = esImportado;
+        this.tipo = tipo;
+        this.estado = estado;
+        this.marca = marca;
+        this.calificaciones = calificaciones;
     }
 
     public String getModelo() {
@@ -130,6 +170,26 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         return usado;
     }
 
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public EstadoDispositivo getEstado() {
+        return estado;
+    }
+
+    public MarcaEntity getMarca() {
+        return marca;
+    }
+
+    public CategoriaEntity getCategoria() {
+        return categoria;
+    }
+
+    public List<CalificacionEntity> getCalificaciones() {
+        return calificaciones;
+    }
+
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
@@ -176,6 +236,26 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
 
     public void setUsado(boolean usado) {
         this.usado = usado;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setEstado(EstadoDispositivo estado) {
+        this.estado = estado;
+    }
+
+    public void setMarca(MarcaEntity marca) {
+        this.marca = marca;
+    }
+
+    public void setCategoria(CategoriaEntity categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setCalificaciones(List<CalificacionEntity> calificaciones) {
+        this.calificaciones = calificaciones;
     }
 
     /**
