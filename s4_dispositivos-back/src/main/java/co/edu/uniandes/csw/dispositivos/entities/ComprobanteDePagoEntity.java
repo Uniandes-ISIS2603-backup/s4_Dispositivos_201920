@@ -3,9 +3,11 @@ import co.edu.uniandes.csw.dispositivos.podam.DateStrategy;
 import co.edu.uniandes.csw.dispositivos.podam.NumeroDeTarjetaStrategy;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamDoubleValue;
+import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamIntValue;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
@@ -43,6 +45,12 @@ public class ComprobanteDePagoEntity extends BaseEntity
     @PodamStrategyValue(DateStrategy.class)
     private Date fechaDeFactura;
     /**
+     * Cliente asociado al comprobante de pago
+     */
+    @PodamExclude
+    @ManyToOne
+    private ClienteEntity cliente;
+    /**
      * Constructor vacio para Serializable
      */
     public ComprobanteDePagoEntity()
@@ -57,13 +65,14 @@ public class ComprobanteDePagoEntity extends BaseEntity
      * @param pNumeroDeTarjeta numero de tarjeta con la cual se genro la compra
      * @param pFechaDeFac fecha de compra de los dispositivos
      */
-    public ComprobanteDePagoEntity(Integer pNumeroFac, Double pTotalPago, Double pImpuesto, String pNumeroDeTarjeta, Date pFechaDeFac)
+    public ComprobanteDePagoEntity(Integer pNumeroFac, Double pTotalPago, Double pImpuesto, String pNumeroDeTarjeta, Date pFechaDeFac, ClienteEntity pCliente)
     {
         this.numeroDeFactura = pNumeroFac;
         this.totalDePago = pTotalPago;
         this.impuestos = pImpuesto;
         this.numeroDeTarjeta = pNumeroDeTarjeta;
         this.fechaDeFactura = pFechaDeFac;
+        this.cliente = pCliente;
     }
     /**
      * Retorna el numero de facturacion
@@ -160,5 +169,21 @@ public class ComprobanteDePagoEntity extends BaseEntity
     @Deprecated
     public int hashCode(){
         return super.hashCode();
+    }
+
+    /**
+     * Retorna el cliente asociado al comprobante de pago
+     * @return cliente asociado
+     */
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    /**
+     * Modifica el cliente asociado a los comprobantes de pago
+     * @param cliente nuevo cliente asociado
+     */
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
     }
 }
