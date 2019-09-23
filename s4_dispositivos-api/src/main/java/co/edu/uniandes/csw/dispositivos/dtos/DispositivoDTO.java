@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.dispositivos.dtos;
 
+import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import java.io.Serializable;
 
 /**
@@ -26,11 +27,67 @@ public class DispositivoDTO implements Serializable {
     private boolean esImportado;
     private boolean usado;
 
+    private MarcaDTO marca;
+    private CategoriaDTO categoria;
+
     /**
      *
      */
     public DispositivoDTO() {
 
+    }
+
+    /**
+     * Convierte DTO a ENTITY
+     *
+     * @param dispositivo
+     */
+    public DispositivoDTO(DispositivoEntity dispositivo) {
+        if (dispositivo != null) {
+            this.nombre = dispositivo.getNombre();
+            this.descripcion = dispositivo.getDescripcion();
+            this.descuento = dispositivo.getDescuento();
+            this.enStock = dispositivo.isEnStock();
+            this.esImportado = dispositivo.isEsImportado();
+            this.modelo = dispositivo.getNombre();
+            this.precio = dispositivo.getPrecio();
+            this.precioImportacion = dispositivo.getPrecioImportacion();
+            this.promocion = dispositivo.isPromocion();
+            this.usado = dispositivo.isUsado();
+            if (dispositivo.getMarca() != null) {
+                this.marca = new MarcaDTO(dispositivo.getMarca());
+            } else {
+                this.marca = null;
+            }
+            if (dispositivo.getCategoria() != null) {
+                this.categoria = new CategoriaDTO(dispositivo.getCategoria());
+            } else {
+                this.categoria = null;
+            }
+        }
+    }
+
+    public DispositivoEntity toEntity() {
+        DispositivoEntity entity = new DispositivoEntity();
+        entity.setDescripcion(this.descripcion);
+        entity.setDescuento(this.descuento);
+        entity.setEnStock(this.enStock);
+        entity.setEsImportado(this.isEsImportado());
+        entity.setModelo(this.modelo);
+        entity.setNombre(this.nombre);
+        entity.setPrecio(this.precio);
+        entity.setPrecioImportacion(this.precioImportacion);
+        entity.setPromocion(this.promocion);
+        entity.setUsado(this.usado);
+
+        if (this.marca != null) {
+            entity.setMarca(this.marca.toEntity());
+        }
+        if (this.categoria != null) {
+            entity.setCategoria(this.categoria.toEntity());
+        }
+
+        return entity;
     }
 
     /**

@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.dispositivos.dtos;
-
-import java.io.Serializable;
+package co.edu.uniandes.csw.dispositivos.ejb;
 
 /**
  *
  * @author Santiago Fajardo
  */
-public class DispositivoDetailDTO extends DispositivoDTO implements Serializable {
+public class DispositivoMarcaLogic {
 
-    /**
-     * Javier aun no implementa CalificacionDTO
-     */
 }

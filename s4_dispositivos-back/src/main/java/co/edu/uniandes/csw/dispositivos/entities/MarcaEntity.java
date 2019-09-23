@@ -6,7 +6,10 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -24,6 +27,9 @@ public class MarcaEntity extends BaseEntity implements Serializable {
      * atributo que modela la imagen de la marca.
      */
     private String imagen;
+
+    @OneToMany(mappedBy = "marca", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<DispositivoEntity> dispositivos;
 
     /**
      * Constructor creado vacio para no tener problemas al implementar

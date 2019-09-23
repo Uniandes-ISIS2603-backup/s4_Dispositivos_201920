@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.dispositivos.test.persistence;
+package co.edu.uniandes.csw.dispositivos.test.logic;
 
+import co.edu.uniandes.csw.dispositivos.ejb.VendedorLogic;
 import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
+import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.VendedorPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,28 +31,31 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Zharet Bautista Montes
  */
 @RunWith(Arquillian.class)
-public class VendedorPersistenceTest 
+public class VendedorLogicTest 
 {
-    @PersistenceContext(unitName="dispositivosPU")
-    private EntityManager vrm;
-
+    @PersistenceContext
+    protected EntityManager vrm;
+    
     @Deployment
     public static JavaArchive createDeployment() 
     {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(VendedorEntity.class.getPackage())
+                .addPackage(VendedorLogic.class.getPackage())
                 .addPackage(VendedorPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
     
+    private PodamFactory vrlfactory = new PodamFactoryImpl(); 
+    
     @Inject
-    private VendedorPersistence vrp;
+    private VendedorLogic vrlogic;
     
     @Inject
     UserTransaction utxn;
 
-    private List<VendedorEntity> vrlist = new ArrayList<>();
+    private final List<VendedorEntity> vrlist = new ArrayList<>();
     
     /**
      * Establece las configuraciones iniciales del test
@@ -82,44 +87,58 @@ public class VendedorPersistenceTest
         }
     }
     
-    /**
-     * Prueba del método constructor
-     */
     @Test
-    public void vendedorTest()
+    public void createVendedorTest() throws BusinessLogicException 
     {
-        VendedorEntity newvr = new VendedorEntity("ei.chernov@russland.com", "Eron", "Ivanovich", 75321.0, 98640.0, "E_Ivanovich", "Deu86Rus");     
-        Assert.assertEquals("Ivanovich", newvr.getApellido());
-        Assert.assertEquals("Eron", newvr.getNombre());
-        Assert.assertEquals("ei.chernov@russland.com", newvr.getCorreoElectronico());
-        Assert.assertEquals("Deu86Rus", newvr.getContrasena());
-        Assert.assertEquals("E_Ivanovich", newvr.getUsuario());
-        Assert.assertEquals(75321,newvr.getCelular(),0);        
-        Assert.assertEquals(98640,newvr.getCedula(),0);
+        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity obtainedvr = vrlogic.createVendedor(vendedor);
+        Assert.assertNotNull(obtainedvr);
+    }
+    
+    @Test(expected=BusinessLogicException.class)
+    public void createNullFirstnameVendedorTest() throws BusinessLogicException
+    {
+        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setNombre(null);
+        vrlogic.createVendedor(vendedor); 
+    }
+    
+    @Test(expected=BusinessLogicException.class)
+    public void createNullLastnameVendedorTest() throws BusinessLogicException
+    {
+        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setApellido(null);
+        vrlogic.createVendedor(vendedor); 
+    }
+    
+    @Test(expected=BusinessLogicException.class)
+    public void createNullUserVendedorTest() throws BusinessLogicException
+    {
+        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setUsuario(null);
+        vrlogic.createVendedor(vendedor); 
+    }
+    
+    @Test(expected=BusinessLogicException.class)
+    public void createNullPasswordVendedorTest() throws BusinessLogicException
+    {
+        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setContrasena(null);
+        vrlogic.createVendedor(vendedor); 
+    }
+    
+    @Test(expected=BusinessLogicException.class)
+    public void createNullEmailVendedorTest() throws BusinessLogicException
+    {
+        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setCorreoElectronico(null);
+        vrlogic.createVendedor(vendedor); 
     }
     
     @Test
-    public void createVendedorTest()
+    public void findVendedorTest() throws BusinessLogicException
     {
-        PodamFactory vrfactory = new PodamFactoryImpl();
-        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
-        VendedorEntity obtainedvr = vrp.create(vendedor);
-        Assert.assertNotNull(obtainedvr);       
-        VendedorEntity vrentity = vrm.find(VendedorEntity.class,obtainedvr.getId());
-        Assert.assertEquals(vendedor.getId(),vrentity.getId());
-        Assert.assertEquals(vendedor.getApellido(),vrentity.getApellido());
-        Assert.assertEquals(vendedor.getNombre(), vrentity.getNombre());
-        Assert.assertEquals(vendedor.getCorreoElectronico(), vrentity.getCorreoElectronico());
-        Assert.assertEquals(vendedor.getContrasena(), vrentity.getContrasena());
-        Assert.assertEquals(vendedor.getUsuario(), vrentity.getUsuario());
-        Assert.assertEquals(vendedor.getCelular(), vrentity.getCelular(),0);        
-        Assert.assertEquals(vendedor.getCedula(), vrentity.getCedula(),0);
-    }
-    
-    @Test
-    public void findVendedorTest() 
-    {
-        VendedorEntity ref = vrlist.get(0), block = vrp.find(ref.getId());
+        VendedorEntity ref = vrlist.get(0), block = vrlogic.findVendedor(ref.getId());
         Assert.assertNotNull(block);
         Assert.assertEquals(block.getId(),ref.getId());
         Assert.assertEquals(block.getApellido(),ref.getApellido());
@@ -132,9 +151,9 @@ public class VendedorPersistenceTest
     }
     
     @Test
-    public void findAllVendedoresTest() 
+    public void findAllVendedoresTest() throws BusinessLogicException
     {
-        List<VendedorEntity> allgotten = vrp.findAll();
+        List<VendedorEntity> allgotten = vrlogic.findAllVendedores();
         Assert.assertEquals(allgotten.size(), vrlist.size());
         for (VendedorEntity vrblock : allgotten) 
         {
@@ -147,13 +166,12 @@ public class VendedorPersistenceTest
     }
     
     @Test
-    public void updateVendedorTest() 
+    public void updateVendedorTest() throws BusinessLogicException
     {
         VendedorEntity vendedor = vrlist.get(0);
-        PodamFactory vrfactory = new PodamFactoryImpl();
-        VendedorEntity updating = vrfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity updating = vrlfactory.manufacturePojo(VendedorEntity.class);
         updating.setId(vendedor.getId());
-        vrp.update(updating);
+        vrlogic.updateVendedor(updating);
         VendedorEntity updated = vrm.find(VendedorEntity.class, vendedor.getId());
         Assert.assertEquals(updating.getId(), updated.getId());
         Assert.assertEquals(updating.getApellido(), updated.getApellido());
@@ -162,15 +180,15 @@ public class VendedorPersistenceTest
         Assert.assertEquals(updating.getContrasena(), updated.getContrasena());
         Assert.assertEquals(updating.getUsuario(), updated.getUsuario());
         Assert.assertEquals(updating.getCelular(), updated.getCelular(),0);        
-        Assert.assertEquals(updating.getCedula(), updated.getCedula(),0); 
+        Assert.assertEquals(updating.getCedula(), updated.getCedula(),0);
     }
     
     @Test
-    public void deleteVendedorTest() 
+    public void deleteVendedorTest() throws BusinessLogicException
     {
-        VendedorEntity deleting = vrlist.get(0);
-        vrp.delete(deleting.getId());
-        VendedorEntity deleted = vrm.find(VendedorEntity.class, deleting.getId());
-        Assert.assertNull(deleted);
+        VendedorEntity vrentity = vrlist.get(0); 
+        vrlogic.deleteVendedor(vrentity.getId());
+        VendedorEntity gonevr = vrm.find(VendedorEntity.class, vrentity.getId()); 
+        Assert.assertNull(gonevr);
     }
 }

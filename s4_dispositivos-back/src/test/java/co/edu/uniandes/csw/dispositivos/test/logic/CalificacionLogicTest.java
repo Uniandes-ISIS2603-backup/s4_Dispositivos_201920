@@ -125,4 +125,3 @@ public class CalificacionLogicTest {
         calificacionLogic.createCalificacion(newEntity);
     }
 }
-   
