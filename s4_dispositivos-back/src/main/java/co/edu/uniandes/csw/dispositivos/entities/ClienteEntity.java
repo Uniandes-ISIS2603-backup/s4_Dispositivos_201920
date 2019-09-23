@@ -7,8 +7,12 @@ package co.edu.uniandes.csw.dispositivos.entities;
 
 import co.edu.uniandes.csw.dispositivos.podam.EmailStrategy;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamDoubleValue;
+import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
@@ -53,6 +57,10 @@ public class ClienteEntity extends BaseEntity implements Serializable {
      * Atributo que modela la contraseña del cliente .
      */
     private String contrasena;
+
+    @PodamExclude
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<FacturaEntity> facturas;
 
     /**
      * Constructor creado vacio para no tener problemas al implementar
@@ -204,6 +212,20 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     @Deprecated
     public int hashCode() {
         return super.hashCode();
+    }
+
+    /**
+     * @return the facturas
+     */
+    public List<FacturaEntity> getFacturas() {
+        return facturas;
+    }
+
+    /**
+     * @param facturas the facturas to set
+     */
+    public void setFacturas(List<FacturaEntity> facturas) {
+        this.facturas = facturas;
     }
 
 }

@@ -14,42 +14,42 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Santiago Fajardo 
+ * @author Santiago Fajardo
  */
 @Stateless
 public class DispositivoPersistence {
-    
+
     @PersistenceContext(unitName = "dispositivosPU")
-    protected EntityManager em; 
-    
+    protected EntityManager em;
+
     /**
-     * Método para crear la entidad 
-     * @param dispositivo tipo de entidad que se quiere persistir 
-     * @return 
+     * Método para crear la entidad
+     *
+     * @param dispositivo tipo de entidad que se quiere persistir
+     * @return
      */
-    public DispositivoEntity create(DispositivoEntity dispositivo){
+    public DispositivoEntity create(DispositivoEntity dispositivo) {
         em.persist(dispositivo);
-        return dispositivo; 
+        return dispositivo;
     }
-    
-    public DispositivoEntity find(Long id){
+
+    public DispositivoEntity find(Long id) {
         return em.find(DispositivoEntity.class, id);
     }
-    
-    public List<DispositivoEntity> findAll(){
-        
-        Query query = em.createQuery("select u from DispositivoEntity u"); 
-        return query.getResultList(); 
+
+    public List<DispositivoEntity> findAll() {
+
+        Query query = em.createQuery("select u from DispositivoEntity u");
+        return query.getResultList();
     }
-    
-    public DispositivoEntity update(DispositivoEntity dispositivoEntity){
+
+    public DispositivoEntity update(DispositivoEntity dispositivoEntity) {
         return em.merge(dispositivoEntity);
     }
-    
-    public void delete(Long dispositivoId){
+
+    public void delete(Long dispositivoId) {
         DispositivoEntity find = em.find(DispositivoEntity.class, dispositivoId);
         em.remove(find);
     }
-    
-    
+
 }

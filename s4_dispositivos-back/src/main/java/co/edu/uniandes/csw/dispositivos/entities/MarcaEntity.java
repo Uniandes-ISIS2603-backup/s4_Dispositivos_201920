@@ -6,7 +6,11 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -23,7 +27,11 @@ public class MarcaEntity extends BaseEntity implements Serializable {
     /**
      * atributo que modela la imagen de la marca.
      */
+    @PodamExclude
     private String imagen;
+
+    @OneToMany(mappedBy = "marca", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<DispositivoEntity> dispositivos;
 
     /**
      * Constructor creado vacio para no tener problemas al implementar
@@ -49,6 +57,22 @@ public class MarcaEntity extends BaseEntity implements Serializable {
      */
     public String getNombreMarca() {
         return nombreMarca;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<DispositivoEntity> getDispositivos() {
+        return dispositivos;
+    }
+
+    /**
+     *
+     * @param dispositivos
+     */
+    public void setDispositivos(List<DispositivoEntity> dispositivos) {
+        this.dispositivos = dispositivos;
     }
 
     /**

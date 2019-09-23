@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -17,6 +19,9 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
 
     private int calificacionNumerica;
     private String[] comentarios;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private DispositivoEntity dispositivo;
 
     /**
      * Constructor vacio para el uso de Entities.
@@ -67,7 +72,3 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
         this.comentarios = comentarios;
     }
 }
-
-    
-    
-

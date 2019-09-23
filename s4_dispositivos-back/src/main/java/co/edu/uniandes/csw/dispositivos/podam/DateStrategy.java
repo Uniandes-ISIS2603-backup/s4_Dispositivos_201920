@@ -1,6 +1,6 @@
 /*
 MIT License
-Copyright (c) 2017 Universidad de los Andes - ISIS2603
+Copyright (c) 2019 Universidad de los Andes - ISIS2603
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -31,7 +31,7 @@ import uk.co.jemos.podam.common.AttributeStrategy;
  * @author af.esguerra10
  */
 public class DateStrategy implements AttributeStrategy<Date> {
-
+    
     Random r = new Random();
 
     @Override

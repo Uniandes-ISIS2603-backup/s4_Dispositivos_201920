@@ -9,6 +9,8 @@ import co.edu.uniandes.csw.dispositivos.entities.ComprobanteDePagoEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.ComprobanteDePagoPersistence;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -19,6 +21,9 @@ import javax.inject.Inject;
 @Stateless
 public class ComprobanteDePagoLogic
 {
+        
+    private static final Logger LOGGER = Logger.getLogger(ComprobanteDePagoLogic.class.getName());
+        
     @Inject
     private ComprobanteDePagoPersistence persistence;
     /**
@@ -34,7 +39,9 @@ public class ComprobanteDePagoLogic
      */
     public List<ComprobanteDePagoEntity> getComprobantes() 
     {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los comprobantes de pago");
         List<ComprobanteDePagoEntity> comprobantes = persistence.findAll();
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los comprobantes de pago.");
         return comprobantes;
     }
     /**
@@ -44,7 +51,13 @@ public class ComprobanteDePagoLogic
      */
     public ComprobanteDePagoEntity getComprobante(Long comprobanteId) 
     {
-        ComprobanteDePagoEntity facturaEntity = persistence.find(comprobanteId);  
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el comprobante de pago con id = {0}", comprobanteId);
+        ComprobanteDePagoEntity facturaEntity = persistence.find(comprobanteId);
+        if (facturaEntity == null)
+        {
+            LOGGER.log(Level.SEVERE, "El medio de pago con el id = {0} no existe", comprobanteId);
+        }
+        LOGGER.log(Level.INFO, "Termina proceso el comprobante de pago con id = {0}", comprobanteId);
         return facturaEntity;
     }
      /**
@@ -55,7 +68,9 @@ public class ComprobanteDePagoLogic
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
      public ComprobanteDePagoEntity updateComprobanteDePago(Long comprobanteId, ComprobanteDePagoEntity comprobanteEntity) throws BusinessLogicException {
-         if (comprobanteEntity.getNumeroDeFactura()==null ||comprobanteEntity.getNumeroDeFactura()<=0) 
+         LOGGER.log(Level.INFO, "Inicia proceso de actualizar un comprobante de pago.");
+         
+        if (comprobanteEntity.getNumeroDeFactura()==null ||comprobanteEntity.getNumeroDeFactura()<=0) 
             throw new BusinessLogicException("El número de factura del Comprobante de pago está vacío o es negativo");
         if (comprobanteEntity.getTotalDePago()==null ||0.0>=comprobanteEntity.getTotalDePago())
             throw new BusinessLogicException("El total a pagar del Comprobante está en cero o es negativo" + comprobanteEntity.getTotalDePago());
@@ -69,6 +84,8 @@ public class ComprobanteDePagoLogic
             throw new BusinessLogicException("El número de tarjeta no cuenta con 16 dígitos");
         if (persistence.findByNumFactura(comprobanteEntity.getNumeroDeFactura()) != null)
             throw new BusinessLogicException("Ya existe una comprobante de pago con el mismo número de factura");
+        
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar un comprobante de pago.");
         ComprobanteDePagoEntity newEntity = persistence.update(comprobanteEntity);
         return newEntity;
     }
@@ -78,7 +95,9 @@ public class ComprobanteDePagoLogic
      */
     public void deleteComprobante(Long comprobanteId)
     {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el comprobante de pago con id = {0}", comprobanteId);
         persistence.delete(comprobanteId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el comprobante de pago con id = {0}", comprobanteId);
     }
     /**
      *Se encarga de crear un comprobante de pago en la base de datos
@@ -88,6 +107,8 @@ public class ComprobanteDePagoLogic
      */
     public ComprobanteDePagoEntity createComprobante(ComprobanteDePagoEntity comprobanteEntity) throws BusinessLogicException
     {
+        LOGGER.log(Level.INFO, "Inicia proceso de creación de un comprobante de pago.");
+
         if(comprobanteEntity.getFechaDeFactura()==null)
             throw new BusinessLogicException("El número de factura del Comprobante de pago está vacío o es negativo");
         if (comprobanteEntity.getTotalDePago()==null ||0.0 >= comprobanteEntity.getTotalDePago())
@@ -102,7 +123,8 @@ public class ComprobanteDePagoLogic
             throw new BusinessLogicException("El número de tarjeta no cuenta con 16 dígitos");
         if (persistence.findByNumFactura(comprobanteEntity.getNumeroDeFactura()) != null)
             throw new BusinessLogicException("Ya existe una comprobante de pago con el mismo número de factura");
-        
+       
+        LOGGER.log(Level.INFO, "Termina proceso de creación de un comprobante de pago.");
         comprobanteEntity = persistence.create(comprobanteEntity);
         return comprobanteEntity;
      

@@ -17,30 +17,35 @@ import javax.persistence.Query;
  * @author Zharet Bautista Montes
  */
 @Stateless
-public class VentaPersistence {
-
+public class VentaPersistence 
+{
     @PersistenceContext(unitName = "dispositivosPU")
     protected EntityManager em;
 
-    public VentaEntity create(VentaEntity ventac) {
+    public VentaEntity create(VentaEntity ventac) 
+    {
         em.persist(ventac);
         return ventac;
     }
 
-    public VentaEntity find(Long ventafID) {
+    public VentaEntity find(Long ventafID) 
+    {
         return em.find(VentaEntity.class, ventafID);
     }
 
-    public List<VentaEntity> findAll() {
+    public List<VentaEntity> findAll() 
+    {
         Query vaq = em.createQuery("select u from VentaEntity u");
         return vaq.getResultList();
     }
 
-    public VentaEntity update(VentaEntity ventau) {
+    public VentaEntity update(VentaEntity ventau) 
+    {
         return em.merge(ventau);
     }
 
-    public void delete(Long ventadID) {
+    public void delete(Long ventadID) 
+    {
         VentaEntity wantedva = em.find(VentaEntity.class, ventadID);
         em.remove(wantedva);
     }

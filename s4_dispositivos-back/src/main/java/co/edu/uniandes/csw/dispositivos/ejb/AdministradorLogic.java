@@ -9,6 +9,8 @@ import co.edu.uniandes.csw.dispositivos.entities.AdministradorEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.AdministradorPersistence;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -19,8 +21,10 @@ import javax.inject.Inject;
 @Stateless
 public class AdministradorLogic 
 {
- @Inject
- private AdministradorPersistence persistence;
+    private static final Logger LOGGER = Logger.getLogger(AdministradorLogic.class.getName());
+    
+    @Inject
+    private AdministradorPersistence persistence;
     /**
      * Constructor de la clase
      */
@@ -43,6 +47,8 @@ public class AdministradorLogic
      */
     public AdministradorEntity createAdministrador(AdministradorEntity admin) throws BusinessLogicException
     {
+     LOGGER.log(Level.INFO, "Inicia proceso de creación de un administrador.");
+   
      if(admin.getUsuario()==null || admin.getUsuario().trim().equals(""))
          throw new BusinessLogicException("El usuario suministrado es nulo");
      if(admin.getContrasena()==null || admin.getContrasena().trim().equals(""))
@@ -57,6 +63,7 @@ public class AdministradorLogic
             throw new BusinessLogicException("Ya existe un Administrador con el correo \"" + admin.getCorreo()+ "\"");
      else
      {
+        LOGGER.log(Level.INFO, "Termina proceso de creación de un administrador.");
         admin = persistence.create(admin);
         return admin;
      }
@@ -67,7 +74,9 @@ public class AdministradorLogic
      */
     public List<AdministradorEntity> getAdministradores() 
     {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los administradores.");
         List<AdministradorEntity> admins = persistence.findAll();
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los administradores.");
         return admins;
     }
     /**
@@ -77,7 +86,13 @@ public class AdministradorLogic
      */
     public AdministradorEntity getAdministrador(Long adminId) 
     {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el administrador con id = {0}", adminId);
         AdministradorEntity facturaEntity = persistence.find(adminId);  
+        if (facturaEntity == null) 
+        {
+            LOGGER.log(Level.SEVERE, "El administrador con el id = {0} no existe", adminId);
+        }
+        LOGGER.log(Level.INFO, "Termina proceso el administrador con id = {0}", adminId);
         return facturaEntity;
     }
      /**
@@ -88,6 +103,8 @@ public class AdministradorLogic
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
      public AdministradorEntity updateAdministrador(Long adminId, AdministradorEntity adminEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar un administrador.");
+
         if (adminEntity.getUsuario()== null || adminEntity.getUsuario().trim().equals("")) 
             throw new BusinessLogicException("El usuario del administrador está vacío");
         if (adminEntity.getContrasena().trim().equals("") || adminEntity.getContrasena()== null)
@@ -100,6 +117,8 @@ public class AdministradorLogic
             throw new BusinessLogicException("Ya existe una administrador con el mismo correo");
         if (persistence.findByUser(adminEntity.getUsuario()) != null)
             throw new BusinessLogicException("Ya existe una administrador con el mismo usuario");
+        
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar un administrador.");
         AdministradorEntity newEntity = persistence.update(adminEntity);
         return newEntity;
     }
@@ -109,6 +128,8 @@ public class AdministradorLogic
      */
     public void deleteAdministrador(Long adminId)
     {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el administrador con id = {0}", adminId);
         persistence.delete(adminId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el administrador con id = {0}", adminId);
     }
 }
