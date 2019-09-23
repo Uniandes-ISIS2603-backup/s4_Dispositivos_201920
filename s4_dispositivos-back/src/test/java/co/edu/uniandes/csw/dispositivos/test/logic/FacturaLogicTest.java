@@ -124,7 +124,6 @@ public class FacturaLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void createFacturaDispositivosVacioTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
-        newEntity.setDispositivos("");
         FacturaEntity result = facturaLogic.createFactura(newEntity);
     }
 
@@ -194,7 +193,6 @@ public class FacturaLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void updateFacturaDispositivosVacioTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
-        newEntity.setDispositivos("");
         FacturaEntity entity = data.get(0);
         FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
     }

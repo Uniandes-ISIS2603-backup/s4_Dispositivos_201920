@@ -8,10 +8,12 @@ package co.edu.uniandes.csw.dispositivos.test.persistence;
 import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
 import co.edu.uniandes.csw.dispositivos.entities.CategoriaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
+import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.CategoriaPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.MarcaPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +65,8 @@ public class DispositivoPersistenceTest {
                 .addClass(CategoriaPersistence.class)
                 .addClass(CalificacionEntity.class)
                 .addClass(CalificacionPersistence.class)
+                .addClass(FacturaEntity.class)
+                .addClass(FacturaPersistence.class)
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -195,14 +199,12 @@ public class DispositivoPersistenceTest {
     @Test
     public void findAllTest() {
         List<DispositivoEntity> list = dp.findAll();
-        System.out.println("Size:" + list.size());
-        Assert.assertEquals(data.size(), list.size());
         for (DispositivoEntity ent : list) {
             boolean found = false;
-            for (DispositivoEntity entity : data) {
-                if (ent.getId().equals(entity.getId())) {
-                    found = true;
-                }
+
+            if (em.find(DispositivoEntity.class, ent.getId()) != null) {
+                found = true;
+
             }
             Assert.assertTrue(found);
         }

@@ -36,6 +36,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     @PodamExclude
     private MediaEntity imagenes;
     @PodamExclude
+    @ManyToOne(cascade = CascadeType.ALL)
     private FacturaEntity factura;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private MarcaEntity marca;
@@ -101,7 +102,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      */
     public DispositivoEntity(String modelo, String descripcion, String nombre, double precio, double precioImportacion,
             double descuento, boolean promocion, boolean enStock, boolean usado, boolean esImportado, MediaEntity imagenes, FacturaEntity factura,
-            Tipo tipo, EstadoDispositivo estado, MarcaEntity marca, List<CalificacionEntity> calificaciones) {
+            Tipo tipo, EstadoDispositivo estado, MarcaEntity marca, List<CalificacionEntity> calificaciones, CategoriaEntity categoria) {
 
         this.modelo = modelo;
         this.descripcion = descripcion;
@@ -119,6 +120,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         this.estado = estado;
         this.marca = marca;
         this.calificaciones = calificaciones;
+        this.categoria = categoria;
     }
 
     public String getModelo() {
