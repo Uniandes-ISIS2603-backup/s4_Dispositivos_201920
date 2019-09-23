@@ -33,7 +33,7 @@ public class FacturaLogic {
      * Si Ya existe una factura con el mismo número <br>
      */
     public FacturaEntity createFactura(FacturaEntity factura) throws BusinessLogicException {
-        if (factura.getDispositivos() == null || factura.getDispositivos().trim().equals("")) {
+        if (factura.getDispositivos() == null) {
             throw new BusinessLogicException("Los dispositivos de la factura están vacíos");
         } else if (factura.getNumeroDeFactura() == null || factura.getNumeroDeFactura() < 1) {
             throw new BusinessLogicException("El numero de la factura es menor a 0 o no existe");
@@ -81,7 +81,7 @@ public class FacturaLogic {
      * Si Ya existe una factura con el mismo número <br>
      */
     public FacturaEntity updateFactura(Long facturaId, FacturaEntity facturaEntity) throws BusinessLogicException {
-        if (facturaEntity.getDispositivos() == null || facturaEntity.getDispositivos().trim().equals("")) {
+        if (facturaEntity.getDispositivos() == null) {
             throw new BusinessLogicException("Los dispositivos de la factura están vacíos");
         } else if (facturaEntity.getNumeroDeFactura() == null || facturaEntity.getNumeroDeFactura() < 1) {
             throw new BusinessLogicException("El numero de la factura es menor a 0 o no existe");

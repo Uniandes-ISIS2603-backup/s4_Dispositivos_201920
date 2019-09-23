@@ -8,10 +8,14 @@ package co.edu.uniandes.csw.dispositivos.entities;
 import co.edu.uniandes.csw.dispositivos.podam.DateStrategy;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamDoubleValue;
+import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamIntValue;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
@@ -43,7 +47,9 @@ public class FacturaEntity extends BaseEntity implements Serializable {
     /**
      * Atributo que modela los dispositivos en la factura.
      */
-    private String dispositivos;
+    @PodamExclude
+    @OneToMany(mappedBy = "factura", cascade = CascadeType.PERSIST, orphanRemoval = false)
+    private List<DispositivoEntity> dispositivos;
 
     /**
      * Fecha de pago de los dispositivos electronicos
@@ -68,7 +74,7 @@ public class FacturaEntity extends BaseEntity implements Serializable {
      * @param pDispositivos dispositivos a establecer.
      * @param pFechaDePago fecha de pago a establecer.
      */
-    public FacturaEntity(Integer pNumeroDeFactura, Double pTotalPago, Double pImpuestos, String pDispositivos, Date pFechaDePago) {
+    public FacturaEntity(Integer pNumeroDeFactura, Double pTotalPago, Double pImpuestos, List<DispositivoEntity> pDispositivos, Date pFechaDePago) {
         this.numeroDeFactura = pNumeroDeFactura;
         this.totalPago = pTotalPago;
         this.impuestos = pImpuestos;
@@ -121,14 +127,14 @@ public class FacturaEntity extends BaseEntity implements Serializable {
     /**
      * @return the dispositivos
      */
-    public String getDispositivos() {
+    public List<DispositivoEntity> getDispositivos() {
         return dispositivos;
     }
 
     /**
      * @param dispositivos the dispositivos to set
      */
-    public void setDispositivos(String dispositivos) {
+    public void setDispositivos(List<DispositivoEntity> dispositivos) {
         this.dispositivos = dispositivos;
     }
 
