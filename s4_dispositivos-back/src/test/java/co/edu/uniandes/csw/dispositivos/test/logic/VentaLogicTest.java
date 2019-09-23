@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.dispositivos.test.persistence;
+package co.edu.uniandes.csw.dispositivos.test.logic;
 
+import co.edu.uniandes.csw.dispositivos.ejb.VentaLogic;
 import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
+import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.VentaPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,40 +30,47 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  *
  * @author Zharet Bautista Montes
  */
-@RunWith(Arquillian.class)
-public class VentaPersistenceTest 
-{
-    @PersistenceContext(unitName="dispositivosPU")
-    protected EntityManager vam;
 
+@RunWith(Arquillian.class)
+public class VentaLogicTest 
+{
+    @PersistenceContext
+    private EntityManager vam;
+    
     @Deployment
     public static JavaArchive createDeployment() 
     {
         return ShrinkWrap.create(JavaArchive.class)
-                .addClass(VentaEntity.class)
-                .addClass(VentaPersistence.class)
+                .addPackage(VentaEntity.class.getPackage())
+                .addPackage(VentaLogic.class.getPackage())
+                .addPackage(VentaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-
+    
+    private PodamFactory valfactory = new PodamFactoryImpl(); 
+    
     @Inject
-    private VentaPersistence vap;
-
+    private VentaLogic valogic; 
+    
     @Inject
     UserTransaction utxn;
 
     private final List<VentaEntity> valist = new ArrayList<>();
-
+    
+    /**
+     * Establece las configuraciones iniciales del test
+     */
     @Before
     public void prepareTest() 
-    {
+    {   
         try 
         {
             utxn.begin();
             vam.joinTransaction();
             vam.createQuery("delete from VentaEntity").executeUpdate();
             PodamFactory vafactory = new PodamFactoryImpl();
-            for (int u = 0; u < 5; u++) 
+            for (int i = 0; i < 5; i++) 
             {
                 VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
                 vam.persist(venta);
@@ -76,44 +85,38 @@ public class VentaPersistenceTest
             { utxn.rollback(); }
             catch(Exception e2)
             { e2.printStackTrace();  }
-        }    
+        }
     }
-
-    /**
-     * Prueba del método constructor
-     */
+    
     @Test
-    public void ventaTest() 
+    public void createVentaTest() throws BusinessLogicException 
     {
-        VentaEntity newva = new VentaEntity(35000.0);
-        Assert.assertEquals(35000.0, newva.getPrecioReventa(), 0.0);
-    }
-
-    @Test
-    public void createVentaTest() 
-    {
-        PodamFactory vafactory = new PodamFactoryImpl();
-        VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
-        VentaEntity obtainedva = vap.create(venta);
+        VentaEntity venta = valfactory.manufacturePojo(VentaEntity.class);
+        VentaEntity obtainedva = valogic.createVenta(venta);
         Assert.assertNotNull(obtainedva);
-        VentaEntity vaentity = vam.find(VentaEntity.class, obtainedva.getId());
-        Assert.assertEquals(venta.getId(), vaentity.getId());
-        Assert.assertEquals(venta.getPrecioReventa(), vaentity.getPrecioReventa(), 0.0);
     }
-
-    @Test
-    public void findVentaTest() 
+    
+    @Test(expected=BusinessLogicException.class)
+    public void createNegativeVentaTest() throws BusinessLogicException
     {
-        VentaEntity ref = valist.get(0), block = vap.find(ref.getId());
+        VentaEntity venta = valfactory.manufacturePojo(VentaEntity.class);
+        venta.setPrecioReventa(-1.0);
+        valogic.createVenta(venta); 
+    }
+    
+    @Test
+    public void findVentaTest() throws BusinessLogicException
+    {
+        VentaEntity ref = valist.get(0), block = valogic.findVenta(ref.getId());
         Assert.assertNotNull(block);
         Assert.assertEquals(ref.getId(), block.getId());
         Assert.assertEquals(ref.getPrecioReventa(), block.getPrecioReventa(), 0.0);
     }
-
+    
     @Test
-    public void findAllVentasTest() 
+    public void findAllVentasTest() throws BusinessLogicException
     {
-        List<VentaEntity> allgotten = vap.findAll();
+        List<VentaEntity> allgotten = valogic.findAllVentas();
         Assert.assertEquals(allgotten.size(), valist.size());
         for (VentaEntity vablock : allgotten) 
         {
@@ -124,26 +127,25 @@ public class VentaPersistenceTest
             Assert.assertTrue(ticked);
         }
     }
-
+    
     @Test
-    public void updateVentaTest() 
+    public void updateVentaTest() throws BusinessLogicException
     {
         VentaEntity venta = valist.get(0);
-        PodamFactory vafactory = new PodamFactoryImpl();
-        VentaEntity updating = vafactory.manufacturePojo(VentaEntity.class);
+        VentaEntity updating = valfactory.manufacturePojo(VentaEntity.class);
         updating.setId(venta.getId());
-        vap.update(updating);
+        valogic.updateVenta(updating);
         VentaEntity updated = vam.find(VentaEntity.class, updating.getId());
         Assert.assertEquals(updating.getId(), updated.getId());
         Assert.assertEquals(updating.getPrecioReventa(), updated.getPrecioReventa(), 0.0);
     }
-
+    
     @Test
-    public void deleteVentaTest() 
+    public void deleteVentaTest() throws BusinessLogicException
     {
-        VentaEntity deleting = valist.get(0);
-        vap.delete(deleting.getId());
-        VentaEntity deleted = vam.find(VentaEntity.class, deleting.getId());
-        Assert.assertNull(deleted);
+        VentaEntity vaentity = valist.get(0); 
+        valogic.deleteVenta(vaentity.getId());
+        VentaEntity goneva = vam.find(VentaEntity.class, vaentity.getId()); 
+        Assert.assertNull(goneva);
     }
 }
