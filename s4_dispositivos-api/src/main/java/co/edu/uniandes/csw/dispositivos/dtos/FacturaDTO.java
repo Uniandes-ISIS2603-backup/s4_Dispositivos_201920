@@ -38,14 +38,14 @@ public class FacturaDTO implements Serializable {
     private Double impuestos;
 
     /**
-     * Atributo que modela los dispositivos en la factura.
-     */
-    private String dispositivos;
-
-    /**
      * Fecha de pago de los dispositivos electronicos
      */
     private Date fechaDePago;
+
+    /**
+     * Atributo que modela los dispositivos en la factura.
+     */
+    private String dispositivos;
 
     /**
      * Constructor creado vacio para no tener problemas al implementar
@@ -70,22 +70,6 @@ public class FacturaDTO implements Serializable {
         }
     }
 
-    /**
-     * Método para transformar el DTO a una entidad.
-     *
-     * @return La entidad de la factura asociada.
-     */
-    public FacturaEntity toEntity() {
-        FacturaEntity facturaEntity = new FacturaEntity();
-        facturaEntity.setId(this.getId());
-        facturaEntity.setNumeroDeFactura(this.getNumeroDeFactura());
-        facturaEntity.setTotalPago(this.getTotalPago());
-        facturaEntity.setImpuestos(this.getImpuestos());
-        facturaEntity.setDispositivos(this.getDispositivos());
-        facturaEntity.setFechaDePago(this.getFechaDePago());
-        return facturaEntity;
-    }
-
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
@@ -106,10 +90,19 @@ public class FacturaDTO implements Serializable {
     }
 
     /**
-     * @param numeroDeFactura the numeroDeFactura to set
+     * Método para transformar el DTO a una entidad.
+     *
+     * @return La entidad de la factura asociada.
      */
-    public void setNumeroDeFactura(Integer numeroDeFactura) {
-        this.numeroDeFactura = numeroDeFactura;
+    public FacturaEntity toEntity() {
+        FacturaEntity facturaEntity = new FacturaEntity();
+        facturaEntity.setId(this.getId());
+        facturaEntity.setNumeroDeFactura(this.getNumeroDeFactura());
+        facturaEntity.setTotalPago(this.getTotalPago());
+        facturaEntity.setImpuestos(this.getImpuestos());
+        facturaEntity.setDispositivos(this.getDispositivos());
+        facturaEntity.setFechaDePago(this.getFechaDePago());
+        return facturaEntity;
     }
 
     /**
@@ -117,6 +110,13 @@ public class FacturaDTO implements Serializable {
      */
     public Double getTotalPago() {
         return totalPago;
+    }
+
+    /**
+     * @param numeroDeFactura the numeroDeFactura to set
+     */
+    public void setNumeroDeFactura(Integer numeroDeFactura) {
+        this.numeroDeFactura = numeroDeFactura;
     }
 
     /**
@@ -134,17 +134,17 @@ public class FacturaDTO implements Serializable {
     }
 
     /**
-     * @param impuestos the impuestos to set
-     */
-    public void setImpuestos(Double impuestos) {
-        this.impuestos = impuestos;
-    }
-
-    /**
      * @return the dispositivos
      */
     public String getDispositivos() {
         return dispositivos;
+    }
+
+    /**
+     * @param impuestos the impuestos to set
+     */
+    public void setImpuestos(Double impuestos) {
+        this.impuestos = impuestos;
     }
 
     /**
@@ -155,16 +155,17 @@ public class FacturaDTO implements Serializable {
     }
 
     /**
+     * @param fechaDePago the fechaDePago to set
+     */
+    public void setFechaDePago(Date fechaDePago) {
+        this.fechaDePago = fechaDePago;
+    }
+
+    /**
      * @return the fechaDePago
      */
     public Date getFechaDePago() {
         return fechaDePago;
     }
 
-    /**
-     * @param fechaDePago the fechaDePago to set
-     */
-    public void setFechaDePago(Date fechaDePago) {
-        this.fechaDePago = fechaDePago;
-    }
 }
