@@ -7,11 +7,13 @@ package co.edu.uniandes.csw.dispositivos.test.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
 import co.edu.uniandes.csw.dispositivos.entities.CategoriaEntity;
+import co.edu.uniandes.csw.dispositivos.entities.ClienteEntity;
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.CategoriaPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.ClientePersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.MarcaPersistence;
@@ -67,6 +69,8 @@ public class DispositivoPersistenceTest {
                 .addClass(CalificacionPersistence.class)
                 .addClass(FacturaEntity.class)
                 .addClass(FacturaPersistence.class)
+                .addClass(ClientePersistence.class)
+                .addClass(ClienteEntity.class)
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
