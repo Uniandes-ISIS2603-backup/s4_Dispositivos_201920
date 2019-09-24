@@ -64,11 +64,14 @@ public class VendedorResource
     @Path("{vendedorID: \\d+}")
     public VendedorDetailDTO getVendedor(@PathParam("vendedorID") Long idVendedor)
     {
+        /**
         VendedorEntity wantedvr = vendedorvrlogic.findVendedor(idVendedor);
         if(wantedvr == null)
             throw new WebApplicationException("No se encuentra el recurso /vendedor/" + idVendedor, 404);
         VendedorDetailDTO vrdetail = new VendedorDetailDTO(wantedvr);
         return vrdetail;
+        */
+        return null; 
     }
 
     @PUT

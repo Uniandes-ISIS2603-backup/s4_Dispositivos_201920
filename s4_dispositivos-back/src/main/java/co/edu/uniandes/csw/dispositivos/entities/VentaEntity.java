@@ -21,13 +21,13 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class VentaEntity extends BaseEntity implements Serializable {
 
-    private double precioReventa;
-    
-    /**
+    private Double precioReventa;
+       
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
     private VendedorEntity vendedor;
     
+    /**
     @PodamExclude
     @OneToMany(mappedBy = "venta", cascade = CascadeType.PERSIST, orphanRemoval = false)
     private List<MediaEntity> fotos;
@@ -47,10 +47,12 @@ public class VentaEntity extends BaseEntity implements Serializable {
      * Constructor que recibe parámetros
      *
      * @param precioReventa
+     * @param vendedor
      */
-    public VentaEntity(Double precioReventa) 
+    public VentaEntity(Double precioReventa, VendedorEntity vendedor) 
     {
         this.precioReventa = precioReventa;
+        this.vendedor = vendedor; 
     }
 
     /**
@@ -93,5 +95,19 @@ public class VentaEntity extends BaseEntity implements Serializable {
     public int hashCode()
     {
         return super.hashCode();
+    }
+
+    /**
+     * @return the vendedor
+     */
+    public VendedorEntity getVendedor() {
+        return vendedor;
+    }
+
+    /**
+     * @param vendedor the vendedor to set
+     */
+    public void setVendedor(VendedorEntity vendedor) {
+        this.vendedor = vendedor;
     }
 }

@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
+import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
 import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.VentaPersistence;
 import java.util.ArrayList;
@@ -85,8 +86,11 @@ public class VentaPersistenceTest
     @Test
     public void ventaTest() 
     {
-        VentaEntity newva = new VentaEntity(35000.0);
+        PodamFactory factory = new PodamFactoryImpl();
+        VendedorEntity auxvr = factory.manufacturePojo(VendedorEntity.class); 
+        VentaEntity newva = new VentaEntity(35000.0, auxvr);
         Assert.assertEquals(35000.0, newva.getPrecioReventa(), 0.0);
+        Assert.assertEquals(auxvr, newva.getVendedor()); 
     }
 
     @Test
@@ -99,6 +103,7 @@ public class VentaPersistenceTest
         VentaEntity vaentity = vam.find(VentaEntity.class, obtainedva.getId());
         Assert.assertEquals(venta.getId(), vaentity.getId());
         Assert.assertEquals(venta.getPrecioReventa(), vaentity.getPrecioReventa(), 0.0);
+        Assert.assertEquals(venta.getVendedor(), vaentity.getVendedor()); 
     }
 
     @Test
@@ -108,6 +113,7 @@ public class VentaPersistenceTest
         Assert.assertNotNull(block);
         Assert.assertEquals(ref.getId(), block.getId());
         Assert.assertEquals(ref.getPrecioReventa(), block.getPrecioReventa(), 0.0);
+        Assert.assertEquals(ref.getVendedor(), block.getVendedor()); 
     }
 
     @Test
@@ -136,6 +142,7 @@ public class VentaPersistenceTest
         VentaEntity updated = vam.find(VentaEntity.class, updating.getId());
         Assert.assertEquals(updating.getId(), updated.getId());
         Assert.assertEquals(updating.getPrecioReventa(), updated.getPrecioReventa(), 0.0);
+        Assert.assertEquals(updating.getVendedor(), updated.getVendedor()); 
     }
 
     @Test

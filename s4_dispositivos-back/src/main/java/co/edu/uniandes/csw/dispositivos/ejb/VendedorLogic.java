@@ -57,6 +57,8 @@ public class VendedorLogic
     
     public VendedorEntity updateVendedor(VendedorEntity uvrEntity) throws BusinessLogicException
     {
+        if(uvrEntity == null)
+        { throw new BusinessLogicException("No se recibieron datos para modificar"); }
         VendedorEntity changedvr = vrpersistence.update(uvrEntity); 
         return changedvr;
     }

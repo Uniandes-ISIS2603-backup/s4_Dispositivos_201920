@@ -27,11 +27,9 @@ public class VendedorEntity extends BaseEntity implements Serializable
     private String usuario;    
     private String contrasena;
     
-    /**
     @PodamExclude
     @OneToMany(mappedBy = "vendedor", cascade = CascadeType.PERSIST, orphanRemoval = false)
     private List<VentaEntity> ventas;
-    */
     
     /**
      * Constructor vacío
@@ -48,8 +46,9 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * @param cedula
      * @param usuario
      * @param contrasena 
+     * @param ventas 
      */
-    public VendedorEntity(String correoElectronico, String nombre, String apellido, Double celular, Double cedula, String usuario, String contrasena) 
+    public VendedorEntity(String correoElectronico, String nombre, String apellido, Double celular, Double cedula, String usuario, String contrasena, List<VentaEntity> ventas) 
     {
         this.correoElectronico = correoElectronico;
         this.nombre = nombre;
@@ -58,6 +57,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
         this.cedula = cedula;
         this.usuario = usuario;
         this.contrasena = contrasena;
+        this.ventas = ventas; 
     }   
 
     /**
@@ -195,5 +195,19 @@ public class VendedorEntity extends BaseEntity implements Serializable
     public int hashCode()
     {
         return super.hashCode();
+    }
+
+    /**
+     * @return the ventas
+     */
+    public List<VentaEntity> getVentas() {
+        return ventas;
+    }
+
+    /**
+     * @param ventas the ventas to set
+     */
+    public void setVentas(List<VentaEntity> ventas) {
+        this.ventas = ventas;
     }
 }
