@@ -6,7 +6,11 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -22,6 +26,12 @@ public class VendedorEntity extends BaseEntity implements Serializable
     private Double cedula;     
     private String usuario;    
     private String contrasena;
+    
+    /**
+    @PodamExclude
+    @OneToMany(mappedBy = "vendedor", cascade = CascadeType.PERSIST, orphanRemoval = false)
+    private List<VentaEntity> ventas;
+    */
     
     /**
      * Constructor vacío
