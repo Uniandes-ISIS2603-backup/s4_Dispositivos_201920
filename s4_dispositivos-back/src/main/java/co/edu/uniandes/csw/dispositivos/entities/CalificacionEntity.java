@@ -32,6 +32,7 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
          */
     }
 
+
     /**
      * Constructor para realizar Junit Tests.
      *
