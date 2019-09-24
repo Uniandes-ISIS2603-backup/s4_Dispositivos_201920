@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
+import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
+import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
 import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.VentaPersistence;
@@ -87,8 +89,10 @@ public class VentaPersistenceTest
     public void ventaTest() 
     {
         PodamFactory factory = new PodamFactoryImpl();
-        VendedorEntity auxvr = factory.manufacturePojo(VendedorEntity.class); 
-        VentaEntity newva = new VentaEntity(35000.0, auxvr);
+        VendedorEntity auxvr = factory.manufacturePojo(VendedorEntity.class);
+        FacturaEntity  vfactura = factory.manufacturePojo(FacturaEntity.class);
+        List<MediaEntity> testfotos = new ArrayList<>();
+        VentaEntity newva = new VentaEntity(35000.0, auxvr, vfactura, testfotos);
         Assert.assertEquals(35000.0, newva.getPrecioReventa(), 0.0);
         Assert.assertEquals(auxvr, newva.getVendedor()); 
     }

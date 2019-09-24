@@ -27,7 +27,7 @@ public class VentaEntity extends BaseEntity implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private VendedorEntity vendedor;
     
-    /**
+    
     @PodamExclude
     @OneToMany(mappedBy = "venta", cascade = CascadeType.PERSIST, orphanRemoval = false)
     private List<MediaEntity> fotos;
@@ -35,7 +35,7 @@ public class VentaEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
     private FacturaEntity facturaOriginal;
-    */
+    
 
     /**
      * Constructor vacío
@@ -48,11 +48,15 @@ public class VentaEntity extends BaseEntity implements Serializable {
      *
      * @param precioReventa
      * @param vendedor
+     * @param facturaOriginal
+     * @param fotos
      */
-    public VentaEntity(Double precioReventa, VendedorEntity vendedor) 
+    public VentaEntity(Double precioReventa, VendedorEntity vendedor, FacturaEntity facturaOriginal, List<MediaEntity> fotos) 
     {
         this.precioReventa = precioReventa;
         this.vendedor = vendedor; 
+        //this.fotos = fotos; 
+        //this.facturaOriginal = facturaOriginal; 
     }
 
     /**
@@ -110,4 +114,37 @@ public class VentaEntity extends BaseEntity implements Serializable {
     public void setVendedor(VendedorEntity vendedor) {
         this.vendedor = vendedor;
     }
+    
+    //Encapsulamiento de asociaciones
+
+    /**
+     * @return the fotos
+     
+    public List<MediaEntity> getFotos() {
+        return fotos;
+    }
+
+    /**
+     * @param fotos the fotos to set
+     
+    public void setFotos(List<MediaEntity> fotos) {
+        this.fotos = fotos;
+    }
+
+    /**
+     * @return the facturaOriginal
+     
+    public FacturaEntity getFacturaOriginal() {
+        return facturaOriginal;
+    }
+
+    /**
+     * @param facturaOriginal the facturaOriginal to set
+     
+    public void setFacturaOriginal(FacturaEntity facturaOriginal) {
+        this.facturaOriginal = facturaOriginal;
+    }
+    */
+    
+    
 }

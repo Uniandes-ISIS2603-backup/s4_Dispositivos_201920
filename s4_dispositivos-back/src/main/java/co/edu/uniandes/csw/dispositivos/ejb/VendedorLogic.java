@@ -65,6 +65,8 @@ public class VendedorLogic
     
     public void deleteVendedor(Long iddVendedor) throws BusinessLogicException
     {
+        if(vrpersistence.find(iddVendedor) == null)
+        { throw new BusinessLogicException("El vendedor ya no existe"); }
         vrpersistence.delete(iddVendedor); 
     }
 }

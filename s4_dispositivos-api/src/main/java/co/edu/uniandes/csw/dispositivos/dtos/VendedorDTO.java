@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.dispositivos.dtos;
 
 import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
 import java.io.Serializable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
@@ -172,5 +174,11 @@ public class VendedorDTO implements Serializable
         vendedor.setContrasena(contrasena);
         vendedor.setCelular(celular);
         return vendedor; 
+    }
+    
+    @Override
+    public String toString() 
+    {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }
