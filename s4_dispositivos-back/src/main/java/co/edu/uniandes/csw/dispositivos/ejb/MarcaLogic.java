@@ -25,8 +25,8 @@ public class MarcaLogic {
     public MarcaEntity createMarca(MarcaEntity marca) throws BusinessLogicException {
         if (marca.getNombreMarca() == null || marca.getNombreMarca().trim().equals("")) {
             throw new BusinessLogicException("El nombre de la marca está vacío");
-        } else if (marca.getImagen() == null || marca.getImagen().trim().equals("")) {
-            throw new BusinessLogicException("La imagen de la marca está vacía");
+        } else if (marca.getLogo() == null) {
+            throw new BusinessLogicException("La imagen de la marca es nula");
         } else if (mp.findByNombre(marca.getNombreMarca()) != null) {
             throw new BusinessLogicException("Ya existe una marca con el mismo nombre");
         }
@@ -68,8 +68,8 @@ public class MarcaLogic {
     public MarcaEntity updateMarca(Long marcaId, MarcaEntity marcaEntity) throws BusinessLogicException {
         if (marcaEntity.getNombreMarca() == null || marcaEntity.getNombreMarca().trim().equals("")) {
             throw new BusinessLogicException("El nombre de la marca está vacío");
-        } else if (marcaEntity.getImagen() == null || marcaEntity.getImagen().trim().equals("")) {
-            throw new BusinessLogicException("La imagen de la marca está vacía");
+        } else if (marcaEntity.getLogo() == null) {
+            throw new BusinessLogicException("La imagen de la marca es nula");
         } else if (mp.findByNombre(marcaEntity.getNombreMarca()) != null) {
             throw new BusinessLogicException("Ya existe una marca con el mismo nombre");
         }
