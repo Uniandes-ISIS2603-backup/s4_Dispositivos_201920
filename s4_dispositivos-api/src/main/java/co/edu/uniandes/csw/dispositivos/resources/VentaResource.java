@@ -11,6 +11,7 @@ import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -23,12 +24,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 
-@Path("administradores")
+@Path("ventas")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
 public class VentaResource 
 {
+    private static final Logger LOGGER = Logger.getLogger(VentaResource.class.getName());
+    
     @Inject
     private VentaLogic valogic;  
 

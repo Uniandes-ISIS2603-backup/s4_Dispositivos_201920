@@ -12,6 +12,7 @@ import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -28,12 +29,14 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author Zharet Bautista Montes
  */
-@Path("vendedor")
+@Path("vendedores")
 @Produces("application/json")
 @Consumes("application/json") 
 @RequestScoped
 public class VendedorResource 
 {
+    private static final Logger LOGGER = Logger.getLogger(VendedorResource.class.getName());
+    
     @Inject
     private VendedorLogic vendedorvrlogic;  
 
