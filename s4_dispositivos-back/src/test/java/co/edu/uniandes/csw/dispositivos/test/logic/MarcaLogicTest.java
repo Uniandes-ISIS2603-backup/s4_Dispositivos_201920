@@ -231,17 +231,19 @@ public class MarcaLogicTest {
     public void updateMarcaTest() throws BusinessLogicException {
         MarcaEntity entity = data.get(0);
         MarcaEntity pojoEntity = factory.manufacturePojo(MarcaEntity.class);
-        MediaEntity logo = data.get(1).getLogo();
+        MediaEntity logo = factory.manufacturePojo(MediaEntity.class);
 
         pojoEntity.setId(entity.getId());
+        logo.setLinks("HOA");
+        logo.setId(entity.getLogo().getId());
         logo.setMarca(pojoEntity);
         pojoEntity.setLogo(logo);
-
+        
         marcaLogic.updateMarca(pojoEntity.getId(), pojoEntity);
 
         MarcaEntity resp = marcaLogic.getMarca(entity.getId());
         Assert.assertEquals(pojoEntity.getNombreMarca(), resp.getNombreMarca());
-        Assert.assertEquals(pojoEntity.getLogo(), resp.getLogo());
+        Assert.assertEquals(pojoEntity.getLogo().getLink(), resp.getLogo().getLink());
     }
 
     /**

@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.dispositivos.test.logic;
 
 import co.edu.uniandes.csw.dispositivos.ejb.FacturaLogic;
+import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
@@ -86,6 +87,10 @@ public class FacturaLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from FacturaEntity").executeUpdate();
+        em.createQuery("delete from ClienteEntity").executeUpdate();
+
+        em.createQuery("delete from DispositivoEntity").executeUpdate();
+
     }
 
     /**
@@ -95,6 +100,15 @@ public class FacturaLogicTest {
     private void insertData() {
         for (int i = 0; i < 3; i++) {
             FacturaEntity entity = factory.manufacturePojo(FacturaEntity.class);
+            List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
+
+            DispositivoEntity entity2 = factory.manufacturePojo(DispositivoEntity.class);
+            dispositivos.add(entity2);
+
+            DispositivoEntity entity3 = factory.manufacturePojo(DispositivoEntity.class);
+            dispositivos.add(entity3);
+
+            entity.setDispositivos(dispositivos);
             em.persist(entity);
             data.add(entity);
         }
@@ -103,11 +117,19 @@ public class FacturaLogicTest {
     @Test
     public void createFacturaTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
+        List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
+        
+        DispositivoEntity entity2 = factory.manufacturePojo(DispositivoEntity.class);
+        dispositivos.add(entity2);
+
+        DispositivoEntity entity3 = factory.manufacturePojo(DispositivoEntity.class);
+        dispositivos.add(entity3);
+
+        newEntity.setDispositivos(dispositivos);
         FacturaEntity result = facturaLogic.createFactura(newEntity);
         Assert.assertNotNull(result);
 
         FacturaEntity entity = em.find(FacturaEntity.class, result.getId());
-        Assert.assertEquals(entity.getDispositivos(), result.getDispositivos());
         Assert.assertEquals(entity.getImpuestos(), result.getImpuestos());
         Assert.assertEquals(entity.getNumeroDeFactura(), result.getNumeroDeFactura());
         Assert.assertEquals(entity.getTotalPago(), result.getTotalPago());
@@ -300,10 +322,18 @@ public class FacturaLogicTest {
     public void updateFacturaTest() throws BusinessLogicException {
         FacturaEntity entity = data.get(0);
         FacturaEntity pojoEntity = factory.manufacturePojo(FacturaEntity.class);
+        List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
+        
+        DispositivoEntity entity2 = factory.manufacturePojo(DispositivoEntity.class);
+        dispositivos.add(entity2);
+        
+        DispositivoEntity entity3 = factory.manufacturePojo(DispositivoEntity.class);
+        dispositivos.add(entity3);
+        
+        pojoEntity.setDispositivos(dispositivos);
         pojoEntity.setId(entity.getId());
         facturaLogic.updateFactura(pojoEntity.getId(), pojoEntity);
         FacturaEntity resp = em.find(FacturaEntity.class, entity.getId());
-        Assert.assertEquals(pojoEntity.getDispositivos(), resp.getDispositivos());
         Assert.assertEquals(pojoEntity.getImpuestos(), resp.getImpuestos());
         Assert.assertEquals(pojoEntity.getNumeroDeFactura(), resp.getNumeroDeFactura());
         Assert.assertEquals(pojoEntity.getTotalPago(), resp.getTotalPago());
