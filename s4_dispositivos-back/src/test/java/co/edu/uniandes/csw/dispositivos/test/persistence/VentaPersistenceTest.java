@@ -9,6 +9,9 @@ import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
 import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
+import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.MediaPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.VendedorPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.VentaPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +44,14 @@ public class VentaPersistenceTest
     public static JavaArchive createDeployment() 
     {
         return ShrinkWrap.create(JavaArchive.class)
-                .addClass(VentaEntity.class)
-                .addClass(VentaPersistence.class)
+                .addPackage(VentaEntity.class.getPackage())
+                .addPackage(VentaPersistence.class.getPackage())
+                .addPackage(VendedorEntity.class.getPackage())
+                .addPackage(VendedorPersistence.class.getPackage())
+                .addPackage(FacturaEntity.class.getPackage())
+                .addPackage(FacturaPersistence.class.getPackage())
+                .addPackage(MediaEntity.class.getPackage())
+                .addPackage(MediaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
