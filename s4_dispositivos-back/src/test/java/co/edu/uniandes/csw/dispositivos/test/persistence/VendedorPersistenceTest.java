@@ -148,6 +148,14 @@ public class VendedorPersistenceTest
     }
     
     @Test
+    public void findByCedulaTest()
+    {
+        VendedorEntity ref = vrlist.get(0), block = vrp.findByCedula(ref.getId());
+        Assert.assertNotNull(block);
+        Assert.assertEquals(block.getCedula(),ref.getCedula()); 
+    }
+    
+    @Test
     public void findAllVendedoresTest() 
     {
         List<VendedorEntity> allgotten = vrp.findAll();

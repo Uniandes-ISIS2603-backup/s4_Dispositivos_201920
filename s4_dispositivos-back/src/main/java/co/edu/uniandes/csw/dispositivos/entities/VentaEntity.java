@@ -119,32 +119,30 @@ public class VentaEntity extends BaseEntity implements Serializable {
 
     /**
      * @return the fotos
-     
+    */ 
     public List<MediaEntity> getFotos() {
         return fotos;
     }
 
     /**
      * @param fotos the fotos to set
-     
+    */ 
     public void setFotos(List<MediaEntity> fotos) {
         this.fotos = fotos;
     }
 
     /**
      * @return the facturaOriginal
-     
+    */ 
     public FacturaEntity getFacturaOriginal() {
         return facturaOriginal;
     }
 
     /**
      * @param facturaOriginal the facturaOriginal to set
-     
+    */ 
     public void setFacturaOriginal(FacturaEntity facturaOriginal) {
         this.facturaOriginal = facturaOriginal;
     }
-    */
-    
-    
+       
 }
