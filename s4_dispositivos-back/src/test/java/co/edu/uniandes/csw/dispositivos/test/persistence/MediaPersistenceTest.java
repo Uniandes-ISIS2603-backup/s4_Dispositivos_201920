@@ -138,5 +138,12 @@ public class MediaPersistenceTest {
         MediaEntity deleted = em.find(MediaEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-
+    
+    @Test
+    public void findMediaTest() {
+        MediaEntity entity = data.get(0);
+        MediaEntity newEntity = mp.find(entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getLink(), newEntity.getLink());
+    }
 }
