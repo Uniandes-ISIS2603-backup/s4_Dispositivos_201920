@@ -38,9 +38,11 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne(cascade = CascadeType.ALL)
     private FacturaEntity factura;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @PodamExclude
+    @ManyToOne(cascade = CascadeType.ALL)
     private MarcaEntity marca;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @PodamExclude
+    @ManyToOne
     private CategoriaEntity categoria;
     @PodamExclude
     @OneToMany(mappedBy = "dispositivo", cascade = CascadeType.PERSIST, orphanRemoval = true)

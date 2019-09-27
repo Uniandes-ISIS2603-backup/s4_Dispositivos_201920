@@ -6,9 +6,9 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * Clase que representa una categoria en la persistencia y permite su
@@ -24,7 +24,8 @@ public class CategoriaEntity extends BaseEntity {
      */
     private String nombreCategoria;
 
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @PodamExclude
+    @OneToMany(mappedBy = "categoria")
     private List<DispositivoEntity> dispositivos;
 
     /**

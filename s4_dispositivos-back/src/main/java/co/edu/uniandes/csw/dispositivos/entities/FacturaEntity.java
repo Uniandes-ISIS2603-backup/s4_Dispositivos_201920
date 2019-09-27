@@ -49,7 +49,7 @@ public class FacturaEntity extends BaseEntity implements Serializable {
      * Atributo que modela los dispositivos en la factura.
      */
     @PodamExclude
-    @OneToMany(mappedBy = "factura", cascade = CascadeType.PERSIST, orphanRemoval = false)
+    @OneToMany(mappedBy = "factura")
     private List<DispositivoEntity> dispositivos;
 
     @PodamExclude
