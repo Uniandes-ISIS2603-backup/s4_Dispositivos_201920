@@ -51,7 +51,7 @@ public class DispositivoCategoriaLogicTest {
 
     private List<CategoriaEntity> data = new ArrayList<CategoriaEntity>();
 
-    private List<DispositivoEntity> dispositivos = new ArrayList();
+    private List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -102,17 +102,20 @@ public class DispositivoCategoriaLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            DispositivoEntity books = factory.manufacturePojo(DispositivoEntity.class);
-            em.persist(books);
-            dispositivos.add(books);
+            DispositivoEntity dispositivo = factory.manufacturePojo(DispositivoEntity.class);
+            em.persist(dispositivo);
+            dispositivos.add(dispositivo);
         }
         for (int i = 0; i < 3; i++) {
             CategoriaEntity entity = factory.manufacturePojo(CategoriaEntity.class);
-            em.persist(entity);
-            data.add(entity);
             if (i == 0) {
                 dispositivos.get(i).setCategoria(entity);
+
             }
+            em.persist(entity);
+            em.merge(dispositivos.get(i));
+            data.add(entity);
+
         }
     }
 

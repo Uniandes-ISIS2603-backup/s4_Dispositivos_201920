@@ -9,7 +9,9 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -24,14 +26,16 @@ public class MarcaEntity extends BaseEntity implements Serializable {
      */
     private String nombreMarca;
 
+    @PodamExclude
+    @OneToMany(mappedBy = "marca", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DispositivoEntity> dispositivos;
+
     /**
-     * atributo que modela la imagen de la marca.
+     * atributo que modela la logo de la marca.
      */
     @PodamExclude
-    private String imagen;
-
-    @OneToMany(mappedBy = "marca", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<DispositivoEntity> dispositivos;
+    @OneToOne(mappedBy = "marca", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+    private MediaEntity logo;
 
     /**
      * Constructor creado vacio para no tener problemas al implementar
@@ -45,11 +49,13 @@ public class MarcaEntity extends BaseEntity implements Serializable {
      * Crea una nueva MarcaEntity.
      *
      * @param pNombreMarca nombre de la marca a establecer.
-     * @param pImagen ruta de la imagen a establecer.
+     * @param pImagen logo a establecer.
+     * @param pDispositivos dispositivos a establecer.
      */
-    public MarcaEntity(String pNombreMarca, String pImagen) {
+    public MarcaEntity(String pNombreMarca, MediaEntity pImagen, List<DispositivoEntity> pDispositivos) {
         this.nombreMarca = pNombreMarca;
-        this.imagen = pImagen;
+        this.logo = pImagen;
+        this.dispositivos = pDispositivos;
     }
 
     /**
@@ -61,7 +67,7 @@ public class MarcaEntity extends BaseEntity implements Serializable {
 
     /**
      *
-     * @return
+     * @return dispositivos
      */
     public List<DispositivoEntity> getDispositivos() {
         return dispositivos;
@@ -83,17 +89,17 @@ public class MarcaEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * @return the imagen
+     * @return the logo
      */
-    public String getImagen() {
-        return this.imagen;
+    public MediaEntity getLogo() {
+        return this.logo;
     }
 
     /**
-     * @param imagen the imagen to set
+     * @param logo the logo to set
      */
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
+    public void setLogo(MediaEntity logo) {
+        this.logo = logo;
     }
 
     /**

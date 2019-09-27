@@ -46,12 +46,16 @@ public class VentaLogic
     
     public VentaEntity updateVenta(VentaEntity uvaEntity) throws BusinessLogicException
     {
+        if(uvaEntity == null)
+        { throw new BusinessLogicException("No se recibieron datos para modificar"); }
         VentaEntity changedva = vapersistence.update(uvaEntity); 
         return changedva;
     }
     
     public void deleteVenta(Long iddVenta) throws BusinessLogicException
     {
+        if(vapersistence.find(iddVenta) == null)
+        { throw new BusinessLogicException("La venta ya no existe"); }
         vapersistence.delete(iddVenta); 
     }
 }

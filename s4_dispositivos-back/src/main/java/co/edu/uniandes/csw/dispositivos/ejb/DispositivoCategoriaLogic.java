@@ -53,7 +53,7 @@ public class DispositivoCategoriaLogic {
         CategoriaEntity categoriaEntity = categoriaPersistence.find(dispositivoEntity.getCategoria().getId());
         dispositivoEntity.setCategoria(null);
         categoriaEntity.getDispositivos().remove(dispositivoEntity);
-
+        dispositivoPersistence.update(dispositivoEntity);
     }
 
 }
