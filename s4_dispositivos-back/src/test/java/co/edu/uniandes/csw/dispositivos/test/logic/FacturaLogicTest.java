@@ -100,15 +100,6 @@ public class FacturaLogicTest {
     private void insertData() {
         for (int i = 0; i < 3; i++) {
             FacturaEntity entity = factory.manufacturePojo(FacturaEntity.class);
-            List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
-
-            DispositivoEntity entity2 = factory.manufacturePojo(DispositivoEntity.class);
-            dispositivos.add(entity2);
-
-            DispositivoEntity entity3 = factory.manufacturePojo(DispositivoEntity.class);
-            dispositivos.add(entity3);
-
-            entity.setDispositivos(dispositivos);
             em.persist(entity);
             data.add(entity);
         }
