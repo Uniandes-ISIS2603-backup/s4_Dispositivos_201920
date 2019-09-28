@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.dispositivos.resources;
 
 import co.edu.uniandes.csw.dispositivos.dtos.DispositivoDTO;
 import co.edu.uniandes.csw.dispositivos.ejb.DispositivoLogic;
+import co.edu.uniandes.csw.dispositivos.ejb.MarcaLogic;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -30,6 +31,12 @@ public class DispositivoResource {
 
     private static final Logger LOGGER = Logger.getLogger(DispositivoResource.class.getName());
 
+    @Inject
+    private DispositivoLogic dispositivoLogic;
+
+    @Inject
+    private MarcaLogic marcaLogic;
+
     /**
      *
      * @param dispositivo
@@ -46,6 +53,7 @@ public class DispositivoResource {
      * @return
      */
     @GET
+    @Path("{dispositivosId: \\d+}")
     public DispositivoDTO getDispositivo(Long id) {
         return null;
     }
@@ -55,6 +63,7 @@ public class DispositivoResource {
      * @return
      */
     @PUT
+    @Path("{dispositivosId: \\d+}")
     public DispositivoDTO updateDispositivo() {
         return null;
     }

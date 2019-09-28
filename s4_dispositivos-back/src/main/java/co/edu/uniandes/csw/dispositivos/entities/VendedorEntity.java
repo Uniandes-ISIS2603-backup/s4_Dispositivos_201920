@@ -6,41 +6,50 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author Zharet Bautista Montes
  */
 @Entity
-public class VendedorEntity extends BaseEntity implements Serializable {
-
-    private String correoElectronico;
-    private String nombre;
-    private String apellido;
-    private double celular;
-    private double cedula;
-    private String usuario;
+public class VendedorEntity extends BaseEntity implements Serializable
+{
+    private String correoElectronico;    
+    private String nombre;    
+    private String apellido;     
+    private Double celular;    
+    private Double cedula;     
+    private String usuario;    
     private String contrasena;
-
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "vendedor", cascade = CascadeType.PERSIST, orphanRemoval = false)
+    private List<VentaEntity> ventas;
+    
     /**
      * Constructor vacío
      */
-    public VendedorEntity() {
-    }
+    public VendedorEntity()
+    {   }
 
     /**
      * Constructor con parámetros
-     *
      * @param correoElectronico
      * @param nombre
      * @param apellido
      * @param celular
      * @param cedula
      * @param usuario
-     * @param contrasena
+     * @param contrasena 
+     * @param ventas 
      */
-    public VendedorEntity(String correoElectronico, String nombre, String apellido, double celular, double cedula, String usuario, String contrasena) {
+    public VendedorEntity(String correoElectronico, String nombre, String apellido, Double celular, Double cedula, String usuario, String contrasena, List<VentaEntity> ventas) 
+    {
         this.correoElectronico = correoElectronico;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -48,10 +57,11 @@ public class VendedorEntity extends BaseEntity implements Serializable {
         this.cedula = cedula;
         this.usuario = usuario;
         this.contrasena = contrasena;
-    }
+        this.ventas = ventas; 
+    }   
 
     /**
-     *
+     * 
      * @return correoElectronico
      */
     public String getCorreoElectronico() {
@@ -59,15 +69,15 @@ public class VendedorEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     *
-     * @param correoElectronico
+     * 
+     * @param correoElectronico 
      */
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
 
     /**
-     *
+     * 
      * @return nombre
      */
     public String getNombre() {
@@ -75,15 +85,15 @@ public class VendedorEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     *
-     * @param nombre
+     * 
+     * @param nombre 
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
     /**
-     *
+     * 
      * @return apellido
      */
     public String getApellido() {
@@ -91,47 +101,47 @@ public class VendedorEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     *
-     * @param apellido
+     * 
+     * @param apellido 
      */
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
 
     /**
-     *
+     * 
      * @return celular
      */
-    public double getCelular() {
+    public Double getCelular() {
         return celular;
     }
 
     /**
-     *
-     * @param celular
+     * 
+     * @param celular 
      */
-    public void setCelular(double celular) {
+    public void setCelular(Double celular) {
         this.celular = celular;
     }
 
     /**
-     *
+     * 
      * @return cedula
      */
-    public double getCedula() {
+    public Double getCedula() {
         return cedula;
     }
 
     /**
-     *
-     * @param cedula
+     * 
+     * @param cedula 
      */
-    public void setCedula(double cedula) {
+    public void setCedula(Double cedula) {
         this.cedula = cedula;
     }
 
     /**
-     *
+     * 
      * @return usuario
      */
     public String getUsuario() {
@@ -139,15 +149,15 @@ public class VendedorEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     *
-     * @param usuario
+     * 
+     * @param usuario 
      */
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
     /**
-     *
+     * 
      * @return contrasena
      */
     public String getContrasena() {
@@ -155,11 +165,49 @@ public class VendedorEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     *
-     * @param contrasena
+     * 
+     * @param contrasena 
      */
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }   
+    
+    /**
+     * Método no requerido
+     * @param eo Objeto a comparar
+     * @return Igual al de la superclase
+     * @deprecated (Sólo se necesita para mejorar "Code Smell")
+     */
+    @Override
+    @Deprecated
+    public boolean equals(Object eo) 
+    {
+        return super.equals(eo);
+    }
+    
+    /**
+     * Método no requerido
+     * @return Igual al de la superclase
+     * @deprecated (Sólo se necesita para mejorar "Code Smell")
+     */
+    @Override
+    @Deprecated
+    public int hashCode()
+    {
+        return super.hashCode();
     }
 
+    /**
+     * @return the ventas
+     */
+    public List<VentaEntity> getVentas() {
+        return ventas;
+    }
+
+    /**
+     * @param ventas the ventas to set
+     */
+    public void setVentas(List<VentaEntity> ventas) {
+        this.ventas = ventas;
+    }
 }

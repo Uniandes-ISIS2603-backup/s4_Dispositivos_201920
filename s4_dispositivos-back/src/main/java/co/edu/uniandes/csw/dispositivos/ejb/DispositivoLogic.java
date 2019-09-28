@@ -79,7 +79,12 @@ public class DispositivoLogic {
      * @return
      */
     public DispositivoEntity find(Long id) {
-        return persistence.find(id);
+        DispositivoEntity dispositivoEntity = persistence.find(id);
+        if (dispositivoEntity == null) {
+            System.out.println("Hola");
+        }
+
+        return dispositivoEntity;
     }
 
     /**

@@ -5,10 +5,12 @@
  */
 package co.edu.uniandes.csw.dispositivos.test.logic;
 
-import co.edu.uniandes.csw.dispositivos.ejb.CalificacionLogic;
-import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
+import co.edu.uniandes.csw.dispositivos.ejb.DispositivoCategoriaLogic;
+import co.edu.uniandes.csw.dispositivos.ejb.DispositivoLogic;
+import co.edu.uniandes.csw.dispositivos.entities.CategoriaEntity;
+import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.CategoriaPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -26,13 +28,20 @@ import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
+/**
+ *
+ * @author Estudiante
+ */
 @RunWith(Arquillian.class)
-public class CalificacionLogicTest {
+public class DispositivoCategoriaLogicTest {
 
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private CalificacionLogic calificacionLogic;
+    private DispositivoLogic dispositivoLogic;
+
+    @Inject
+    private DispositivoCategoriaLogic dispositivoCategoriaLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -40,8 +49,9 @@ public class CalificacionLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<CalificacionEntity> data = new ArrayList<CalificacionEntity>();
+    private List<CategoriaEntity> data = new ArrayList<CategoriaEntity>();
 
+    private List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -51,9 +61,9 @@ public class CalificacionLogicTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(CalificacionEntity.class.getPackage())
-                .addPackage(CalificacionLogic.class.getPackage())
-                .addPackage(CalificacionPersistence.class.getPackage())
+                .addPackage(CategoriaEntity.class.getPackage())
+                .addPackage(DispositivoLogic.class.getPackage())
+                .addPackage(CategoriaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -82,7 +92,8 @@ public class CalificacionLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from CalificacionEntity").executeUpdate();
+        em.createQuery("delete from DispositivoEntity").executeUpdate();
+        em.createQuery("delete from CategoriaEntity").executeUpdate();
     }
 
     /**
@@ -91,37 +102,48 @@ public class CalificacionLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            CalificacionEntity entity = factory.manufacturePojo(CalificacionEntity.class);
-            entity.setCalificacionNumerica(5);
+            DispositivoEntity dispositivo = factory.manufacturePojo(DispositivoEntity.class);
+            em.persist(dispositivo);
+            dispositivos.add(dispositivo);
+        }
+        for (int i = 0; i < 3; i++) {
+            CategoriaEntity entity = factory.manufacturePojo(CategoriaEntity.class);
+            if (i == 0) {
+                dispositivos.get(i).setCategoria(entity);
+
+            }
             em.persist(entity);
+            em.merge(dispositivos.get(i));
             data.add(entity);
+
         }
     }
 
     /**
-     * Prueba para crear un Editorial.
-     *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * Prueba para remplazar las instancias de Dispositivo asociadas a una
+     * instancia de Categoria .
      */
     @Test
-    public void createCalificacionTest() throws BusinessLogicException {
-        CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
-        newEntity.setCalificacionNumerica(5);
-        CalificacionEntity result = calificacionLogic.createCalificacion(newEntity);
-        Assert.assertNotNull(result);
-        CalificacionEntity entity = em.find(CalificacionEntity.class, result.getId());
-        Assert.assertEquals(newEntity.getId(), entity.getId());
-        Assert.assertEquals(newEntity.getCalificacionNumerica(), entity.getCalificacionNumerica());
+    public void replaceCategoriaTest() {
+        DispositivoEntity entity = dispositivos.get(0);
+        dispositivoCategoriaLogic.replaceCategoria(entity.getId(), data.get(1).getId());
+        entity = dispositivoLogic.find(entity.getId());
+        Assert.assertEquals(entity.getCategoria(), data.get(1));
     }
 
     /**
+     * Prueba para desasociar un Dispositivo existente de una Categoria
+     * existente
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws BusinessLogicException
      */
-    
-    @Test(expected = BusinessLogicException.class)
-    public void createCalificacionConNumeroMayorOMenor() throws BusinessLogicException {
-        CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
-        calificacionLogic.createCalificacion(newEntity);
+    @Test
+    public void removeCategoriaTest() throws BusinessLogicException {
+
+        DispositivoEntity entity = dispositivos.get(0);
+        dispositivoCategoriaLogic.removeCategoria(entity.getId());
+        entity = dispositivoLogic.find(entity.getId());
+        Assert.assertNull(entity.getCategoria());
     }
+
 }

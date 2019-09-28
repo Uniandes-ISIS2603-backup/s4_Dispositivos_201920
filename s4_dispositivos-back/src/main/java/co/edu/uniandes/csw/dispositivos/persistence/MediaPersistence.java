@@ -45,4 +45,19 @@ public class MediaPersistence {
         em.remove(entity);
     }
     
+    public MediaEntity findByLink(String link) {
+        TypedQuery query = em.createQuery("Select f From MediaEntity f where f.link = :link", MediaEntity.class);
+        query = query.setParameter("link", link);
+        List<MediaEntity> sameCode = query.getResultList();
+        MediaEntity result;
+        if (sameCode == null) {
+            result = null;
+        } else if (sameCode.isEmpty()) {
+            result = null;
+        } else {
+            result = sameCode.get(0);
+        }
+        return result;
+    }
+    
 }

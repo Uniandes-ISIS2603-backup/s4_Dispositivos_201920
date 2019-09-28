@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -16,6 +18,10 @@ import javax.persistence.Entity;
 public class MediaEntity extends BaseEntity implements Serializable {
 
     private String link;
+
+    @PodamExclude
+    @OneToOne
+    private MarcaEntity marca;
 
     public MediaEntity() {
         /**
@@ -27,8 +33,7 @@ public class MediaEntity extends BaseEntity implements Serializable {
     /**
      * Constructor para pruebas
      *
-     * @param link el link de las imagenes y videos de un
-     * dispositivo.
+     * @param link el link de las imagenes y videos de un dispositivo.
      */
     public MediaEntity(String link) {
         this.link = link;
@@ -36,6 +41,7 @@ public class MediaEntity extends BaseEntity implements Serializable {
 
     /**
      * Retonra el link de multimedia
+     *
      * @return link que referencia un video o imagen
      */
     public String getLink() {
@@ -48,4 +54,19 @@ public class MediaEntity extends BaseEntity implements Serializable {
     public void setLinks(String link) {
         this.link = link;
     }
+
+    /**
+     * @param marca modifica la marca de una imagen
+     */
+    public void setMarca(MarcaEntity marca) {
+        this.marca = marca;
+    }
+
+    /**
+     * Establece una marca al contenido media
+     */
+    public MarcaEntity getMarca() {
+        return marca;
+    }
+
 }

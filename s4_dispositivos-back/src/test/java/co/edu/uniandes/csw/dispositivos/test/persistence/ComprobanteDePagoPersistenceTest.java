@@ -190,13 +190,14 @@ public class ComprobanteDePagoPersistenceTest {
     @Test
     public void testConstructorComprobante() {
         Date date = new Date();
-        ComprobanteDePagoEntity newEntity = new ComprobanteDePagoEntity(123, 100.500, 13.456, "0", date);
+        ComprobanteDePagoEntity newEntity = new ComprobanteDePagoEntity(123, 100.500, 13.456, "0", date, null);
         Assert.assertEquals(123, newEntity.getNumeroDeFactura(),0);
         Assert.assertEquals(13.456, newEntity.getImpuestos(), 0);
         Double num = (Double) 100.50;
         Assert.assertEquals(num, newEntity.getTotalDePago());
         Assert.assertEquals("0", newEntity.getNumeroDeTarjeta());
         Assert.assertEquals(date, newEntity.getFechaDeFactura());
+        Assert.assertEquals(null, newEntity.getCliente());
     }
     /**
      * Prueba para consultar un comprobante de pago por número de factura

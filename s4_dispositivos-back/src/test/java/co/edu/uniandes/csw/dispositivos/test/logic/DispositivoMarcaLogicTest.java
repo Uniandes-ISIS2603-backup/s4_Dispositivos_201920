@@ -5,34 +5,43 @@
  */
 package co.edu.uniandes.csw.dispositivos.test.logic;
 
-import co.edu.uniandes.csw.dispositivos.ejb.CalificacionLogic;
-import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
+import co.edu.uniandes.csw.dispositivos.ejb.DispositivoLogic;
+import co.edu.uniandes.csw.dispositivos.ejb.DispositivoMarcaLogic;
+import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
+import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.MarcaPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
+import org.junit.Assert;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
+/**
+ *
+ * @author Santiago Fajardo
+ */
 @RunWith(Arquillian.class)
-public class CalificacionLogicTest {
+public class DispositivoMarcaLogicTest {
 
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private CalificacionLogic calificacionLogic;
+    private DispositivoLogic dispositivoLogic;
+
+    @Inject
+    private DispositivoMarcaLogic dispositivoMarcaLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -40,8 +49,9 @@ public class CalificacionLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<CalificacionEntity> data = new ArrayList<CalificacionEntity>();
+    private List<MarcaEntity> data = new ArrayList<MarcaEntity>();
 
+    private List<DispositivoEntity> dispositivosData = new ArrayList<>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -51,9 +61,9 @@ public class CalificacionLogicTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(CalificacionEntity.class.getPackage())
-                .addPackage(CalificacionLogic.class.getPackage())
-                .addPackage(CalificacionPersistence.class.getPackage())
+                .addPackage(MarcaEntity.class.getPackage())
+                .addPackage(DispositivoLogic.class.getPackage())
+                .addPackage(MarcaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -82,7 +92,8 @@ public class CalificacionLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from CalificacionEntity").executeUpdate();
+        em.createQuery("delete from DispositivoEntity").executeUpdate();
+        em.createQuery("delete from MarcaEntity").executeUpdate();
     }
 
     /**
@@ -91,37 +102,41 @@ public class CalificacionLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            CalificacionEntity entity = factory.manufacturePojo(CalificacionEntity.class);
-            entity.setCalificacionNumerica(5);
+            DispositivoEntity books = factory.manufacturePojo(DispositivoEntity.class);
+            em.persist(books);
+            dispositivosData.add(books);
+        }
+        for (int i = 0; i < 3; i++) {
+            MarcaEntity entity = factory.manufacturePojo(MarcaEntity.class);
             em.persist(entity);
             data.add(entity);
+            if (i == 0) {
+                dispositivosData.get(i).setMarca(entity);
+            }
         }
     }
 
     /**
-     * Prueba para crear un Editorial.
-     *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * Prueba para remplazar las instancias de Dispositivo asociadas a una
+     * instancia de Marca.
      */
     @Test
-    public void createCalificacionTest() throws BusinessLogicException {
-        CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
-        newEntity.setCalificacionNumerica(5);
-        CalificacionEntity result = calificacionLogic.createCalificacion(newEntity);
-        Assert.assertNotNull(result);
-        CalificacionEntity entity = em.find(CalificacionEntity.class, result.getId());
-        Assert.assertEquals(newEntity.getId(), entity.getId());
-        Assert.assertEquals(newEntity.getCalificacionNumerica(), entity.getCalificacionNumerica());
+    public void replaceMarcaTest() {
+        DispositivoEntity entity = dispositivosData.get(0);
+        dispositivoMarcaLogic.replaceMarca(entity.getId(), data.get(1).getId());
+        entity = dispositivoLogic.find(entity.getId());
+        Assert.assertEquals(entity.getMarca(), data.get(1));
     }
 
     /**
+     * Prueba para desasociar un Dispositivo existente de una Marca existente
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws BusinessLogicException
      */
-    
-    @Test(expected = BusinessLogicException.class)
-    public void createCalificacionConNumeroMayorOMenor() throws BusinessLogicException {
-        CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
-        calificacionLogic.createCalificacion(newEntity);
+    @Test
+    public void removeDispositivosTest() throws BusinessLogicException {
+        dispositivoMarcaLogic.removeMarca(dispositivosData.get(0).getId());
+        DispositivoEntity response = dispositivoLogic.find(dispositivosData.get(0).getId());
+        Assert.assertNull(response.getMarca());
     }
 }

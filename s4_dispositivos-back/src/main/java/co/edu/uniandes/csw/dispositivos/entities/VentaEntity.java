@@ -6,7 +6,13 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -16,20 +22,41 @@ import javax.persistence.Entity;
 public class VentaEntity extends BaseEntity implements Serializable {
 
     private Double precioReventa;
+       
+    @PodamExclude
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private VendedorEntity vendedor;
+    
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.PERSIST, orphanRemoval = false)
+    private List<MediaEntity> fotos;
+    
+    @PodamExclude
+    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private FacturaEntity facturaOriginal;
+    
 
     /**
      * Constructor vacío
      */
-    public VentaEntity() {
-    }
+    public VentaEntity() 
+    {    }
 
     /**
      * Constructor que recibe parámetros
      *
      * @param precioReventa
+     * @param vendedor
+     * @param facturaOriginal
+     * @param fotos
      */
-    public VentaEntity(Double precioReventa) {
+    public VentaEntity(Double precioReventa, VendedorEntity vendedor, FacturaEntity facturaOriginal, List<MediaEntity> fotos) 
+    {
         this.precioReventa = precioReventa;
+        this.vendedor = vendedor; 
+        //this.fotos = fotos; 
+        //this.facturaOriginal = facturaOriginal; 
     }
 
     /**
@@ -47,5 +74,77 @@ public class VentaEntity extends BaseEntity implements Serializable {
      */
     public void setPrecioReventa(Double precioReventa) {
         this.precioReventa = precioReventa;
-    } 
+    }
+
+    /**
+     * Método no requerido
+     * @param oe Objeto a comparar
+     * @return Igual al de la superclase
+     * @deprecated (Sólo se necesita para mejorar "Code Smell")
+     */
+    @Override
+    @Deprecated
+    public boolean equals(Object oe) 
+    {
+        return super.equals(oe);
+    }
+    
+    /**
+     * Método no requerido
+     * @return Igual al de la superclase
+     * @deprecated (Sólo se necesita para mejorar "Code Smell")
+     */
+    @Override
+    @Deprecated
+    public int hashCode()
+    {
+        return super.hashCode();
+    }
+
+    /**
+     * @return the vendedor
+     */
+    public VendedorEntity getVendedor() {
+        return vendedor;
+    }
+
+    /**
+     * @param vendedor the vendedor to set
+     */
+    public void setVendedor(VendedorEntity vendedor) {
+        this.vendedor = vendedor;
+    }
+    
+    //Encapsulamiento de asociaciones
+
+    /**
+     * @return the fotos
+     
+    public List<MediaEntity> getFotos() {
+        return fotos;
+    }
+
+    /**
+     * @param fotos the fotos to set
+     
+    public void setFotos(List<MediaEntity> fotos) {
+        this.fotos = fotos;
+    }
+
+    /**
+     * @return the facturaOriginal
+     
+    public FacturaEntity getFacturaOriginal() {
+        return facturaOriginal;
+    }
+
+    /**
+     * @param facturaOriginal the facturaOriginal to set
+     
+    public void setFacturaOriginal(FacturaEntity facturaOriginal) {
+        this.facturaOriginal = facturaOriginal;
+    }
+    */
+    
+    
 }

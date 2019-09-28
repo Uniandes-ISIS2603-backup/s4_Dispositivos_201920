@@ -66,7 +66,6 @@ public abstract class BaseEntity implements Serializable {
             return false;
         }
         final BaseEntity other = (BaseEntity) obj;
-     
         return Objects.equals(this.id, other.id);
     }
 
