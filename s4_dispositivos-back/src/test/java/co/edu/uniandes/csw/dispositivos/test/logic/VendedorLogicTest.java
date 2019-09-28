@@ -183,6 +183,13 @@ public class VendedorLogicTest
         Assert.assertEquals(updating.getCedula(), updated.getCedula(),0);
     }
     
+    @Test(expected=BusinessLogicException.class)
+    public void updateNullVendedorTest() throws BusinessLogicException
+    {
+        VendedorEntity updating = null; 
+        vrlogic.updateVendedor(updating);
+    }
+    
     @Test
     public void deleteVendedorTest() throws BusinessLogicException
     {
@@ -190,5 +197,14 @@ public class VendedorLogicTest
         vrlogic.deleteVendedor(vrentity.getId());
         VendedorEntity gonevr = vrm.find(VendedorEntity.class, vrentity.getId()); 
         Assert.assertNull(gonevr);
+    }
+    
+    @Test(expected=BusinessLogicException.class)
+    public void deleteVendedorNullTest() throws BusinessLogicException
+    {
+        VendedorEntity vrentity = vrlist.get(0);
+        Long deleteid = vrentity.getId();
+        vrentity = null; 
+        vrlogic.deleteVendedor(deleteid);
     }
 }

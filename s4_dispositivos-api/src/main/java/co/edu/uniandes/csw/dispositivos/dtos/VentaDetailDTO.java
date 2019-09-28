@@ -5,8 +5,10 @@
  */
 package co.edu.uniandes.csw.dispositivos.dtos;
 
+import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +17,9 @@ import java.util.List;
  */
 public class VentaDetailDTO extends VentaDTO implements Serializable
 {
-    private VendedorDTO vendedor; 
+    private VendedorDTO vendedor;
+    
+    //private FacturaDTO facturaOriginal; 
     
     //private List<MediaDTO> fotos; 
     
@@ -34,7 +38,16 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
         super(refva);
         if(refva != null)
         {    
-            //vendedor = refva.getVendedor();
+            vendedor = new VendedorDTO(refva.getVendedor());
+            /**
+            facturaOriginal = new FacturaDTO(refva.getFacturaOriginal());
+            if(refva.getFotos() != null)
+            {
+                fotos = new ArrayList<>(); 
+                for(MediaEntity mediava : refva.getFotos())
+                    fotos.add(new MediaDTO(mediava));
+            }
+            */
         }
     }
     
@@ -60,8 +73,47 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
         VentaEntity extventa = super.toEntity();
         if(vendedor != null)
         {
-            //extventa.setVendedor(vendedor); 
+            extventa.setVendedor(vendedor.toEntity());
+            /**
+            extventa.setFacturaOriginal(facturaOriginal.toEntity());
+            if(getFotos() != null)
+            {
+            List<MediaEntity> photolist = new ArrayList<>();
+            for(MediaDTO dtomedia : getFotos())
+                photolist.add(dtomedia.toEntity());
+            extventa.setFotos(photolist); 
+            }
+            */
         }
         return extventa; 
     }
+
+    /**
+     * @return the facturaOriginal
+     
+    public FacturaDTO getFacturaOriginal() {
+        return facturaOriginal;
+    }
+
+    /**
+     * @param facturaOriginal the facturaOriginal to set
+     
+    public void setFacturaOriginal(FacturaDTO facturaOriginal) {
+        this.facturaOriginal = facturaOriginal;
+    }
+
+    /**
+     * @return the fotos
+     
+    public List<MediaDTO> getFotos() {
+        return fotos;
+    }
+
+    /**
+     * @param fotos the fotos to set
+     
+    public void setFotos(List<MediaDTO> fotos) {
+        this.fotos = fotos;
+    }
+    */
 }

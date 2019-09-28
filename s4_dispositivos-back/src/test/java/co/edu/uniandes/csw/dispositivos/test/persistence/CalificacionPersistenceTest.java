@@ -12,6 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.UserTransaction;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNot;
@@ -128,6 +129,16 @@ public class CalificacionPersistenceTest {
             Assert.assertTrue(found);
         }
     }
+    
+    @Test
+    public void findCalificacionTest() {
+        CalificacionEntity entity = data.get(0);
+        CalificacionEntity newEntity = cp.find(entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getCalificacionNumerica(), newEntity.getCalificacionNumerica());
+        Assert.assertEquals(entity.getComentarios(), newEntity.getComentarios());
+
+    }
 
     /**
      *
@@ -156,6 +167,17 @@ public class CalificacionPersistenceTest {
         cp.delete(entity.getId());
         CalificacionEntity deleted = em.find(CalificacionEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+    
+    @Test
+    public void findCalificacionByCalificacionTest() {
+        CalificacionEntity entity = data.get(0);
+        CalificacionEntity newEntity = cp.findByCalificacion(entity.getCalificacionNumerica());
+        Assert.assertNotNull(newEntity);
+        Assert.assertArrayEquals(entity.getComentarios(), newEntity.getComentarios());
+
+        newEntity = cp.findByCalificacion(null);
+        Assert.assertNull(newEntity);
     }
 
 }

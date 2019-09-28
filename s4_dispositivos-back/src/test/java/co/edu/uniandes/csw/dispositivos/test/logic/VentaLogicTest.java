@@ -139,6 +139,13 @@ public class VentaLogicTest
         Assert.assertEquals(updating.getId(), updated.getId());
         Assert.assertEquals(updating.getPrecioReventa(), updated.getPrecioReventa(), 0.0);
     }
+        
+    @Test(expected=BusinessLogicException.class)
+    public void updateNullVendedorTest() throws BusinessLogicException
+    {
+        VentaEntity updating = null; 
+        valogic.updateVenta(updating);
+    }
     
     @Test
     public void deleteVentaTest() throws BusinessLogicException
@@ -147,5 +154,14 @@ public class VentaLogicTest
         valogic.deleteVenta(vaentity.getId());
         VentaEntity goneva = vam.find(VentaEntity.class, vaentity.getId()); 
         Assert.assertNull(goneva);
+    }
+    
+    @Test(expected=BusinessLogicException.class)
+    public void deleteVendedorNullTest() throws BusinessLogicException
+    {
+        VentaEntity vaentity = valist.get(0);
+        Long deleteid = vaentity.getId();
+        vaentity = null; 
+        valogic.deleteVenta(deleteid);
     }
 }

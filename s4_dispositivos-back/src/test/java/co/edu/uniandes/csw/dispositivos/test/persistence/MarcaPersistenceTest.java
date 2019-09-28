@@ -5,8 +5,20 @@
  */
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
+import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
+import co.edu.uniandes.csw.dispositivos.entities.CategoriaEntity;
+import co.edu.uniandes.csw.dispositivos.entities.ClienteEntity;
+import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
+import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
+import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
+import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.CategoriaPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.ClientePersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.MarcaPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.MediaPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -32,10 +44,10 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class MarcaPersistenceTest {
 
     @Inject
-    private MarcaPersistence mp;
+    MarcaPersistence mp;
 
     @PersistenceContext(unitName = "dispositivosPU")
-    private EntityManager em;
+    protected EntityManager em;
 
     @Inject
     UserTransaction utx;
@@ -60,7 +72,7 @@ public class MarcaPersistenceTest {
 
         MarcaEntity entity = em.find(MarcaEntity.class, result.getId());
         Assert.assertEquals(marcaEntity.getNombreMarca(), entity.getNombreMarca());
-        Assert.assertEquals(marcaEntity.getImagen(), entity.getImagen());
+        Assert.assertEquals(marcaEntity.getLogo(), entity.getLogo());
 
     }
 
@@ -76,13 +88,22 @@ public class MarcaPersistenceTest {
                 em.persist(entity);
                 data.add(entity);
             }
+            utx.commit();
+            System.out.println(mp.findAll().size());
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                utx.rollback();
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
         }
     }
 
     private void clearData() {
+        em.createQuery("delete from DispositivoEntity").executeUpdate();
         em.createQuery("delete from MarcaEntity").executeUpdate();
+        em.createQuery("delete from MediaEntity").executeUpdate();
     }
 
     @Test
@@ -109,7 +130,7 @@ public class MarcaPersistenceTest {
         MarcaEntity newEntity = mp.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getNombreMarca(), newEntity.getNombreMarca());
-        Assert.assertEquals(entity.getImagen(), newEntity.getImagen());
+        Assert.assertEquals(entity.getLogo(), newEntity.getLogo());
     }
 
     /**
@@ -128,7 +149,7 @@ public class MarcaPersistenceTest {
         MarcaEntity resp = em.find(MarcaEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getNombreMarca(), resp.getNombreMarca());
-        Assert.assertEquals(newEntity.getImagen(), resp.getImagen());
+        Assert.assertEquals(newEntity.getLogo(), resp.getLogo());
     }
 
     /**
@@ -147,14 +168,17 @@ public class MarcaPersistenceTest {
      */
     @Test
     public void crearMarcaTest() {
-        MarcaEntity marcaPrueba = new MarcaEntity("marcaPrueba", "marcaLogo.png");
-        MarcaEntity marcaPrueba2 = new MarcaEntity("marcaPrueba", "marcaLogo.png");
-        MarcaEntity marcaPrueba3 = new MarcaEntity("marcaPruebaf", "marcaLogo.png");
+        PodamFactory factory = new PodamFactoryImpl();
+        MarcaEntity marcaPrueba = factory.manufacturePojo(MarcaEntity.class);
+        MarcaEntity result = mp.create(marcaPrueba);
+        Assert.assertNotNull(result);
 
-        Assert.assertEquals("marcaLogo.png", marcaPrueba.getImagen());
-        Assert.assertEquals("marcaPrueba", marcaPrueba.getNombreMarca());
-        Assert.assertEquals(marcaPrueba3.hashCode(), marcaPrueba3.hashCode());
-        Assert.assertTrue(marcaPrueba.equals(marcaPrueba2));
+        MarcaEntity entity = em.find(MarcaEntity.class, result.getId());
+
+        Assert.assertEquals(entity.getLogo(), marcaPrueba.getLogo());
+        Assert.assertEquals(entity.getNombreMarca(), marcaPrueba.getNombreMarca());
+        Assert.assertEquals(entity.hashCode(), marcaPrueba.hashCode());
+        Assert.assertTrue(entity.equals(marcaPrueba));
     }
 
     /**
@@ -162,11 +186,10 @@ public class MarcaPersistenceTest {
      */
     @Test
     public void buscarMarcaPorNombreTest() {
-        MarcaEntity marcaPrueba = new MarcaEntity("marcaPrueba", "marcaLogo.png");
+        PodamFactory factory = new PodamFactoryImpl();
+        MarcaEntity marcaPrueba = factory.manufacturePojo(MarcaEntity.class);
         mp.create(marcaPrueba);
-        Assert.assertNotNull(mp.findByNombre("marcaPrueba"));
+        Assert.assertNotNull(mp.findByNombre(marcaPrueba.getNombreMarca()));
         Assert.assertNull(mp.findByNombre("marcaPruebe"));
-        Assert.assertEquals("marcaLogo.png", marcaPrueba.getImagen());
-        Assert.assertEquals("marcaPrueba", marcaPrueba.getNombreMarca());
     }
 }

@@ -32,6 +32,7 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
          */
     }
 
+
     /**
      * Constructor para realizar Junit Tests.
      *
@@ -46,7 +47,7 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
     /**
      * @return the calificacionNumerica
      */
-    public long getCalificacionNumerica() {
+    public int getCalificacionNumerica() {
         return calificacionNumerica;
     }
 

@@ -21,10 +21,7 @@ public class MarcaDTO implements Serializable {
      */
     private String nombreMarca;
 
-    /**
-     * atributo que modela la imagen de la marca.
-     */
-    private String imagen;
+
 
     /**
      * atributo que modela el id de la marca.
@@ -45,7 +42,6 @@ public class MarcaDTO implements Serializable {
     public MarcaDTO(MarcaEntity marcaEntity) {
         if (marcaEntity != null) {
             this.id = marcaEntity.getId();
-            this.imagen = marcaEntity.getImagen();
             this.nombreMarca = marcaEntity.getNombreMarca();
         }
     }
@@ -59,7 +55,6 @@ public class MarcaDTO implements Serializable {
         MarcaEntity marcaEntity = new MarcaEntity();
         marcaEntity.setId(this.getId());
         marcaEntity.setNombreMarca(this.getNombreMarca());
-        marcaEntity.setImagen(this.getImagen());
         return marcaEntity;
     }
 
@@ -80,20 +75,6 @@ public class MarcaDTO implements Serializable {
      */
     public void setNombreMarca(String nombreMarca) {
         this.nombreMarca = nombreMarca;
-    }
-
-    /**
-     * @return the imagen
-     */
-    public String getImagen() {
-        return imagen;
-    }
-
-    /**
-     * @param imagen the imagen to set
-     */
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
     }
 
     /**

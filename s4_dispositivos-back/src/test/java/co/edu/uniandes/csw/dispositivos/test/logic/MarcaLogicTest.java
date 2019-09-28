@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.dispositivos.test.logic;
 
 import co.edu.uniandes.csw.dispositivos.ejb.MarcaLogic;
 import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
+import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.MarcaPersistence;
 import java.util.ArrayList;
@@ -85,7 +86,9 @@ public class MarcaLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
+        em.createQuery("delete from MediaEntity").executeUpdate();
         em.createQuery("delete from MarcaEntity").executeUpdate();
+        em.createQuery("delete from DispositivoEntity").executeUpdate();
     }
 
     /**
@@ -95,6 +98,9 @@ public class MarcaLogicTest {
     private void insertData() {
         for (int i = 0; i < 3; i++) {
             MarcaEntity entity = factory.manufacturePojo(MarcaEntity.class);
+            MediaEntity logo = factory.manufacturePojo(MediaEntity.class);
+            logo.setMarca(entity);
+            entity.setLogo(logo);
             em.persist(entity);
             data.add(entity);
         }
@@ -103,12 +109,15 @@ public class MarcaLogicTest {
     @Test
     public void createMarcaTest() throws BusinessLogicException {
         MarcaEntity newEntity = factory.manufacturePojo(MarcaEntity.class);
+        MediaEntity logo = factory.manufacturePojo(MediaEntity.class);
+        newEntity.setLogo(logo);
+        logo.setMarca(newEntity);
         MarcaEntity result = marcaLogic.createMarca(newEntity);
         Assert.assertNotNull(result);
 
-        MarcaEntity entity = em.find(MarcaEntity.class, result.getId());
+        MarcaEntity entity = marcaLogic.getMarca(result.getId());
         Assert.assertEquals(entity.getNombreMarca(), result.getNombreMarca());
-        Assert.assertEquals(entity.getImagen(), result.getImagen());
+        Assert.assertEquals(entity.getLogo(), result.getLogo());
     }
 
     @Test(expected = BusinessLogicException.class)
@@ -121,7 +130,7 @@ public class MarcaLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void createMarcaImagenNullTest() throws BusinessLogicException {
         MarcaEntity newEntity = factory.manufacturePojo(MarcaEntity.class);
-        newEntity.setImagen(null);
+        newEntity.setLogo(null);
         MarcaEntity result = marcaLogic.createMarca(newEntity);
     }
 
@@ -129,13 +138,6 @@ public class MarcaLogicTest {
     public void createMarcaNombreVacioTest() throws BusinessLogicException {
         MarcaEntity newEntity = factory.manufacturePojo(MarcaEntity.class);
         newEntity.setNombreMarca("                    ");
-        MarcaEntity result = marcaLogic.createMarca(newEntity);
-    }
-
-    @Test(expected = BusinessLogicException.class)
-    public void createMarcaImagenVaciaTest() throws BusinessLogicException {
-        MarcaEntity newEntity = factory.manufacturePojo(MarcaEntity.class);
-        newEntity.setImagen("");
         MarcaEntity result = marcaLogic.createMarca(newEntity);
     }
 
@@ -163,7 +165,7 @@ public class MarcaLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void updateMarcaImagenNullTest() throws BusinessLogicException {
         MarcaEntity newEntity = factory.manufacturePojo(MarcaEntity.class);
-        newEntity.setImagen(null);
+        newEntity.setLogo(null);
         MarcaEntity entity = data.get(0);
         MarcaEntity result = marcaLogic.updateMarca(entity.getId(), newEntity);
     }
@@ -172,14 +174,6 @@ public class MarcaLogicTest {
     public void updateMarcaNombreVacioTest() throws BusinessLogicException {
         MarcaEntity newEntity = factory.manufacturePojo(MarcaEntity.class);
         newEntity.setNombreMarca("                    ");
-        MarcaEntity entity = data.get(0);
-        MarcaEntity result = marcaLogic.updateMarca(entity.getId(), newEntity);
-    }
-
-    @Test(expected = BusinessLogicException.class)
-    public void updateMarcaImagenVaciaTest() throws BusinessLogicException {
-        MarcaEntity newEntity = factory.manufacturePojo(MarcaEntity.class);
-        newEntity.setImagen("");
         MarcaEntity entity = data.get(0);
         MarcaEntity result = marcaLogic.updateMarca(entity.getId(), newEntity);
     }
@@ -222,10 +216,10 @@ public class MarcaLogicTest {
     @Test
     public void getMarcaTest() {
         MarcaEntity entity = data.get(0);
-        MarcaEntity resultEntity = marcaLogic.getMarca(entity.getId());
+        MarcaEntity resultEntity = em.find(MarcaEntity.class, entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getNombreMarca(), resultEntity.getNombreMarca());
-        Assert.assertEquals(entity.getImagen(), resultEntity.getImagen());
+        Assert.assertEquals(entity.getLogo(), resultEntity.getLogo());
     }
 
     /**
@@ -237,11 +231,19 @@ public class MarcaLogicTest {
     public void updateMarcaTest() throws BusinessLogicException {
         MarcaEntity entity = data.get(0);
         MarcaEntity pojoEntity = factory.manufacturePojo(MarcaEntity.class);
+        MediaEntity logo = factory.manufacturePojo(MediaEntity.class);
+
         pojoEntity.setId(entity.getId());
+        logo.setLinks("HOA");
+        logo.setId(entity.getLogo().getId());
+        logo.setMarca(pojoEntity);
+        pojoEntity.setLogo(logo);
+        
         marcaLogic.updateMarca(pojoEntity.getId(), pojoEntity);
-        MarcaEntity resp = em.find(MarcaEntity.class, entity.getId());
+
+        MarcaEntity resp = marcaLogic.getMarca(entity.getId());
         Assert.assertEquals(pojoEntity.getNombreMarca(), resp.getNombreMarca());
-        Assert.assertEquals(pojoEntity.getImagen(), resp.getImagen());
+        Assert.assertEquals(pojoEntity.getLogo().getLink(), resp.getLogo().getLink());
     }
 
     /**

@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
+import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.VendedorPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +46,13 @@ public class VendedorPersistenceTest
     }
     
     @Inject
-    private VendedorPersistence vrp;
+    private VendedorPersistence vrp; 
     
     @Inject
     UserTransaction utxn;
 
     private List<VendedorEntity> vrlist = new ArrayList<>();
+    private List<VentaEntity> ventaslist = new ArrayList<>();
     
     /**
      * Establece las configuraciones iniciales del test
@@ -88,7 +90,7 @@ public class VendedorPersistenceTest
     @Test
     public void vendedorTest()
     {
-        VendedorEntity newvr = new VendedorEntity("ei.chernov@russland.com", "Eron", "Ivanovich", 75321.0, 98640.0, "E_Ivanovich", "Deu86Rus");     
+        VendedorEntity newvr = new VendedorEntity("ei.chernov@russland.com", "Eron", "Ivanovich", 75321.0, 98640.0, "E_Ivanovich", "Deu86Rus", ventaslist);     
         Assert.assertEquals("Ivanovich", newvr.getApellido());
         Assert.assertEquals("Eron", newvr.getNombre());
         Assert.assertEquals("ei.chernov@russland.com", newvr.getCorreoElectronico());
@@ -96,6 +98,7 @@ public class VendedorPersistenceTest
         Assert.assertEquals("E_Ivanovich", newvr.getUsuario());
         Assert.assertEquals(75321,newvr.getCelular(),0);        
         Assert.assertEquals(98640,newvr.getCedula(),0);
+        Assert.assertEquals(ventaslist, newvr.getVentas());
     }
     
     @Test
@@ -114,6 +117,7 @@ public class VendedorPersistenceTest
         Assert.assertEquals(vendedor.getUsuario(), vrentity.getUsuario());
         Assert.assertEquals(vendedor.getCelular(), vrentity.getCelular(),0);        
         Assert.assertEquals(vendedor.getCedula(), vrentity.getCedula(),0);
+        Assert.assertEquals(vendedor.getVentas(), vrentity.getVentas());
     }
     
     @Test
@@ -129,6 +133,7 @@ public class VendedorPersistenceTest
         Assert.assertEquals(block.getUsuario(), ref.getUsuario());
         Assert.assertEquals(block.getCelular(), ref.getCelular(), 0);        
         Assert.assertEquals(block.getCedula(), ref.getCedula(), 0);
+        Assert.assertEquals(block.getVentas(), ref.getVentas());
     }
     
     @Test
@@ -163,6 +168,7 @@ public class VendedorPersistenceTest
         Assert.assertEquals(updating.getUsuario(), updated.getUsuario());
         Assert.assertEquals(updating.getCelular(), updated.getCelular(),0);        
         Assert.assertEquals(updating.getCedula(), updated.getCedula(),0); 
+        Assert.assertEquals(updating.getVentas(), updated.getVentas());
     }
     
     @Test
