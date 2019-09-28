@@ -19,8 +19,6 @@ public class MediaEntity extends BaseEntity implements Serializable {
 
     private String link;
 
-    @PodamExclude
-    @OneToOne
     private MarcaEntity marca;
 
     public MediaEntity() {
