@@ -34,13 +34,13 @@ public class VendedorPersistence
         return em.find(VendedorEntity.class, vendedorfID);
     }
     
-    public VendedorEntity findByCedula(double idCard)
+    public VendedorEntity findByCedula(Double idCard)
     {
         TypedQuery<VendedorEntity> tq = em.createQuery("select e from VendedorEntity e where e.cedula = :cedula", VendedorEntity.class);
         tq = tq.setParameter("cedula", idCard); 
         List<VendedorEntity> cedulaFound = tq.getResultList();
         VendedorEntity gotten = (cedulaFound == null || cedulaFound.isEmpty()) ? null : cedulaFound.get(0); 
-        return gotten; 
+        return gotten;       
     }
     
     public List<VendedorEntity> findAll()

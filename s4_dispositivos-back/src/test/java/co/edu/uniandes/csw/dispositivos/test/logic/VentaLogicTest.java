@@ -131,7 +131,7 @@ public class VentaLogicTest {
     }
 
     @Test(expected = BusinessLogicException.class)
-    public void updateNullVendedorTest() throws BusinessLogicException {
+    public void updateNullVentaTest() throws BusinessLogicException {
         VentaEntity updating = null;
         valogic.updateVenta(updating);
     }
@@ -144,12 +144,12 @@ public class VentaLogicTest {
         Assert.assertNull(goneva);
     }
 
-//    @Test(expected=BusinessLogicException.class)
-//    public void deleteVendedorNullTest() throws BusinessLogicException
-//    {
-//        VentaEntity vaentity = valist.get(0);
-//        Long deleteid = vaentity.getId();
-//        vaentity = null;
-//        valogic.deleteVenta(deleteid);
-//    }
+    @Test(expected=BusinessLogicException.class)
+    public void deleteVentaNullTest() throws BusinessLogicException
+    {
+        VentaEntity vaentity = valist.get(0);
+        Long deleteid = vaentity.getId();
+        valogic.deleteVenta(vaentity.getId());
+        valogic.deleteVenta(deleteid);
+    }
 }

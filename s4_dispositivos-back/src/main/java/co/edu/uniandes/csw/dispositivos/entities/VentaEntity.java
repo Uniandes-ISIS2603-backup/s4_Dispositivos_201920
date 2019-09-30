@@ -27,8 +27,8 @@ public class VentaEntity extends BaseEntity implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private VendedorEntity vendedor;
 
-    @PodamExclude
-    private List<MediaEntity> fotos;
+    //@PodamExclude
+    //private List<MediaEntity> fotos;
 
     @PodamExclude
     @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)

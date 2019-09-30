@@ -184,12 +184,12 @@ public class VendedorLogicTest {
         Assert.assertNull(gonevr);
     }
 
-//    @Test(expected=BusinessLogicException.class)
-//    public void deleteVendedorNullTest() throws BusinessLogicException
-//    {
-//        VendedorEntity vrentity = vrlist.get(0);
-//        Long deleteid = vrentity.getId();
-//        vrentity = null;
-//        vrlogic.deleteVendedor(deleteid);
-//    }
+    @Test(expected=BusinessLogicException.class)
+    public void deleteVendedorNullTest() throws BusinessLogicException
+    {
+        VendedorEntity vrentity = vrlist.get(0);
+        Long deleteid = vrentity.getId();
+        vrlogic.deleteVendedor(vrentity.getId());
+        vrlogic.deleteVendedor(deleteid);
+    }
 }
