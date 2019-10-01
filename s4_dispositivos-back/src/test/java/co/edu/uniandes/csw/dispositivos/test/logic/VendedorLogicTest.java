@@ -33,9 +33,15 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class VendedorLogicTest {
 
+    /**
+     * Persistencia donde operan los tests
+     */
     @PersistenceContext
     protected EntityManager vrm;
 
+    /**
+     * @return Contexto con el que se ejecutan los tests
+     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -46,14 +52,26 @@ public class VendedorLogicTest {
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
 
+    /**
+     * Creador de entidades de prueba
+     */
     private PodamFactory vrlfactory = new PodamFactoryImpl();
 
+    /**
+     * Relación con la lógica de la clase
+     */
     @Inject
     private VendedorLogic vrlogic;
 
+    /**
+     * Auxiliar de transacción
+     */
     @Inject
     UserTransaction utxn;
 
+    /**
+     * Contenedor auxiliar con las entidades de la clase
+     */
     private final List<VendedorEntity> vrlist = new ArrayList<>();
 
     /**
@@ -82,6 +100,10 @@ public class VendedorLogicTest {
         }
     }
 
+    /**
+     * Test de la validación de agregar vendedor
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test
     public void createVendedorTest() throws BusinessLogicException {
         VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
@@ -89,6 +111,10 @@ public class VendedorLogicTest {
         Assert.assertNotNull(obtainedvr);
     }
 
+    /**
+     * Test de falla de agregar vendedor sin nombre
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createNullFirstnameVendedorTest() throws BusinessLogicException {
         VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
@@ -96,6 +122,10 @@ public class VendedorLogicTest {
         vrlogic.createVendedor(vendedor);
     }
 
+    /**
+     * Test de falla de agregar vendedor sin apellido
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createNullLastnameVendedorTest() throws BusinessLogicException {
         VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
@@ -103,6 +133,10 @@ public class VendedorLogicTest {
         vrlogic.createVendedor(vendedor);
     }
 
+    /**
+     * Test de falla de agregar vendedor sin usuario
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createNullUserVendedorTest() throws BusinessLogicException {
         VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
@@ -110,6 +144,10 @@ public class VendedorLogicTest {
         vrlogic.createVendedor(vendedor);
     }
 
+    /**
+     * Test de falla de agregar vendedor sin contraseña
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createNullPasswordVendedorTest() throws BusinessLogicException {
         VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
@@ -117,6 +155,10 @@ public class VendedorLogicTest {
         vrlogic.createVendedor(vendedor);
     }
 
+    /**
+     * Test de falla de agregar vendedor sin correo electrónico
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createNullEmailVendedorTest() throws BusinessLogicException {
         VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
@@ -124,6 +166,10 @@ public class VendedorLogicTest {
         vrlogic.createVendedor(vendedor);
     }
 
+    /**
+     * Test de la validación de buscar vendedor
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test
     public void findVendedorTest() throws BusinessLogicException {
         VendedorEntity ref = vrlist.get(0), block = vrlogic.findVendedor(ref.getId());
@@ -138,6 +184,10 @@ public class VendedorLogicTest {
         Assert.assertEquals(block.getCedula(), ref.getCedula(), 0);
     }
 
+    /**
+     * Test de la validación de encontrar todos los vendedores
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test
     public void findAllVendedoresTest() throws BusinessLogicException {
         List<VendedorEntity> allgotten = vrlogic.findAllVendedores();
@@ -153,6 +203,10 @@ public class VendedorLogicTest {
         }
     }
 
+    /**
+     * Test de la validación de cambiar vendedor
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test
     public void updateVendedorTest() throws BusinessLogicException {
         VendedorEntity vendedor = vrlist.get(0);
@@ -170,12 +224,20 @@ public class VendedorLogicTest {
         Assert.assertEquals(updating.getCedula(), updated.getCedula(), 0);
     }
 
+    /**
+     * Test de falla de cambiar vendedor por uno nulo
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateNullVendedorTest() throws BusinessLogicException {
         VendedorEntity updating = null;
         vrlogic.updateVendedor(updating);
     }
 
+    /**
+     * Test de la validación de borrar vendedor
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test
     public void deleteVendedorTest() throws BusinessLogicException {
         VendedorEntity vrentity = vrlist.get(0);
@@ -184,6 +246,10 @@ public class VendedorLogicTest {
         Assert.assertNull(gonevr);
     }
 
+    /**
+     * Test de falla de borrar vendedor inexistente
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test(expected=BusinessLogicException.class)
     public void deleteVendedorNullTest() throws BusinessLogicException
     {

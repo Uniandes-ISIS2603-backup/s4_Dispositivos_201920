@@ -37,9 +37,15 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class VentaPersistenceTest 
 {
+    /**
+     * Base de datos donde operan los tests
+     */
     @PersistenceContext(unitName="dispositivosPU")
     protected EntityManager vam;
 
+    /**
+     * @return Contexto con el que se ejecutan los tests
+     */
     @Deployment
     public static JavaArchive createDeployment() 
     {
@@ -56,14 +62,26 @@ public class VentaPersistenceTest
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
 
+    /**
+     * Relación con la persistencia de la clase
+     */
     @Inject
     private VentaPersistence vap;
 
+    /**
+     * Auxiliar de transacción
+     */
     @Inject
     UserTransaction utxn;
 
+    /**
+     * Contenedor con las entidades de la clase
+     */
     private final List<VentaEntity> valist = new ArrayList<>();
 
+    /**
+     * Establece las configuraciones iniciales del test
+     */
     @Before
     public void prepareTest() 
     {
@@ -105,7 +123,10 @@ public class VentaPersistenceTest
         Assert.assertEquals(35000.0, newva.getPrecioReventa(), 0.0);
         Assert.assertEquals(auxvr, newva.getVendedor()); 
     }
-
+    
+    /**
+     * Test del método agregar venta
+     */
     @Test
     public void createVentaTest() 
     {
@@ -119,6 +140,9 @@ public class VentaPersistenceTest
         Assert.assertEquals(venta.getVendedor(), vaentity.getVendedor()); 
     }
 
+    /**
+     * Test del método buscar venta
+     */
     @Test
     public void findVentaTest() 
     {
@@ -129,6 +153,9 @@ public class VentaPersistenceTest
         Assert.assertEquals(ref.getVendedor(), block.getVendedor()); 
     }
 
+    /**
+     * Test del método enco trar todas las ventas
+     */
     @Test
     public void findAllVentasTest() 
     {
@@ -144,6 +171,9 @@ public class VentaPersistenceTest
         }
     }
 
+    /**
+     * Test del método cambiar venta
+     */
     @Test
     public void updateVentaTest() 
     {
@@ -158,6 +188,9 @@ public class VentaPersistenceTest
         Assert.assertEquals(updating.getVendedor(), updated.getVendedor()); 
     }
 
+    /**
+     * Test del método borrar venta
+     */
     @Test
     public void deleteVentaTest() 
     {
