@@ -34,12 +34,12 @@ public class VendedorDetailDTO extends VendedorDTO implements Serializable
         super(refvr);
         if(refvr != null)
         {
-            /**if(refvr.getVentas() != null)
+            if(refvr.getVentas() != null)
             {
                 ventas = new ArrayList<>(); 
                 for(VentaEntity ventavr : refvr.getVentas())
                     ventas.add(new VentaDTO(ventavr));
-            }*/
+            }
         }
     }
     
@@ -68,7 +68,7 @@ public class VendedorDetailDTO extends VendedorDTO implements Serializable
             List<VentaEntity> ventalist = new ArrayList<>();
             for(VentaDTO dtoventa : getVentas())
                 ventalist.add(dtoventa.toEntity());
-            //extvendedor.setVentas(ventalist); 
+            extvendedor.setVentas(ventalist); 
         }
         return extvendedor; 
     }
