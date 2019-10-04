@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.dispositivos.dtos;
 
+import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import java.io.Serializable;
 
 /**
@@ -14,6 +15,21 @@ import java.io.Serializable;
 public class DispositivoDetailDTO extends DispositivoDTO implements Serializable {
 
     /**
-     * Javier aun no implementa CalificacionDTO
+     *
+     * @param dispositivoEntity
      */
+    public DispositivoDetailDTO(DispositivoEntity dispositivoEntity) {
+
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public DispositivoEntity toEntity() {
+        DispositivoEntity dispositivoEntity = super.toEntity();
+        return dispositivoEntity;
+    }
+
 }

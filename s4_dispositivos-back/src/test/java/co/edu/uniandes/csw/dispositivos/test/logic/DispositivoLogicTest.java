@@ -87,15 +87,21 @@ public class DispositivoLogicTest {
     }
 
     /**
+     **** Nuevo y No Importado ******
+     */
+    /**
      *
      * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void createNombreDispositivoNull() throws BusinessLogicException {
+    public void createNombreDispositivoNuevoNoImportadoNull() throws BusinessLogicException {
 
         DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
         DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
         result.setNombre(null);
+        result.setUsado(false);
+        result.setEsImportado(false);
+        result.setPromocion(false);
 
         dispositivoLogic.createDispositivo(result);
     }
@@ -105,11 +111,13 @@ public class DispositivoLogicTest {
      * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void createDescripcionDispositivoNull() throws BusinessLogicException {
-
+    public void createDescripcionDispositivoNuevoNoImportadoNull() throws BusinessLogicException {
         DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
         DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
         result.setDescripcion(null);
+        result.setUsado(false);
+        result.setEsImportado(false);
+        result.setPromocion(false);
 
         dispositivoLogic.createDispositivo(result);
     }
@@ -119,11 +127,44 @@ public class DispositivoLogicTest {
      * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void createModeloDispositivoNull() throws BusinessLogicException {
+    public void createPrecioDispositivoNuevoNoImportadoNegative() throws BusinessLogicException {
+
+        DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+        result.setPrecio(-1.0);
+        result.setUsado(false);
+        result.setEsImportado(false);
+        result.setPromocion(false);
+
+        dispositivoLogic.createDispositivo(result);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void createDispositivoNuevoNoImportadoNotInStock() throws BusinessLogicException {
+
+        DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+        result.setEnStock(false);
+        result.setUsado(false);
+        result.setEsImportado(false);
+        result.setPromocion(false);
+
+        dispositivoLogic.createDispositivo(result);
+    }
+
+    /**
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createModeloDispositivoNuevoNoImportadoNull() throws BusinessLogicException {
 
         DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
         DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
         result.setModelo(null);
+        result.setUsado(false);
+        result.setEsImportado(false);
+        result.setPromocion(false);
 
         dispositivoLogic.createDispositivo(result);
     }
@@ -133,12 +174,148 @@ public class DispositivoLogicTest {
      * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void createPrecioZeroDispositivo() throws BusinessLogicException {
+    public void createPrecioZeroDispositivoNuevoNoImportado() throws BusinessLogicException {
         DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
         DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
         result.setPrecio(0.0);
+        result.setUsado(false);
+        result.setEsImportado(false);
+        result.setPromocion(false);
 
         dispositivoLogic.createDispositivo(result);
-
     }
+
+    /**
+     **** Nuevo e Importado ******
+     */
+    /**
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createNombreDispositivoNuevoImportadoNull() throws BusinessLogicException {
+
+        DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+        result.setNombre(null);
+        result.setUsado(false);
+        result.setEsImportado(true);
+        result.setPromocion(false);
+
+        dispositivoLogic.createDispositivo(result);
+    }
+
+    /**
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createDescripcionDispositivoNuevoImportadoNull() throws BusinessLogicException {
+        DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+        result.setDescripcion(null);
+        result.setUsado(false);
+        result.setEsImportado(true);
+        result.setPromocion(false);
+
+        dispositivoLogic.createDispositivo(result);
+    }
+
+    /**
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createPrecioDispositivoNuevoImportadoNegative() throws BusinessLogicException {
+
+        DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+        result.setPrecio(-1.0);
+        result.setUsado(false);
+        result.setEsImportado(true);
+        result.setPromocion(false);
+
+        dispositivoLogic.createDispositivo(result);
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void createDispositivoNuevoNoImportadotInStock() throws BusinessLogicException {
+
+        DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+        result.setEnStock(false);
+        result.setUsado(false);
+        result.setEsImportado(true);
+        result.setPromocion(false);
+
+        dispositivoLogic.createDispositivo(result);
+    }
+
+    /**
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createModeloDispositivoNuevoImportadoNull() throws BusinessLogicException {
+
+        DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+        result.setModelo(null);
+        result.setUsado(false);
+        result.setEsImportado(true);
+        result.setPromocion(false);
+
+        dispositivoLogic.createDispositivo(result);
+    }
+
+    /**
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createPrecioZeroDispositivoNuevoImportado() throws BusinessLogicException {
+        DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+        result.setPrecio(0.0);
+        result.setUsado(false);
+        result.setEsImportado(true);
+        result.setPromocion(false);
+
+        dispositivoLogic.createDispositivo(result);
+    }
+
+    /**
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createDispositivoNuevoImportadoPrecioImportacionNegative() throws BusinessLogicException {
+        DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+        result.setPrecioImportacion(-1.0);
+        result.setUsado(false);
+        result.setEsImportado(true);
+        result.setPromocion(false);
+
+        dispositivoLogic.createDispositivo(result);
+    }
+
+    /**
+     **** Es promocion ******
+     */
+    /**
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createDispositivoEnPromocionPrecioLessDescuento() throws BusinessLogicException {
+        DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
+        result.setPrecio(100.0);
+        result.setDescuento(200.0);
+        result.setPromocion(true);
+
+        dispositivoLogic.createDispositivo(result);
+    }
+
 }
