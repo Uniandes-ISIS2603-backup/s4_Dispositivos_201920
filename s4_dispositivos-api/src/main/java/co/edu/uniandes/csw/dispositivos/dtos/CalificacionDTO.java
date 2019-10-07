@@ -14,26 +14,30 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author Estudiante
  */
-public class CalificacionDTO implements Serializable{
-    
+public class CalificacionDTO implements Serializable {
+
     private Long id;
     private int calificacionNumerica;
-    private String[] comentarios;
-    
-    public CalificacionDTO(){
-        
+    private String comentario;
+
+    private DispositivoDTO dispositivo;
+
+    public CalificacionDTO() {
+
     }
-    
-        
+
     public CalificacionDTO(CalificacionEntity calificacionEntity) {
         if (calificacionEntity != null) {
             this.id = calificacionEntity.getId();
             this.calificacionNumerica = (int) calificacionEntity.getCalificacionNumerica();
-            this.comentarios = calificacionEntity.getComentarios();
+            this.comentario = calificacionEntity.getComentario();
+            if (calificacionEntity.getDispositivo() != null) {
+                this.dispositivo = new DispositivoDTO(calificacionEntity.getDispositivo());
+            }
         }
     }
-    
-      /**
+
+    /**
      * Convertir DTO a Entity
      *
      * @return Un Entity con los valores del DTO
@@ -42,10 +46,13 @@ public class CalificacionDTO implements Serializable{
         CalificacionEntity entity = new CalificacionEntity();
         entity.setId(this.id);
         entity.setCalificacionNumerica(this.calificacionNumerica);
-        entity.setComentarios(this.comentarios);
+        entity.setComentario(this.comentario);
+        if (this.dispositivo != null) {
+            entity.setDispositivo(this.dispositivo.toEntity());
+        }
         return entity;
     }
-    
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
@@ -80,16 +87,16 @@ public class CalificacionDTO implements Serializable{
     }
 
     /**
-     * @return the comentarios
+     * @return the comentario
      */
-    public String[] getComentarios() {
-        return comentarios;
+    public String getComentario() {
+        return comentario;
     }
 
     /**
-     * @param comentarios the comentarios to set
+     * @param comentario the comentario to set
      */
-    public void setComentarios(String[] comentarios) {
-        this.comentarios = comentarios;
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 }
