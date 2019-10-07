@@ -41,7 +41,7 @@ public class ComprobanteDePagoResource
     {
         LOGGER.log(Level.INFO, "ReviewResource createReview: input: {0}", comprobante);
         //ComprobanteDePagoDTO nuevoReviewDTO = new ComprobanteDePagoDTO(comprobanteLogic.createComprobante(clienteId, comprobante.toEntity()));
-        LOGGER.log(Level.INFO, "ReviewResource createReview: output: {0}", nuevoReviewDTO);
+        //LOGGER.log(Level.INFO, "ReviewResource createReview: output: {0}", nuevoReviewDTO);
        // return nuevoReviewDTO;    
     return null;
     }
