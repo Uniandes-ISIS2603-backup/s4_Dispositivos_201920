@@ -5,7 +5,10 @@
  */
 package co.edu.uniandes.csw.dispositivos.dtos;
 
+import co.edu.uniandes.csw.dispositivos.entities.CategoriaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
+import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
+import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
 import co.edu.uniandes.csw.dispositivos.enu.EstadoDispositivo;
 import co.edu.uniandes.csw.dispositivos.enu.Tipo;
 import java.io.Serializable;
@@ -16,24 +19,45 @@ import java.io.Serializable;
  */
 public class DispositivoDTO implements Serializable {
 
-    private String nombre;
-    private String descripcion;
+    /**
+     * Strings
+     */
     private String modelo;
+    private String descripcion;
+    private String nombre;
 
+    /**
+     * Doubles
+     */
     private Double precio;
-    private Double descuento;
     private Double precioImportacion;
+    private Double descuento;
 
+    /**
+     * Longs
+     */
+    private long id;
+
+    /**
+     * Booleans
+     */
     private boolean promocion;
     private boolean enStock;
     private boolean esImportado;
     private boolean usado;
 
-    private MarcaDTO marca;
-    private CategoriaDTO categoria;
-
+    /**
+     * Enums
+     */
     private Tipo tipo;
     private EstadoDispositivo estado;
+
+    /**
+     * Clases de cardinalidad 1
+     */
+    private FacturaDTO factura;
+    private MarcaDTO marca;
+    private CategoriaDTO categoria;
 
     /**
      *
@@ -49,54 +73,90 @@ public class DispositivoDTO implements Serializable {
      */
     public DispositivoDTO(DispositivoEntity dispositivo) {
         if (dispositivo != null) {
-            this.nombre = dispositivo.getNombre();
+            this.id = dispositivo.getId();
             this.descripcion = dispositivo.getDescripcion();
             this.descuento = dispositivo.getDescuento();
             this.enStock = dispositivo.isEnStock();
             this.esImportado = dispositivo.isEsImportado();
-            this.modelo = dispositivo.getNombre();
+            this.estado = dispositivo.getEstado();
+            this.modelo = dispositivo.getModelo();
+            this.nombre = dispositivo.getNombre();
             this.precio = dispositivo.getPrecio();
             this.precioImportacion = dispositivo.getPrecioImportacion();
             this.promocion = dispositivo.isPromocion();
-            this.usado = dispositivo.isUsado();
             this.tipo = dispositivo.getTipo();
-            this.estado = dispositivo.getEstado();
+            this.usado = dispositivo.isUsado();
+
+            if (dispositivo.getFactura() != null) {
+                this.factura = new FacturaDTO(dispositivo.getFactura());
+            }
             if (dispositivo.getMarca() != null) {
                 this.marca = new MarcaDTO(dispositivo.getMarca());
-            } else {
-                this.marca = null;
             }
             if (dispositivo.getCategoria() != null) {
                 this.categoria = new CategoriaDTO(dispositivo.getCategoria());
-            } else {
-                this.categoria = null;
             }
         }
     }
 
     public DispositivoEntity toEntity() {
-        DispositivoEntity entity = new DispositivoEntity();
-        entity.setDescripcion(this.descripcion);
-        entity.setDescuento(this.descuento);
-        entity.setEnStock(this.enStock);
-        entity.setEsImportado(this.isEsImportado());
-        entity.setModelo(this.modelo);
-        entity.setNombre(this.nombre);
-        entity.setPrecio(this.precio);
-        entity.setPrecioImportacion(this.precioImportacion);
-        entity.setPromocion(this.promocion);
-        entity.setUsado(this.usado);
-        entity.setTipo(this.tipo);
-        entity.setEstado(this.estado);
 
+        DispositivoEntity dispositivoEntity = new DispositivoEntity();
+        dispositivoEntity.setId(this.id);
+        dispositivoEntity.setDescripcion(this.descripcion);
+        dispositivoEntity.setDescuento(this.descuento);
+        dispositivoEntity.setEnStock(this.enStock);
+        dispositivoEntity.setEsImportado(this.esImportado);
+        dispositivoEntity.setEstado(this.estado);
+        dispositivoEntity.setModelo(this.modelo);
+        dispositivoEntity.setNombre(this.nombre);
+        dispositivoEntity.setPrecio(this.precio);
+        dispositivoEntity.setPrecioImportacion(this.precioImportacion);
+        dispositivoEntity.setPromocion(this.promocion);
+        dispositivoEntity.setTipo(this.tipo);
+        dispositivoEntity.setUsado(this.usado);
+        if (this.factura != null) {
+            dispositivoEntity.setFactura(this.factura.toEntity());
+        }
         if (this.marca != null) {
-            entity.setMarca(this.marca.toEntity());
+            dispositivoEntity.setMarca(this.marca.toEntity());
         }
         if (this.categoria != null) {
-            entity.setCategoria(this.categoria.toEntity());
+            dispositivoEntity.setCategoria(this.categoria.toEntity());
         }
+        return dispositivoEntity;
+    }
 
-        return entity;
+    /**
+     *
+     * @return
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public EstadoDispositivo getEstado() {
+        return estado;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public FacturaDTO getFactura() {
+        return factura;
     }
 
     /**
@@ -175,12 +235,52 @@ public class DispositivoDTO implements Serializable {
         return usado;
     }
 
+    /**
+     *
+     * @return
+     */
     public MarcaDTO getMarca() {
         return marca;
     }
 
+    /**
+     *
+     * @return
+     */
     public CategoriaDTO getCategoria() {
         return categoria;
+    }
+
+    /**
+     *
+     * @param id
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
+     *
+     * @param tipo
+     */
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    /**
+     *
+     * @param estado
+     */
+    public void setEstado(EstadoDispositivo estado) {
+        this.estado = estado;
+    }
+
+    /**
+     *
+     * @param factura
+     */
+    public void setFactura(FacturaDTO factura) {
+        this.factura = factura;
     }
 
     /**
