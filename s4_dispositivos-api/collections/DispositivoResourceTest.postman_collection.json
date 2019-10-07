@@ -1,0 +1,46 @@
+{
+	"info": {
+		"_postman_id": "ca5708e3-bc5b-479f-b231-54287c48a81f",
+		"name": "DispositivoResourceTest",
+		"description": "Dispositivo Resource Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "72eef936-ea33-42c0-b849-f74c32c1e6c6",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"dispositivos"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
