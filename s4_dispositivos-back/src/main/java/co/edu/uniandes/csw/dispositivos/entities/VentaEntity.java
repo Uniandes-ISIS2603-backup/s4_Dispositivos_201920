@@ -14,8 +14,6 @@ import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- * 666
- *
  * @author Zharet Bautista Montes
  */
 @Entity
