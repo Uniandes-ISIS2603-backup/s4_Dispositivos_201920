@@ -40,9 +40,11 @@ public class ComprobanteDePagoResource
     public ComprobanteDePagoDTO createReview(@PathParam("clienteId") Long clienteId, ComprobanteDePagoDTO comprobante) throws BusinessLogicException 
     {
         LOGGER.log(Level.INFO, "ReviewResource createReview: input: {0}", comprobante);
-        ComprobanteDePagoDTO nuevoReviewDTO = new ComprobanteDePagoDTO(comprobanteLogic.createComprobante(clienteId, comprobante.toEntity()));
+        //ComprobanteDePagoDTO nuevoReviewDTO = new ComprobanteDePagoDTO(comprobanteLogic.createComprobante(clienteId, comprobante.toEntity()));
         LOGGER.log(Level.INFO, "ReviewResource createReview: output: {0}", nuevoReviewDTO);
-        return nuevoReviewDTO;    }
+       // return nuevoReviewDTO;    
+    return null;
+    }
 
     @GET
     public List<ComprobanteDePagoDTO> getReviews(@PathParam("clienteId") Long clienteId) {
