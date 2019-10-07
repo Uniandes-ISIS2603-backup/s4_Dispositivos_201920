@@ -1,0 +1,1 @@
+INSERT INTO DispositivoEntity(id, nombre, descripcion, modelo, marca_id, categoria_id) VALUES(1,'Galaxy S10','Excelente dispositivo', 'Galaxy', 3,4) 

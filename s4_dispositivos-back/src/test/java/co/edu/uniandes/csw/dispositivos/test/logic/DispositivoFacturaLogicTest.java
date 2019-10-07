@@ -117,14 +117,14 @@ public class DispositivoFacturaLogicTest {
     public void replaceFacturaTest() {
         DispositivoEntity entity = dispositivosData.get(0);
         dispositivoFacturaLogic.replaceFactura(entity.getId(), data.get(1).getId());
-        entity = dispositivoLogic.find(entity.getId());
+        entity = dispositivoLogic.getDispositivo(entity.getId());
         Assert.assertEquals(entity.getFactura(), data.get(1));
     }
 
     @Test
     public void removeFacturaTest() throws BusinessLogicException {
         dispositivoFacturaLogic.removeFactura(dispositivosData.get(0).getId());
-        DispositivoEntity response = dispositivoLogic.find(dispositivosData.get(0).getId());
+        DispositivoEntity response = dispositivoLogic.getDispositivo(dispositivosData.get(0).getId());
         Assert.assertNull(response.getFactura());
     }
 }
