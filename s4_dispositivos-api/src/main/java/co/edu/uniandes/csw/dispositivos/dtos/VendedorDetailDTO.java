@@ -17,6 +17,9 @@ import java.util.List;
  */
 public class VendedorDetailDTO extends VendedorDTO implements Serializable
 {
+    /**
+     * Lista de ventas del DTODetail
+     */
     private List<VentaDTO> ventas; 
     
     /**
@@ -44,6 +47,7 @@ public class VendedorDetailDTO extends VendedorDTO implements Serializable
     }
     
     /**
+     * Retorna las ventas del DTODetail
      * @return the ventas
      */
     public List<VentaDTO> getVentas() 
@@ -52,6 +56,7 @@ public class VendedorDetailDTO extends VendedorDTO implements Serializable
     }
 
     /**
+     * Asigna las ventas del DTODetail
      * @param ventas the ventas to set
      */
     public void setVentas(List<VentaDTO> ventas) 
@@ -59,6 +64,10 @@ public class VendedorDetailDTO extends VendedorDTO implements Serializable
         this.ventas = ventas;
     }
     
+    /**
+     * Transforma el DTODetail en un Entity con asociaciones
+     * @return VendedorEntity
+     */
     @Override
     public VendedorEntity toEntity()
     {
