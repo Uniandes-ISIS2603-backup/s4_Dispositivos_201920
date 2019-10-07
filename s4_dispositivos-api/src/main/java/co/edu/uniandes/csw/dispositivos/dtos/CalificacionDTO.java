@@ -18,7 +18,7 @@ public class CalificacionDTO implements Serializable{
     
     private Long id;
     private int calificacionNumerica;
-    private String[] comentarios;
+    private String comentarios;
     
     public CalificacionDTO(){
         
@@ -82,14 +82,14 @@ public class CalificacionDTO implements Serializable{
     /**
      * @return the comentarios
      */
-    public String[] getComentarios() {
+    public String getComentarios() {
         return comentarios;
     }
 
     /**
      * @param comentarios the comentarios to set
      */
-    public void setComentarios(String[] comentarios) {
+    public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
     }
 }

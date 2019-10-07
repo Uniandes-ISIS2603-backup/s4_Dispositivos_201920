@@ -107,7 +107,7 @@ public class CalificacionPersistenceTest {
         Assert.assertNotNull(ce);
         CalificacionEntity entity = em.find(CalificacionEntity.class, ce.getId());
 
-        Assert.assertArrayEquals(newEntity.getComentarios(), entity.getComentarios());
+        Assert.assertEquals(newEntity.getComentarios(), entity.getComentarios());
 
         Assert.assertEquals(newEntity.getCalificacionNumerica(), entity.getCalificacionNumerica());
     }
@@ -174,7 +174,7 @@ public class CalificacionPersistenceTest {
         CalificacionEntity entity = data.get(0);
         CalificacionEntity newEntity = cp.findByCalificacion(entity.getCalificacionNumerica());
         Assert.assertNotNull(newEntity);
-        Assert.assertArrayEquals(entity.getComentarios(), newEntity.getComentarios());
+        Assert.assertEquals(entity.getComentarios(), newEntity.getComentarios());
 
         newEntity = cp.findByCalificacion(null);
         Assert.assertNull(newEntity);

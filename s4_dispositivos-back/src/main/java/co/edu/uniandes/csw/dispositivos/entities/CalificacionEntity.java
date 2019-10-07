@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 public class CalificacionEntity extends BaseEntity implements Serializable {
 
     private int calificacionNumerica;
-    private String[] comentarios;
+    private String comentarios;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private DispositivoEntity dispositivo;
@@ -39,7 +39,7 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
      * @param calificacion calificacion del producto.
      * @param comentarios comentarios del producto.
      */
-    public CalificacionEntity(int calificacion, String[] comentarios) {
+    public CalificacionEntity(int calificacion, String comentarios) {
         this.calificacionNumerica = calificacion;
         this.comentarios = comentarios;
     }
@@ -61,14 +61,14 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
     /**
      * @return the comentarios
      */
-    public String[] getComentarios() {
+    public String getComentarios() {
         return comentarios;
     }
 
     /**
      * @param comentarios the comentarios to set
      */
-    public void setComentarios(String[] comentarios) {
+    public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
     }
 }
