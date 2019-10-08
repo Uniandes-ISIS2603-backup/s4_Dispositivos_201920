@@ -13,6 +13,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamDoubleValue;
@@ -55,6 +56,10 @@ public class FacturaEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
     private ClienteEntity cliente;
+        
+    @PodamExclude
+    @OneToOne
+    private VentaEntity venta;
 
     /**
      * Fecha de pago de los dispositivos electronicos
@@ -78,13 +83,15 @@ public class FacturaEntity extends BaseEntity implements Serializable {
      * @param pImpuestos valor de impuestos a establecer.
      * @param pDispositivos dispositivos a establecer.
      * @param pFechaDePago fecha de pago a establecer.
+     * @param venta venta asociada.
      */
-    public FacturaEntity(Integer pNumeroDeFactura, Double pTotalPago, Double pImpuestos, List<DispositivoEntity> pDispositivos, Date pFechaDePago) {
+    public FacturaEntity(Integer pNumeroDeFactura, Double pTotalPago, Double pImpuestos, List<DispositivoEntity> pDispositivos, Date pFechaDePago,VentaEntity venta) {
         this.numeroDeFactura = pNumeroDeFactura;
         this.totalPago = pTotalPago;
         this.impuestos = pImpuestos;
         this.dispositivos = pDispositivos;
         this.fechaDePago = pFechaDePago;
+        this.venta=venta;
     }
 
     /**
@@ -194,6 +201,20 @@ public class FacturaEntity extends BaseEntity implements Serializable {
      */
     public void setCliente(ClienteEntity cliente) {
         this.cliente = cliente;
+    }
+
+    /**
+     * @return the venta
+     */
+    public VentaEntity getVenta() {
+        return venta;
+    }
+
+    /**
+     * @param venta the venta to set
+     */
+    public void setVenta(VentaEntity venta) {
+        this.venta = venta;
     }
 
 }

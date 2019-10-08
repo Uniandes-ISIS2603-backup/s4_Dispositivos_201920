@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.dispositivos.test.logic;
 
 import co.edu.uniandes.csw.dispositivos.ejb.ComprobanteDePagoLogic;
+import co.edu.uniandes.csw.dispositivos.entities.ClienteEntity;
 import co.edu.uniandes.csw.dispositivos.entities.ComprobanteDePagoEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.ComprobanteDePagoPersistence;
@@ -28,17 +29,16 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  * Test de lógica de la clase ComprobanteDePagoLogic
- *
  * @author Dianis Caro
  */
 @RunWith(Arquillian.class)
 public class ComprobanteDePagoLogicTest {
 
-    private PodamFactory factory = new PodamFactoryImpl();
-
     @PersistenceContext(unitName = "dispositivosPU")
     private EntityManager em;
 
+    PodamFactory factory = new PodamFactoryImpl();
+    
     @Inject
     private ComprobanteDePagoLogic comprobanteLogic;
 
@@ -46,7 +46,22 @@ public class ComprobanteDePagoLogicTest {
     private UserTransaction utx;
 
     private List<ComprobanteDePagoEntity> data = new ArrayList<ComprobanteDePagoEntity>();
+    private List<ClienteEntity> dataCliente = new ArrayList<ClienteEntity>();
 
+    /**
+     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
+     * El jar contiene las clases, el descriptor de la base de datos y el
+     * archivo beans.xml para resolver la inyección de dependencias.
+     */
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+                .addPackage(ComprobanteDePagoEntity.class.getPackage())
+                .addPackage(ComprobanteDePagoLogic.class.getPackage())
+                .addPackage(ComprobanteDePagoPersistence.class.getPackage())
+                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+                .addAsManifestResource("META-INF/beans.xml", "beans.xml");
+    }
     /**
      * Configuración inicial de la prueba
      */
@@ -67,42 +82,39 @@ public class ComprobanteDePagoLogicTest {
         }
     }
     /**
-     * Inserta los datos iniciales para el correcto funcionamiento de las
-     * pruebas
-     */
-    private void insertData() {
-        for (int i = 0; i < 3; i++) {
-            ComprobanteDePagoEntity adminEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
-            em.persist(adminEntity);
-            data.add(adminEntity);
-        }
-    }
-    /**
      * Limpia las tablas que están implicadas en la prueba
      */
     private void clearData() {
-        em.createQuery("delete from ComprobanteDePagoEntity").executeUpdate();
+       em.createQuery("delete from ComprobanteDePagoEntity").executeUpdate();
+       em.createQuery("delete from ClienteEntity").executeUpdate();
     }
     /**
-     * Construye el despliegue de la prueba a realizar
-     * @return jar, es decir JavaArchive.
+     * Inserta los datos iniciales para el correcto funcionamiento de las pruebas
      */
-    @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(ComprobanteDePagoEntity.class.getPackage())
-                .addPackage(ComprobanteDePagoPersistence.class.getPackage())
-                .addPackage(ComprobanteDePagoLogic.class.getPackage())
-                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
-                .addAsManifestResource("META-INF/beans.xml", "beans.xml");
+    private void insertData() {
+        for (int i = 0; i < 3; i++) {
+            ClienteEntity entity = factory.manufacturePojo(ClienteEntity.class);
+            em.persist(entity);
+            dataCliente.add(entity);
+        }
+        for (int k = 0; k < 3; k++)
+        {
+            ComprobanteDePagoEntity entity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+            if (k == 0)
+                entity.setCliente(dataCliente.get(0));
+            
+            em.persist(entity);
+            data.add(entity);
+        }
     }
+    
     /**
      * Prueba para eliminar un comprobante
      */
     @Test
-    public void deleteComprobanteTest() {
-        ComprobanteDePagoEntity entity = data.get(1);
-        comprobanteLogic.deleteComprobante(entity.getId());
+    public void deleteComprobanteTest() throws BusinessLogicException{
+        ComprobanteDePagoEntity entity = data.get(0);
+        comprobanteLogic.deleteComprobante(entity.getId(), dataCliente.get(0).getId());
         ComprobanteDePagoEntity deleted = em.find(ComprobanteDePagoEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
@@ -110,9 +122,10 @@ public class ComprobanteDePagoLogicTest {
      * Prueba para consultar un comprobante
      */
     @Test
-    public void getComprobanteTest() {
+    public void getComprobanteTest() 
+    {
         ComprobanteDePagoEntity entity = data.get(0);
-        ComprobanteDePagoEntity resultEntity = comprobanteLogic.getComprobante(entity.getId());
+        ComprobanteDePagoEntity resultEntity = comprobanteLogic.getComprobante(entity.getId(), dataCliente.get(0).getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(resultEntity.getId(), entity.getId());
         Assert.assertEquals(resultEntity.getFechaDeFactura(), entity.getFechaDeFactura());
@@ -127,8 +140,8 @@ public class ComprobanteDePagoLogicTest {
      */
     @Test
     public void getComprobantesTest() {
-        List<ComprobanteDePagoEntity> list = comprobanteLogic.getComprobantes();
-        Assert.assertEquals(data.size(), list.size());
+        List<ComprobanteDePagoEntity> list = comprobanteLogic.getComprobantes(dataCliente.get(0).getId());
+        Assert.assertEquals(1, list.size());
         for (ComprobanteDePagoEntity entity : list) {
             boolean found = false;
             for (ComprobanteDePagoEntity storedEntity : data) {
@@ -148,7 +161,7 @@ public class ComprobanteDePagoLogicTest {
         ComprobanteDePagoEntity entity = data.get(0);
         ComprobanteDePagoEntity pojoEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
         pojoEntity.setId(entity.getId());
-        comprobanteLogic.updateComprobanteDePago(pojoEntity.getId(), pojoEntity);
+        comprobanteLogic.updateComprobanteDePago(pojoEntity, dataCliente.get(0).getId());
         ComprobanteDePagoEntity resp = em.find(ComprobanteDePagoEntity.class, entity.getId());
         Assert.assertNotNull(resp);
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
@@ -165,18 +178,19 @@ public class ComprobanteDePagoLogicTest {
     @Test
     public void createComprobanteTest() throws BusinessLogicException {
         ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
-        ComprobanteDePagoEntity result = comprobanteLogic.createComprobante(comprobanteEntity);
+        comprobanteEntity.setCliente(dataCliente.get(1));
+        ComprobanteDePagoEntity result = comprobanteLogic.createComprobante(comprobanteEntity, dataCliente.get(1).getId());
         Assert.assertNotNull(result);
 
         ComprobanteDePagoEntity entity = em.find(ComprobanteDePagoEntity.class, result.getId());
         Assert.assertNotNull(entity);
         Assert.assertEquals(entity.getId(), result.getId());
         Assert.assertEquals(entity.getFechaDeFactura(), result.getFechaDeFactura());
-        Assert.assertEquals(entity.getId(), result.getId());
         Assert.assertEquals(entity.getImpuestos(), result.getImpuestos());
         Assert.assertEquals(entity.getNumeroDeFactura(), result.getNumeroDeFactura());
         Assert.assertEquals(entity.getNumeroDeTarjeta(), result.getNumeroDeTarjeta());
         Assert.assertEquals(entity.getTotalDePago(), result.getTotalDePago());
+        Assert.assertEquals(entity.getCliente(), result.getCliente());
     }
     /**
      * Test para crear un comprobante de pago con un número de dígitos diferente a 16
@@ -186,7 +200,7 @@ public class ComprobanteDePagoLogicTest {
     public void createNumeroTarjetaDiferente16() throws BusinessLogicException {
         ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
         comprobanteEntity.setNumeroDeTarjeta("1234567890");
-        comprobanteLogic.createComprobante(comprobanteEntity);
+        comprobanteLogic.createComprobante(comprobanteEntity, dataCliente.get(0).getId());
     }
     /**
      * Test para crear un comprobante de pago con una fecha en null
@@ -196,7 +210,7 @@ public class ComprobanteDePagoLogicTest {
     public void createFechaNull() throws BusinessLogicException {
         ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
         comprobanteEntity.setFechaDeFactura(null);
-        comprobanteLogic.createComprobante(comprobanteEntity);
+        comprobanteLogic.createComprobante(comprobanteEntity, dataCliente.get(0).getId());
     }
     /**
      * Test para crear un comprobante de pago con un total de pago en null
@@ -206,7 +220,7 @@ public class ComprobanteDePagoLogicTest {
     public void createTotalDePagoNull() throws BusinessLogicException {
         ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
         comprobanteEntity.setTotalDePago(null);
-        comprobanteLogic.createComprobante(comprobanteEntity);
+        comprobanteLogic.createComprobante(comprobanteEntity, dataCliente.get(0).getId());
     }
     /**
      * Test para crear un comprobante de pago con un nùmero de factura en null
@@ -216,7 +230,7 @@ public class ComprobanteDePagoLogicTest {
     public void createNumeroDeFacturaNull() throws BusinessLogicException {
         ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
         comprobanteEntity.setNumeroDeFactura(null);
-        comprobanteLogic.createComprobante(comprobanteEntity);
+        comprobanteLogic.createComprobante(comprobanteEntity, dataCliente.get(0).getId());
     }
     /**
      * Test para crear un comprobante de pago con impuestos null
@@ -226,7 +240,7 @@ public class ComprobanteDePagoLogicTest {
     public void createImpuestosNull() throws BusinessLogicException {
         ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
         comprobanteEntity.setImpuestos(null);
-        comprobanteLogic.createComprobante(comprobanteEntity);
+        comprobanteLogic.createComprobante(comprobanteEntity, dataCliente.get(0).getId());
     }
     /**
      * Test para crear un comprobante de pago con un nùmero de tarjeta en null
@@ -236,7 +250,7 @@ public class ComprobanteDePagoLogicTest {
     public void createNumeroDeTarjetaNull() throws BusinessLogicException {
         ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
         comprobanteEntity.setNumeroDeTarjeta(null);
-        comprobanteLogic.createComprobante(comprobanteEntity);
+        comprobanteLogic.createComprobante(comprobanteEntity, dataCliente.get(0).getId());
     }
      /**
      * Test para crear un comprobante con nùmero de factura existente
@@ -245,13 +259,9 @@ public class ComprobanteDePagoLogicTest {
     @Test(expected = BusinessLogicException.class)
     public  void createNumeroFacturaExistente() throws BusinessLogicException
     {
-        ComprobanteDePagoEntity comprobanteEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
-        ComprobanteDePagoEntity result = comprobanteLogic.createComprobante(comprobanteEntity);
-        Assert.assertNotNull(result);
-        
         ComprobanteDePagoEntity comprobanteEntity2 = factory.manufacturePojo(ComprobanteDePagoEntity.class);
-        comprobanteEntity2.setNumeroDeFactura(comprobanteEntity.getNumeroDeFactura());
-        comprobanteLogic.createComprobante(comprobanteEntity2);
+        comprobanteEntity2.setNumeroDeFactura(data.get(0).getNumeroDeFactura());
+        comprobanteLogic.createComprobante(comprobanteEntity2, dataCliente.get(0).getId());
     }
     /**
      * Test para actualizar un numero de factura en 0
@@ -262,7 +272,7 @@ public class ComprobanteDePagoLogicTest {
     {
         ComprobanteDePagoEntity entity = data.get(0);
         entity.setNumeroDeFactura(0);
-        comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
+        comprobanteLogic.updateComprobanteDePago(entity, dataCliente.get(0).getId());
     }
     /**
      * Test para actualizar el total de pago en 0
@@ -273,7 +283,7 @@ public class ComprobanteDePagoLogicTest {
     {
         ComprobanteDePagoEntity entity = data.get(0);
         entity.setTotalDePago(0.0);
-        comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
+        comprobanteLogic.updateComprobanteDePago(entity, dataCliente.get(0).getId());
     }
     /**
      * Test para actualizar los impuestos en 0
@@ -284,7 +294,7 @@ public class ComprobanteDePagoLogicTest {
     {
         ComprobanteDePagoEntity entity = data.get(0);
         entity.setImpuestos(0.0);
-        comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
+        comprobanteLogic.updateComprobanteDePago(entity, dataCliente.get(0).getId());
     }
     /**
      * Test para actualizar el número de tarjeta vacío
@@ -295,7 +305,7 @@ public class ComprobanteDePagoLogicTest {
     {
         ComprobanteDePagoEntity entity = data.get(0);
         entity.setNumeroDeTarjeta("");
-        comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
+        comprobanteLogic.updateComprobanteDePago(entity, dataCliente.get(0).getId());
     }
     /**
      * Test para actualizarla numero de Tarjeta con dígitos diferentes a 16
@@ -306,18 +316,18 @@ public class ComprobanteDePagoLogicTest {
     {
         ComprobanteDePagoEntity entity = data.get(0);
         entity.setNumeroDeTarjeta("1234567890");
-        comprobanteLogic.updateComprobanteDePago(entity.getId(), entity);
+        comprobanteLogic.updateComprobanteDePago(entity, dataCliente.get(0).getId());
     }
     /**
      * Test para actualizarla numero de factura existente
      * @throws BusinessLogicException si una regla de negocio no se cumple
      */
     @Test(expected = BusinessLogicException.class)
-    public  void updateComprobanteFcaturaExistente() throws BusinessLogicException
+    public  void updateComprobanteFacturaExistente() throws BusinessLogicException
     {
         ComprobanteDePagoEntity entity = data.get(0);
         ComprobanteDePagoEntity comprobanteUpdate = data.get(1);
         comprobanteUpdate.setNumeroDeFactura(entity.getNumeroDeFactura());
-        comprobanteLogic.updateComprobanteDePago(comprobanteUpdate.getId(), comprobanteUpdate);
+        comprobanteLogic.updateComprobanteDePago(entity, dataCliente.get(0).getId());
     }
 }

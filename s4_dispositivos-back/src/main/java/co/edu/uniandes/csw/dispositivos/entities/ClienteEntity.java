@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamDoubleValue;
 import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamStrategyValue;
@@ -61,7 +62,21 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<FacturaEntity> facturas;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<ComprobanteDePagoEntity> comprobantesRecibidos;
+    
+    @PodamExclude
+    @OneToOne
+    private MedioDePagoEntity metodoDePago;
 
+    @PodamExclude
+    private List<DispositivoEntity> carritoDeCompras;
+       
+    @PodamExclude
+    private List<DispositivoEntity> listaDeDeseos;
+    
     /**
      * Constructor creado vacio para no tener problemas al implementar
      * Serializable
@@ -226,6 +241,62 @@ public class ClienteEntity extends BaseEntity implements Serializable {
      */
     public void setFacturas(List<FacturaEntity> facturas) {
         this.facturas = facturas;
+    }
+
+    /**
+     * @return the comprobantesRecibidos
+     */
+    public List<ComprobanteDePagoEntity> getComprobantesRecibidos() {
+        return comprobantesRecibidos;
+    }
+
+    /**
+     * @param comprobantesRecibidos the comprobantesRecibidos to set
+     */
+    public void setComprobantesRecibidos(List<ComprobanteDePagoEntity> comprobantesRecibidos) {
+        this.comprobantesRecibidos = comprobantesRecibidos;
+    }
+
+    /**
+     * @return the metodoDePago
+     */
+    public MedioDePagoEntity getMetodoDePago() {
+        return metodoDePago;
+    }
+
+    /**
+     * @param metodoDePago the metodoDePago to set
+     */
+    public void setMetodoDePago(MedioDePagoEntity metodoDePago) {
+        this.metodoDePago = metodoDePago;
+    }
+
+    /**
+     * @return the carritoDeCompras
+     */
+    public List<DispositivoEntity> getCarritoDeCompras() {
+        return carritoDeCompras;
+    }
+
+    /**
+     * @param carritoDeCompras the carritoDeCompras to set
+     */
+    public void setCarritoDeCompras(List<DispositivoEntity> carritoDeCompras) {
+        this.carritoDeCompras = carritoDeCompras;
+    }
+
+    /**
+     * @return the listaDeDeseos
+     */
+    public List<DispositivoEntity> getListaDeDeseos() {
+        return listaDeDeseos;
+    }
+
+    /**
+     * @param listaDeDeseos the listaDeDeseos to set
+     */
+    public void setListaDeDeseos(List<DispositivoEntity> listaDeDeseos) {
+        this.listaDeDeseos = listaDeDeseos;
     }
 
 }
