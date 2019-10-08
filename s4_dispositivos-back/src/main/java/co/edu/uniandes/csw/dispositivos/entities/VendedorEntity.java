@@ -19,14 +19,44 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class VendedorEntity extends BaseEntity implements Serializable
 {
-    private String correoElectronico;    
-    private String nombre;    
-    private String apellido;     
-    private Double celular;    
-    private Double cedula;     
-    private String usuario;    
+    /**
+     * Atributo correo electrónico
+     */
+    private String correoElectronico;
+
+    /**
+     * Atributo nombre
+     */
+    private String nombre;
+
+    /**
+     * Atributo apellido
+     */
+    private String apellido;
+    
+    /**
+     * Atributo celular
+     */
+    private Double celular;
+
+    /**
+     * Atributo cedula
+     */
+    private Double cedula;
+    
+    /**
+     * Atributo usuario
+     */
+    private String usuario; 
+    
+    /**
+     * Atributo contraseña
+     */
     private String contrasena;
     
+    /**
+     * Asociación con las ventas que realizó el vendedor
+     */
     @PodamExclude
     @OneToMany(mappedBy = "vendedor", cascade = CascadeType.PERSIST, orphanRemoval = false)
     private List<VentaEntity> ventas;
@@ -61,7 +91,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }   
 
     /**
-     * 
+     * Retorna el correo electrónico del vendedor
      * @return correoElectronico
      */
     public String getCorreoElectronico() {
@@ -69,7 +99,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
-     * 
+     * Asigna el correo electrónico del vendedor
      * @param correoElectronico 
      */
     public void setCorreoElectronico(String correoElectronico) {
@@ -77,7 +107,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
-     * 
+     * Retorna el nombre del vendedor
      * @return nombre
      */
     public String getNombre() {
@@ -85,7 +115,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
-     * 
+     * Asigna el nombre del vendedor
      * @param nombre 
      */
     public void setNombre(String nombre) {
@@ -93,7 +123,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
-     * 
+     * Retorna el apellido del vendedor
      * @return apellido
      */
     public String getApellido() {
@@ -101,7 +131,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
-     * 
+     * Asigna el apellido del vendedor
      * @param apellido 
      */
     public void setApellido(String apellido) {
@@ -109,7 +139,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
-     * 
+     * Retorna el celular del vendedor
      * @return celular
      */
     public Double getCelular() {
@@ -117,7 +147,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
-     * 
+     * Asigna el celular del vendedor
      * @param celular 
      */
     public void setCelular(Double celular) {
@@ -125,7 +155,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
-     * 
+     * Retorna la cedula del vendedor
      * @return cedula
      */
     public Double getCedula() {
@@ -133,7 +163,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
-     * 
+     * Asigna el celular del vendedor
      * @param cedula 
      */
     public void setCedula(Double cedula) {
@@ -141,7 +171,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
-     * 
+     * Retorna el usuario del vendedor
      * @return usuario
      */
     public String getUsuario() {
@@ -149,7 +179,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
-     * 
+     * Asigna el usuario del vendedor
      * @param usuario 
      */
     public void setUsuario(String usuario) {
@@ -157,7 +187,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
-     * 
+     * Retorna la contraseña del vendedor
      * @return contrasena
      */
     public String getContrasena() {
@@ -165,7 +195,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
-     * 
+     * Asigna la contraseña del vendedor
      * @param contrasena 
      */
     public void setContrasena(String contrasena) {
@@ -198,6 +228,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
+     * Retorna la lista de ventas del vendedor
      * @return the ventas
      */
     public List<VentaEntity> getVentas() {
@@ -205,6 +236,7 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
+     * Asigna la lista de ventas del vendedor
      * @param ventas the ventas to set
      */
     public void setVentas(List<VentaEntity> ventas) {

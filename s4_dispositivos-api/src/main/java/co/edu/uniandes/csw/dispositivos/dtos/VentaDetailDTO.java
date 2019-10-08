@@ -16,11 +16,20 @@ import java.util.List;
  * @author Zharet Bautista Montes
  */
 public class VentaDetailDTO extends VentaDTO implements Serializable
-{
+{    
+    /**
+     * Vendedor del DTODetail
+     */
     private VendedorDTO vendedor;
     
+    /**
+     * Factura original del DTODetail
+     */
     //private FacturaDTO facturaOriginal; 
     
+    /**
+     * Lista de fotos del DTODetail
+     */
     //private List<MediaDTO> fotos; 
     
     /**
@@ -52,6 +61,7 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
     }
     
     /**
+     * Retorna el vendedor del DTODetail
      * @return the vendedor
      */
     public VendedorDTO getVendedor() 
@@ -60,6 +70,7 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
     }
 
     /**
+     * Asigna el vendedor del DTODetail
      * @param vendedor the vendedor to set
      */
     public void setVendedor(VendedorDTO vendedor) 
@@ -67,6 +78,10 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
         this.vendedor = vendedor;
     }
     
+    /**
+     * Transforma el DTODetail en un Entity con asociaciones
+     * @return VentaEntity
+     */
     @Override
     public VentaEntity toEntity()
     {
@@ -89,13 +104,15 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
     }
 
     /**
+     * Retorna la factura del DTODetail
      * @return the facturaOriginal
      
     public FacturaDTO getFacturaOriginal() {
         return facturaOriginal;
     }
 
-    /**
+    /** 
+     * Asigna la factura del DTODetail
      * @param facturaOriginal the facturaOriginal to set
      
     public void setFacturaOriginal(FacturaDTO facturaOriginal) {
@@ -103,6 +120,7 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
     }
 
     /**
+     * Retorna las fotos del DTODetail
      * @return the fotos
      
     public List<MediaDTO> getFotos() {
@@ -110,6 +128,7 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
     }
 
     /**
+     * Asigna las fotos del DTODetail
      * @param fotos the fotos to set
      
     public void setFotos(List<MediaDTO> fotos) {

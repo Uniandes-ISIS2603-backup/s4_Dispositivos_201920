@@ -20,9 +20,18 @@ import javax.inject.Inject;
 @Stateless
 public class VentaLogic 
 {
+    /**
+     * Conexión con la capa de persistencia
+     */
     @Inject
     private VentaPersistence vapersistence;
     
+    /**
+     * Validación del método agregar venta
+     * @param venta
+     * @return venta creada
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     public VentaEntity createVenta(VentaEntity venta) throws BusinessLogicException
     {
         if(venta.getPrecioReventa() < 0)
@@ -32,18 +41,35 @@ public class VentaLogic
         return venta; 
     }
     
+    /**
+     * Validación del método buscar venta
+     * @param idfVenta
+     * @return venta encontrada
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     public VentaEntity findVenta(Long idfVenta) throws BusinessLogicException
     {       
         VentaEntity obtainedvr = vapersistence.find(idfVenta);      
         return obtainedvr;
     }
     
+    /**
+     * Validación del método encontrar todas las ventas
+     * @return lista de las ventas existentes
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException 
+     */
     public List<VentaEntity> findAllVentas() throws BusinessLogicException
     {
         List<VentaEntity> valisted = vapersistence.findAll(); 
         return valisted;
     }
     
+    /**
+     * Validación del método cambiar venta
+     * @param uvaEntity
+     * @return venta actualizada
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     public VentaEntity updateVenta(VentaEntity uvaEntity) throws BusinessLogicException
     {
         if(uvaEntity == null)
@@ -52,6 +78,11 @@ public class VentaLogic
         return changedva;
     }
     
+    /**
+     * Validación del método borrar venta
+     * @param iddVenta
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     public void deleteVenta(Long iddVenta) throws BusinessLogicException
     {
         if(vapersistence.find(iddVenta) == null)

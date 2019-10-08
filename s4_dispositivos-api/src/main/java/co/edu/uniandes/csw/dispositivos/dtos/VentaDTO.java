@@ -16,7 +16,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class VentaDTO implements Serializable
 {
+    /**
+     * ID del DTO
+     */
     private Long id; 
+    
+    /**
+     * Precio de reventa del DTO
+     */
     private Double precioReventa;   
     
     /**
@@ -39,6 +46,7 @@ public class VentaDTO implements Serializable
     }
 
     /**
+     * Retorna el id del DTO
      * @return the id
      */
     public Long getId() {
@@ -46,6 +54,7 @@ public class VentaDTO implements Serializable
     }
 
     /**
+     * Asigna el id del DTO
      * @param id the id to set
      */
     public void setId(Long id) {
@@ -53,6 +62,7 @@ public class VentaDTO implements Serializable
     }
     
     /**
+     * Retorna el precio de reventa del DTO
      * @return the precioReventa
      */
     public double getPrecioReventa() 
@@ -61,6 +71,7 @@ public class VentaDTO implements Serializable
     }
 
     /**
+     * Asigna el precio de reventa del DTO
      * @param precioReventa the precioReventa to set
      */
     public void setPrecioReventa(double precioReventa) 
@@ -68,6 +79,10 @@ public class VentaDTO implements Serializable
         this.precioReventa = precioReventa;
     }
     
+    /**
+     * Transforma el DTO en un Entity
+     * @return VentaEntity
+     */
     public VentaEntity toEntity()
     {
         VentaEntity venta = new VentaEntity();
@@ -76,6 +91,9 @@ public class VentaDTO implements Serializable
         return venta;     
     }
     
+    /**
+     * Sobreescritura de la conversión a cadena de caracteres
+     */
     @Override
     public String toString() 
     {
