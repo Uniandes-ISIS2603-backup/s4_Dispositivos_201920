@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamDoubleValue;
@@ -73,7 +75,9 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     /**
      * Enums
      */
+    @Enumerated(EnumType.ORDINAL)
     private Tipo tipo;
+    @Enumerated(EnumType.ORDINAL)
     private EstadoDispositivo estado;
 
     /**

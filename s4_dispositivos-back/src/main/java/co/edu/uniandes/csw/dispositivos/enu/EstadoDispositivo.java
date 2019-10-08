@@ -14,5 +14,4 @@ public enum EstadoDispositivo {
     NUEVO,
     USADO,
     IMPORTADO
-
 }
