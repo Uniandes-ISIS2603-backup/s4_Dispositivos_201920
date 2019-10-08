@@ -14,20 +14,33 @@ import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
+ *
  * @author Zharet Bautista Montes
  */
 @Entity
 public class VentaEntity extends BaseEntity implements Serializable {
 
+    /**
+     * Atributo precio de reventa
+     */
     private Double precioReventa;
 
+    /**
+     * Asociación con el vendedor que realizó la venta
+     */
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
     private VendedorEntity vendedor;
 
-    @PodamExclude
-    private List<MediaEntity> fotos;
+    /**
+     * Asociación con las fotos del dispositivo vendido
+     */    
+    //@PodamExclude
+    //private List<MediaEntity> fotos;
 
+    /**
+     * Asociación con la factura original de la venta
+     */
     @PodamExclude
     @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
     private FacturaEntity facturaOriginal;
@@ -40,7 +53,6 @@ public class VentaEntity extends BaseEntity implements Serializable {
 
     /**
      * Constructor que recibe parámetros
-     *
      * @param precioReventa
      * @param vendedor
      * @param facturaOriginal
@@ -54,8 +66,7 @@ public class VentaEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * Retorna el precio de reventa
-     *
+     * Retorna el precio de reventa de la venta
      * @return precioReventa
      */
     public Double getPrecioReventa() {
@@ -63,7 +74,7 @@ public class VentaEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     *
+     * Asigna el precio de reventa de la venta
      * @param precioReventa
      */
     public void setPrecioReventa(Double precioReventa) {
@@ -72,7 +83,6 @@ public class VentaEntity extends BaseEntity implements Serializable {
 
     /**
      * Método no requerido
-     *
      * @param oe Objeto a comparar
      * @return Igual al de la superclase
      * @deprecated (Sólo se necesita para mejorar "Code Smell")
@@ -96,6 +106,7 @@ public class VentaEntity extends BaseEntity implements Serializable {
     }
 
     /**
+     * Retorna el vendedor de la venta
      * @return the vendedor
      */
     public VendedorEntity getVendedor() {
@@ -103,6 +114,7 @@ public class VentaEntity extends BaseEntity implements Serializable {
     }
 
     /**
+     * Asigna el vendedor de la venta
      * @param vendedor the vendedor to set
      */
     public void setVendedor(VendedorEntity vendedor) {
@@ -111,27 +123,32 @@ public class VentaEntity extends BaseEntity implements Serializable {
 
     //Encapsulamiento de asociaciones
     /**
+     * Retorna la lista de fotos de la venta
      * @return the fotos
      *
      * public List<MediaEntity> getFotos() { return fotos; }
      *
      * /
      **
+     * Asigna la lista de fotos de la venta
      * @param fotos the fotos to set
      *
      * public void setFotos(List<MediaEntity> fotos) { this.fotos = fotos; }
      *
      * /
      **
+     * Retorna la factura original de la venta
      * @return the facturaOriginal
      *
      * public FacturaEntity getFacturaOriginal() { return facturaOriginal; }
      *
      * /
      **
+     * Asigna la factura original de la venta
      * @param facturaOriginal the facturaOriginal to set
      *
      * public void setFacturaOriginal(FacturaEntity facturaOriginal) {
      * this.facturaOriginal = facturaOriginal; }
+     * 
      */
 }

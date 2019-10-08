@@ -22,6 +22,12 @@ public class VendedorLogic
     @Inject
     private VendedorPersistence vrpersistence; 
     
+    /**
+     * Validación del método agregar vendedor
+     * @param vendedor
+     * @return vendedor creado
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     public VendedorEntity createVendedor(VendedorEntity vendedor) throws BusinessLogicException
     {
         if(vrpersistence.findByCedula(vendedor.getCedula()) != null)
@@ -34,12 +40,24 @@ public class VendedorLogic
         return vendedor; 
     }
     
-    public VendedorEntity findVendedor(Long idfVendedor)
+    /**
+     * Validación del método buscar vendedor
+     * @param idfVendedor
+     * @return vendedor encontrado
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException 
+     */
+    public VendedorEntity findVendedor(Long idfVendedor) throws BusinessLogicException
     {
         VendedorEntity obtainedvr = vrpersistence.find(idfVendedor);         
         return obtainedvr; 
     }
     
+    /**
+     * Validación del método buscar vendedor por cédula
+     * @param cedulaVendedorf
+     * @return vendedor obtenido por su cédula
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException 
+     */
     public VendedorEntity findByCedulaVendedor(Double cedulaVendedorf) throws BusinessLogicException
     {
         if(cedulaVendedorf == null)
@@ -49,12 +67,23 @@ public class VendedorLogic
         return obtainedvr;
     }
     
+    /**
+     * Validación del método encontrar todos los vendedores
+     * @return lista de los vendedores existentes
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     public List<VendedorEntity> findAllVendedores() throws BusinessLogicException
     {
         List<VendedorEntity> vrlisted = vrpersistence.findAll(); 
         return vrlisted;
     }
     
+    /**
+     * Validación del método cambiar vendedor
+     * @param uvrEntity
+     * @return vendedor actualizado
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     public VendedorEntity updateVendedor(VendedorEntity uvrEntity) throws BusinessLogicException
     {
         if(uvrEntity == null)
@@ -63,6 +92,11 @@ public class VendedorLogic
         return changedvr;
     }
     
+    /**
+     * Validación del método borrar vendedor
+     * @param iddVendedor
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     public void deleteVendedor(Long iddVendedor) throws BusinessLogicException
     {
         if(vrpersistence.find(iddVendedor) == null)

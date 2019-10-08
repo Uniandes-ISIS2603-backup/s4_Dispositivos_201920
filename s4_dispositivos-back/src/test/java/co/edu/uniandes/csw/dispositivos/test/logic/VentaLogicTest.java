@@ -33,9 +33,15 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class VentaLogicTest {
 
+    /**
+     * Persistencia donde operan los tests
+     */
     @PersistenceContext
     private EntityManager vam;
 
+    /**
+     * @return Contexto con el que se ejecutan los tests
+     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -46,14 +52,26 @@ public class VentaLogicTest {
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
 
+    /**
+     * Creador de entidades de prueba
+     */
     private PodamFactory valfactory = new PodamFactoryImpl();
 
+    /**
+     * Relación con la lógica de la clase
+     */
     @Inject
     private VentaLogic valogic;
 
+    /**
+     * Auxiliar de transacción
+     */
     @Inject
     UserTransaction utxn;
 
+    /**
+     * Contenedor auxiliar con las entidades de la clase
+     */
     private final List<VentaEntity> valist = new ArrayList<>();
 
     /**
@@ -82,6 +100,10 @@ public class VentaLogicTest {
         }
     }
 
+    /**
+     * Test de la validación de agregar venta
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test
     public void createVentaTest() throws BusinessLogicException {
         VentaEntity venta = valfactory.manufacturePojo(VentaEntity.class);
@@ -89,6 +111,10 @@ public class VentaLogicTest {
         Assert.assertNotNull(obtainedva);
     }
 
+    /**
+     * Test de falla de agregar venta con precio de reventa negativo
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createNegativeVentaTest() throws BusinessLogicException {
         VentaEntity venta = valfactory.manufacturePojo(VentaEntity.class);
@@ -96,6 +122,10 @@ public class VentaLogicTest {
         valogic.createVenta(venta);
     }
 
+    /**
+     * Test de la validación de buscar venta
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test
     public void findVentaTest() throws BusinessLogicException {
         VentaEntity ref = valist.get(0), block = valogic.findVenta(ref.getId());
@@ -104,6 +134,10 @@ public class VentaLogicTest {
         Assert.assertEquals(ref.getPrecioReventa(), block.getPrecioReventa(), 0.0);
     }
 
+    /**
+     * Test de la validación de encontrar todas las ventas
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test
     public void findAllVentasTest() throws BusinessLogicException {
         List<VentaEntity> allgotten = valogic.findAllVentas();
@@ -119,6 +153,10 @@ public class VentaLogicTest {
         }
     }
 
+    /**
+     * Test de la validación de cambiar venta
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test
     public void updateVentaTest() throws BusinessLogicException {
         VentaEntity venta = valist.get(0);
@@ -130,12 +168,20 @@ public class VentaLogicTest {
         Assert.assertEquals(updating.getPrecioReventa(), updated.getPrecioReventa(), 0.0);
     }
 
+    /**
+     * Test de falla de cambiar venta por una nula
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
-    public void updateNullVendedorTest() throws BusinessLogicException {
+    public void updateNullVentaTest() throws BusinessLogicException {
         VentaEntity updating = null;
         valogic.updateVenta(updating);
     }
 
+    /**
+     * Test de la validación de borrar venta
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
     @Test
     public void deleteVentaTest() throws BusinessLogicException {
         VentaEntity vaentity = valist.get(0);
@@ -144,12 +190,16 @@ public class VentaLogicTest {
         Assert.assertNull(goneva);
     }
 
-//    @Test(expected=BusinessLogicException.class)
-//    public void deleteVendedorNullTest() throws BusinessLogicException
-//    {
-//        VentaEntity vaentity = valist.get(0);
-//        Long deleteid = vaentity.getId();
-//        vaentity = null;
-//        valogic.deleteVenta(deleteid);
-//    }
+    /**
+     * Test de falla de borrar venta inexistente
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected=BusinessLogicException.class)
+    public void deleteVentaNullTest() throws BusinessLogicException
+    {
+        VentaEntity vaentity = valist.get(0);
+        Long deleteid = vaentity.getId();
+        valogic.deleteVenta(vaentity.getId());
+        valogic.deleteVenta(deleteid);
+    }
 }
