@@ -5,9 +5,14 @@
  */
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
+import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
+import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
+import co.edu.uniandes.csw.dispositivos.persistence.MediaPersistence;
 import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
 import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
+import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.VendedorPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.VentaPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -32,25 +37,46 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class VendedorPersistenceTest 
 {
+    /**
+     * Base de datos donde operan los tests
+     */
     @PersistenceContext(unitName="dispositivosPU")
     private EntityManager vrm;
 
+    /**
+     * @return Contexto con el que se ejecutan los tests
+     */
     @Deployment
     public static JavaArchive createDeployment() 
     {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(VendedorEntity.class.getPackage())
                 .addPackage(VendedorPersistence.class.getPackage())
+                .addPackage(VentaEntity.class.getPackage())
+                .addPackage(VentaPersistence.class.getPackage())
+                .addPackage(FacturaEntity.class.getPackage())
+                .addPackage(FacturaPersistence.class.getPackage())
+                .addPackage(MediaEntity.class.getPackage())
+                .addPackage(MediaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
     
+    /**
+     * Relación con la persistencia de la clase
+     */
     @Inject
     private VendedorPersistence vrp; 
     
+    /**
+     * Auxiliar de transacción
+     */
     @Inject
     UserTransaction utxn;
 
+    /**
+     * Contenedores auxiliares con las entidades de las clases venta y vendedor
+     */
     private List<VendedorEntity> vrlist = new ArrayList<>();
     private List<VentaEntity> ventaslist = new ArrayList<>();
     
@@ -101,6 +127,9 @@ public class VendedorPersistenceTest
         Assert.assertEquals(ventaslist, newvr.getVentas());
     }
     
+    /**
+     * Test del método agregar vendedor
+     */
     @Test
     public void createVendedorTest()
     {
@@ -120,6 +149,9 @@ public class VendedorPersistenceTest
         Assert.assertEquals(vendedor.getVentas(), vrentity.getVentas());
     }
     
+    /**
+     * Test del método buscar vendedor
+     */
     @Test
     public void findVendedorTest() 
     {
@@ -136,6 +168,20 @@ public class VendedorPersistenceTest
         Assert.assertEquals(block.getVentas(), ref.getVentas());
     }
     
+    /**
+     * Test del método buscar vendedor por cédula
+     */
+    @Test
+    public void findByCedulaTest()
+    {
+        VendedorEntity ref = vrlist.get(0), block = vrp.findByCedula(ref.getCedula());
+        Assert.assertNotNull(block);
+        Assert.assertEquals(block.getCedula(),ref.getCedula()); 
+    }
+    
+    /**
+     * Test del método encontrar todos los vendedores
+     */
     @Test
     public void findAllVendedoresTest() 
     {
@@ -151,6 +197,9 @@ public class VendedorPersistenceTest
         }
     }
     
+    /**
+     * Test del método cambiar vendedor
+     */
     @Test
     public void updateVendedorTest() 
     {
@@ -171,6 +220,9 @@ public class VendedorPersistenceTest
         Assert.assertEquals(updating.getVentas(), updated.getVentas());
     }
     
+    /**
+     * Test del método borrar vendedor
+     */
     @Test
     public void deleteVendedorTest() 
     {

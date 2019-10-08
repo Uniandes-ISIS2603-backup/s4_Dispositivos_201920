@@ -59,18 +59,8 @@ public class DispositivoPersistenceTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addClass(DispositivoEntity.class)
-                .addClass(DispositivoPersistence.class)
-                .addClass(MarcaPersistence.class)
-                .addClass(MarcaEntity.class)
-                .addClass(CategoriaEntity.class)
-                .addClass(CategoriaPersistence.class)
-                .addClass(CalificacionEntity.class)
-                .addClass(CalificacionPersistence.class)
-                .addClass(FacturaEntity.class)
-                .addClass(FacturaPersistence.class)
-                .addClass(ClientePersistence.class)
-                .addClass(ClienteEntity.class)
+                .addPackage(DispositivoEntity.class.getPackage())
+                .addPackage(DispositivoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }

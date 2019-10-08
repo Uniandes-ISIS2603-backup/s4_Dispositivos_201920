@@ -16,13 +16,44 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class VendedorDTO implements Serializable
 {
-    private Long id; 
-    private String correoElectronico;    
-    private String nombre;    
-    private String apellido;     
-    private Double celular;    
-    private Double cedula;     
-    private String usuario;    
+    /**
+     * ID del DTO
+     */
+    private Long id;
+    
+    /**
+     * Correo electronico del DTO
+     */
+    private String correoElectronico;
+
+    /**
+     * Nombre del DTO
+     */    
+    private String nombre; 
+    
+    /**
+     * Apellido del DTO
+     */
+    private String apellido;  
+    
+    /**
+     * Celular del DTO
+     */
+    private Double celular;   
+    
+    /**
+     * Cedula del DTO
+     */
+    private Double cedula;    
+    
+    /**
+     * Usuario del DTO
+     */
+    private String usuario;  
+    
+    /**
+     * Contrasena del DTO
+     */
     private String contrasena;
     
     /**
@@ -51,6 +82,7 @@ public class VendedorDTO implements Serializable
     }
     
     /**
+     * Retorna el id del DTO
      * @return the id
      */
     public Long getId() {
@@ -58,6 +90,7 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Asigna el id del DTO
      * @param id the id to set
      */
     public void setId(Long id) {
@@ -65,6 +98,7 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Retorna el correo electronico del DTO
      * @return the correoElectronico
      */
     public String getCorreoElectronico() {
@@ -72,6 +106,7 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Asigna el correo electronico del DTO
      * @param correoElectronico the correoElectronico to set
      */
     public void setCorreoElectronico(String correoElectronico) {
@@ -79,6 +114,7 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Retorna el nombre del DTO
      * @return the nombre
      */
     public String getNombre() {
@@ -86,6 +122,7 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Asigna el nombre del DTO
      * @param nombre the nombre to set
      */
     public void setNombre(String nombre) {
@@ -93,6 +130,7 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Retorna el apellido del DTO
      * @return the apellido
      */
     public String getApellido() {
@@ -100,6 +138,7 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Asigna el apellido del DTO
      * @param apellido the apellido to set
      */
     public void setApellido(String apellido) {
@@ -107,6 +146,7 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Retorna el celular del DTO
      * @return the celular
      */
     public double getCelular() {
@@ -114,6 +154,7 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Asigna el celular del DTO
      * @param celular the celular to set
      */
     public void setCelular(double celular) {
@@ -121,6 +162,7 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Retorna el cedula del DTO
      * @return the cedula
      */
     public double getCedula() {
@@ -128,6 +170,7 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Asigna el cedula del DTO
      * @param cedula the cedula to set
      */
     public void setCedula(double cedula) {
@@ -135,6 +178,7 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Retorna el usuario del DTO
      * @return the usuario
      */
     public String getUsuario() {
@@ -142,6 +186,7 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Asigna el usuario del DTO
      * @param usuario the usuario to set
      */
     public void setUsuario(String usuario) {
@@ -149,6 +194,7 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Retorna el contrasena del DTO
      * @return the contrasena
      */
     public String getContrasena() {
@@ -156,12 +202,17 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Asigna el contrasena del DTO
      * @param contrasena the contrasena to set
      */
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
     
+    /**
+     * Transforma el DTO en un Entity
+     * @return VendedorEntity
+     */
     public VendedorEntity toEntity()
     {
         VendedorEntity vendedor = new VendedorEntity();
@@ -176,6 +227,9 @@ public class VendedorDTO implements Serializable
         return vendedor; 
     }
     
+    /**
+     * Sobreescritura de la conversión a cadena de caracteres
+     */
     @Override
     public String toString() 
     {
