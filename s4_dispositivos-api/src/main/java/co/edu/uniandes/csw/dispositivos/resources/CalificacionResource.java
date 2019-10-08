@@ -19,7 +19,7 @@ import javax.ws.rs.Produces;
 
 /**
  *
- * @author Estudiante
+ * @author Javier Peniche
  */
 @Path("calificaciones")
 @Produces("application/json")
