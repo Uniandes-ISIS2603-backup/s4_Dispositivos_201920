@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.dispositivos.test.logic;
 
 import co.edu.uniandes.csw.dispositivos.ejb.ComprobanteDePagoLogic;
+import co.edu.uniandes.csw.dispositivos.entities.ClienteEntity;
 import co.edu.uniandes.csw.dispositivos.entities.ComprobanteDePagoEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.ComprobanteDePagoPersistence;
@@ -28,17 +29,16 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  * Test de lógica de la clase ComprobanteDePagoLogic
- *
  * @author Dianis Caro
  */
 @RunWith(Arquillian.class)
 public class ComprobanteDePagoLogicTest {
 
-    private PodamFactory factory = new PodamFactoryImpl();
-
     @PersistenceContext(unitName = "dispositivosPU")
     private EntityManager em;
 
+    PodamFactory factory = new PodamFactoryImpl();
+    
     @Inject
     private ComprobanteDePagoLogic comprobanteLogic;
 
@@ -46,7 +46,22 @@ public class ComprobanteDePagoLogicTest {
     private UserTransaction utx;
 
     private List<ComprobanteDePagoEntity> data = new ArrayList<ComprobanteDePagoEntity>();
+    private List<ClienteEntity> dataCliente = new ArrayList<ClienteEntity>();
 
+    /**
+     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
+     * El jar contiene las clases, el descriptor de la base de datos y el
+     * archivo beans.xml para resolver la inyección de dependencias.
+     */
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+                .addPackage(ComprobanteDePagoEntity.class.getPackage())
+                .addPackage(ComprobanteDePagoLogic.class.getPackage())
+                .addPackage(ComprobanteDePagoPersistence.class.getPackage())
+                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+                .addAsManifestResource("META-INF/beans.xml", "beans.xml");
+    }
     /**
      * Configuración inicial de la prueba
      */
@@ -67,42 +82,39 @@ public class ComprobanteDePagoLogicTest {
         }
     }
     /**
-     * Inserta los datos iniciales para el correcto funcionamiento de las
-     * pruebas
-     */
-    private void insertData() {
-        for (int i = 0; i < 3; i++) {
-            ComprobanteDePagoEntity adminEntity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
-            em.persist(adminEntity);
-            data.add(adminEntity);
-        }
-    }
-    /**
      * Limpia las tablas que están implicadas en la prueba
      */
     private void clearData() {
-        em.createQuery("delete from ComprobanteDePagoEntity").executeUpdate();
+       em.createQuery("delete from ComprobanteDePagoEntity").executeUpdate();
+       em.createQuery("delete from ClienteEntity").executeUpdate();
     }
     /**
-     * Construye el despliegue de la prueba a realizar
-     * @return jar, es decir JavaArchive.
+     * Inserta los datos iniciales para el correcto funcionamiento de las pruebas
      */
-    @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(ComprobanteDePagoEntity.class.getPackage())
-                .addPackage(ComprobanteDePagoPersistence.class.getPackage())
-                .addPackage(ComprobanteDePagoLogic.class.getPackage())
-                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
-                .addAsManifestResource("META-INF/beans.xml", "beans.xml");
+    private void insertData() {
+        for (int i = 0; i < 3; i++) {
+            ClienteEntity entity = factory.manufacturePojo(ClienteEntity.class);
+            em.persist(entity);
+            dataCliente.add(entity);
+        }
+        for (int k = 0; k < 3; k++)
+        {
+            ComprobanteDePagoEntity entity = factory.manufacturePojo(ComprobanteDePagoEntity.class);
+            if (k == 0)
+                entity.setCliente(dataCliente.get(0));
+            
+            em.persist(entity);
+            data.add(entity);
+        }
     }
+    
     /**
      * Prueba para eliminar un comprobante
      */
     @Test
-    public void deleteComprobanteTest() {
-        ComprobanteDePagoEntity entity = data.get(1);
-        comprobanteLogic.deleteComprobante(entity.getId());
+    public void deleteComprobanteTest() throws BusinessLogicException{
+        ComprobanteDePagoEntity entity = data.get(0);
+        comprobanteLogic.deleteComprobante(entity.getId(), dataCliente.get(0).getId());
         ComprobanteDePagoEntity deleted = em.find(ComprobanteDePagoEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
@@ -110,9 +122,10 @@ public class ComprobanteDePagoLogicTest {
      * Prueba para consultar un comprobante
      */
     @Test
-    public void getComprobanteTest() {
+    public void getComprobanteTest() 
+    {
         ComprobanteDePagoEntity entity = data.get(0);
-        ComprobanteDePagoEntity resultEntity = comprobanteLogic.getComprobante(entity.getId());
+        ComprobanteDePagoEntity resultEntity = comprobanteLogic.getComprobante(entity.getId(), dataCliente.get(0).getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(resultEntity.getId(), entity.getId());
         Assert.assertEquals(resultEntity.getFechaDeFactura(), entity.getFechaDeFactura());
@@ -127,8 +140,8 @@ public class ComprobanteDePagoLogicTest {
      */
     @Test
     public void getComprobantesTest() {
-        List<ComprobanteDePagoEntity> list = comprobanteLogic.getComprobantes();
-        Assert.assertEquals(data.size(), list.size());
+        List<ComprobanteDePagoEntity> list = comprobanteLogic.getComprobantes(dataCliente.get(0).getId());
+        Assert.assertEquals(1, list.size());
         for (ComprobanteDePagoEntity entity : list) {
             boolean found = false;
             for (ComprobanteDePagoEntity storedEntity : data) {

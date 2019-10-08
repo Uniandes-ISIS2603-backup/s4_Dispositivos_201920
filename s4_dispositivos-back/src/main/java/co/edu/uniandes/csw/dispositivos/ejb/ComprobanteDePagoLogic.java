@@ -48,8 +48,7 @@ public class ComprobanteDePagoLogic
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los comprobantes de pago con id = {0}", clienteId);
         ClienteEntity clienteEntt = clientePersistence.find(clienteId);
         LOGGER.log(Level.INFO, "Termina proceso de consultar todos los comprobantes de pago con id = {0}", clienteId);
-        //return clienteEntt.getComprobantes();
-        return null;
+        return clienteEntt.getComprobantesRecibidos();
 
     }
     /**
