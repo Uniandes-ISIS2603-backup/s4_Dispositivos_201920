@@ -8,6 +8,8 @@ package co.edu.uniandes.csw.dispositivos.entities;
 import co.edu.uniandes.csw.dispositivos.podam.MedioDePagoStrategy;
 import co.edu.uniandes.csw.dispositivos.podam.MetodoDePagoStrategy;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
@@ -16,6 +18,20 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
  */
 @Entity
 public class MedioDePagoEntity extends BaseEntity {
+
+    /**
+     * @return the cliente
+     */
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    /**
+     * @param cliente the cliente to set
+     */
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
 
     /**
      * Representa el numero de una tarjeta.
@@ -34,6 +50,11 @@ public class MedioDePagoEntity extends BaseEntity {
      */
     private String tipoTarjeta;
 
+    
+    @PodamExclude
+    @OneToOne
+    private ClienteEntity cliente;
+        
     /**
      * Representa el tipo de credito.
      */
