@@ -127,7 +127,7 @@ public class DispositivoCategoriaLogicTest {
     public void replaceCategoriaTest() {
         DispositivoEntity entity = dispositivos.get(0);
         dispositivoCategoriaLogic.replaceCategoria(entity.getId(), data.get(1).getId());
-        entity = dispositivoLogic.find(entity.getId());
+        entity = dispositivoLogic.getDispositivo(entity.getId());
         Assert.assertEquals(entity.getCategoria(), data.get(1));
     }
 
@@ -142,7 +142,7 @@ public class DispositivoCategoriaLogicTest {
 
         DispositivoEntity entity = dispositivos.get(0);
         dispositivoCategoriaLogic.removeCategoria(entity.getId());
-        entity = dispositivoLogic.find(entity.getId());
+        entity = dispositivoLogic.getDispositivo(entity.getId());
         Assert.assertNull(entity.getCategoria());
     }
 
