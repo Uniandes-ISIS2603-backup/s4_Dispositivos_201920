@@ -17,20 +17,17 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class CalificacionDTO implements Serializable {
 
     private Long id;
-    private int calificacionNumerica;
+    private double calificacionNumerica;
     private String comentario;
 
     private DispositivoDTO dispositivo;
 
-    public CalificacionDTO() {
-
-
-    }
+    public CalificacionDTO(){}
 
     public CalificacionDTO(CalificacionEntity calificacionEntity) {
         if (calificacionEntity != null) {
             this.id = calificacionEntity.getId();
-            this.calificacionNumerica = (int) calificacionEntity.getCalificacionNumerica();
+            this.calificacionNumerica = calificacionEntity.getCalificacionNumerica();
             this.comentario = calificacionEntity.getComentario();
             if (calificacionEntity.getDispositivo() != null) {
                 this.dispositivo = new DispositivoDTO(calificacionEntity.getDispositivo());
@@ -76,14 +73,14 @@ public class CalificacionDTO implements Serializable {
     /**
      * @return the calificacionNumerica
      */
-    public int getCalificacionNumerica() {
+    public double getCalificacionNumerica() {
         return calificacionNumerica;
     }
 
     /**
      * @param calificacionNumerica the calificacionNumerica to set
      */
-    public void setCalificacionNumerica(int calificacionNumerica) {
+    public void setCalificacionNumerica(double calificacionNumerica) {
         this.calificacionNumerica = calificacionNumerica;
     }
 
