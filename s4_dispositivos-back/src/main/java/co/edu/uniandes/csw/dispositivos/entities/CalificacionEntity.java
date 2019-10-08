@@ -6,7 +6,10 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamDoubleValue;
 
 /**
  *
@@ -15,58 +18,46 @@ import javax.persistence.Entity;
 @Entity
 public class CalificacionEntity extends BaseEntity implements Serializable {
 
-    private int calificacionNumerica;
-    private String[] comentarios;
+    @PodamDoubleValue(minValue = 0.0, maxValue = 5.0)
+    double calificacionNumerica;
 
-    /**
-     * Constructor vacio para el uso de Entities.
-     */
+    String comentario;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private DispositivoEntity dispositivo;
+
     public CalificacionEntity() {
-        /**
-         * Constructor vacio para la implementacion.
-         */
+
     }
 
-    /**
-     * Constructor para realizar Junit Tests.
-     *
-     * @param calificacion calificacion del producto.
-     * @param comentarios comentarios del producto.
-     */
-    public CalificacionEntity(int calificacion, String[] comentarios) {
+    public CalificacionEntity(String comentario, Double calificacion, DispositivoEntity dispositivo) {
+        this.comentario = comentario;
         this.calificacionNumerica = calificacion;
-        this.comentarios = comentarios;
+        this.dispositivo = dispositivo;
     }
 
-    /**
-     * @return the calificacionNumerica
-     */
-    public long getCalificacionNumerica() {
+    public double getCalificacionNumerica() {
         return calificacionNumerica;
     }
 
-    /**
-     * @param calificacionNumerica the calificacionNumerica to set
-     */
-    public void setCalificacionNumerica(int calificacionNumerica) {
+    public String getComentario() {
+        return comentario;
+    }
+
+    public DispositivoEntity getDispositivo() {
+        return dispositivo;
+    }
+
+    public void setCalificacionNumerica(double calificacionNumerica) {
         this.calificacionNumerica = calificacionNumerica;
     }
 
-    /**
-     * @return the comentarios
-     */
-    public String[] getComentarios() {
-        return comentarios;
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
-    /**
-     * @param comentarios the comentarios to set
-     */
-    public void setComentarios(String[] comentarios) {
-        this.comentarios = comentarios;
+    public void setDispositivo(DispositivoEntity dispositivo) {
+        this.dispositivo = dispositivo;
     }
+
 }
-
-    
-    
-

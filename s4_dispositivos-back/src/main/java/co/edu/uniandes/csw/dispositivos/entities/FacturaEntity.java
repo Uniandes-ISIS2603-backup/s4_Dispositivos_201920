@@ -8,10 +8,16 @@ package co.edu.uniandes.csw.dispositivos.entities;
 import co.edu.uniandes.csw.dispositivos.podam.DateStrategy;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamDoubleValue;
+import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamIntValue;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
@@ -43,7 +49,17 @@ public class FacturaEntity extends BaseEntity implements Serializable {
     /**
      * Atributo que modela los dispositivos en la factura.
      */
-    private String dispositivos;
+    @PodamExclude
+    @OneToMany(mappedBy = "factura")
+    private List<DispositivoEntity> dispositivos;
+
+    @PodamExclude
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private ClienteEntity cliente;
+        
+    @PodamExclude
+    @OneToOne
+    private VentaEntity venta;
 
     /**
      * Fecha de pago de los dispositivos electronicos
@@ -67,13 +83,15 @@ public class FacturaEntity extends BaseEntity implements Serializable {
      * @param pImpuestos valor de impuestos a establecer.
      * @param pDispositivos dispositivos a establecer.
      * @param pFechaDePago fecha de pago a establecer.
+     * @param venta venta asociada.
      */
-    public FacturaEntity(Integer pNumeroDeFactura, Double pTotalPago, Double pImpuestos, String pDispositivos, Date pFechaDePago) {
+    public FacturaEntity(Integer pNumeroDeFactura, Double pTotalPago, Double pImpuestos, List<DispositivoEntity> pDispositivos, Date pFechaDePago,VentaEntity venta) {
         this.numeroDeFactura = pNumeroDeFactura;
         this.totalPago = pTotalPago;
         this.impuestos = pImpuestos;
         this.dispositivos = pDispositivos;
         this.fechaDePago = pFechaDePago;
+        this.venta=venta;
     }
 
     /**
@@ -121,14 +139,14 @@ public class FacturaEntity extends BaseEntity implements Serializable {
     /**
      * @return the dispositivos
      */
-    public String getDispositivos() {
+    public List<DispositivoEntity> getDispositivos() {
         return dispositivos;
     }
 
     /**
      * @param dispositivos the dispositivos to set
      */
-    public void setDispositivos(String dispositivos) {
+    public void setDispositivos(List<DispositivoEntity> dispositivos) {
         this.dispositivos = dispositivos;
     }
 
@@ -169,6 +187,34 @@ public class FacturaEntity extends BaseEntity implements Serializable {
      */
     public void setFechaDePago(Date fechaDePago) {
         this.fechaDePago = fechaDePago;
+    }
+
+    /**
+     * @return the cliente
+     */
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    /**
+     * @param cliente the cliente to set
+     */
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
+
+    /**
+     * @return the venta
+     */
+    public VentaEntity getVenta() {
+        return venta;
+    }
+
+    /**
+     * @param venta the venta to set
+     */
+    public void setVenta(VentaEntity venta) {
+        this.venta = venta;
     }
 
 }

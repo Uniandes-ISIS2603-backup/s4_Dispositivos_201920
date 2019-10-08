@@ -5,7 +5,10 @@
  */
 package co.edu.uniandes.csw.dispositivos.entities;
 
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * Clase que representa una categoria en la persistencia y permite su
@@ -20,6 +23,10 @@ public class CategoriaEntity extends BaseEntity {
      * Representa el nombre de una categoria.
      */
     private String nombreCategoria;
+
+    @PodamExclude
+    @OneToMany(mappedBy = "categoria")
+    private List<DispositivoEntity> dispositivos;
 
     /**
      * Crea una categoria vacia.
@@ -44,14 +51,22 @@ public class CategoriaEntity extends BaseEntity {
         return nombreCategoria;
     }
 
+    public List<DispositivoEntity> getDispositivos() {
+        return dispositivos;
+    }
+
+    public void setDispositivos(List<DispositivoEntity> dispositivos) {
+        this.dispositivos = dispositivos;
+    }
+
     /**
      * @param nombreCategoria the nombreCategoria to set
      */
     public void setNombreCategoria(String nombreCategoria) {
         this.nombreCategoria = nombreCategoria;
     }
-    
-        /**
+
+    /**
      * Metodo no usado
      *
      * @param obj Object que se compara.

@@ -111,4 +111,3 @@ public class AdministradorEntity extends BaseEntity
         return super.hashCode();
     }
 }
-

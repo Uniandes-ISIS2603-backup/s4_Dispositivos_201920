@@ -4,10 +4,13 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.dispositivos.test.logic;
-import co.edu.uniandes.csw.dispositivos.ejb.MediaLogic;
-import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
+
+import co.edu.uniandes.csw.dispositivos.ejb.DispositivoCategoriaLogic;
+import co.edu.uniandes.csw.dispositivos.ejb.DispositivoLogic;
+import co.edu.uniandes.csw.dispositivos.entities.CategoriaEntity;
+import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.dispositivos.persistence.MediaPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.CategoriaPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -25,13 +28,20 @@ import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
+/**
+ *
+ * @author Estudiante
+ */
 @RunWith(Arquillian.class)
-public class MediaLogicTest {
+public class DispositivoCategoriaLogicTest {
 
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private MediaLogic mediaLogic;
+    private DispositivoLogic dispositivoLogic;
+
+    @Inject
+    private DispositivoCategoriaLogic dispositivoCategoriaLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -39,8 +49,9 @@ public class MediaLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<MediaEntity> data = new ArrayList<MediaEntity>();
+    private List<CategoriaEntity> data = new ArrayList<CategoriaEntity>();
 
+    private List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -50,9 +61,9 @@ public class MediaLogicTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(MediaEntity.class.getPackage())
-                .addPackage(MediaLogic.class.getPackage())
-                .addPackage(MediaPersistence.class.getPackage())
+                .addPackage(CategoriaEntity.class.getPackage())
+                .addPackage(DispositivoLogic.class.getPackage())
+                .addPackage(CategoriaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -81,7 +92,8 @@ public class MediaLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from MediaEntity").executeUpdate();
+        em.createQuery("delete from DispositivoEntity").executeUpdate();
+        em.createQuery("delete from CategoriaEntity").executeUpdate();
     }
 
     /**
@@ -90,38 +102,48 @@ public class MediaLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            MediaEntity entity = factory.manufacturePojo(MediaEntity.class);
+            DispositivoEntity dispositivo = factory.manufacturePojo(DispositivoEntity.class);
+            em.persist(dispositivo);
+            dispositivos.add(dispositivo);
+        }
+        for (int i = 0; i < 3; i++) {
+            CategoriaEntity entity = factory.manufacturePojo(CategoriaEntity.class);
+            if (i == 0) {
+                dispositivos.get(i).setCategoria(entity);
+
+            }
             em.persist(entity);
+            em.merge(dispositivos.get(i));
             data.add(entity);
+
         }
     }
 
     /**
-     * Prueba para crear un Editorial.
-     *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * Prueba para remplazar las instancias de Dispositivo asociadas a una
+     * instancia de Categoria .
      */
     @Test
-    public void createCalificacionTest() throws BusinessLogicException {
-        MediaEntity newEntity = factory.manufacturePojo(MediaEntity.class);
-        newEntity.setLinks("abc");
-        MediaEntity result = mediaLogic.createMedia(newEntity);
-        Assert.assertNotNull(result);
-        MediaEntity entity = em.find(MediaEntity.class, result.getId());
-        Assert.assertEquals(newEntity.getId(), entity.getId());
-        Assert.assertEquals(newEntity.getLink(), entity.getLink());
+    public void replaceCategoriaTest() {
+        DispositivoEntity entity = dispositivos.get(0);
+        dispositivoCategoriaLogic.replaceCategoria(entity.getId(), data.get(1).getId());
+        entity = dispositivoLogic.getDispositivo(entity.getId());
+        Assert.assertEquals(entity.getCategoria(), data.get(1));
     }
 
     /**
+     * Prueba para desasociar un Dispositivo existente de una Categoria
+     * existente
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws BusinessLogicException
      */
-    
-    @Test(expected = BusinessLogicException.class)
-    public void createCalificacionConNumeroMayorOMenor() throws BusinessLogicException {
-        MediaEntity newEntity = factory.manufacturePojo(MediaEntity.class);
-        newEntity.setLinks(null);
-        mediaLogic.createMedia(newEntity);
+    @Test
+    public void removeCategoriaTest() throws BusinessLogicException {
+
+        DispositivoEntity entity = dispositivos.get(0);
+        dispositivoCategoriaLogic.removeCategoria(entity.getId());
+        entity = dispositivoLogic.getDispositivo(entity.getId());
+        Assert.assertNull(entity.getCategoria());
     }
+
 }
-   

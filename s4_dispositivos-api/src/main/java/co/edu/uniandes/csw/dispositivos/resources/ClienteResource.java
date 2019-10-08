@@ -21,7 +21,7 @@ import javax.ws.rs.PUT;
  *
  * @author Carlos Salazar
  */
-@Path("marcas")
+@Path("clientes")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped

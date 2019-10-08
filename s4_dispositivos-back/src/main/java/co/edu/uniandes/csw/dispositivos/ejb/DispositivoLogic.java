@@ -9,6 +9,8 @@ import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -18,6 +20,8 @@ import javax.inject.Inject;
  */
 @Stateless
 public class DispositivoLogic {
+
+    private static final Logger LOGGER = Logger.getLogger(DispositivoLogic.class.getName());
 
     @Inject
     private DispositivoPersistence persistence;
@@ -69,56 +73,68 @@ public class DispositivoLogic {
      *
      * @return
      */
-    public List<DispositivoEntity> findAll() {
-        return persistence.findAll();
+    public List<DispositivoEntity> getDispositivos() {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los dispositivos");
+        List<DispositivoEntity> dispositivos = persistence.findAll();
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los dispositivos");
+        return dispositivos;
+
     }
 
     /**
      *
-     * @param id
+     * @param dispositivosId
      * @return
      */
-    public DispositivoEntity find(Long id) {
-        return persistence.find(id);
+    public DispositivoEntity getDispositivo(Long dispositivosId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el dispositivo con id = {0}", dispositivosId);
+        DispositivoEntity dispositivoEntity = persistence.find(dispositivosId);
+        if (dispositivoEntity == null) {
+            LOGGER.log(Level.SEVERE, "El dispositivo con el id = {0} no existe", dispositivosId);
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el dispositivo con id = {0}", dispositivoEntity);
+        return dispositivoEntity;
     }
 
-    /**
-     *
-     * @param dispositivo
-     * @return
-     */
-    public void deleteDispositivo(DispositivoEntity dispositivo) {
-
-        persistence.delete(dispositivo.getId());
+    public DispositivoEntity updateDispositivo(Long dispositivosId, DispositivoEntity dispositivoEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el dispositivo con id = {0}", dispositivosId);
+        if (dispositivoEntity.getDescripcion() == null) {
+            throw new BusinessLogicException("No se puede agregar un dispositivo con la descripcion nula");
+        }
+        if (dispositivoEntity.getNombre() == null) {
+            throw new BusinessLogicException("No se puede agregar un dispositivo con el nombre nulo");
+        }
+        if (dispositivoEntity.getModelo() == null) {
+            throw new BusinessLogicException("No se puede agregar un dispositivo con el modelo nulo");
+        }
+        if (dispositivoEntity.getPrecio() < 0) {
+            throw new BusinessLogicException("No se puede agrear un dispositivo con precio negativo");
+        }
+        if (dispositivoEntity.getCategoria() == null) {
+            throw new BusinessLogicException("Especifique la categoria a la que pertenece el dispositivo");
+        }
+        if (dispositivoEntity.getMarca() == null) {
+            throw new BusinessLogicException("Especifique la marca del dispositivo");
+        }
+        if (dispositivoEntity.isEsImportado()) {
+            if (dispositivoEntity.getPrecioImportacion() < 0) {
+                throw new BusinessLogicException("No se puede agregar un dispositivo con precio de importacion negativo");
+            }
+        }
+        if (dispositivoEntity.isPromocion()) {
+            if (dispositivoEntity.getPrecio() < dispositivoEntity.getDescuento()) {
+                throw new BusinessLogicException("No se puede agregar un precio de descuento mayor al precio original");
+            }
+        }
+        DispositivoEntity newEntity = persistence.update(dispositivoEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el dispositivo con id = {0}", dispositivoEntity.getId());
+        return newEntity;
     }
 
-    /**
-     *
-     * @param dispositivo
-     * @return
-     * @throws BusinessLogicException
-     */
-    public DispositivoEntity update(DispositivoEntity dispositivo) throws BusinessLogicException {
+    public void deleteDispositivo(Long dispositivosId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el dispositivo con id = {0}", dispositivosId);
+        persistence.delete(dispositivosId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el dispositivo con id = {0}", dispositivosId);
 
-        if (persistence.find(dispositivo.getId()) != null) {
-            throw new BusinessLogicException("Ya existe un dispositivo con este Id");
-        }
-        if (dispositivo.getPrecio() < 0) {
-            throw new BusinessLogicException("El precio es menor al permitido");
-        }
-        if (dispositivo.getPrecioImportacion() < 0) {
-            throw new BusinessLogicException("El precio de importacion es menor al esperado");
-        }
-        if (dispositivo.getDescuento() > dispositivo.getPrecio()) {
-            throw new BusinessLogicException("El descuento es mayor al precio del dispositivo");
-        }
-        if (dispositivo.getNombre() == null) {
-            throw new BusinessLogicException("El nombre del dispositivo no puede ser null");
-        }
-        if (dispositivo.getDescripcion() == null) {
-            throw new BusinessLogicException("La descripcion del dispositivo no puede ser null");
-        }
-
-        return persistence.update(dispositivo);
     }
 }
