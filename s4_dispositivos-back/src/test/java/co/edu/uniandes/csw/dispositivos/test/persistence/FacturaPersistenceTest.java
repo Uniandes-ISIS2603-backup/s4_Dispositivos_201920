@@ -23,7 +23,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -90,10 +89,16 @@ public class FacturaPersistenceTest {
         }
     }
 
+    /**
+     * Limpia la información de las tablas.
+     */
     private void clearData() {
         em.createQuery("delete from FacturaEntity").executeUpdate();
     }
 
+    /**
+     * Prueba para consultar todas las facturas.
+     */
     @Test
     public void findFacturasTest() {
         List<FacturaEntity> list = mp.findAll();
