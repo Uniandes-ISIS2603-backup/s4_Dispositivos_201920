@@ -180,12 +180,10 @@ public class CalificacionPersistenceTest {
         CalificacionEntity entity = data.get(0);
         CalificacionEntity newEntity = cp.findByCalificacion(entity.getCalificacionNumerica());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getComentarios(), newEntity.getComentarios());
         Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
 
         newEntity = cp.findByCalificacion(null);
         Assert.assertNull(newEntity);
-    }
     }*/
 
 }
