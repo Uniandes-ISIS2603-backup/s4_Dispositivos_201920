@@ -8,6 +8,8 @@ package co.edu.uniandes.csw.dispositivos.test.logic;
 import co.edu.uniandes.csw.dispositivos.ejb.FacturaLogic;
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
+import co.edu.uniandes.csw.dispositivos.enu.EstadoDispositivo;
+import co.edu.uniandes.csw.dispositivos.enu.Tipo;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
 import java.util.ArrayList;
@@ -88,7 +90,6 @@ public class FacturaLogicTest {
     private void clearData() {
         em.createQuery("delete from FacturaEntity").executeUpdate();
         em.createQuery("delete from ClienteEntity").executeUpdate();
-
         em.createQuery("delete from DispositivoEntity").executeUpdate();
 
     }
@@ -105,27 +106,24 @@ public class FacturaLogicTest {
         }
     }
 
-//    @Test
-//    public void createFacturaTest() throws BusinessLogicException {
-//        FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
-//        List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
-//
-//        DispositivoEntity entity2 = factory.manufacturePojo(DispositivoEntity.class);
-//        dispositivos.add(entity2);
-//
-//        DispositivoEntity entity3 = factory.manufacturePojo(DispositivoEntity.class);
-//        dispositivos.add(entity3);
-//
-//        newEntity.setDispositivos(dispositivos);
-//        FacturaEntity result = facturaLogic.createFactura(newEntity);
-//        Assert.assertNotNull(result);
-//
-//        FacturaEntity entity = em.find(FacturaEntity.class, result.getId());
-//        Assert.assertEquals(entity.getImpuestos(), result.getImpuestos());
-//        Assert.assertEquals(entity.getNumeroDeFactura(), result.getNumeroDeFactura());
-//        Assert.assertEquals(entity.getTotalPago(), result.getTotalPago());
-//
-//    }
+    @Test
+    public void createFacturaTest() throws BusinessLogicException {
+        FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
+        List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
+
+        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", 0, 0, 0, true, true, true, true, null, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
+        dispositivos.add(entity2);
+        newEntity.setDispositivos(dispositivos);
+
+        FacturaEntity result = facturaLogic.createFactura(newEntity);
+        Assert.assertNotNull(result);
+
+        FacturaEntity entity = em.find(FacturaEntity.class, result.getId());
+        Assert.assertEquals(entity.getImpuestos(), result.getImpuestos());
+        Assert.assertEquals(entity.getNumeroDeFactura(), result.getNumeroDeFactura());
+        Assert.assertEquals(entity.getTotalPago(), result.getTotalPago());
+    }
+
     @Test(expected = BusinessLogicException.class)
     public void createFacturaDispositivosNullTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
