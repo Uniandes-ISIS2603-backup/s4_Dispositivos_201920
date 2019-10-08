@@ -106,6 +106,11 @@ public class FacturaLogicTest {
         }
     }
 
+    /**
+     * Test de crear una factura.
+     *
+     * @throws BusinessLogicException
+     */
     @Test
     public void createFacturaTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -124,6 +129,11 @@ public class FacturaLogicTest {
         Assert.assertEquals(entity.getTotalPago(), result.getTotalPago());
     }
 
+    /**
+     * Test de crear una factura con dispositivos en null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createFacturaDispositivosNullTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -131,12 +141,22 @@ public class FacturaLogicTest {
         FacturaEntity result = facturaLogic.createFactura(newEntity);
     }
 
+    /**
+     * Test de crear una factura sin dispositivos.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createFacturaDispositivosVacioTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
         FacturaEntity result = facturaLogic.createFactura(newEntity);
     }
 
+    /**
+     * Test de crear una factura.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createFacturaNumeroNullTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -144,6 +164,11 @@ public class FacturaLogicTest {
         FacturaEntity result = facturaLogic.createFactura(newEntity);
     }
 
+    /**
+     * Prueba para crear una factura con número negativo o cero.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createFacturaNumeroNegaOCeroTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -151,6 +176,11 @@ public class FacturaLogicTest {
         FacturaEntity result = facturaLogic.createFactura(newEntity);
     }
 
+    /**
+     * Prueba para crear una factura con impuestos null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createFacturaImpuestosNullTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -158,6 +188,11 @@ public class FacturaLogicTest {
         FacturaEntity result = facturaLogic.createFactura(newEntity);
     }
 
+    /**
+     * Prueba para crear una factura con impuestos negativos.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createFacturaImpuestosNegativosTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -165,6 +200,11 @@ public class FacturaLogicTest {
         FacturaEntity result = facturaLogic.createFactura(newEntity);
     }
 
+    /**
+     * Prueba para crear una factura con total de pago null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createFacturaTotalPagoNullTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -172,6 +212,11 @@ public class FacturaLogicTest {
         FacturaEntity result = facturaLogic.createFactura(newEntity);
     }
 
+    /**
+     * Prueba para crear una factura con total de pago negativo o cero.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createFacturaTotalPagoNegOCeroTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -192,6 +237,11 @@ public class FacturaLogicTest {
         facturaLogic.createFactura(newEntity);
     }
 
+    /**
+     * Prueba para actualizar una Factura con dispositivos en null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateFacturaDispositivosNullTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -200,6 +250,11 @@ public class FacturaLogicTest {
         FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
     }
 
+    /**
+     * Prueba para actualizar una Factura con dispositivos vacíos.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateFacturaDispositivosVacioTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -207,6 +262,11 @@ public class FacturaLogicTest {
         FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
     }
 
+    /**
+     * Prueba para actualizar una Factura con número null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateFacturaNumeroNullTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -215,6 +275,11 @@ public class FacturaLogicTest {
         FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
     }
 
+    /**
+     * Prueba para actualizar una Factura con número negativo o cero.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateFacturaNumeroNegaOCeroTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -223,6 +288,11 @@ public class FacturaLogicTest {
         FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
     }
 
+    /**
+     * Prueba para actualizar una Factura con impuestos null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateFacturaImpuestosNullTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -231,6 +301,11 @@ public class FacturaLogicTest {
         FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
     }
 
+    /**
+     * Prueba para actualizar una Factura con impuestos negativos.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateFacturaImpuestosNegativosTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -239,6 +314,11 @@ public class FacturaLogicTest {
         FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
     }
 
+    /**
+     * Prueba para actualizar una factura con el total de pago null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateFacturaTotalPagoNullTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
@@ -247,6 +327,11 @@ public class FacturaLogicTest {
         FacturaEntity result = facturaLogic.updateFactura(entity.getId(), newEntity);
     }
 
+    /**
+     * Prueba para actualizar una Factura con el total de pago negativo o cero.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateFacturaTotalPagoNegOCeroTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
