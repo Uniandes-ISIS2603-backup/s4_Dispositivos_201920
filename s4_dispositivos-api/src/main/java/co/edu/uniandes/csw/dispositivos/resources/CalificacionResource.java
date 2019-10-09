@@ -27,9 +27,10 @@ import javax.ws.rs.Produces;
 @RequestScoped
 public class CalificacionResource {
     
+    //@PathParam("calificacionId") Long calificacionId,
     @POST
-    public CalificacionDTO createCalificacion(@PathParam("calificacionId") Long calificacionId, CalificacionDTO calificacion) {
-        return null;
+    public CalificacionDTO createCalificacion( CalificacionDTO calificacion) {
+        return calificacion;
     }
 
     @GET
