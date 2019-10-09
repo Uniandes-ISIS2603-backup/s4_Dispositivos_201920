@@ -5,8 +5,10 @@
  */
 package co.edu.uniandes.csw.dispositivos.ejb;
 
+import co.edu.uniandes.csw.dispositivos.entities.ClienteEntity;
 import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.dispositivos.persistence.ClientePersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
 import java.util.List;
 import javax.inject.Inject;
@@ -19,6 +21,8 @@ public class FacturaLogic {
 
     @Inject
     private FacturaPersistence fp;
+    @Inject
+    private ClientePersistence cp;
 
     /**
      * Crea una factura por ID
@@ -49,22 +53,32 @@ public class FacturaLogic {
     }
 
     /**
-     * Devuelve todas las facturas que hay en la base de datos.
+     * Devuelve todas las facturas que hay en la base de datos asociadas al
+     * cliente.
      *
+     * @param clienteId id del cliente
      * @return Lista de entidades de tipo factura.
      */
-    public List<FacturaEntity> getFacturas() {
-        return fp.findAll();
+    public List<FacturaEntity> getFacturas(Long clienteId) {
+        ClienteEntity clienteEntity = cp.find(clienteId);
+        return clienteEntity.getFacturas();
     }
 
     /**
      * Busca una factura por ID
      *
      * @param facturaId El id de la factura a buscar
+     * @param clientesId id del cliente
      * @return La factura encontrada, null si no la encuentra.
      */
-    public FacturaEntity getFactura(Long facturaId) {
-        return fp.find(facturaId);
+    public FacturaEntity getFactura(Long clientesId, Long facturaId) throws BusinessLogicException {
+        List<FacturaEntity> comprobantes = cp.find(clientesId).getFacturas();
+        FacturaEntity comprobanteEntity = fp.find(clientesId, facturaId);
+        int index = comprobantes.indexOf(comprobanteEntity);
+        if (index >= 0) {
+            return comprobantes.get(index);
+        }
+        throw new BusinessLogicException("La factura no está asociada a el cliente");
     }
 
     /**
