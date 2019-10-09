@@ -114,6 +114,9 @@ public class CategoriaDispositivoLogicTest {
             CategoriaEntity entity = factory.manufacturePojo(CategoriaEntity.class);
             if (i == 0) {
                 dispositivos.get(i).setCategoria(entity);
+                List<DispositivoEntity> dispositivosw=new ArrayList<>();
+                dispositivosw.add(dispositivos.get(i));
+                entity.setDispositivos(dispositivosw);
 
             }
             em.persist(entity);
@@ -159,7 +162,7 @@ public class CategoriaDispositivoLogicTest {
         CategoriaEntity entity = data.get(0);
         DispositivoEntity dispositivoEntity = dispositivos.get(0);
 
-        DispositivoEntity response = categoriaDispositivoLogic.getDispositivo(entity.getId(), entity.getId());
+        DispositivoEntity response = categoriaDispositivoLogic.getDispositivo(entity.getId(), dispositivoEntity.getId());
 
         Assert.assertEquals(dispositivoEntity.getId(), response.getId());
         Assert.assertEquals(dispositivoEntity.getCategoria(), response.getCategoria());
