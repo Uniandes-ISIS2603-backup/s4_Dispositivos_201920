@@ -49,8 +49,8 @@ public class FacturaDetailDTO extends FacturaDTO implements Serializable {
         FacturaEntity facturaEntity = super.toEntity();
         if (dispositivos != null) {
             List<DispositivoEntity> dispositivosEntity = new ArrayList<>();
-            for (DispositivoDTO dtoReview : getDispositivos()) {
-                dispositivosEntity.add(dtoReview.toEntity());
+            for (DispositivoDTO dispositivo : getDispositivos()) {
+                dispositivosEntity.add(dispositivo.toEntity());
             }
             facturaEntity.setDispositivos(dispositivosEntity);
         }
