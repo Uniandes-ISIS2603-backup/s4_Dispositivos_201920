@@ -70,13 +70,14 @@ public class FacturaLogic {
      * @param facturaId El id de la factura a buscar
      * @param clientesId id del cliente
      * @return La factura encontrada, null si no la encuentra.
+     * @throws BusinessLogicException
      */
     public FacturaEntity getFactura(Long clientesId, Long facturaId) throws BusinessLogicException {
-        List<FacturaEntity> comprobantes = cp.find(clientesId).getFacturas();
-        FacturaEntity comprobanteEntity = fp.find(clientesId, facturaId);
-        int index = comprobantes.indexOf(comprobanteEntity);
+        List<FacturaEntity> factura = cp.find(clientesId).getFacturas();
+        FacturaEntity facturaEntity = fp.find(clientesId, facturaId);
+        int index = factura.indexOf(facturaEntity);
         if (index >= 0) {
-            return comprobantes.get(index);
+            return factura.get(index);
         }
         throw new BusinessLogicException("La factura no está asociada a el cliente");
     }

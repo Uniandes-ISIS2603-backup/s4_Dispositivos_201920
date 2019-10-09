@@ -69,15 +69,13 @@ public class ClienteFacturaLogic {
      * cliente
      */
     public FacturaEntity getFactura(Long clientesId, Long facturasId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el factura con id = {0} de el cliente con id = " + clientesId, facturasId);
-        List<FacturaEntity> facturas = clientePersistence.find(clientesId).getFacturas();
-        FacturaEntity facturaEntity = facturaPersistence.find(facturasId, clientesId);
-        int index = facturas.indexOf(facturaEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el factura con id = {0} de el cliente con id = " + clientesId, facturasId);
+        List<FacturaEntity> factura = clientePersistence.find(clientesId).getFacturas();
+        FacturaEntity facturaEntity = facturaPersistence.find(clientesId, facturasId);
+        int index = factura.indexOf(facturaEntity);
         if (index >= 0) {
-            return facturas.get(index);
+            return factura.get(index);
         }
-        throw new BusinessLogicException("El factura no está asociado a el cliente");
+        throw new BusinessLogicException("La factura no está asociada a el cliente");
     }
 
     /**

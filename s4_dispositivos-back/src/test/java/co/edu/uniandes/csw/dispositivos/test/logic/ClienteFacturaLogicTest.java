@@ -107,6 +107,9 @@ public class ClienteFacturaLogicTest {
             data.add(entity);
             if (i == 0) {
                 facturasData.get(i).setCliente(entity);
+                List<FacturaEntity> add = new ArrayList<FacturaEntity>();
+                add.add(facturasData.get(0));
+                entity.setFacturas(add);
             }
         }
     }
@@ -117,7 +120,7 @@ public class ClienteFacturaLogicTest {
     @Test
     public void addFacturasTest() {
         ClienteEntity entity = data.get(0);
-        FacturaEntity facturaEntity = facturasData.get(1);
+        FacturaEntity facturaEntity = facturasData.get(0);
         FacturaEntity response = clienteFacturaLogic.addFactura(facturaEntity.getId(), entity.getId());
 
         Assert.assertNotNull(response);
@@ -143,9 +146,9 @@ public class ClienteFacturaLogicTest {
      */
     @Test
     public void getFacturaTest() throws BusinessLogicException {
-        ClienteEntity entity = data.get(0);
+        ClienteEntity clienteEntity = data.get(0);
         FacturaEntity facturaEntity = facturasData.get(0);
-        FacturaEntity response = clienteFacturaLogic.getFactura(entity.getId(), facturaEntity.getId());
+        FacturaEntity response = clienteFacturaLogic.getFactura(clienteEntity.getId(), facturaEntity.getId());
 
         Assert.assertEquals(facturaEntity.getId(), response.getId());
         Assert.assertEquals(facturaEntity.getFechaDePago(), response.getFechaDePago());
