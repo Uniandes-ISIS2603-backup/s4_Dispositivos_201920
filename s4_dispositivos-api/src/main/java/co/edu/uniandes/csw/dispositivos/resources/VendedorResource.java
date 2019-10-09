@@ -12,6 +12,7 @@ import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -38,69 +39,97 @@ public class VendedorResource
     private static final Logger LOGGER = Logger.getLogger(VendedorResource.class.getName());
     
     @Inject
-    private VendedorLogic vendedorvrlogic;  
+    private VendedorLogic vrlogic;  
 
+    /**
+     * Crea el vendedor mediante el DTO recibido por el URL.
+     * @param vendedor
+     * @return Vendedor creado
+     * @throws BusinessLogicException
+     */
     @POST
     public VendedorDTO createVendedor(VendedorDTO vendedor) throws BusinessLogicException
     {
-        /**
-        VendedorDTO newvendedor = new VendedorDTO(vendedorvrlogic.createVendedor(vendedor.toEntity()));
+        LOGGER.log(Level.INFO, "VendedorResource createVendedor: input: {0}", vendedor);
+        VendedorDTO newvendedor = new VendedorDTO(vrlogic.createVendedor(vendedor.toEntity()));
+        LOGGER.log(Level.INFO, "VendedorResource createVendedor: output: {0}", newvendedor);
         return newvendedor;
-        */
-        return null;
     }
 
+    /**
+     * Obtiene la lista de todos los venedores existentes.
+     * @return Lista de todos los venedores
+     * @throws BusinessLogicException
+     */
     @GET
     public List<VendedorDetailDTO> getAllVendedores() throws BusinessLogicException
     {
-        /**
-        List<VendedorEntity> vrconteo = vendedorvrlogic.findAllVendedores(); 
+        LOGGER.info("VendedorResource getAllVendedores: input: void");
+        List<VendedorEntity> vrconteo = vrlogic.findAllVendedores(); 
         List<VendedorDetailDTO> vrlisted = new ArrayList<>();
         for(VendedorEntity vendedor : vrconteo)
             vrlisted.add(new VendedorDetailDTO(vendedor));
+        LOGGER.log(Level.INFO, "VendedorResource getAllVendedores: output: {0}", vrlisted);
         return vrlisted; 
-        */
-        return null;
     }
 
+    /**
+     * Obtiene el vendedor mediante el id recibido por el URL.
+     * @param idVendedor
+     * @return Vendedor obtenido
+     * @throws BusinessLogicException
+     * @throws WebApplicationException
+     */
     @GET
     @Path("{vendedorID: \\d+}")
-    public VendedorDetailDTO getVendedor(@PathParam("vendedorID") Long idVendedor)
+    public VendedorDetailDTO getVendedor(@PathParam("vendedorID") Long idVendedor) throws BusinessLogicException
     {
-        /**
-        VendedorEntity wantedvr = vendedorvrlogic.findVendedor(idVendedor);
+        LOGGER.log(Level.INFO, "VendedorResource getVendedor: input: {0}", idVendedor);
+        VendedorEntity wantedvr = vrlogic.findVendedor(idVendedor);
         if(wantedvr == null)
             throw new WebApplicationException("No se encuentra el recurso /vendedor/" + idVendedor, 404);
         VendedorDetailDTO vrdetail = new VendedorDetailDTO(wantedvr);
-        return vrdetail;
-        */
-        return null; 
+        LOGGER.log(Level.INFO, "VendedorResource getVendedor: output: {0}", vrdetail);
+        return vrdetail; 
     }
 
+    /**
+     * Actualiza el vendedor mediante el id y la nueva definición del vendedor recibidos por el URL.
+     * @param idVendedor
+     * @param vrdto
+     * @return Vendedor actualizado
+     * @throws BusinessLogicException
+     * @throws WebApplicationException
+     */
     @PUT
     @Path("{vendedorID: \\d+}")
     public VendedorDetailDTO updateVendedor(@PathParam("vendedorID") Long idVendedor, VendedorDetailDTO vrdto) throws BusinessLogicException
     {
-        /**
+        LOGGER.log(Level.INFO, "VendedorResource updateVendedor: input: {0}, venta: {1}", new Object[]{idVendedor, vrdto});
         vrdto.setId(idVendedor);
-        if(vendedorvrlogic.findVendedor(idVendedor) == null)
+        if(vrlogic.findVendedor(idVendedor) == null)
             throw new WebApplicationException("No se encuentra el recurso /vendedor/" + idVendedor, 404);
-        VendedorDetailDTO detailVendedor = new VendedorDetailDTO(vendedorvrlogic.updateVendedor(vrdto.toEntity()));
+        VendedorDetailDTO detailVendedor = new VendedorDetailDTO(vrlogic.updateVendedor(vrdto.toEntity()));
+        LOGGER.log(Level.INFO, "VendedorResource updateVendedor: output: {0}", detailVendedor);
         return detailVendedor;
-        */
-        return null;
     }
 
+    /**
+     * Borra el vendedor mediante el id recibido por el URL.
+     * @param idVendedor
+     * @throws BusinessLogicException
+     * @throws WebApplicationException
+     */
     @DELETE
     @Path("{vendedorID: \\d+}")
     public void deleteVendedor(@PathParam("vendedorID") Long idVendedor) throws BusinessLogicException
     {
-        /**
-        VendedorEntity notvendedor = vendedorvrlogic.findVendedor(idVendedor); 
+        LOGGER.log(Level.INFO, "VendedorResource deleteVendedor: input: {0}", idVendedor);
+        VendedorEntity notvendedor = vrlogic.findVendedor(idVendedor); 
         if(notvendedor == null)
             throw new WebApplicationException("No se encuentra el recurso /vendedor/" + idVendedor, 404); 
 
-        vendedorvrlogic.deleteVendedor(idVendedor);
-        */
+        vrlogic.deleteVendedor(idVendedor);
+        LOGGER.info("VendedorResource deleteVendedor: output: void");
     }
 }
