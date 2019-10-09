@@ -57,15 +57,15 @@ public class FacturaPersistence {
         q.setParameter("clienteid", clienteId);
         q.setParameter("facturaId", id);
         List<FacturaEntity> results = q.getResultList();
-        FacturaEntity review = null;
+        FacturaEntity factura = null;
         if (results == null) {
-            review = null;
+            factura = null;
         } else if (results.isEmpty()) {
-            review = null;
+            factura = null;
         } else if (results.size() >= 1) {
-            review = results.get(0);
+            factura = results.get(0);
         }
-        return review;
+        return factura;
     }
 
     /**

@@ -102,12 +102,14 @@ public class FacturaLogicTest {
      * pruebas.
      */
     private void insertData() {
+        cliente = factory.manufacturePojo(ClienteEntity.class);
+        em.persist(cliente);
         for (int i = 0; i < 3; i++) {
             FacturaEntity entity = factory.manufacturePojo(FacturaEntity.class);
+            entity.setCliente(cliente);
             em.persist(entity);
             data.add(entity);
         }
-        cliente = factory.manufacturePojo(ClienteEntity.class);
     }
 
     /**
@@ -383,7 +385,7 @@ public class FacturaLogicTest {
     @Test
     public void getFacturaTest() throws BusinessLogicException {
         FacturaEntity entity = data.get(0);
-        FacturaEntity resultEntity = facturaLogic.getFactura(entity.getId(), cliente.getId());
+        FacturaEntity resultEntity = facturaLogic.getFactura(cliente.getId(), entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getDispositivos(), resultEntity.getDispositivos());
         Assert.assertEquals(entity.getImpuestos(), resultEntity.getImpuestos());
@@ -422,11 +424,13 @@ public class FacturaLogicTest {
 
     /**
      * Prueba para eliminar una Factura.
+     *
+     * @throws BusinessLogicException
      */
     @Test
-    public void deleteFacturaTest() {
-        FacturaEntity entity = data.get(1);
-        facturaLogic.deleteFactura(entity.getId());
+    public void deleteFacturaTest() throws BusinessLogicException {
+        FacturaEntity entity = data.get(0);
+        facturaLogic.deleteFactura(entity.getId(), cliente.getId());
         FacturaEntity deleted = em.find(FacturaEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
