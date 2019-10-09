@@ -50,27 +50,33 @@ public class FacturaEntity extends BaseEntity implements Serializable {
      * Atributo que modela los dispositivos en la factura.
      */
     @PodamExclude
-    @OneToMany(mappedBy = "factura")
+    @OneToMany(mappedBy = "factura", cascade=CascadeType.ALL)
     private List<DispositivoEntity> dispositivos;
 
+    /**
+     * Atributo que modela al cliente de la factura.
+     */
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
     private ClienteEntity cliente;
-        
+
+    /**
+     * Atributo que modela la venta asociada a la factura.
+     */
     @PodamExclude
     @OneToOne
     private VentaEntity venta;
 
     /**
-     * Fecha de pago de los dispositivos electronicos
+     * Fecha de pago de los dispositivos electronicos.
      */
     @Temporal(TemporalType.DATE)
     @PodamStrategyValue(DateStrategy.class)
     private Date fechaDePago;
 
     /**
-     * Constructor creado vacio para no tener problemas al implementar
-     * Serializable
+     * Constructor creado vacio para no tener problemas al implementar.
+     * Serializable.
      */
     public FacturaEntity() {
     }
@@ -85,13 +91,13 @@ public class FacturaEntity extends BaseEntity implements Serializable {
      * @param pFechaDePago fecha de pago a establecer.
      * @param venta venta asociada.
      */
-    public FacturaEntity(Integer pNumeroDeFactura, Double pTotalPago, Double pImpuestos, List<DispositivoEntity> pDispositivos, Date pFechaDePago,VentaEntity venta) {
+    public FacturaEntity(Integer pNumeroDeFactura, Double pTotalPago, Double pImpuestos, List<DispositivoEntity> pDispositivos, Date pFechaDePago, VentaEntity venta) {
         this.numeroDeFactura = pNumeroDeFactura;
         this.totalPago = pTotalPago;
         this.impuestos = pImpuestos;
         this.dispositivos = pDispositivos;
         this.fechaDePago = pFechaDePago;
-        this.venta=venta;
+        this.venta = venta;
     }
 
     /**

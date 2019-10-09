@@ -44,8 +44,28 @@ public class FacturaPersistence {
      * @param facturaId: id correspondiente a la factura buscada.
      * @return una factura.
      */
-    public FacturaEntity find(Long facturaId) {
-        return em.find(FacturaEntity.class, facturaId);
+    /**
+     * Busca un comprobante de pago por su id
+     *
+     * @param id llave del comprobante a buscar
+     * @param clienteId id del cliente.
+     * @return comprobante de pago correspondiente si lo encuentra, de lo
+     * contrario null
+     */
+    public FacturaEntity find(Long clienteId, Long id) {
+        TypedQuery<FacturaEntity> q = em.createQuery("select p from FacturaEntity p where (p.cliente.id = :clienteid) and (p.id = :facturaId)", FacturaEntity.class);
+        q.setParameter("clienteid", clienteId);
+        q.setParameter("facturaId", id);
+        List<FacturaEntity> results = q.getResultList();
+        FacturaEntity factura = null;
+        if (results == null) {
+            factura = null;
+        } else if (results.isEmpty()) {
+            factura = null;
+        } else if (results.size() >= 1) {
+            factura = results.get(0);
+        }
+        return factura;
     }
 
     /**
