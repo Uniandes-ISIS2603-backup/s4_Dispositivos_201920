@@ -36,7 +36,9 @@ import javax.ws.rs.WebApplicationException;
 public class AdministradorResource 
 {   
     private static final Logger LOGGER = Logger.getLogger(AdministradorResource.class.getName());
-
+    /**
+     * Inyección de la clase administrador de lógica
+     */
     @Inject
     private AdministradorLogic adminLogic;
     /**

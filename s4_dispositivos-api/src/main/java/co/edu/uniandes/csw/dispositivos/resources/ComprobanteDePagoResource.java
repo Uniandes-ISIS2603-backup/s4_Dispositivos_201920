@@ -90,7 +90,6 @@ public class ComprobanteDePagoResource
         LOGGER.log(Level.INFO, "ComprobanteDePagoResource getComprobanteDePago: output: {0}", comprobanteDTO);
         return comprobanteDTO;
     }
-
     /**
      * Actualiza un comprobante con la informacion que se recibe
      * @param clienteId El ID del cliente del cual se guarda el comprobante de pago
@@ -117,7 +116,6 @@ public class ComprobanteDePagoResource
         LOGGER.log(Level.INFO, "ComprobanteDePagoResource updateComprobante: output:{0}", comprobanteDTO);
         return comprobanteDTO;
     }
-
     /**
      * Borra el comprobante de pago con el id asociado recibido en la URL
      * @param clienteId El ID del cliente del cual se va a eliminar el comprobante
@@ -134,7 +132,6 @@ public class ComprobanteDePagoResource
 
         comprobanteLogic.deleteComprobante(comprobanteId, clienteId);
     }
-
     /**
      * Lista de entidades a DTO.
      * Este método convierte una lista de objetos ComprobanteDePagoEntity a una lista de objetos ComprobanteDePagoDTO (json)
