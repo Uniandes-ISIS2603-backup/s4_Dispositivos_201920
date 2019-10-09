@@ -18,10 +18,12 @@ import uk.co.jemos.podam.common.PodamDoubleValue;
 @Entity
 public class CalificacionEntity extends BaseEntity implements Serializable {
 
+
     @PodamDoubleValue(minValue = 0.0, maxValue = 5.0)
     double calificacionNumerica;
 
     String comentario;
+
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private DispositivoEntity dispositivo;
@@ -29,6 +31,7 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
     public CalificacionEntity() {
 
     }
+
 
     public CalificacionEntity(String comentario, Double calificacion, DispositivoEntity dispositivo) {
         this.comentario = comentario;
@@ -52,12 +55,14 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
         this.calificacionNumerica = calificacionNumerica;
     }
 
+
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
 
     public void setDispositivo(DispositivoEntity dispositivo) {
         this.dispositivo = dispositivo;
+
     }
 
 }

@@ -19,7 +19,7 @@ import javax.inject.Inject;
 @Stateless
 public class CalificacionLogic {
     @Inject
-    private CalificacionPersistence persistence;
+    private CalificacionPersistence cp;
     /**
      * 
      * @param calificacion
@@ -29,10 +29,19 @@ public class CalificacionLogic {
     public CalificacionEntity createCalificacion(CalificacionEntity calificacion) throws BusinessLogicException{
             if(calificacion.getCalificacionNumerica()<0 || calificacion.getCalificacionNumerica()>10){
                  throw new BusinessLogicException("Existe una calificacion con numero menor a 0 o mayor a 10 \"" + calificacion.getId() + "\"");        
-    }
-        calificacion= persistence.create(calificacion);
+            }
+        calificacion= cp.create(calificacion);
         return calificacion;
     }
+    
+    public CalificacionEntity updateCalificacion(CalificacionEntity calificacion) throws BusinessLogicException{
+            if(calificacion.getCalificacionNumerica()<0 || calificacion.getCalificacionNumerica()>10){
+                 throw new BusinessLogicException("Existe una calificacion con numero menor a 0 o mayor a 10 \"" + calificacion.getId() + "\"");        
+           }
+            cp.update(calificacion);
+            return calificacion;
+    }
+            
     
     /**
      *
@@ -41,15 +50,17 @@ public class CalificacionLogic {
      * @return una lista de editoriales.
      */
     public List<CalificacionEntity> getCalificaciones() {
-        List<CalificacionEntity> editorials = persistence.findAll();
+        List<CalificacionEntity> editorials = cp.findAll();
         return editorials;
     }
     
-    public CalificacionEntity getCalificacion(Long editorialsId) {
-        CalificacionEntity editorialEntity = persistence.find(editorialsId);
+    public CalificacionEntity getCalificacion(Long calificacionId) {
+        CalificacionEntity editorialEntity = cp.find(calificacionId);
         return editorialEntity;
     }
     
-    
-    
+   public void deleteCalificacion(Long calificacionId) {
+
+        cp.delete(calificacionId);
+    }   
 }
