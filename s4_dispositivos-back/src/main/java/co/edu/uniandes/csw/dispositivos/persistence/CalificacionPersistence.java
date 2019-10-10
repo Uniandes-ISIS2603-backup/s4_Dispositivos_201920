@@ -59,4 +59,20 @@ public class CalificacionPersistence {
         }
         return result;
     }
+    
+    public CalificacionEntity find(Long dispositivoId,Long calificacionId) {
+        TypedQuery<CalificacionEntity> q = em.createQuery("select p from CalificacionEntity p where (p.dispositivo.id = :dispositivoId) and (p.id = :calificacionId)", CalificacionEntity.class);
+        q.setParameter("dispositivoId", dispositivoId);
+        q.setParameter("calificacionId", calificacionId);
+        List<CalificacionEntity> results = q.getResultList();
+        CalificacionEntity review = null;
+        if (results == null) {
+            review = null;
+        } else if (results.isEmpty()) {
+            review = null;
+        } else if (results.size() >= 1) {
+            review = results.get(0);
+        }
+        return review;
+    }
 }

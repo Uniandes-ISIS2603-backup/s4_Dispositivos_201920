@@ -137,5 +137,13 @@ public class DispositivoResource {
         }
         return list;
     }
+    
+    @Path("{dispositivosId: \\d+}/calificaciones")
+    public Class<CalificacionResource> getCalificacionResource(@PathParam("dispositivosId") Long dispositivosId) {
+        if (dispositivoLogic.getDispositivo(dispositivosId) == null) {
+            throw new WebApplicationException("El recurso /dispositivos/" + dispositivosId + "/calificaciones no existe.", 404);
+        }
+        return CalificacionResource.class;
+    }
 
 }
