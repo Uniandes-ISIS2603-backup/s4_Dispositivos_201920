@@ -5,10 +5,8 @@
  */
 package co.edu.uniandes.csw.dispositivos.tests.postman;
 
-import co.edu.uniandes.csw.dispositivos.dtos.ComprobanteDePagoDTO;
 import co.edu.uniandes.csw.dispositivos.dtos.DispositivoDTO;
 import co.edu.uniandes.csw.dispositivos.mappers.BusinessLogicExceptionMapper;
-import co.edu.uniandes.csw.dispositivos.resources.ComprobanteDePagoResource;
 import co.edu.uniandes.csw.dispositivos.resources.DispositivoResource;
 import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
 import java.io.File;
@@ -36,15 +34,19 @@ public class DispositivoIT {
     @Deployment(testable = true)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "s4_dispositivos-api.war")//War del modulo api
+                // Se agrega las dependencias
                 .addAsLibraries(Maven.resolver().loadPomFromFile("pom.xml")
                         .importRuntimeDependencies().resolve()
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
-                .addPackage(DispositivoResource.class.getPackage())
-                .addPackage(DispositivoDTO.class.getPackage())
+                .addPackage(DispositivoResource.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
+                .addPackage(DispositivoDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
                 .addPackage(BusinessLogicExceptionMapper.class.getPackage())
+                // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
+                // El archivo beans.xml es necesario para injeccion de dependencias.
                 .addAsWebInfResource(new File("src/main/webapp/WEB-INF/beans.xml"))
+                // El archivo web.xml es necesario para el despliegue de los servlets
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"))
                 .addAsWebInfResource(new File("src/main/webapp/WEB-INF/glassfish-resources.xml"));
     }
