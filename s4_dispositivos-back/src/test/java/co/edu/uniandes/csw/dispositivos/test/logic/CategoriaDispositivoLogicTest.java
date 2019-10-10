@@ -170,7 +170,6 @@ public class CategoriaDispositivoLogicTest {
         Assert.assertEquals(dispositivoEntity.getDescripcion(), response.getDescripcion());
         Assert.assertEquals(dispositivoEntity.getDescuento(), response.getDescuento());
         Assert.assertEquals(dispositivoEntity.getEstado(), response.getEstado());
-        Assert.assertEquals(dispositivoEntity.getFactura(), response.getFactura());
         Assert.assertEquals(dispositivoEntity.getMarca(), response.getMarca());
         Assert.assertEquals(dispositivoEntity.getNombre(), response.getNombre());
         Assert.assertEquals(dispositivoEntity.getPrecio(), response.getPrecio());
