@@ -41,9 +41,5 @@ insert into ClienteEntity_DispositivoEntity (clienteEntity_Id, carritoDeCompras_
 insert into ClienteEntity_DispositivoEntity (clienteEntity_Id, carritoDeCompras_ID, ListaDeDeseos_ID) values (1000000004, 30, 23);
 insert into ClienteEntity_DispositivoEntity (clienteEntity_Id, carritoDeCompras_ID, ListaDeDeseos_ID) values (1000000005, 17, 8);
 
-<<<<<<< HEAD
 DELETE FROM ComprobanteDePagoEntity;
-DELETE FROM ClienteEntity
-=======
 delete from ClienteEntity;
->>>>>>> Develop
