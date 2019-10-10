@@ -42,7 +42,7 @@ public class ClienteFacturaLogic {
     public FacturaEntity addFactura(Long facturasId, Long clientesId) {
         LOGGER.log(Level.INFO, "Inicia proceso de agregarle un factura a el cliente con id = {0}", clientesId);
         ClienteEntity clienteEntity = clientePersistence.find(clientesId);
-        FacturaEntity facturaEntity = facturaPersistence.find(facturasId, clientesId);
+        FacturaEntity facturaEntity = facturaPersistence.find(clientesId,facturasId );
         facturaEntity.setCliente(clienteEntity);
         LOGGER.log(Level.INFO, "Termina proceso de agregarle un factura a el cliente con id = {0}", clientesId);
         return facturaEntity;
