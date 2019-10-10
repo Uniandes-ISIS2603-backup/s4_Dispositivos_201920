@@ -147,4 +147,11 @@ public class FacturaDTO implements Serializable {
         return fechaDePago;
     }
 
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 }

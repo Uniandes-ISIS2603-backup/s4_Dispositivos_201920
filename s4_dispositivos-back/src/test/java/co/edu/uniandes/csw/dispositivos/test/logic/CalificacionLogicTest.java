@@ -1,16 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.dispositivos.test.logic;
 
-import co.edu.uniandes.csw.dispositivos.ejb.DispositivoFacturaLogic;
-import co.edu.uniandes.csw.dispositivos.ejb.DispositivoLogic;
-import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
-import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
+import co.edu.uniandes.csw.dispositivos.ejb.CalificacionLogic;
+import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -28,20 +21,13 @@ import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
-/**
- *
- * @author Santiago Fajardo
- */
 @RunWith(Arquillian.class)
-public class DispositivoFacturaLogicTest {
+public class CalificacionLogicTest {
 
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private DispositivoLogic dispositivoLogic;
-
-    @Inject
-    private DispositivoFacturaLogic dispositivoFacturaLogic;
+    private CalificacionLogic calificacionLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -49,9 +35,8 @@ public class DispositivoFacturaLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<FacturaEntity> data = new ArrayList<>();
+    private List<CalificacionEntity> data = new ArrayList<CalificacionEntity>();
 
-    private List<DispositivoEntity> dispositivosData = new ArrayList<>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -61,13 +46,16 @@ public class DispositivoFacturaLogicTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(FacturaEntity.class.getPackage())
-                .addPackage(DispositivoLogic.class.getPackage())
-                .addPackage(FacturaPersistence.class.getPackage())
+                .addPackage(CalificacionEntity.class.getPackage())
+                .addPackage(CalificacionLogic.class.getPackage())
+                .addPackage(CalificacionPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
 
+    /**
+     * Configuración inicial de la prueba.
+     */
     @Before
     public void configTest() {
         try {
@@ -89,8 +77,7 @@ public class DispositivoFacturaLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from DispositivoEntity").executeUpdate();
-        em.createQuery("delete from FacturaEntity").executeUpdate();
+        em.createQuery("delete from CalificacionEntity").executeUpdate();
     }
 
     /**
@@ -99,32 +86,38 @@ public class DispositivoFacturaLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            DispositivoEntity books = factory.manufacturePojo(DispositivoEntity.class);
-            em.persist(books);
-            dispositivosData.add(books);
-        }
-        for (int i = 0; i < 3; i++) {
-            FacturaEntity entity = factory.manufacturePojo(FacturaEntity.class);
+            CalificacionEntity entity = factory.manufacturePojo(CalificacionEntity.class);
+            entity.setCalificacionNumerica(5);
             em.persist(entity);
             data.add(entity);
-            if (i == 0) {
-                dispositivosData.get(i).setFactura(entity);
-            }
         }
     }
 
+    /**
+     * Prueba para crear un Editorial.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
     @Test
-    public void replaceFacturaTest() {
-        DispositivoEntity entity = dispositivosData.get(0);
-        dispositivoFacturaLogic.replaceFactura(entity.getId(), data.get(1).getId());
-        entity = dispositivoLogic.getDispositivo(entity.getId());
-        Assert.assertEquals(entity.getFactura(), data.get(1));
+    public void createCalificacionTest() throws BusinessLogicException {
+        CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
+        newEntity.setCalificacionNumerica(5);
+        CalificacionEntity result = calificacionLogic.createCalificacion(newEntity);
+        Assert.assertNotNull(result);
+        CalificacionEntity entity = em.find(CalificacionEntity.class, result.getId());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getCalificacionNumerica(), entity.getCalificacionNumerica(),0);
     }
 
-    @Test
-    public void removeFacturaTest() throws BusinessLogicException {
-        dispositivoFacturaLogic.removeFactura(dispositivosData.get(0).getId());
-        DispositivoEntity response = dispositivoLogic.getDispositivo(dispositivosData.get(0).getId());
-        Assert.assertNull(response.getFactura());
+    /**
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
+    
+    @Test(expected = BusinessLogicException.class)
+    public void createCalificacionConNumeroMayorOMenor() throws BusinessLogicException {
+        CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
+        newEntity.setCalificacionNumerica(-2);
+        calificacionLogic.createCalificacion(newEntity);
     }
 }

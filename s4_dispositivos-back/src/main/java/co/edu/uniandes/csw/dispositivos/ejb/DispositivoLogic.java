@@ -29,7 +29,7 @@ public class DispositivoLogic {
     public DispositivoEntity createDispositivo(DispositivoEntity dispositivo) throws BusinessLogicException {
 
         if (dispositivo != null) {
-            if (persistence.find(dispositivo.getId()) == null) {
+            if (!persistence.containsDispositivo(dispositivo)) {
                 if (!dispositivo.isUsado()) {
                     if (!dispositivo.isEsImportado()) {
                         if (dispositivo.getDescripcion() == null || dispositivo.getNombre() == null || dispositivo.getModelo() == null

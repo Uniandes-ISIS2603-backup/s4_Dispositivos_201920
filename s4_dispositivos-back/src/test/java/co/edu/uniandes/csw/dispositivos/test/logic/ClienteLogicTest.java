@@ -101,6 +101,11 @@ public class ClienteLogicTest {
         }
     }
 
+    /**
+     * Test de crear un cliente.
+     *
+     * @throws BusinessLogicException
+     */
     @Test
     public void createClienteTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -117,6 +122,11 @@ public class ClienteLogicTest {
         Assert.assertEquals(result.getUsuario(), entity.getUsuario());
     }
 
+    /**
+     * Test de crear un cliente con nombre null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createClienteNombreNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -124,6 +134,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de crear un cliente con apellido null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createClienteApellidoNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -131,6 +146,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de crear un cliente con correo null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createClienteCorreoNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -138,6 +158,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de crear un cliente con dirección null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createClienteDireccionNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -145,6 +170,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de crear un cliente con usuario null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createClienteUsuarioNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -152,6 +182,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de crear un cliente con contraseña null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createClienteContrasenaNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -159,6 +194,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de crear un cliente con cédula null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createClienteCedulaNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -166,6 +206,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de crear un cliente con nombre vacío.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createClienteNombreVacioTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -173,6 +218,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de crear un cliente con apellido vacío.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createClienteApellidoVacioTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -180,6 +230,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de crear un cliente con correo vacío.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createClienteCorreoVacioTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -187,6 +242,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de crear un cliente con dirección vacía.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createClienteDireccionVaciaTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -194,6 +254,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de crear un cliente con usuario vacío.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createClienteUsuarioVacioTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -201,6 +266,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de crear un cliente con contraseña vacía.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createClienteContrasenaVaciaTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -208,6 +278,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de crear un cliente con cédula negativa o cero.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createClienteCedulaNegOCeroTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -254,6 +329,11 @@ public class ClienteLogicTest {
         clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de actualizar un cliente con nombre null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateClienteNombreNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -262,6 +342,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
     }
 
+    /**
+     * Test de actualizar un cliente con apellido null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateClienteApellidoNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -270,6 +355,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
     }
 
+    /**
+     * Test de actualizar un cliente con correo null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateClienteCorreoNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -278,6 +368,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
     }
 
+    /**
+     * Test de actualizar un cliente con dirección null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateClienteDireccionNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -286,6 +381,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
     }
 
+    /**
+     * Test de actualizar un cliente con usuario null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateClienteUsuarioNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -294,6 +394,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
     }
 
+    /**
+     * Test de actualizar un cliente con contraseña null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateClienteContrasenaNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -302,6 +407,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
     }
 
+    /**
+     * Test de actualizar un cliente con cédula null.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateClienteCedulaNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -310,6 +420,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
     }
 
+    /**
+     * Test de actualizar un cliente con nombre vacío.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateClienteNombreVacioTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -318,6 +433,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
     }
 
+    /**
+     * Test de actualizar un cliente con apellido vacío.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateClienteApellidoVacioTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -325,6 +445,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
+    /**
+     * Test de actualizar un cliente con correo vacío.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateClienteCorreoVacioTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -333,6 +458,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
     }
 
+    /**
+     * Test de actualizar un cliente con dirección vacía.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateClienteDireccionVaciaTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -341,6 +471,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
     }
 
+    /**
+     * Test de actualizar un cliente con usuario vacío.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateClienteUsuarioVacioTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -349,6 +484,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
     }
 
+    /**
+     * Test de actualizar un cliente con contraseña vacía.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateClienteContrasenaVaciaTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -357,6 +497,11 @@ public class ClienteLogicTest {
         ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
     }
 
+    /**
+     * Test de actualizar un cliente con cédula negativa o cero.
+     *
+     * @throws BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateClienteCedulaNegOCeroTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -503,6 +648,5 @@ public class ClienteLogicTest {
         Assert.assertTrue(clienteLogic.validarNoVacioONull(null));
         Assert.assertTrue(clienteLogic.validarNoVacioONull(""));
         Assert.assertFalse(clienteLogic.validarNoVacioONull("           .           "));
-
     }
 }
