@@ -5,10 +5,7 @@
  */
 package co.edu.uniandes.csw.dispositivos.dtos;
 
-import co.edu.uniandes.csw.dispositivos.entities.CategoriaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
-import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
-import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
 import co.edu.uniandes.csw.dispositivos.enu.EstadoDispositivo;
 import co.edu.uniandes.csw.dispositivos.enu.Tipo;
 import java.io.Serializable;
@@ -55,7 +52,6 @@ public class DispositivoDTO implements Serializable {
     /**
      * Clases de cardinalidad 1
      */
-    private FacturaDTO factura;
     private MarcaDTO marca;
     private CategoriaDTO categoria;
 
@@ -87,9 +83,6 @@ public class DispositivoDTO implements Serializable {
             this.tipo = dispositivo.getTipo();
             this.usado = dispositivo.isUsado();
 
-            if (dispositivo.getFactura() != null) {
-                this.factura = new FacturaDTO(dispositivo.getFactura());
-            }
             if (dispositivo.getMarca() != null) {
                 this.marca = new MarcaDTO(dispositivo.getMarca());
             }
@@ -115,9 +108,7 @@ public class DispositivoDTO implements Serializable {
         dispositivoEntity.setPromocion(this.promocion);
         dispositivoEntity.setTipo(this.tipo);
         dispositivoEntity.setUsado(this.usado);
-        if (this.factura != null) {
-            dispositivoEntity.setFactura(this.factura.toEntity());
-        }
+
         if (this.marca != null) {
             dispositivoEntity.setMarca(this.marca.toEntity());
         }
@@ -149,14 +140,6 @@ public class DispositivoDTO implements Serializable {
      */
     public EstadoDispositivo getEstado() {
         return estado;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FacturaDTO getFactura() {
-        return factura;
     }
 
     /**
@@ -273,14 +256,6 @@ public class DispositivoDTO implements Serializable {
      */
     public void setEstado(EstadoDispositivo estado) {
         this.estado = estado;
-    }
-
-    /**
-     *
-     * @param factura
-     */
-    public void setFactura(FacturaDTO factura) {
-        this.factura = factura;
     }
 
     /**
