@@ -53,11 +53,13 @@ public class DispositivoPersistence {
     }
 
     public boolean containsDispositivo(DispositivoEntity dispositivo) {
-        List<DispositivoEntity> all = findAll();
+        List<DispositivoEntity> all = this.findAll();
         boolean existe = false;
-        for (DispositivoEntity dis : all) {
-            if (dispositivo.getNombre().equals(dis.getNombre())) {
-                existe = true;
+        if (all.size() > 0) {
+            for (DispositivoEntity dis : all) {
+                if (dis.getNombre().equals(dispositivo.getNombre())) {
+                    existe = true;
+                }
             }
         }
         return existe;
