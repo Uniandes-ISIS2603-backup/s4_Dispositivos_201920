@@ -6,9 +6,12 @@
 package co.edu.uniandes.csw.dispositivos.resources;
 
 import co.edu.uniandes.csw.dispositivos.dtos.CategoriaDTO;
+import co.edu.uniandes.csw.dispositivos.dtos.CategoriaDetailDTO;
 import co.edu.uniandes.csw.dispositivos.ejb.CategoriaLogic;
 import co.edu.uniandes.csw.dispositivos.entities.CategoriaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
@@ -71,7 +74,7 @@ public class CategoriaResource {
      */
     @GET
     @Path("{categoriasId: \\d+}")
-    public CategoriaDTO getCatego(@PathParam("categoriasId") Long categoriaId) throws WebApplicationException {
+    public CategoriaDTO getCategoria(@PathParam("categoriasId") Long categoriaId) throws WebApplicationException {
         LOGGER.log(Level.INFO, "CategoriaResource getCategoria: input: {0}", categoriaId);
         CategoriaEntity categoriaEntity = categoriaLogic.getCategoria(categoriaId);
         if (categoriaEntity == null) {
@@ -126,5 +129,21 @@ public class CategoriaResource {
         }
         categoriaLogic.deleteCategoria(categoriaId);
         LOGGER.info("CategoriaResource deleteCategoria: output: void");
+    }
+
+    @GET
+    public List<CategoriaDetailDTO> getCategorias() {
+        LOGGER.info("CategoriaResource getCategorias: input: void");
+        List<CategoriaDetailDTO> listaCategorias = listEntity2DetailDTO(categoriaLogic.getCategorias());
+        LOGGER.log(Level.INFO, "CategoriaResource getCategoria: output: {0}", listaCategorias);
+        return listaCategorias;
+    }
+
+    private List<CategoriaDetailDTO> listEntity2DetailDTO(List<CategoriaEntity> entityList) {
+        List<CategoriaDetailDTO> list = new ArrayList<CategoriaDetailDTO>();
+        for (CategoriaEntity entity : entityList) {
+            list.add(new CategoriaDetailDTO(entity));
+        }
+        return list;
     }
 }
