@@ -50,15 +50,18 @@ public class FacturaDispositivoResource {
      * Este debe ser una cadena de dígitos.
      * @param dispositivoId Identificador del libro que se desea guardar. Este
      * debe ser una cadena de dígitos.
+     * @param clienteId Identificador del cliente que se desea guardar. Este
+     * debe ser una cadena de dígitos.
      * @return JSON {@link DispositivoDTO} - El libro guardado en la factura.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el libro.
+     * @throws BusinessLogicException
      */
     @POST
     @Path("{dispositivoId: \\d+}")
     public DispositivoDTO addDispositivo(@PathParam("facturaId") Long facturaId, @PathParam("dispositivoId") Long dispositivoId, @PathParam("clienteId") Long clienteId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "FacturaDispositivoResource addDispositivo: input: facturasID: {0} , dispositivoId: {1}", new Object[]{facturaId, dispositivoId});
-        if (dispositivoLogic.getDispositivo(facturaId, dispositivoId, clienteId) == null) {
+        if (dispositivoLogic.getDispositivo(dispositivoId) == null) {
             throw new WebApplicationException("El recurso /dispositivos/" + dispositivoId + " no existe.", 404);
         }
         DispositivoDTO dispositivoDTO = new DispositivoDTO(facturaDispositivoLogic.addDispositivo(dispositivoId, facturaId, clienteId));
@@ -66,11 +69,12 @@ public class FacturaDispositivoResource {
         return dispositivoDTO;
     }
 
-    /**x
+    /**
+     * x
      * Busca y devuelve todos los libros que existen en la factura.
      *
      * @param facturaId Identificador de la factura que se esta buscando. Este
-     * debe ser una cadena de dígitos.
+     * @param clienteId Identificador del cliente que se desea guardar.
      * @return JSONArray {@link DispositivoDetailDTO} - Los libros encontrados
      * en la factura. Si no hay ninguno retorna una lista vacía.
      */
@@ -88,7 +92,7 @@ public class FacturaDispositivoResource {
      * @param facturaId Identificador de la factura que se esta buscando. Este
      * debe ser una cadena de dígitos.
      * @param dispositivoId Identificador del libro que se esta buscando. Este
-     * debe ser una cadena de dígitos.
+     * @param clienteId Identificador del cliente que se desea guardar.
      * @return JSON {@link DispositivoDetailDTO} - El libro buscado
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el libro.

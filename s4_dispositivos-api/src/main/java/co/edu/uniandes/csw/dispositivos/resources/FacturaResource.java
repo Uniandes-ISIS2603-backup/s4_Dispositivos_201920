@@ -5,9 +5,12 @@
  */
 package co.edu.uniandes.csw.dispositivos.resources;
 
+import co.edu.uniandes.csw.dispositivos.dtos.DispositivoDTO;
 import co.edu.uniandes.csw.dispositivos.dtos.FacturaDTO;
 import co.edu.uniandes.csw.dispositivos.dtos.FacturaDetailDTO;
+import co.edu.uniandes.csw.dispositivos.ejb.DispositivoLogic;
 import co.edu.uniandes.csw.dispositivos.ejb.FacturaLogic;
+import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -40,17 +43,43 @@ public class FacturaResource {
 
     @Inject
     private FacturaLogic facturaLogic;
+    @Inject
+    DispositivoLogic dispositivoLogic;
 
+    /**
+     *
+     * @param clienteId id del cliente
+     * @param factura factura
+     * @param dispositivos dispositivos de la factura
+     * @return
+     * @throws BusinessLogicException
+     */
     @POST
-    public FacturaDTO createFactura(@PathParam("facturaId") Long facturaId, FacturaDTO factura) throws BusinessLogicException {
+    public FacturaDTO createFactura(@PathParam("clienteId") Long clienteId, FacturaDTO factura, List<DispositivoDTO> dispositivos) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "FacturaResource createFactura: input: {0}", factura);
         FacturaEntity facturaEntity = factura.toEntity();
+        List<DispositivoEntity> disps = new ArrayList<DispositivoEntity>();
+        for (DispositivoDTO dispositivo : dispositivos) {
+            if (dispositivoLogic.getDispositivo(dispositivo.getId()) == null) {
+                DispositivoEntity dispositivoEntity = dispositivoLogic.createDispositivo(dispositivo.toEntity());
+                disps.add(dispositivoEntity);
+            } else {
+                DispositivoEntity d = dispositivo.toEntity();
+                disps.add(d);
+            }
+        }
+        facturaEntity.setDispositivos(disps);
         FacturaEntity nuevoMedioEntity = facturaLogic.createFactura(facturaEntity);
         FacturaDTO nuevoMedioDTO = new FacturaDTO(nuevoMedioEntity);
         LOGGER.log(Level.INFO, "FacturaResource createFactura: output: {0}", nuevoMedioDTO);
         return nuevoMedioDTO;
     }
 
+    /**
+     *
+     * @param clienteId
+     * @return
+     */
     @GET
     public List<FacturaDetailDTO> getFacturas(@PathParam("clienteId") Long clienteId) {
         LOGGER.log(Level.INFO, "FacturaDePagoResource getFacturas: input: {0}", clienteId);
@@ -73,6 +102,14 @@ public class FacturaResource {
         return null;
     }
 
+    /**
+     *
+     * @param clienteId
+     * @param facturaId
+     * @param factura
+     * @return
+     * @throws BusinessLogicException
+     */
     @PUT
     @Path("{facturaId: \\d+}")
     public FacturaDTO updateFactura(@PathParam("clienteId") Long clienteId, @PathParam("facturaId") Long facturaId, FacturaDTO factura) throws BusinessLogicException {
@@ -89,6 +126,12 @@ public class FacturaResource {
         return facturaDTO;
     }
 
+    /**
+     *
+     * @param clienteId
+     * @param facturaId
+     * @throws BusinessLogicException
+     */
     @DELETE
     @Path("{facturaId: \\d+}")
     public void deleteFactura(@PathParam("clienteId") Long clienteId, @PathParam("facturaId") Long facturaId) throws BusinessLogicException {
