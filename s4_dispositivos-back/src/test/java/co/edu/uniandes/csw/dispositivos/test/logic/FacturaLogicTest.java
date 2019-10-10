@@ -92,9 +92,9 @@ public class FacturaLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from FacturaEntity").executeUpdate();
+        em.createQuery("delete from DispositivoEntity").executeUpdate();
         em.createQuery("delete from ClienteEntity").executeUpdate();
         em.createQuery("delete from DispositivoEntity").executeUpdate();
-
     }
 
     /**
@@ -121,8 +121,7 @@ public class FacturaLogicTest {
     public void createFacturaTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
         List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
-
-        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", 0, 0, 0, true, true, true, true, null, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
+        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", 0, 0, 0, true, true, true, true, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
         dispositivos.add(entity2);
         newEntity.setDispositivos(dispositivos);
 
