@@ -98,5 +98,6 @@ DELETE FROM CATEGORIAENTITY;
 
 
 DELETE FROM ComprobanteDePagoEntity;
+delete from clienteEntity;
 delete from ClienteEntity_DispositivoEntity;
 DELETE FROM ADMINISTRADORENTITY;
