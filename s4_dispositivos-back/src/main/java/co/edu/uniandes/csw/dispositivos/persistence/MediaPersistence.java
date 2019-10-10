@@ -19,6 +19,9 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class MediaPersistence {
     @PersistenceContext(unitName = "dispositivosPU")
+
+    
+    
     protected EntityManager em;
 
     public MediaEntity create(MediaEntity mediaEntity) {

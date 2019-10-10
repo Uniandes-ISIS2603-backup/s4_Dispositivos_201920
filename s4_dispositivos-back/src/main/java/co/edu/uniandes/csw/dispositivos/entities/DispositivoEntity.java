@@ -36,10 +36,6 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     /**
      * Clases
      */
-    /*
-    @PodamExclude
-    @OneToMany(mappedBy = "dispositivo")
-    private MediaEntity imagenes;*/
     @PodamExclude
     @OneToOne
     private MediaEntity imagenes;

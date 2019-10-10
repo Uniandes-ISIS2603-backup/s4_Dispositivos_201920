@@ -5,9 +5,9 @@
  */
 package co.edu.uniandes.csw.dispositivos.tests.postman;
 
-import co.edu.uniandes.csw.dispositivos.dtos.DispositivoDTO;
+import co.edu.uniandes.csw.dispositivos.dtos.CategoriaDTO;
 import co.edu.uniandes.csw.dispositivos.mappers.BusinessLogicExceptionMapper;
-import co.edu.uniandes.csw.dispositivos.resources.DispositivoResource;
+import co.edu.uniandes.csw.dispositivos.resources.CategoriaResource;
 import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
 import java.io.File;
 import java.io.IOException;
@@ -22,14 +22,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Pruebas de integracion del recurso de Comprobante de pago.
  *
- * @author Dianis Caro
+ * @author Estudiante
  */
 @RunWith(Arquillian.class)
-public class DispositivoIT {
-
-    private static final String COLLECTION = "DispositivoResourceTest.postman_collection";
+public class CategoriaIT {
+    
+        private static final String COLLECTION = "Categoria_Tests.postman_collection";
 
     @Deployment(testable = true)
     public static WebArchive createDeployment() {
@@ -39,8 +38,8 @@ public class DispositivoIT {
                         .importRuntimeDependencies().resolve()
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
-                .addPackage(DispositivoResource.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
-                .addPackage(DispositivoDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
+                .addPackage(CategoriaResource.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
+                .addPackage(CategoriaDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
                 .addPackage(BusinessLogicExceptionMapper.class.getPackage())
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
@@ -65,4 +64,5 @@ public class DispositivoIT {
 
         Assert.assertEquals("Error en Assertions de: " + COLLECTION, desiredResult, tp.getAssertions_failed());
     }
+    
 }

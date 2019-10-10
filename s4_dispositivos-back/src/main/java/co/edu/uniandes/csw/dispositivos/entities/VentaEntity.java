@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -32,13 +33,16 @@ public class VentaEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
     private VendedorEntity vendedor;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "venta")
+    private List<MediaEntity> fotos = new ArrayList<MediaEntity>();
 
     /**
      * Asociación con las fotos del dispositivo vendido
      */    
-    @PodamExclude
-    @OneToMany(mappedBy = "venta")
-    private List<MediaEntity> fotos;
+    //@PodamExclude
+    //private List<MediaEntity> fotos;
 
     /**
      * Asociación con la factura original de la venta

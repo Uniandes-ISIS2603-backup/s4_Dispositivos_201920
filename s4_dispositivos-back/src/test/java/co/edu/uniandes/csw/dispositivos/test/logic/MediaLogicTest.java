@@ -1,9 +1,9 @@
 package co.edu.uniandes.csw.dispositivos.test.logic;
 
-import co.edu.uniandes.csw.dispositivos.ejb.CalificacionLogic;
-import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
+import co.edu.uniandes.csw.dispositivos.ejb.MediaLogic;
+import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.MediaPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -22,12 +22,12 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 @RunWith(Arquillian.class)
-public class CalificacionLogicTest {
+public class MediaLogicTest {
 
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private CalificacionLogic calificacionLogic;
+    private MediaLogic mediaLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -35,7 +35,7 @@ public class CalificacionLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<CalificacionEntity> data = new ArrayList<CalificacionEntity>();
+    private List<MediaEntity> data = new ArrayList<MediaEntity>();
 
 
     /**
@@ -46,9 +46,9 @@ public class CalificacionLogicTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(CalificacionEntity.class.getPackage())
-                .addPackage(CalificacionLogic.class.getPackage())
-                .addPackage(CalificacionPersistence.class.getPackage())
+                .addPackage(MediaEntity.class.getPackage())
+                .addPackage(MediaLogic.class.getPackage())
+                .addPackage(MediaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -77,7 +77,7 @@ public class CalificacionLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from CalificacionEntity").executeUpdate();
+        em.createQuery("delete from MediaEntity").executeUpdate();
     }
 
     /**
@@ -86,27 +86,10 @@ public class CalificacionLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            CalificacionEntity entity = factory.manufacturePojo(CalificacionEntity.class);
-            entity.setCalificacionNumerica(5);
+            MediaEntity entity = factory.manufacturePojo(MediaEntity.class);
             em.persist(entity);
             data.add(entity);
         }
-    }
-
-    /**
-     * Prueba para crear un Editorial.
-     *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
-     */
-    @Test
-    public void createCalificacionTest() throws BusinessLogicException {
-        CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
-        newEntity.setCalificacionNumerica(5);
-        CalificacionEntity result = calificacionLogic.createCalificacion(newEntity);
-        Assert.assertNotNull(result);
-        CalificacionEntity entity = em.find(CalificacionEntity.class, result.getId());
-        Assert.assertEquals(newEntity.getId(), entity.getId());
-        Assert.assertEquals(newEntity.getCalificacionNumerica(), entity.getCalificacionNumerica(),0);
     }
 
     /**
@@ -115,9 +98,10 @@ public class CalificacionLogicTest {
      */
     
     @Test(expected = BusinessLogicException.class)
-    public void createCalificacionConNumeroMayorOMenor() throws BusinessLogicException {
-        CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
-        newEntity.setCalificacionNumerica(-2);
-        calificacionLogic.createCalificacion(newEntity);
+    public void createMediaConNumeroMayorOMenor() throws BusinessLogicException {
+        MediaEntity newEntity = factory.manufacturePojo(MediaEntity.class);
+        newEntity.setLinks(null);
+        mediaLogic.createMedia(newEntity);
     }
 }
+
