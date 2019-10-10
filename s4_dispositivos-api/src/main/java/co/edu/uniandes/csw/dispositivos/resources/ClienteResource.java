@@ -98,17 +98,18 @@ public class ClienteResource {
     }
 
     /**
-     * Conexión con el servicio de reseñas para un libro. {@link ReviewResource}
+     * Conexión con el servicio de comprobantes para un cliente.
+     * {@link ReviewResource}
      *
      * Este método conecta la ruta de /books con las rutas de /reviews que
-     * dependen del libro, es una redirección al servicio que maneja el segmento
-     * de la URL que se encarga de las reseñas.
+     * dependen del cliente, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de las comprobantes.
      *
-     * @param clienteId El ID del libro con respecto al cual se accede al
+     * @param clienteId El ID del cliente con respecto al cual se accede al
      * servicio.
-     * @return El servicio de Reseñas para ese libro en paricular.\
+     * @return El servicio de Comprobantes para ese cliente en paricular.\
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el libro.
+     * Error de lógica que se genera cuando no se encuentra el cliente.
      */
     @Path("{clienteId: \\d+}/comprobantes")
     public Class<ComprobanteDePagoResource> getComprobanteResource(@PathParam("clienteId") Long clienteId) {
@@ -119,17 +120,18 @@ public class ClienteResource {
     }
 
     /**
-     * Conexión con el servicio de reseñas para un libro. {@link ReviewResource}
+     * Conexión con el servicio de comprobantes para un cliente.
+     * {@link ReviewResource}
      *
-     * Este método conecta la ruta de /books con las rutas de /reviews que
-     * dependen del libro, es una redirección al servicio que maneja el segmento
-     * de la URL que se encarga de las reseñas.
+     * Este método conecta la ruta de /clientes con las rutas de /facturas que
+     * dependen del cliente, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de las comprobantes.
      *
-     * @param clienteId El ID del libro con respecto al cual se accede al
+     * @param clienteId El ID del cliente con respecto al cual se accede al
      * servicio.
-     * @return El servicio de Reseñas para ese libro en paricular.\
+     * @return El servicio de facturas para ese cliente en paricular.\
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el libro.
+     * Error de lógica que se genera cuando no se encuentra el cliente.
      */
     @Path("{clienteId: \\d+}/facturas")
     public Class<FacturaResource> getFacturaResource(@PathParam("clienteId") Long clienteId) {
