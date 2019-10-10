@@ -150,6 +150,11 @@ public class ClienteLogic {
         return cp.update(clienteEntity);
     }
 
+    /**
+     * Valida si un string es vacío o null.
+     *
+     * @param aValidar String a validar si es vacío o null.
+     */
     public boolean validarNoVacioONull(String aValidar) {
         return aValidar == null || aValidar.trim().equals("");
     }

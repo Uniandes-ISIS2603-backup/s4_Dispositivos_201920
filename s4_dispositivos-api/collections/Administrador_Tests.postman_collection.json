@@ -1,0 +1,401 @@
+{
+	"info": {
+		"_postman_id": "e612fec4-e188-4ee8-97a2-18976478f451",
+		"name": "Administrador_Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear Administrador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "602633a4-3927-4dcb-9b01-2e2197f32582",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_admin1\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"usuario\":\"ystiegers0\",\r\n\t\"contrasena\":\"1HCf4pC9xPz\",\r\n\t\"correo\":\"kgarrie0@wireless.com\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"administradores"
+					]
+				},
+				"description": "Crea una nuevo adminitrador.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un administrador2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed9c8b81-88d0-4e6e-8708-255d1377c70f",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_admin2\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"usuario\":\"jduigan1\",\n\t\"contrasena\":\"GXJ5uV\",\n\t\"correo\":\"wglencross1@wireless.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"administradores"
+					]
+				},
+				"description": "Crea una nuevo adminitrador.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener los administradores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "030da90b-93b3-4d13-b4e8-db57d0af4c07",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"no genera error en el Get All\"] = responseCode.code === 200;",
+							"tests[\"reviews count\"] = data.length >= 0;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"administradores"
+					]
+				},
+				"description": "Consulta los administradores en la aplicación. \r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un administrador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "15578bb7-15b6-4871-93b6-559ea819e22c",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores/{{new_id_admin1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"administradores",
+						"{{new_id_admin1}}"
+					]
+				},
+				"description": "Consulta un administrador en específico aplicación. \r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un administrador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "84b4ef5d-3e7d-4a61-80f4-231125db4e8f",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"usuario\":\"hdbekdfk09\",\r\n\t\"contrasena\":\"1HCf4pC9xPz\",\r\n\t\"correo\":\"hellodbdj@wireless.com\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores/{{new_id_admin1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"administradores",
+						"{{new_id_admin1}}"
+					]
+				},
+				"description": "Actualiza un administrador.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un adminitrador que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "02be10e6-750b-4b74-95e7-d927a166ec02",
+						"exec": [
+							"tests[\"No se puede editar un comprobante que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /administrador/0 no existe.\");  "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\":\"0\",\r\n\t\"numeroDeFactura\":45570941,\r\n\t\"totalDePago\":26567411.05,\r\n\t\"impuestos\":0.19,\r\n\t\"numeroDeTarjeta\":\"5897550546537999\",\r\n\t\"fechaDeFactura\":\"2017-04-04T00:00:00-05:00\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"administradores",
+						"0"
+					]
+				},
+				"description": "Edita u administrador que no existe. \r\n\r\n\r\n**Código HTTP esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un administrador que no existe.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "edb58a8e-9d1a-4d6f-9942-6fe3c8a169e9",
+						"exec": [
+							"tests[\"No se puede borrar un administrador que no existe.\"] = responseCode.code === 404;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"administradores",
+						"0"
+					]
+				},
+				"description": "Borra un administrador que no existe en la aplicación.  \r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un administrador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ec74fba-bc15-4973-99bd-0c1a86a28a2e",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores/{{new_id_admin1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"administradores",
+						"{{new_id_admin1}}"
+					]
+				},
+				"description": "Borra un administrador.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un administrador2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ec74fba-bc15-4973-99bd-0c1a86a28a2e",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores/{{new_id_admin2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"administradores",
+						"{{new_id_admin2}}"
+					]
+				},
+				"description": "Borra un administrador.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

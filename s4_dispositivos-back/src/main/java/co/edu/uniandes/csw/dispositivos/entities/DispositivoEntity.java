@@ -39,15 +39,11 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     private MediaEntity imagenes;
 
     @PodamExclude
-    @ManyToOne(cascade = CascadeType.ALL)
-    private FacturaEntity factura;
-
-    @PodamExclude
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private MarcaEntity marca;
 
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private CategoriaEntity categoria;
 
     @PodamExclude
@@ -93,25 +89,26 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     /**
      * Metodo Constructor Con Parametros
      *
-     * @param modelo
-     * @param descripcion
-     * @param nombre
-     * @param precio
-     * @param precioImportacion
-     * @param descuento
-     * @param promocion
-     * @param enStock
-     * @param usado
-     * @param esImportado
-     * @param imagenes
-     * @param factura
-     * @param tipo
-     * @param estado
-     * @param marca
-     * @param calificaciones
+     * @param modelo Modelo del dispositivo
+     * @param descripcion Descripcion del dispositivo
+     * @param nombre Nombre del dispositivo
+     * @param precio Precio del dispositivo
+     * @param precioImportacion Precio de importacion del dispositivo
+     * @param descuento Descuento numerico del dispositivo
+     * @param promocion Esta o no en promocion
+     * @param enStock Esta o no en stock
+     * @param usado Es usado o no
+     * @param esImportado Es importado o no
+     * @param imagenes Imagenes del dispositivo
+     * @param tipo Tipo de dispositivo que se ingresa. {CELULAR, TABLET,
+     * COMPUTADOR}
+     * @param estado Estado del dispositivo que se ingresa
+     * @param marca La marca a la que pertenece el dispositivo
+     * @param calificaciones Las calificaciones del dispositivo. Inicialmenre
+     * debe tener cero calificaciones
      */
     public DispositivoEntity(String modelo, String descripcion, String nombre, double precio, double precioImportacion,
-            double descuento, boolean promocion, boolean enStock, boolean usado, boolean esImportado, MediaEntity imagenes, FacturaEntity factura,
+            double descuento, boolean promocion, boolean enStock, boolean usado, boolean esImportado, MediaEntity imagenes,
             Tipo tipo, EstadoDispositivo estado, MarcaEntity marca, List<CalificacionEntity> calificaciones, CategoriaEntity categoria) {
 
         this.modelo = modelo;
@@ -124,7 +121,6 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         this.promocion = promocion;
         this.enStock = enStock;
         this.usado = usado;
-        this.factura = factura;
         this.esImportado = esImportado;
         this.tipo = tipo;
         this.estado = estado;
@@ -133,138 +129,300 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         this.categoria = categoria;
     }
 
+    /**
+     * Retorna el modelo del dispositivo
+     *
+     * @return Modelo del dispositivo
+     */
     public String getModelo() {
         return modelo;
     }
 
+    /**
+     * Retorna la descripcion del dispositivo
+     *
+     * @return Descripcion del dispositivo
+     */
     public String getDescripcion() {
         return descripcion;
     }
 
+    /**
+     * Retorna el nombre del dispositivo
+     *
+     * @return Nombre del dispositivo
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Retorna todas las imagenes del dispositivo
+     *
+     * @return Imagenes del dispositivo
+     */
     public MediaEntity getImagenes() {
         return imagenes;
     }
 
-    public FacturaEntity getFactura() {
-        return factura;
-    }
-
+    /**
+     * Retorna el precio de dispositivo
+     *
+     * @return Precio del dispositivo
+     */
     public Double getPrecio() {
         return precio;
     }
 
+    /**
+     * Retorna el precio de importacion del dispositivo. El dispositivo debe ser
+     * importado
+     *
+     * @return Precio de importacion del dispositivo
+     */
     public Double getPrecioImportacion() {
         return precioImportacion;
     }
 
+    /**
+     * Retorna el descuento del dispositivo. El dispositivo debe estar en
+     * promocion
+     *
+     * @return Descuento del dispositivo
+     */
     public Double getDescuento() {
         return descuento;
     }
 
+    /**
+     * Retorna si el dispositivo esta en promocion
+     *
+     * @return True si el dispositivo esta en promocion. False si no esta en
+     * promocion
+     */
     public boolean isPromocion() {
         return promocion;
     }
 
+    /**
+     * Retorna si el dispositivo esta en stock
+     *
+     * @return True si esta en stock. False si no esta en stock
+     */
     public boolean isEnStock() {
         return enStock;
     }
 
+    /**
+     * Retorna si el dispositivo es importado
+     *
+     * @return True si el dispositivo es importado. False si el dispositivo no
+     * es importado
+     */
     public boolean isEsImportado() {
         return esImportado;
     }
 
+    /**
+     * Retorna si el dispositivo es usado.
+     *
+     * @return True si el dispositivo es usado. False si el dispositivo no es
+     * usado
+     */
     public boolean isUsado() {
         return usado;
     }
 
+    /**
+     * Retorna el tipo del dispositivo. {CELULAR, TABLET, COMPUTADOR}
+     *
+     * @return el tipo del celular
+     */
     public Tipo getTipo() {
         return tipo;
     }
 
+    /**
+     * Retorna el estado del dispositivo. {NUEVO, USADO, IMPORTADO}
+     *
+     * @return el estado del dispositivo
+     */
     public EstadoDispositivo getEstado() {
         return estado;
     }
 
+    /**
+     * Retorna la marca del dispositivo
+     *
+     * @return la marca del dispositivo
+     */
     public MarcaEntity getMarca() {
         return marca;
     }
 
+    /**
+     * Retorna la categoria del dispositivo
+     *
+     * @return la categoria del dispositivo
+     */
     public CategoriaEntity getCategoria() {
         return categoria;
     }
 
+    /**
+     * Retorna todas las calificaciones del dispositivo
+     *
+     * @return las calificaciones del dispositivo
+     */
     public List<CalificacionEntity> getCalificaciones() {
         return calificaciones;
     }
 
+    /**
+     * Asigan la modelo al dispositivo
+     *
+     * @param modelo Modelo del dispositivo
+     */
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
 
+    /**
+     * Asigna una descripcion al dispositivo
+     *
+     * @param descripcion Descripcion del dispositivo
+     */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
+    /**
+     * Asigna un nombre al dispositivo
+     *
+     * @param nombre Nombre de dispositivo
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     * Asigan un objeto de tipo MediaEntity con las imagenes
+     *
+     * @param imagenes Objeto que contiene las imagenes correspondientes
+     */
     public void setImagenes(MediaEntity imagenes) {
         this.imagenes = imagenes;
     }
 
-    public void setFactura(FacturaEntity factura) {
-        this.factura = factura;
-    }
-
+    /**
+     * Asigna un precio al dispositivo
+     *
+     * @param precio Precio del dispositivo
+     */
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
+    /**
+     * Asigna un precio de importacion si el dispositivo es importado
+     *
+     * @param precioImportacion Precio de la importacion del dispositivo
+     */
     public void setPrecioImportacion(Double precioImportacion) {
         this.precioImportacion = precioImportacion;
     }
 
+    /**
+     * Asigan el descuento que se realiza sobre el precio total si el
+     * dispositivo esta en promocion
+     *
+     * @param descuento Descuento que se realiza sobre el precio total
+     */
     public void setDescuento(Double descuento) {
         this.descuento = descuento;
     }
 
+    /**
+     * Asigan si el dispositivo esta en promocion
+     *
+     * @param promocion True si el dispositivo esta en promocion. False si el no
+     * esta en promocion
+     */
     public void setPromocion(boolean promocion) {
         this.promocion = promocion;
     }
 
+    /**
+     * Asigan si el dispositivo esta en el stock de la tienda
+     *
+     * @param enStock True si el dispositivo esta en stock. False si el
+     * dispositivo no esta en stock
+     */
     public void setEnStock(boolean enStock) {
         this.enStock = enStock;
     }
 
+    /**
+     * Asigna si el dispositivo es importado
+     *
+     * @param esImportado True si el dispositivo es importado. False si el
+     * dispositivo no es importado
+     */
     public void setEsImportado(boolean esImportado) {
         this.esImportado = esImportado;
     }
 
+    /**
+     * Asigna si el dispositivo es usado
+     *
+     * @param usado True si el dispositivo es usado. False si el dispositivo no
+     * es usado
+     */
     public void setUsado(boolean usado) {
         this.usado = usado;
     }
 
+    /**
+     * Asigna el tipo del dispositivo
+     *
+     * @param tipo Tipo del dispositivo {CELULAR, TABLET, COMPUTADOR}
+     */
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
     }
 
+    /**
+     * Asigna el estado del dispositivo
+     *
+     * @param estado Estado del dispositivo {NUEVO, USADO, IMPORTADO}
+     */
     public void setEstado(EstadoDispositivo estado) {
         this.estado = estado;
     }
 
+    /**
+     * Asigna la marca del dispositivo
+     *
+     * @param marca Marca del dispositivo
+     */
     public void setMarca(MarcaEntity marca) {
         this.marca = marca;
     }
 
+    /**
+     * Asigna la categoria del dispositivo
+     *
+     * @param categoria Categoria del dispositivo
+     */
     public void setCategoria(CategoriaEntity categoria) {
         this.categoria = categoria;
     }
 
+    /**
+     * Asigna las calificaciones del dispositivo
+     *
+     * @param calificaciones Calificaciones del dispositivo
+     */
     public void setCalificaciones(List<CalificacionEntity> calificaciones) {
         this.calificaciones = calificaciones;
     }

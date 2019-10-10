@@ -59,24 +59,39 @@ public class ClienteEntity extends BaseEntity implements Serializable {
      */
     private String contrasena;
 
+    /**
+     * Atributo que modela las facturas del cliente .
+     */
     @PodamExclude
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<FacturaEntity> facturas;
-    
+
+    /**
+     * Atributo que modela los comprobantes recibidos del cliente .
+     */
     @PodamExclude
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ComprobanteDePagoEntity> comprobantesRecibidos;
-    
+
+    /**
+     * Atributo que modela el método de pago del cliente .
+     */
     @PodamExclude
     @OneToOne
     private MedioDePagoEntity metodoDePago;
 
+    /**
+     * Atributo que modela el carrito de compras del cliente .
+     */
     @PodamExclude
     private List<DispositivoEntity> carritoDeCompras;
-       
+
+    /**
+     * Atributo que modela la lista de deseos del cliente .
+     */
     @PodamExclude
     private List<DispositivoEntity> listaDeDeseos;
-    
+
     /**
      * Constructor creado vacio para no tener problemas al implementar
      * Serializable

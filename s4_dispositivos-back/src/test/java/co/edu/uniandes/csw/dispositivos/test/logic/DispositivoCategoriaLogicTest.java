@@ -145,5 +145,4 @@ public class DispositivoCategoriaLogicTest {
         entity = dispositivoLogic.getDispositivo(entity.getId());
         Assert.assertNull(entity.getCategoria());
     }
-
 }

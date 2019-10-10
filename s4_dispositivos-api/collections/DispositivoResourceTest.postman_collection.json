@@ -7,7 +7,144 @@
 	},
 	"item": [
 		{
-			"name": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos",
+			"name": "Agregar un dispositivo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e74eb368-b72c-4da3-bffa-4e7c58473f50",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_d\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n    {\r\n        \"descripcion\": \"El más veloz de la categoria\",\r\n        \"descuento\": 50.0,\r\n        \"enStock\": true,\r\n        \"esImportado\": false,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"Galaxy\",\r\n        \"nombre\": \"S10\",\r\n        \"precio\": 300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"categoria_id\": 2,\r\n        \"usado\": false\r\n    }\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"dispositivos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar un dispositivo ya existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2cb09173-e77b-4a85-becb-1ac270f83c6e",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un dispositivo con el nombre\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n    {\r\n        \"descripcion\": \"El más veloz de la categoria\",\r\n        \"descuento\": 50.0,\r\n        \"enStock\": true,\r\n        \"esImportado\": false,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"Galaxy\",\r\n        \"nombre\": \"S10\",\r\n        \"precio\": 300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"usado\": false,\r\n        \"calificaciones\": []\r\n    }\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"dispositivos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un dispositivo por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b057e487-3b15-4deb-a496-eca2879bb602",
+						"exec": [
+							"console.log(responseBody); ",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No se genera error del get\"] = responseCode.code === 200; "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos/{{new_id_d}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"dispositivos",
+						"{{new_id_d}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los dispositivos",
 			"event": [
 				{
 					"listen": "test",

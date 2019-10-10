@@ -2,11 +2,13 @@ package co.edu.uniandes.csw.dispositivos.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.ComprobanteDePagoEntity;
 import java.util.List;
+import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.logging.Logger;
 
 /**
  *Persistencia de la clase ComprobanteDePagoEntity
@@ -20,15 +22,33 @@ public class ComprobanteDePagoPersistence
      */
     @PersistenceContext(unitName = "dispositivosPU")
     protected EntityManager em;
+        
+    private static final Logger LOGGER = Logger.getLogger(ComprobanteDePagoPersistence.class.getName());
+
     /**
      * Busca un comprobante de pago por su id
+     * @param clienteId identificador del cliente asociado
      * @param id llave del comprobante a buscar
      * @return comprobante de pago correspondiente si lo encuentra,
      * de lo contrario null
      */
-    public ComprobanteDePagoEntity find(Long id)
+    public ComprobanteDePagoEntity find(Long clienteId, Long id)
     {
-        return em.find(ComprobanteDePagoEntity.class, id);
+        LOGGER.log(Level.INFO, "Consultando el comprobante de pago con id = {0} del cliente con id = " + clienteId, id);
+        TypedQuery<ComprobanteDePagoEntity> q = em.createQuery("select p from ComprobanteDePagoEntity p where (p.cliente.id = :clienteid) and (p.id = :comprobanteId)", ComprobanteDePagoEntity.class);
+        q.setParameter("clienteid", clienteId);
+        q.setParameter("comprobanteId", id);
+        List<ComprobanteDePagoEntity> results = q.getResultList();
+        ComprobanteDePagoEntity review = null;
+        if (results == null) {
+            review = null;
+        } else if (results.isEmpty()) {
+            review = null;
+        } else if (results.size() >= 1) {
+            review = results.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar el comprobante de pago con id = {0} del cliente con id =" + clienteId, id);
+        return review;    
     }
     /**
      * Persiste un comprobante de pago
