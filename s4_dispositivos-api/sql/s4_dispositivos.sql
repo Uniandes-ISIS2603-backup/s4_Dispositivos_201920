@@ -99,4 +99,3 @@ DELETE FROM CATEGORIAENTITY;
 
 DELETE FROM ComprobanteDePagoEntity;
 delete from ClienteEntity_DispositivoEntity;
-delete from dispositivoEntity;
