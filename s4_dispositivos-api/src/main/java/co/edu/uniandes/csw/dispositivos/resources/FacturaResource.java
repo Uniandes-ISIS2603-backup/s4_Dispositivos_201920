@@ -48,14 +48,14 @@ public class FacturaResource {
 
     /**
      *
-     * @param facturaId id de la factura
+     * @param clienteId id del cliente
      * @param factura factura
      * @param dispositivos dispositivos de la factura
      * @return
      * @throws BusinessLogicException
      */
     @POST
-    public FacturaDTO createFactura(@PathParam("facturaId") Long facturaId, FacturaDTO factura, List<DispositivoDTO> dispositivos) throws BusinessLogicException {
+    public FacturaDTO createFactura(@PathParam("clienteId") Long clienteId, FacturaDTO factura, List<DispositivoDTO> dispositivos) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "FacturaResource createFactura: input: {0}", factura);
         FacturaEntity facturaEntity = factura.toEntity();
         List<DispositivoEntity> disps = new ArrayList<DispositivoEntity>();
