@@ -9,6 +9,8 @@ import co.edu.uniandes.csw.dispositivos.dtos.MedioDePagoDTO;
 import co.edu.uniandes.csw.dispositivos.ejb.MedioDePagoLogic;
 import co.edu.uniandes.csw.dispositivos.entities.MedioDePagoEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
@@ -135,5 +137,21 @@ public class MedioDePagoResource {
         }
         medioLogic.deleteMedioDePago(medioId);
         LOGGER.info("MedioDePagoResource deleteMedioDePago: output: void");
+    }
+
+    @GET
+    public List<MedioDePagoDTO> getMediosDePago() {
+        LOGGER.info("MedioDePagoResource getMediosDePago: input: void");
+        List<MedioDePagoDTO> listaMedioPago = listEntity2DetailDTO(medioLogic.getMediosDePago());
+        LOGGER.log(Level.INFO, "MedioDePagoResource getMedioDePago: output: {0}", listaMedioPago);
+        return listaMedioPago;
+    }
+
+    private List<MedioDePagoDTO> listEntity2DetailDTO(List<MedioDePagoEntity> entityList) {
+        List<MedioDePagoDTO> list = new ArrayList<MedioDePagoDTO>();
+        for (MedioDePagoEntity entity : entityList) {
+            list.add(new MedioDePagoDTO(entity));
+        }
+        return list;
     }
 }

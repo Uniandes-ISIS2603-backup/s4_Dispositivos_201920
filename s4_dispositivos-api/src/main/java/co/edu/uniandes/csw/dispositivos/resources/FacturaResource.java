@@ -52,10 +52,10 @@ public class FacturaResource {
     }
 
     @GET
-    public List<FacturaDetailDTO> getComprobantes(@PathParam("clienteId") Long clienteId) {
-        LOGGER.log(Level.INFO, "ComprobanteDePagoResource getComprobantes: input: {0}", clienteId);
+    public List<FacturaDetailDTO> getFacturas(@PathParam("clienteId") Long clienteId) {
+        LOGGER.log(Level.INFO, "FacturaDePagoResource getFacturas: input: {0}", clienteId);
         List<FacturaDetailDTO> listaDTOs = listEntity2DetailDTO(facturaLogic.getFacturas(clienteId));
-        LOGGER.log(Level.INFO, "ComprobanteDePagoResource getComprobantes: output: {0}", listaDTOs);
+        LOGGER.log(Level.INFO, "FacturaDePagoResource getFacturas: output: {0}", listaDTOs);
         return listaDTOs;
     }
 

@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.dispositivos.ejb;
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,10 +27,13 @@ public class DispositivoLogic {
     @Inject
     private DispositivoPersistence persistence;
 
+    @Inject
+    private FacturaPersistence fp;
+
     public DispositivoEntity createDispositivo(DispositivoEntity dispositivo) throws BusinessLogicException {
 
         if (dispositivo != null) {
-            if (persistence.find(dispositivo.getId()) == null) {
+            if (!persistence.containsDispositivo(dispositivo)) {
                 if (!dispositivo.isUsado()) {
                     if (!dispositivo.isEsImportado()) {
                         if (dispositivo.getDescripcion() == null || dispositivo.getNombre() == null || dispositivo.getModelo() == null
@@ -94,6 +98,24 @@ public class DispositivoLogic {
         }
         LOGGER.log(Level.INFO, "Termina proceso de consultar el dispositivo con id = {0}", dispositivoEntity);
         return dispositivoEntity;
+    }
+
+    /**
+     * Busca una dispositivo por ID
+     *
+     * @param dispositivoId El id de la dispositivo a buscar
+     * @param facturasId id del factura
+     * @return La dispositivo encontrada, null si no la encuentra.
+     * @throws BusinessLogicException
+     */
+    public DispositivoEntity getDispositivo(Long facturasId, Long dispositivoId, Long clienteId) throws BusinessLogicException {
+        List<DispositivoEntity> dispositivo = fp.find(clienteId, facturasId).getDispositivos();
+        DispositivoEntity dispositivoEntity = persistence.find(facturasId, dispositivoId);
+        int index = dispositivo.indexOf(dispositivoEntity);
+        if (index >= 0) {
+            return dispositivo.get(index);
+        }
+        throw new BusinessLogicException("La dispositivo no está asociada a el factura");
     }
 
     public DispositivoEntity updateDispositivo(Long dispositivosId, DispositivoEntity dispositivoEntity) throws BusinessLogicException {
