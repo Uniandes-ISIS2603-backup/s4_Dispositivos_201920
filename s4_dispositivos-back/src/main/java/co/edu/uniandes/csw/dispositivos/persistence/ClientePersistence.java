@@ -71,7 +71,7 @@ public class ClientePersistence {
         ClienteEntity clienteEntity = em.find(ClienteEntity.class, clienteId);
         em.remove(clienteEntity);
     }
-    
+
     /**
      * Busca si hay algùn cliente con la cèdula que se envía de argumento
      *

@@ -64,7 +64,6 @@ public class DispositivoLogicTest {
         Assert.assertEquals(comparador.getId(), result.getId());
         Assert.assertEquals(comparador.getDescripcion(), result.getDescripcion());
         Assert.assertEquals(comparador.getDescuento(), result.getDescuento());
-        Assert.assertEquals(comparador.getFactura(), result.getFactura());
         Assert.assertEquals(comparador.getImagenes(), result.getImagenes());
         Assert.assertEquals(comparador.getModelo(), result.getModelo());
         Assert.assertEquals(comparador.getNombre(), result.getNombre());
