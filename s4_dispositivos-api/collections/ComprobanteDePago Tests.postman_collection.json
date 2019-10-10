@@ -1,0 +1,673 @@
+{
+	"info": {
+		"_postman_id": "afa8e0fc-8579-4bf3-bb5f-6674b4a06942",
+		"name": "ComprobanteDePago Tests",
+		"description": "Colección de pruebas sobre el recurso Comprobante de pago",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "556e245a-c4d2-48c2-8af5-8d67dbb248e8",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_cliente1\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"nombre\":\"Kally\",\r\n\t\"apellido\":\"McKeon\",\r\n\t\"correoElectronico\":\"kmckeon0@prnewswire.com\",\r\n\t\"cedula\":\"25676561\",\r\n\t\"direccion\":\"7787 Crownhardt Court\",\r\n\t\"usuario\":\"kmckeon0\",\r\n\t\"contrasena\":\"n0AvX1pXj\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente. La cédula del cliente debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear comprobante1.1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ac3d8883-b31a-4e55-8ad9-f56e9c84d9f8",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_comprobante1\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"numeroDeFactura\":\"19207390\",\r\n\t\"totalDePago\":\"35452463.85\",\r\n\t\"impuestos\":0.17,\r\n\t\"numeroDeTarjeta\":\"9393375604422081\",\r\n\t\"fechaDeFactura\":\"2017-05-03T00:00:00-05:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente1}}",
+						"comprobantes"
+					]
+				},
+				"description": "Crear el comprobante de pago 1 del cliente 1. El id debe ser único.\n\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear comprobante1.2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ac3d8883-b31a-4e55-8ad9-f56e9c84d9f8",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_comprobante2\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"numeroDeFactura\":81570941,\r\n\t\"totalDePago\":26147411.05,\r\n\t\"impuestos\":0.17,\r\n\t\"numeroDeTarjeta\":\"5897550546537999\",\r\n\t\"fechaDeFactura\":\"2017-03-04T00:00:00-05:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente1}}",
+						"comprobantes"
+					]
+				},
+				"description": "Crear el comprobante de pago 1 del cliente 1. El id debe ser único.\n\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crearle un comprobante a  un cliente que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "235687ad-e750-4fea-b37f-0dccb2edc9bd",
+						"exec": [
+							"tests[\"No se puede asociar un comprobante a un cliente que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /cliente/0/comprobantes no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"numeroDeFactura\":\"2435677\",\r\n\t\"totalDePago\":\"35452463.85\",\r\n\t\"impuestos\":0.17,\r\n\t\"numeroDeTarjeta\":\"9345675604422081\",\r\n\t\"fechaDeFactura\":\"2017-05-03T00:00:00-05:00\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/0/comprobantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"0",
+						"comprobantes"
+					]
+				},
+				"description": "**Release: Paso-5**\r\n\r\nCrea un nuevo comprobante pero con un cliente que no existe. Verifica que se genera el error y el mensaje \"El recurso /clientes/0/comprobante no existe\".\r\n\r\n**Código HTTP esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener los comprobantes de un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "84d09055-5a1c-496c-8b01-13cf74c83d70",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get All\"] = responseCode.code === 200;",
+							"tests[\"reviews count\"] = data.length >= 0;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente1}}",
+						"comprobantes"
+					]
+				},
+				"description": "Consulta las reseñas de un libro en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del libro a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un comprobante de un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "172d7528-1642-4500-af81-5ec10d5fd069",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Consulta una reseña de un libro en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del libro y de la reseña a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Editarle un comprobante a un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "84b4ef5d-3e7d-4a61-80f4-231125db4e8f",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\":\"{{new_id_comprobante1}}\",\r\n\t\"numeroDeFactura\":45570941,\r\n\t\"totalDePago\":26567411.05,\r\n\t\"impuestos\":0.19,\r\n\t\"numeroDeTarjeta\":\"5897550546537999\",\r\n\t\"fechaDeFactura\":\"2017-04-04T00:00:00-05:00\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/{{new_id_comprobante1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente1}}",
+						"comprobantes",
+						"{{new_id_comprobante1}}"
+					]
+				},
+				"description": "Actualiza un comprobante a un cliente existente.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Editarle un comprobante que no existe a un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "02be10e6-750b-4b74-95e7-d927a166ec02",
+						"exec": [
+							"tests[\"No se puede editar un comprobante que no existe.\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"new_id_cliente1\");",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/\"+id+\"/comprobante/0 no existe.\");  "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\":\"0\",\r\n\t\"numeroDeFactura\":45570941,\r\n\t\"totalDePago\":26567411.05,\r\n\t\"impuestos\":0.19,\r\n\t\"numeroDeTarjeta\":\"5897550546537999\",\r\n\t\"fechaDeFactura\":\"2017-04-04T00:00:00-05:00\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente1}}",
+						"comprobantes",
+						"0"
+					]
+				},
+				"description": "Asocia un comprobante que no existe a un cliente. \r\n\r\n\r\n**Código HTTP esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Editarle un comprobante a un cliente que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce6fc66f-cb19-4e0d-bc0a-aff100e295ee",
+						"exec": [
+							"tests[\"No se puede editar un review sobre un book que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /cliente/0/comprobantes no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\":\"{{new_id_comprobante1}}\",\r\n\t\"numeroDeFactura\":45570941,\r\n\t\"totalDePago\":26567411.05,\r\n\t\"impuestos\":0.19,\r\n\t\"numeroDeTarjeta\":\"5897550546537999\",\r\n\t\"fechaDeFactura\":\"2017-04-04T00:00:00-05:00\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/0/comprobantes/{{new_id_comprobante1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"0",
+						"comprobantes",
+						"{{new_id_comprobante1}}"
+					]
+				},
+				"description": "Asocia un comprobante a un cliente que no existe.\r\n\r\n**Código HTTP esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrarle un comprobante que no existe en un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "edb58a8e-9d1a-4d6f-9942-6fe3c8a169e9",
+						"exec": [
+							"tests[\"No se puede borrar un review que no existe.\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"new_id_cliente1\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente1}}",
+						"comprobantes",
+						"0"
+					]
+				},
+				"description": "Borra un comprobante que no existe en la aplicación.  \r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrarle un comprobante a un cliente que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0c199000-a389-4706-8406-5cdc8f12186b",
+						"exec": [
+							"tests[\"No se puede borrar un comprobante sobre un cliente que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /cliente/0/comprobantes no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/0/comprobantes/{{new_id_comprobante1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"0",
+						"comprobantes",
+						"{{new_id_comprobante1}}"
+					]
+				},
+				"description": "Borra un comprobante a un cliente que no existe en la aplicación.  \r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrarle un comprobante a un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2bb9aa81-6adb-4c8d-b7cd-20f8c7301f8d",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/{{new_id_comprobante1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente1}}",
+						"comprobantes",
+						"{{new_id_comprobante1}}"
+					]
+				},
+				"description": "Borra un comprobante asociada a un cliente.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrarle un comprobante 2 a un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "39e4ff08-1c18-4cab-a775-f054d1e7389a",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/{{new_id_comprobante2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente1}}",
+						"comprobantes",
+						"{{new_id_comprobante2}}"
+					]
+				},
+				"description": "Borra un comprobante asociado a un cliente.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ec74fba-bc15-4973-99bd-0c1a86a28a2e",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_cliente1}}"
+					]
+				},
+				"description": "Borra un cliente.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "904a8614-c1c1-40d1-9410-2ba217910a99",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8d463349-90aa-4e1f-a7f5-3ad0cef7df4b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
