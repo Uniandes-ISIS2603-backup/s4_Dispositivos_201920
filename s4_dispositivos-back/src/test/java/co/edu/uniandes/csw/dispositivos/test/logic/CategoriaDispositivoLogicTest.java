@@ -5,7 +5,8 @@
  */
 package co.edu.uniandes.csw.dispositivos.test.logic;
 
-import co.edu.uniandes.csw.dispositivos.ejb.DispositivoCategoriaLogic;
+import co.edu.uniandes.csw.dispositivos.ejb.CategoriaDispositivoLogic;
+import co.edu.uniandes.csw.dispositivos.ejb.CategoriaLogic;
 import co.edu.uniandes.csw.dispositivos.ejb.DispositivoLogic;
 import co.edu.uniandes.csw.dispositivos.entities.CategoriaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
@@ -30,10 +31,10 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author Estudiante
+ * @author JuanL
  */
 @RunWith(Arquillian.class)
-public class DispositivoCategoriaLogicTest {
+public class CategoriaDispositivoLogicTest {
 
     private PodamFactory factory = new PodamFactoryImpl();
 
@@ -41,7 +42,10 @@ public class DispositivoCategoriaLogicTest {
     private DispositivoLogic dispositivoLogic;
 
     @Inject
-    private DispositivoCategoriaLogic dispositivoCategoriaLogic;
+    private CategoriaLogic categoriaLogic;
+
+    @Inject
+    private CategoriaDispositivoLogic categoriaDispositivoLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -110,6 +114,9 @@ public class DispositivoCategoriaLogicTest {
             CategoriaEntity entity = factory.manufacturePojo(CategoriaEntity.class);
             if (i == 0) {
                 dispositivos.get(i).setCategoria(entity);
+                List<DispositivoEntity> dispositivosw=new ArrayList<>();
+                dispositivosw.add(dispositivos.get(i));
+                entity.setDispositivos(dispositivosw);
 
             }
             em.persist(entity);
@@ -120,29 +127,83 @@ public class DispositivoCategoriaLogicTest {
     }
 
     /**
-     * Prueba para remplazar las instancias de Dispositivo asociadas a una
-     * instancia de Categoria .
+     * Prueba para asociar un dispositivo existente a una categoria.
      */
     @Test
-    public void replaceCategoriaTest() {
-        DispositivoEntity entity = dispositivos.get(0);
-        dispositivoCategoriaLogic.replaceCategoria(entity.getId(), data.get(1).getId());
-        entity = dispositivoLogic.getDispositivo(entity.getId());
-        Assert.assertEquals(entity.getCategoria(), data.get(1));
+    public void addDispositivoTest() {
+        CategoriaEntity entity = data.get(0);
+        DispositivoEntity dispositivoEntity = dispositivos.get(1);
+        DispositivoEntity response = categoriaDispositivoLogic.addDispositivo(dispositivoEntity.getId(), entity.getId());
+
+        Assert.assertNotNull(response);
+        Assert.assertEquals(dispositivoEntity.getId(), response.getId());
     }
 
     /**
-     * Prueba para desasociar un Dispositivo existente de una Categoria
-     * existente
+     * Prueba para obtener una colección de instancias de Books asociadas a una
+     * instancia Editorial.
+     */
+    @Test
+    public void getDispositivosTest() {
+        List<DispositivoEntity> list = categoriaDispositivoLogic.getDispositivos(data.get(0).getId());
+
+        Assert.assertEquals(1, list.size());
+    }
+
+    /**
+     * Prueba para obtener una instancia de dispositivos asociada a una
+     * instancia categoria.
      *
      * @throws BusinessLogicException
      */
     @Test
-    public void removeCategoriaTest() throws BusinessLogicException {
+    public void getDispositvosTest() throws BusinessLogicException {
 
-        DispositivoEntity entity = dispositivos.get(0);
-        dispositivoCategoriaLogic.removeCategoria(entity.getId());
-        entity = dispositivoLogic.getDispositivo(entity.getId());
-        Assert.assertNull(entity.getCategoria());
+        CategoriaEntity entity = data.get(0);
+        DispositivoEntity dispositivoEntity = dispositivos.get(0);
+
+        DispositivoEntity response = categoriaDispositivoLogic.getDispositivo(entity.getId(), dispositivoEntity.getId());
+
+        Assert.assertEquals(dispositivoEntity.getId(), response.getId());
+        Assert.assertEquals(dispositivoEntity.getCategoria(), response.getCategoria());
+        Assert.assertEquals(dispositivoEntity.getCalificaciones(), response.getCalificaciones());
+        Assert.assertEquals(dispositivoEntity.getDescripcion(), response.getDescripcion());
+        Assert.assertEquals(dispositivoEntity.getDescuento(), response.getDescuento());
+        Assert.assertEquals(dispositivoEntity.getEstado(), response.getEstado());
+        Assert.assertEquals(dispositivoEntity.getFactura(), response.getFactura());
+        Assert.assertEquals(dispositivoEntity.getMarca(), response.getMarca());
+        Assert.assertEquals(dispositivoEntity.getNombre(), response.getNombre());
+        Assert.assertEquals(dispositivoEntity.getPrecio(), response.getPrecio());
+        Assert.assertEquals(dispositivoEntity.getTipo(), response.getTipo());
+
+    }
+
+    /**
+     * Prueba para obtener una instancia de dispositivo asociada a una instancia
+     * categoria que no le pertenece.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void getBookNoAsociadoTest() throws BusinessLogicException {
+        CategoriaEntity entity = data.get(0);
+        DispositivoEntity bookEntity = dispositivos.get(1);
+        categoriaDispositivoLogic.getDispositivo(entity.getId(), bookEntity.getId());
+    }
+
+    /**
+     * Prueba para remplazar las instancias de dispositivos asociadas a una
+     * instancia de categoria.
+     */
+    @Test
+    public void replaceBooksTest() {
+        CategoriaEntity entity = data.get(0);
+        List<DispositivoEntity> list = dispositivos.subList(1, 3);
+        categoriaDispositivoLogic.replaceDispositivos(entity.getId(), list);
+
+        entity = categoriaLogic.getCategoria(entity.getId());
+        Assert.assertFalse(entity.getDispositivos().contains(dispositivos.get(0)));
+        Assert.assertTrue(entity.getDispositivos().contains(dispositivos.get(1)));
+        Assert.assertTrue(entity.getDispositivos().contains(dispositivos.get(2)));
     }
 }
