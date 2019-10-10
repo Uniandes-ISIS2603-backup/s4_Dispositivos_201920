@@ -120,11 +120,11 @@ public class ClienteFacturaLogicTest {
     @Test
     public void addFacturasTest() {
         ClienteEntity entity = data.get(0);
-        FacturaEntity facturaEntity = facturasData.get(0);
-        FacturaEntity response = clienteFacturaLogic.addFactura(facturaEntity.getId(), entity.getId());
+        FacturaEntity comprobanteEntity = facturasData.get(0);
+        FacturaEntity response = clienteFacturaLogic.addFactura(comprobanteEntity.getId(), entity.getId());
 
         Assert.assertNotNull(response);
-        Assert.assertEquals(facturaEntity.getId(), response.getId());
+        Assert.assertEquals(comprobanteEntity.getId(), response.getId());
     }
 
     /**

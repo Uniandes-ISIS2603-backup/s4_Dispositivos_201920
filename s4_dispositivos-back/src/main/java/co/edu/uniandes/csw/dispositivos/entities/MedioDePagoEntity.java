@@ -20,20 +20,6 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
 public class MedioDePagoEntity extends BaseEntity {
 
     /**
-     * @return the cliente
-     */
-    public ClienteEntity getCliente() {
-        return cliente;
-    }
-
-    /**
-     * @param cliente the cliente to set
-     */
-    public void setCliente(ClienteEntity cliente) {
-        this.cliente = cliente;
-    }
-
-    /**
      * Representa el numero de una tarjeta.
      */
     @PodamStrategyValue(MetodoDePagoStrategy.class)
@@ -50,11 +36,6 @@ public class MedioDePagoEntity extends BaseEntity {
      */
     private String tipoTarjeta;
 
-    
-    @PodamExclude
-    @OneToOne
-    private ClienteEntity cliente;
-        
     /**
      * Representa el tipo de credito.
      */
@@ -138,8 +119,8 @@ public class MedioDePagoEntity extends BaseEntity {
     public void setTipoCredito(String tipoCredito) {
         this.tipoCredito = tipoCredito;
     }
-    
-        /**
+
+    /**
      * Metodo no usado
      *
      * @param obj Object que se compara.
