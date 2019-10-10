@@ -61,75 +61,6 @@ public class MediaPersistenceTest {
             MediaEntity entity = factory.manufacturePojo(MediaEntity.class);
             em.persist(entity);
             data.add(entity);
-            System.out.println("hola hp mundo" + entity.toString() + "caca LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + ""
-                    + "");
         }
     }
 
@@ -170,4 +101,96 @@ public class MediaPersistenceTest {
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getMarca(), entity.getMarca());
     }
+    /*
+    @Test
+    public void getReviewTest() {
+        MediaEntity entity = data.get(0);
+        MediaEntity newEntity = cp.find(dataDispositivo.get(0).getId(), entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getMediaNumerica(), newEntity.getMediaNumerica(),0);
+        Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
+        Assert.assertEquals(entity.getDispositivo(), newEntity.getDispositivo());
+    }
+    
+    @Test
+    public void deleteReviewTest() {
+        MediaEntity entity = data.get(0);
+        cp.delete(entity.getId());
+        MediaEntity deleted = em.find(MediaEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
+    
+    @Test
+    public void updateReviewTest() {
+        MediaEntity entity = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        MediaEntity newEntity = factory.manufacturePojo(MediaEntity.class);
+
+        newEntity.setId(entity.getId());
+
+        cp.update(newEntity);
+
+        MediaEntity resp = em.find(MediaEntity.class, entity.getId());
+
+        Assert.assertEquals(newEntity.getMediaNumerica(), resp.getMediaNumerica(),0);
+        Assert.assertEquals(newEntity.getComentario(), resp.getComentario());
+        Assert.assertEquals(newEntity.getDispositivo().getCategoria(), resp.getDispositivo().getCategoria());
+    }
+
+    /**
+     *
+     */
+    /*
+    @Test
+    public void getMediaTest() {
+        List<MediaEntity> list = cp.findAll();
+        Assert.assertEquals(list.size(), data.size());
+        for (MediaEntity ent : list) {
+            boolean found = false;
+            for (MediaEntity entity : data) {
+                if (ent.getId().equals(entity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+    
+    @Test
+    public void findMediaTest() {
+        MediaEntity entity = data.get(0);
+        MediaEntity newEntity = cp.find(entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getMediaNumerica(), newEntity.getMediaNumerica(),0);
+        Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
+
+    }
+
+    /**
+     *
+     */
+    /*
+    @Test
+    public void updateMediaTest() {
+        MediaEntity entity = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        MediaEntity newEntity = factory.manufacturePojo(MediaEntity.class);
+
+        newEntity.setId(entity.getId());
+        cp.update(newEntity);
+
+        MediaEntity resp = em.find(MediaEntity.class, entity.getId());
+        Assert.assertEquals(newEntity.getMediaNumerica(), resp.getMediaNumerica(),0);
+    }
+
+    /**
+     *
+     *//*
+    @Test
+    public void deleteMediaTest() {
+        MediaEntity entity = data.get(0);
+        cp.delete(entity.getId());
+        MediaEntity deleted = em.find(MediaEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }*/
 }

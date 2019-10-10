@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -36,9 +35,8 @@ public class VentaEntity extends BaseEntity implements Serializable {
     /**
      * Asociación con las fotos del dispositivo vendido
      */    
-    @PodamExclude
-    @OneToMany(mappedBy = "venta")
-    private List<MediaEntity> fotos;
+    //@PodamExclude
+    //private List<MediaEntity> fotos;
 
     /**
      * Asociación con la factura original de la venta

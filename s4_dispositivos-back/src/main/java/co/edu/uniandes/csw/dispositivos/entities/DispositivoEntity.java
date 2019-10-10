@@ -15,7 +15,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamDoubleValue;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -36,12 +35,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     /**
      * Clases
      */
-    /*
     @PodamExclude
-    @OneToMany(mappedBy = "dispositivo")
-    private MediaEntity imagenes;*/
-    @PodamExclude
-    @OneToOne
     private MediaEntity imagenes;
 
     @PodamExclude
