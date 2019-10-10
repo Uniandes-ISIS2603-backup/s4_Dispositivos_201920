@@ -27,6 +27,7 @@ public class ComprobanteDePagoPersistence
 
     /**
      * Busca un comprobante de pago por su id
+     * @param clienteId identificador del cliente asociado
      * @param id llave del comprobante a buscar
      * @return comprobante de pago correspondiente si lo encuentra,
      * de lo contrario null

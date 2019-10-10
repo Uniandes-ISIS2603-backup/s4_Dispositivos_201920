@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.dispositivos.dtos;
 
 import co.edu.uniandes.csw.dispositivos.entities.ComprobanteDePagoEntity;
+import java.io.Serializable;
 import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -16,7 +17,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * servidor.
  * @author Dianis Caro
  */
-public class ComprobanteDePagoDTO 
+public class ComprobanteDePagoDTO implements Serializable
 {
     /**
      * Identificador del comprobante de pago
@@ -43,6 +44,10 @@ public class ComprobanteDePagoDTO
      */
     private Date fechaDeFactura;
     /**
+     * Realación a cliente
+     */
+    private ClienteDTO cliente;
+    /**
      * Constructor de la clase
      */
     public ComprobanteDePagoDTO()
@@ -62,6 +67,10 @@ public class ComprobanteDePagoDTO
             this.impuestos = comprobante.getImpuestos();
             this.numeroDeTarjeta = comprobante.getNumeroDeTarjeta();
             this.fechaDeFactura = comprobante.getFechaDeFactura();
+            if (comprobante.getCliente()!= null) 
+                this.cliente = new ClienteDTO(comprobante.getCliente());
+            else
+                this.cliente = null;
         }
     }
     /**
@@ -77,10 +86,13 @@ public class ComprobanteDePagoDTO
         comprobanteEntity.setImpuestos(this.impuestos);
         comprobanteEntity.setNumeroDeTarjeta(this.numeroDeTarjeta);
         comprobanteEntity.setFechaDeFactura(this.fechaDeFactura);
-        
+        if (this.cliente != null) {
+            comprobanteEntity.setCliente(this.cliente.toEntity());
+        }
         return comprobanteEntity;
     }
     /**
+     * Devuelve el id del comprobante
      * @return el identificador de ComprobanteDePago
      */
     public Long getId() {
@@ -94,6 +106,7 @@ public class ComprobanteDePagoDTO
         this.id = id;
     }
     /**
+     * Devuelve el número de factura del comprobante
      * @return número de factura del ComprobanteDePago
      */
     public Integer getNumeroDeFactura() {
@@ -107,6 +120,7 @@ public class ComprobanteDePagoDTO
         this.numeroDeFactura = numeroDeFactura;
     }
     /**
+     * Devuelve el total a pagar del comprobante
      * @return total a pagar del ComprobanteDePago
      */
     public Double getTotalDePago() {
@@ -120,6 +134,7 @@ public class ComprobanteDePagoDTO
         this.totalDePago = totalDePago;
     }
     /**
+     * Devuelve los impuestos del comprobante
      * @return impuestos del ComprobanteDePago
      */
     public Double getImpuestos() {
@@ -133,6 +148,7 @@ public class ComprobanteDePagoDTO
         this.impuestos = impuestos;
     }
     /**
+     * Devuelve el número del tarjeta con la cual se pago
      * @return número de tarjeta del ComprobanteDePago
      */
     public String getNumeroDeTarjeta() {
@@ -146,6 +162,7 @@ public class ComprobanteDePagoDTO
         this.numeroDeTarjeta = numeroDeTarjeta;
     }
     /**
+     * Devuelve la fecha del comprobante de pago
      * @return fecha en la cual se generó el ComprobanteDePago
      */
     public Date getFechaDeFactura() {
@@ -157,6 +174,20 @@ public class ComprobanteDePagoDTO
      */
     public void setFechaDeFactura(Date fechaDeFactura) {
         this.fechaDeFactura = fechaDeFactura;
+    }
+    /**
+     * Devuelve el cliente asociado a este comprobante
+     * @return el cliente
+     */
+    public ClienteDTO getCliente() {
+        return cliente;
+    }
+    /**
+     * Modifica el cliente asociado a este comprobante
+     * @param cliente cliente que se desea modificar
+     */
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
     }
     @Override
     public String toString() {

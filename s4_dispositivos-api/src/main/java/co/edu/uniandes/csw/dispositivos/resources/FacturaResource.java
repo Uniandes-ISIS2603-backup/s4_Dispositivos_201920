@@ -52,11 +52,11 @@ public class FacturaResource {
     }
 
     @GET
-    public List<FacturaDetailDTO> getFacturas(@PathParam("facturaId") Long facturaId) {
-        LOGGER.info("FacturaResource getFacturas: input: void");
-        List<FacturaDetailDTO> listaFacturas = listEntity2DetailDTO(facturaLogic.getFacturas());
-        LOGGER.log(Level.INFO, "FacturaResource getFacturas: output: {0}", listaFacturas);
-        return listaFacturas;
+    public List<FacturaDetailDTO> getFacturas(@PathParam("clienteId") Long clienteId) {
+        LOGGER.log(Level.INFO, "FacturaDePagoResource getFacturas: input: {0}", clienteId);
+        List<FacturaDetailDTO> listaDTOs = listEntity2DetailDTO(facturaLogic.getFacturas(clienteId));
+        LOGGER.log(Level.INFO, "FacturaDePagoResource getFacturas: output: {0}", listaDTOs);
+        return listaDTOs;
     }
 
     private List<FacturaDetailDTO> listEntity2DetailDTO(List<FacturaEntity> entityList) {
@@ -75,25 +75,28 @@ public class FacturaResource {
 
     @PUT
     @Path("{facturaId: \\d+}")
-    public FacturaDTO updateFactura(@PathParam("facturaId") Long facturaId, FacturaDTO factura) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "FacturaResource updateFactura: input: id:{0} , factura de pago: {1}", new Object[]{facturaId, factura});
-        factura.setId(facturaId);
-        if (facturaLogic.getFactura(facturaId) == null) {
-            throw new WebApplicationException("El recurso /facturas/" + facturaId + " no existe.", 404);
+    public FacturaDTO updateFactura(@PathParam("clienteId") Long clienteId, @PathParam("facturaId") Long facturaId, FacturaDTO factura) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "FacturaResource updateFactura: input: clienteId: {0} , facturaId: {1} , factura:{2}", new Object[]{clienteId, facturaId, factura});
+        if (!facturaId.equals(factura.getId())) {
+            throw new BusinessLogicException("Los ids del factura no coinciden.");
         }
-        FacturaDTO detailDTO = new FacturaDTO(facturaLogic.updateFactura(facturaId, factura.toEntity()));
-        LOGGER.log(Level.INFO, "FacturaResource updateFactura: output: {0}", detailDTO);
-        return detailDTO;
+        FacturaEntity entity = facturaLogic.getFactura(clienteId, facturaId);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/factura/" + facturaId + " no existe.", 404);
+        }
+        FacturaDTO facturaDTO = new FacturaDTO(facturaLogic.updateFactura(clienteId, factura.toEntity()));
+        LOGGER.log(Level.INFO, "FacturaResource updateFactura: output:{0}", facturaDTO);
+        return facturaDTO;
     }
 
     @DELETE
     @Path("{facturaId: \\d+}")
-    public void deleteFactura(@PathParam("facturaId") Long facturaId) {
-        LOGGER.log(Level.INFO, "FacturaResource deleteFactura: input: {0}", facturaId);
-        if (facturaLogic.getFactura(facturaId) == null) {
-            throw new WebApplicationException("El recurso /facturas/" + facturaId + " no existe.", 404);
+    public void deleteFactura(@PathParam("clienteId") Long clienteId, @PathParam("facturaId") Long facturaId) throws BusinessLogicException {
+        FacturaEntity entity = facturaLogic.getFactura(clienteId, facturaId);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/factura/" + facturaId + " no existe.", 404);
         }
-        facturaLogic.deleteFactura(facturaId);
-        LOGGER.info("FacturaResource deleteFactura: output: void");
+
+        facturaLogic.deleteFactura(facturaId, clienteId);
     }
 }

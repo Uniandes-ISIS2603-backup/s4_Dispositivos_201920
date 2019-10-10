@@ -63,6 +63,10 @@ public class DispositivoResource {
         return newDispositivoDTO;
     }
 
+    /**
+     *
+     * @return
+     */
     @GET
     public List<DispositivoDetailDTO> getDispositivos() {
         LOGGER.info("DispositivoResource getDispositivos: input: void");

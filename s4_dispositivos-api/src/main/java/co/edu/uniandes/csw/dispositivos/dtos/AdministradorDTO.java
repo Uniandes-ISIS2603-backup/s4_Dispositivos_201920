@@ -69,6 +69,7 @@ public class AdministradorDTO implements Serializable
         return adminEntity;
     }
     /**
+     * Devuelve el id del administrador
      * @return identificador del administrador
      */
     public Long getId() {
@@ -82,6 +83,7 @@ public class AdministradorDTO implements Serializable
         this.id = id;
     }
     /**
+     * Devuelve el usuario del administrador
      * @return usuario del administrador
      */
     public String getUsuario() {
@@ -95,6 +97,7 @@ public class AdministradorDTO implements Serializable
         this.usuario = usuario;
     }
     /**
+     * Devuleve la contraseña del adminsitrador
      * @return contraseña del administrador
      */
     public String getContrasena() {
@@ -108,6 +111,7 @@ public class AdministradorDTO implements Serializable
         this.contrasena = contrasena;
     }
     /**
+     * Devuelve el correo del administrador
      * @return correo del administrador
      */
     public String getCorreo() {

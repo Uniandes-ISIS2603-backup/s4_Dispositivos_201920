@@ -5,8 +5,10 @@
  */
 package co.edu.uniandes.csw.dispositivos.ejb;
 
+import co.edu.uniandes.csw.dispositivos.entities.ClienteEntity;
 import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.dispositivos.persistence.ClientePersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
 import java.util.List;
 import javax.inject.Inject;
@@ -19,6 +21,8 @@ public class FacturaLogic {
 
     @Inject
     private FacturaPersistence fp;
+    @Inject
+    private ClientePersistence cp;
 
     /**
      * Crea una factura por ID
@@ -49,28 +53,39 @@ public class FacturaLogic {
     }
 
     /**
-     * Devuelve todas las facturas que hay en la base de datos.
+     * Devuelve todas las facturas que hay en la base de datos asociadas al
+     * cliente.
      *
+     * @param clienteId id del cliente
      * @return Lista de entidades de tipo factura.
      */
-    public List<FacturaEntity> getFacturas() {
-        return fp.findAll();
+    public List<FacturaEntity> getFacturas(Long clienteId) {
+        ClienteEntity clienteEntity = cp.find(clienteId);
+        return clienteEntity.getFacturas();
     }
 
     /**
      * Busca una factura por ID
      *
      * @param facturaId El id de la factura a buscar
+     * @param clientesId id del cliente
      * @return La factura encontrada, null si no la encuentra.
+     * @throws BusinessLogicException
      */
-    public FacturaEntity getFactura(Long facturaId) {
-        return fp.find(facturaId);
+    public FacturaEntity getFactura(Long clientesId, Long facturaId) throws BusinessLogicException {
+        List<FacturaEntity> factura = cp.find(clientesId).getFacturas();
+        FacturaEntity facturaEntity = fp.find(clientesId, facturaId);
+        int index = factura.indexOf(facturaEntity);
+        if (index >= 0) {
+            return factura.get(index);
+        }
+        throw new BusinessLogicException("La factura no está asociada a el cliente");
     }
 
     /**
      * Actualizar una factura por ID
      *
-     * @param facturaId El ID de la factura a actualizar
+     * @param clienteId El ID del cliente de la factura
      * @param facturaEntity La entidad de la factura con los cambios deseados
      * @return La entidad factura luego de actualizarla
      * @throws BusinessLogicException <br>
@@ -80,7 +95,7 @@ public class FacturaLogic {
      * Si los impuestos de la factura son mernos a 0 o no existen <br>
      * Si Ya existe una factura con el mismo número <br>
      */
-    public FacturaEntity updateFactura(Long facturaId, FacturaEntity facturaEntity) throws BusinessLogicException {
+    public FacturaEntity updateFactura(Long clienteId, FacturaEntity facturaEntity) throws BusinessLogicException {
         if (facturaEntity.getDispositivos() == null) {
             throw new BusinessLogicException("Los dispositivos de la factura están vacíos");
         } else if (facturaEntity.getNumeroDeFactura() == null || facturaEntity.getNumeroDeFactura() < 1) {
@@ -92,6 +107,9 @@ public class FacturaLogic {
         } else if (fp.findByCode(facturaEntity.getNumeroDeFactura()) != null) {
             throw new BusinessLogicException("Ya existe una factura con el mismo número");
         }
+
+        ClienteEntity clienteEntity = cp.find(clienteId);
+        facturaEntity.setCliente(clienteEntity);
         return fp.update(facturaEntity);
     }
 
@@ -99,9 +117,14 @@ public class FacturaLogic {
      * Eliminar una factura por ID
      *
      * @param facturaId El ID de la factura a eliminar
+     * @param clienteId id del cliente propietario de la factura
+     * @throws BusinessLogicException
      */
-    public void deleteFactura(Long facturaId) {
-
-        fp.delete(facturaId);
+    public void deleteFactura(Long facturaId, long clienteId) throws BusinessLogicException {
+        FacturaEntity entity = getFactura(clienteId, facturaId);
+        if (entity == null) {
+            throw new BusinessLogicException("La factura con id = " + facturaId + " no esta asociada al cliente con id = " + clienteId);
+        }
+        fp.delete(entity.getId());
     }
 }

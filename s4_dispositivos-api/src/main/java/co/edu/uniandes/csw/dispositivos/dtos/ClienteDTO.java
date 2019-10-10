@@ -61,10 +61,8 @@ public class ClienteDTO implements Serializable {
      */
     public ClienteDTO() {
     }
-
     /**
      * Constructor a partir de la entidad
-     *
      * @param cliente La entidad del cliente
      */
     public ClienteDTO(ClienteEntity cliente) {

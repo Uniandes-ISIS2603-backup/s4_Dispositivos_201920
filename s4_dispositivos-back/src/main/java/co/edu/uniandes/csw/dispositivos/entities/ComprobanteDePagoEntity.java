@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 import co.edu.uniandes.csw.dispositivos.podam.DateStrategy;
 import co.edu.uniandes.csw.dispositivos.podam.NumeroDeTarjetaStrategy;
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -16,7 +17,7 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
  * @author Dianis Caro
  */
 @Entity 
-public class ComprobanteDePagoEntity extends BaseEntity
+public class ComprobanteDePagoEntity extends BaseEntity implements Serializable 
 {
     /**
      * Numero de factura emitido
