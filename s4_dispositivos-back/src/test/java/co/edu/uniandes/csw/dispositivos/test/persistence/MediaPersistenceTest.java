@@ -96,20 +96,18 @@ public class MediaPersistenceTest {
 
         Assert.assertNotNull(ce);
         MediaEntity entity = em.find(MediaEntity.class, ce.getId());
-        System.out.println("hola mundo");
         Assert.assertEquals(newEntity.getLink(), entity.getLink());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getMarca(), entity.getMarca());
     }
-    /*
+    
     @Test
     public void getReviewTest() {
         MediaEntity entity = data.get(0);
-        MediaEntity newEntity = cp.find(dataDispositivo.get(0).getId(), entity.getId());
+        MediaEntity newEntity = cp.find(entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getMediaNumerica(), newEntity.getMediaNumerica(),0);
-        Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
-        Assert.assertEquals(entity.getDispositivo(), newEntity.getDispositivo());
+        Assert.assertEquals(entity.getLink(), newEntity.getLink());
+        Assert.assertEquals(entity.getMarca(), newEntity.getMarca());
     }
     
     @Test
@@ -132,9 +130,8 @@ public class MediaPersistenceTest {
 
         MediaEntity resp = em.find(MediaEntity.class, entity.getId());
 
-        Assert.assertEquals(newEntity.getMediaNumerica(), resp.getMediaNumerica(),0);
-        Assert.assertEquals(newEntity.getComentario(), resp.getComentario());
-        Assert.assertEquals(newEntity.getDispositivo().getCategoria(), resp.getDispositivo().getCategoria());
+        Assert.assertEquals(newEntity.getLink(), resp.getLink());
+        Assert.assertEquals(newEntity.getId(), resp.getId());
     }
 
     /**
