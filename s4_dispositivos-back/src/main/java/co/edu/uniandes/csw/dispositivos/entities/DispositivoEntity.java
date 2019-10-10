@@ -40,10 +40,6 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
 
     @PodamExclude
     @ManyToOne(cascade = CascadeType.ALL)
-    private FacturaEntity factura;
-
-    @PodamExclude
-    @ManyToOne(cascade = CascadeType.ALL)
     private MarcaEntity marca;
 
     @PodamExclude
@@ -104,7 +100,6 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      * @param usado Es usado o no
      * @param esImportado Es importado o no
      * @param imagenes Imagenes del dispositivo
-     * @param factura NO SE IMPLEMENTA. A CORREGIR
      * @param tipo Tipo de dispositivo que se ingresa. {CELULAR, TABLET,
      * COMPUTADOR}
      * @param estado Estado del dispositivo que se ingresa
@@ -113,7 +108,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      * debe tener cero calificaciones
      */
     public DispositivoEntity(String modelo, String descripcion, String nombre, double precio, double precioImportacion,
-            double descuento, boolean promocion, boolean enStock, boolean usado, boolean esImportado, MediaEntity imagenes, FacturaEntity factura,
+            double descuento, boolean promocion, boolean enStock, boolean usado, boolean esImportado, MediaEntity imagenes,
             Tipo tipo, EstadoDispositivo estado, MarcaEntity marca, List<CalificacionEntity> calificaciones, CategoriaEntity categoria) {
 
         this.modelo = modelo;
@@ -126,7 +121,6 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         this.promocion = promocion;
         this.enStock = enStock;
         this.usado = usado;
-        this.factura = factura;
         this.esImportado = esImportado;
         this.tipo = tipo;
         this.estado = estado;
@@ -169,11 +163,6 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      */
     public MediaEntity getImagenes() {
         return imagenes;
-    }
-
-    @Deprecated
-    public FacturaEntity getFactura() {
-        return factura;
     }
 
     /**
@@ -323,11 +312,6 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      */
     public void setImagenes(MediaEntity imagenes) {
         this.imagenes = imagenes;
-    }
-
-    @Deprecated
-    public void setFactura(FacturaEntity factura) {
-        this.factura = factura;
     }
 
     /**
