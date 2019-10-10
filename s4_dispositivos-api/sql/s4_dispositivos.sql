@@ -29,17 +29,26 @@ insert into DISPOSITIVOENTITY (ID, DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMB
 insert into DISPOSITIVOENTITY (ID, DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMBRE, PRECIO, PRECIOIMPORTACION, PROMOCION, ESIMPORTADO, USADO, ESTADO, TIPO) values (29, '5 Algoma Road', 54.07, 1, 'Express', 'Zooxo', 192.79, 168.89, 1, 0, 1, 0, 1);
 insert into DISPOSITIVOENTITY (ID, DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMBRE, PRECIO, PRECIOIMPORTACION, PROMOCION, ESIMPORTADO, USADO, ESTADO, TIPO) values (30, '0074 Center Plaza', 25.63, 0, 'Badeau', 'Realcube', 112.2, 141.99, 1, 1, 1, 0, 1);
 
+insert into MedioDePagoEntity (id, numeroDeVerificacion, NumeroTarjeta, TipoCredito, tipoTarjeta) values (1, '120', '56022446126012302', 'uowens0@usnews.com', 'china-unionpay');
+insert into MedioDePagoEntity (id, numeroDeVerificacion, NumeroTarjeta, TipoCredito, tipoTarjeta) values (2, '722', '3573796078114570', 'ddaveridge1@amazon.co.jp', 'jcb');
+insert into MedioDePagoEntity (id, numeroDeVerificacion, NumeroTarjeta, TipoCredito, tipoTarjeta) values (3, '545', '3533731234914158', 'ktonry2@smh.com.au', 'jcb');
+insert into MedioDePagoEntity (id, numeroDeVerificacion, NumeroTarjeta, TipoCredito, tipoTarjeta) values (4, '715', '201607497866748', 'sgason3@howstuffworks.com', 'diners-club-enroute');
+insert into MedioDePagoEntity (id, numeroDeVerificacion, NumeroTarjeta, TipoCredito, tipoTarjeta) values (5, '332', '30421328304227', 'cgoggin4@tumblr.com', 'diners-club-carte-blanche');
+
 insert into ClienteEntity (nombre, apellido, correoElectronico, cedula, direccion, usuario, contrasena, metodoDePago_ID, id) values ('Yurik', 'Wann', 'ywann0@ftc.gov', 1000000001, '7 David Parkway', 'ywann0', 'cYXxs6Eb7O', 0, 1);
 insert into ClienteEntity (nombre, apellido, correoElectronico, cedula, direccion, usuario, contrasena, metodoDePago_ID, id) values ('Arnaldo', 'McGilmartin', 'amcgilmartin1@archive.org', 1000000002, '32 Jackson Alley', 'amcgilmartin1', 'OlNhxhmEEw', 1, 2);
 insert into ClienteEntity (nombre, apellido, correoElectronico, cedula, direccion, usuario, contrasena, metodoDePago_ID, id) values ('Audie', 'Cherrett', 'acherrett2@wordpress.com', 1000000003, '82239 Dovetail Junction', 'acherrett2', 'U6dsqQBh', 2, 3);
 insert into ClienteEntity (nombre, apellido, correoElectronico, cedula, direccion, usuario, contrasena, metodoDePago_ID, id) values ('Henri', 'Margery', 'hmargery3@google.ru', 1000000004, '6 Jackson Point', 'hmargery3', 'E9r0Am8C1u0', 3, 4);
 insert into ClienteEntity (nombre, apellido, correoElectronico, cedula, direccion, usuario, contrasena, metodoDePago_ID, id) values ('Zollie', 'Annies', 'zannies4@globo.com', 1000000005, '0 Lakewood Gardens Plaza', 'zannies4', 'okmpqyZ8ev', 4, 5);
 
-insert into ClienteEntity_DispositivoEntity (clienteEntity_Id, carritoDeCompras_ID, ListaDeDeseos_ID) values (1000000001, 7, 14);
-insert into ClienteEntity_DispositivoEntity (clienteEntity_Id, carritoDeCompras_ID, ListaDeDeseos_ID) values (1000000002, 29, 26);
-insert into ClienteEntity_DispositivoEntity (clienteEntity_Id, carritoDeCompras_ID, ListaDeDeseos_ID) values (1000000003, 9, 20);
-insert into ClienteEntity_DispositivoEntity (clienteEntity_Id, carritoDeCompras_ID, ListaDeDeseos_ID) values (1000000004, 30, 23);
-insert into ClienteEntity_DispositivoEntity (clienteEntity_Id, carritoDeCompras_ID, ListaDeDeseos_ID) values (1000000005, 17, 8);
+insert into ClienteEntity_DispositivoEntity (clienteEntity_Id, carritoDeCompras_ID, ListaDeDeseos_ID) values (1, 7, 14);
+insert into ClienteEntity_DispositivoEntity (clienteEntity_Id, carritoDeCompras_ID, ListaDeDeseos_ID) values (2, 29, 26);
+insert into ClienteEntity_DispositivoEntity (clienteEntity_Id, carritoDeCompras_ID, ListaDeDeseos_ID) values (3, 9, 20);
+insert into ClienteEntity_DispositivoEntity (clienteEntity_Id, carritoDeCompras_ID, ListaDeDeseos_ID) values (4, 30, 23);
+insert into ClienteEntity_DispositivoEntity (clienteEntity_Id, carritoDeCompras_ID, ListaDeDeseos_ID) values (5, 17, 8);
 
-DELETE FROM ComprobanteDePagoEntity;
+
 delete from ClienteEntity;
+DELETE FROM ComprobanteDePagoEntity;
+delete from ClienteEntity_DispositivoEntity;
+delete from dispositivoEntity;
