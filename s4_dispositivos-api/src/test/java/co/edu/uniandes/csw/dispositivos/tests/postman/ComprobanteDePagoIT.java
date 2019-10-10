@@ -23,10 +23,11 @@ import org.junit.runner.RunWith;
 
 /**
  * Pruebas de integracion del recurso de Comprobante de pago.
+ *
  * @author Dianis Caro
  */
 @RunWith(Arquillian.class)
-public class ComprobanteDePagoIT{
+public class ComprobanteDePagoIT {
 
     private static final String COLLECTION = "ComprobanteDePago_Tests.postman_collection";
 
@@ -60,7 +61,7 @@ public class ComprobanteDePagoIT{
 
         Assert.assertEquals("Error en Requests de: " + COLLECTION, desiredResult, tp.getRequests_failed());
 
-        Assert.assertEquals("Error en Test-Scripts de: " + COLLECTION, desiredResult, tp.getTest_scripts_failed());
+        Assert.assertEquals("Error en Test-Sxcripts de: " + COLLECTION, desiredResult, tp.getTest_scripts_failed());
 
         Assert.assertEquals("Error en Assertions de: " + COLLECTION, desiredResult, tp.getAssertions_failed());
     }
