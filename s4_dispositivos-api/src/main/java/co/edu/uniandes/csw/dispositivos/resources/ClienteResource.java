@@ -96,4 +96,47 @@ public class ClienteResource {
         clienteLogic.deleteCliente(clienteId);
         LOGGER.info("ClienteResource deleteCliente: output: void");
     }
+
+    /**
+     * Conexión con el servicio de reseñas para un libro. {@link ReviewResource}
+     *
+     * Este método conecta la ruta de /books con las rutas de /reviews que
+     * dependen del libro, es una redirección al servicio que maneja el segmento
+     * de la URL que se encarga de las reseñas.
+     *
+     * @param clienteId El ID del libro con respecto al cual se accede al
+     * servicio.
+     * @return El servicio de Reseñas para ese libro en paricular.\
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el libro.
+     */
+    @Path("{clienteId: \\d+}/comprobantes")
+    public Class<ComprobanteDePagoResource> getComprobanteResource(@PathParam("clienteId") Long clienteId) {
+        if (clienteLogic.getCliente(clienteId) == null) {
+            throw new WebApplicationException("El recurso /cliente/" + clienteId + "/comprobantes no existe.", 404);
+        }
+        return ComprobanteDePagoResource.class;
+    }
+
+    /**
+     * Conexión con el servicio de reseñas para un libro. {@link ReviewResource}
+     *
+     * Este método conecta la ruta de /books con las rutas de /reviews que
+     * dependen del libro, es una redirección al servicio que maneja el segmento
+     * de la URL que se encarga de las reseñas.
+     *
+     * @param clienteId El ID del libro con respecto al cual se accede al
+     * servicio.
+     * @return El servicio de Reseñas para ese libro en paricular.\
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el libro.
+     */
+    @Path("{clienteId: \\d+}/facturas")
+    public Class<FacturaResource> getFacturaResource(@PathParam("clienteId") Long clienteId) {
+        if (clienteLogic.getCliente(clienteId) == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/facturas no existe.", 404);
+        }
+        return FacturaResource.class;
+    }
+
 }

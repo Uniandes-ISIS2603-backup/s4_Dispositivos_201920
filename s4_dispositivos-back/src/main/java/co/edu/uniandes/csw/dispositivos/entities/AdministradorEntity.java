@@ -1,5 +1,6 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 import co.edu.uniandes.csw.dispositivos.podam.CorreoWirelessStrategy;
+import java.io.Serializable;
 import javax.persistence.Entity;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
@@ -8,7 +9,7 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
  * @author Dianis Caro
  */
 @Entity
-public class AdministradorEntity extends BaseEntity
+public class AdministradorEntity extends BaseEntity implements Serializable 
 {
     /**
      * Usuario de identificacion en la plataforma

@@ -115,22 +115,6 @@ public class FacturaPersistenceTest {
     }
 
     /**
-     * Prueba para consultar una Factura.
-     */
-    @Test
-    public void findFacturaTest() {
-        FacturaEntity entity = data.get(0);
-        FacturaEntity newEntity = mp.find(entity.getId());
-        Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getDispositivos(), newEntity.getDispositivos());
-        Assert.assertEquals(entity.getImpuestos(), newEntity.getImpuestos());
-        Assert.assertEquals(entity.getNumeroDeFactura(), newEntity.getNumeroDeFactura());
-        Assert.assertEquals(entity.getTotalPago(), newEntity.getTotalPago());
-        Assert.assertEquals(entity.getFechaDePago(), newEntity.getFechaDePago());
-
-    }
-
-    /**
      * Prueba para actualizar una Factura.
      */
     @Test
@@ -165,19 +149,17 @@ public class FacturaPersistenceTest {
     }
 
     /**
-     * Prueba para crear una factura.
-     */
-    @Test
-    public void crearFacturaTest() {
-
-    }
-
-    /**
      * Prueba para encontrar una factura por su codigo.
      */
     @Test
     public void buscarFacturaPorCodigoTest() {
-        Date fecha = new GregorianCalendar(2016, Calendar.SEPTEMBER, 22).getTime();
-
+        FacturaEntity entity = data.get(0);
+        FacturaEntity newEntity = mp.findByCode(entity.getNumeroDeFactura());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(newEntity.getDispositivos(), entity.getDispositivos());
+        Assert.assertEquals(newEntity.getImpuestos(), entity.getImpuestos());
+        Assert.assertEquals(newEntity.getNumeroDeFactura(), entity.getNumeroDeFactura());
+        Assert.assertEquals(newEntity.getTotalPago(), entity.getTotalPago());
+        Assert.assertEquals(entity.getFechaDePago(), newEntity.getFechaDePago());
     }
 }

@@ -36,17 +36,17 @@ public class DispositivoFacturaLogic {
      */
     public DispositivoEntity replaceFactura(Long dispositivoId, Long facturaId) {
         DispositivoEntity dispositivoEntity = dispositivoPersistence.find(dispositivoId);
-        FacturaEntity facturaEntity = facturaPersistence.find(facturaId);
-        dispositivoEntity.setFactura(facturaEntity);
+        //FacturaEntity facturaEntity = facturaPersistence.find(facturaId);
+        //dispositivoEntity.setFactura(facturaEntity);
         return dispositivoEntity;
     }
 
     public void removeFactura(Long dispositivoId) {
 
         DispositivoEntity dispositivoEntity = dispositivoPersistence.find(dispositivoId);
-        FacturaEntity facturaEntity = facturaPersistence.find(dispositivoEntity.getFactura().getId());
+        //FacturaEntity facturaEntity = facturaPersistence.find(dispositivoEntity.getFactura().getId());
         dispositivoEntity.setFactura(null);
-        facturaEntity.getDispositivos().remove(dispositivoEntity);
+        //facturaEntity.getDispositivos().remove(dispositivoEntity);
     }
 
 }

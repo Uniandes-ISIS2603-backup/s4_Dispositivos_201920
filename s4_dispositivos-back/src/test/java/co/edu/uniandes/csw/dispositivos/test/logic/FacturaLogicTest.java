@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.dispositivos.test.logic;
 
 import co.edu.uniandes.csw.dispositivos.ejb.FacturaLogic;
+import co.edu.uniandes.csw.dispositivos.entities.ClienteEntity;
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import co.edu.uniandes.csw.dispositivos.enu.EstadoDispositivo;
@@ -48,6 +49,8 @@ public class FacturaLogicTest {
     private UserTransaction utx;
 
     private List<FacturaEntity> data = new ArrayList<FacturaEntity>();
+
+    private ClienteEntity cliente;
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -99,8 +102,11 @@ public class FacturaLogicTest {
      * pruebas.
      */
     private void insertData() {
+        cliente = factory.manufacturePojo(ClienteEntity.class);
+        em.persist(cliente);
         for (int i = 0; i < 3; i++) {
             FacturaEntity entity = factory.manufacturePojo(FacturaEntity.class);
+            entity.setCliente(cliente);
             em.persist(entity);
             data.add(entity);
         }
@@ -358,7 +364,7 @@ public class FacturaLogicTest {
      */
     @Test
     public void getFacturasTest() {
-        List<FacturaEntity> list = facturaLogic.getFacturas();
+        List<FacturaEntity> list = facturaLogic.getFacturas(cliente.getId());
         Assert.assertEquals(data.size(), list.size());
         for (FacturaEntity entity : list) {
             boolean found = false;
@@ -373,11 +379,13 @@ public class FacturaLogicTest {
 
     /**
      * Prueba para consultar una factura.
+     *
+     * @throws BusinessLogicException
      */
     @Test
-    public void getFacturaTest() {
+    public void getFacturaTest() throws BusinessLogicException {
         FacturaEntity entity = data.get(0);
-        FacturaEntity resultEntity = facturaLogic.getFactura(entity.getId());
+        FacturaEntity resultEntity = facturaLogic.getFactura(cliente.getId(), entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getDispositivos(), resultEntity.getDispositivos());
         Assert.assertEquals(entity.getImpuestos(), resultEntity.getImpuestos());
@@ -416,11 +424,13 @@ public class FacturaLogicTest {
 
     /**
      * Prueba para eliminar una Factura.
+     *
+     * @throws BusinessLogicException
      */
     @Test
-    public void deleteFacturaTest() {
-        FacturaEntity entity = data.get(1);
-        facturaLogic.deleteFactura(entity.getId());
+    public void deleteFacturaTest() throws BusinessLogicException {
+        FacturaEntity entity = data.get(0);
+        facturaLogic.deleteFactura(entity.getId(), cliente.getId());
         FacturaEntity deleted = em.find(FacturaEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
