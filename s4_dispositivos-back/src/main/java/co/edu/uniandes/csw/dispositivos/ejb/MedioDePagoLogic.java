@@ -149,7 +149,7 @@ public class MedioDePagoLogic {
         }
 
         try {
-            Integer.parseInt(medioDePagoEntity.getNumeroDeVerificacion());
+                Integer.parseInt(medioDePagoEntity.getNumeroDeVerificacion());
 
         } catch (Exception e) {
             throw new BusinessLogicException("La cantidad de numeros no corresponde con la esperada. Siendo " + medioDePagoEntity.getNumeroDeVerificacion().split("").length);
