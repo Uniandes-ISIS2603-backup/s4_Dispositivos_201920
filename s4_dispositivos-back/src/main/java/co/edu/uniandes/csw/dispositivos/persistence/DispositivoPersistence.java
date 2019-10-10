@@ -52,4 +52,15 @@ public class DispositivoPersistence {
         em.remove(find);
     }
 
+    public boolean containsDispositivo(DispositivoEntity dispositivo) {
+        List<DispositivoEntity> all = findAll();
+        boolean existe = false;
+        for (DispositivoEntity dis : all) {
+            if (dispositivo.getNombre().equals(dis.getNombre())) {
+                existe = true;
+            }
+        }
+        return existe;
+    }
+
 }
