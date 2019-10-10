@@ -30,7 +30,7 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author Juan L
  */
-@Path("cateogrias")
+@Path("categorias")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
