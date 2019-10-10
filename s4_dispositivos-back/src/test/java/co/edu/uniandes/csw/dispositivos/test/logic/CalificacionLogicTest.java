@@ -2,7 +2,6 @@ package co.edu.uniandes.csw.dispositivos.test.logic;
 
 import co.edu.uniandes.csw.dispositivos.ejb.CalificacionLogic;
 import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
-import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class CalificacionLogicTest {
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private CalificacionLogic calificacionLogic;    
+    private CalificacionLogic calificacionLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -37,8 +36,6 @@ public class CalificacionLogicTest {
     private UserTransaction utx;
 
     private List<CalificacionEntity> data = new ArrayList<CalificacionEntity>();
-
-    private List<DispositivoEntity> dataDispositivo = new ArrayList<DispositivoEntity>();
 
 
     /**
@@ -81,7 +78,6 @@ public class CalificacionLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from CalificacionEntity").executeUpdate();
-        em.createQuery("delete from DispositivoEntity").executeUpdate();
     }
 
     /**
@@ -90,13 +86,8 @@ public class CalificacionLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            DispositivoEntity entity = factory.manufacturePojo(DispositivoEntity.class);
-            em.persist(entity);
-            dataDispositivo.add(entity);
-        }
-        for (int i = 0; i < 3; i++) {
             CalificacionEntity entity = factory.manufacturePojo(CalificacionEntity.class);
-            entity.setDispositivo(dataDispositivo.get(1));
+            entity.setCalificacionNumerica(5);
             em.persist(entity);
             data.add(entity);
         }
@@ -109,78 +100,24 @@ public class CalificacionLogicTest {
      */
     @Test
     public void createCalificacionTest() throws BusinessLogicException {
-        
         CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
-        newEntity.setDispositivo(dataDispositivo.get(1));
-        CalificacionEntity result = calificacionLogic.createCalificacion(dataDispositivo.get(1).getId(), newEntity);
+        newEntity.setCalificacionNumerica(5);
+        CalificacionEntity result = calificacionLogic.createCalificacion(newEntity);
         Assert.assertNotNull(result);
         CalificacionEntity entity = em.find(CalificacionEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getCalificacionNumerica(), entity.getCalificacionNumerica(),0);
-        Assert.assertEquals(newEntity.getComentario(), entity.getComentario());        
     }
-    
-    @Test
-    public void getReviewsTest() throws BusinessLogicException {
-        List<CalificacionEntity> list = calificacionLogic.getCalificaciones(dataDispositivo.get(1).getId());
-        Assert.assertEquals(data.size(), list.size());
-        for (CalificacionEntity entity : list) {
-            boolean found = false;
-            for (CalificacionEntity storedEntity : data) {
-                if (entity.getId().equals(storedEntity.getId())) {
-                    found = true;
-                }
-            }
-            Assert.assertTrue(found);
-        }
-    }
-    
-    @Test
-    public void getReviewTest() {
-        CalificacionEntity entity = data.get(0);
-        CalificacionEntity resultEntity = calificacionLogic.getCalificacion(dataDispositivo.get(1).getId(), entity.getId());
-        Assert.assertNotNull(resultEntity);
-        Assert.assertEquals(entity.getId(), resultEntity.getId());
-        Assert.assertEquals(entity.getCalificacionNumerica(), resultEntity.getCalificacionNumerica(),0);
-        Assert.assertEquals(entity.getComentario(), resultEntity.getComentario());
-        Assert.assertEquals(entity.getDispositivo().getCategoria(), resultEntity.getDispositivo().getCategoria());
-    }
-    
-    @Test
-    public void updateReviewTest() throws BusinessLogicException {
-        CalificacionEntity entity = data.get(0);
-        CalificacionEntity pojoEntity = factory.manufacturePojo(CalificacionEntity.class);
 
-        pojoEntity.setId(entity.getId());
-
-        calificacionLogic.updateCalificacion(dataDispositivo.get(1).getId(), pojoEntity);
-
-        CalificacionEntity resp = em.find(CalificacionEntity.class, entity.getId());
-
-        Assert.assertEquals(pojoEntity.getId(), resp.getId());
-        Assert.assertEquals(pojoEntity.getCalificacionNumerica(), resp.getCalificacionNumerica(),0);
-        Assert.assertEquals(pojoEntity.getComentario(), resp.getComentario());
-        Assert.assertEquals(pojoEntity.getDispositivo().getCategoria(), resp.getDispositivo().getCategoria());
-    }
-    
-    @Test
-    public void deleteReviewTest() throws BusinessLogicException {
-        CalificacionEntity entity = data.get(0);
-        calificacionLogic.deleteCalificacion(dataDispositivo.get(1).getId(), entity.getId());
-        CalificacionEntity deleted = em.find(CalificacionEntity.class, entity.getId());
-        Assert.assertNull(deleted);
-    }
+    /**
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
     
     @Test(expected = BusinessLogicException.class)
-    public void deleteReviewConBookNoAsociadoTest() throws BusinessLogicException {
-        CalificacionEntity entity = data.get(0);
-        calificacionLogic.deleteCalificacion(dataDispositivo.get(0).getId(), entity.getId());
-    }
-    
-    @Test(expected = BusinessLogicException.class)
-    public void deleteReviewConBookNoAsociadoTest2() throws BusinessLogicException {
-        CalificacionEntity entity = data.get(0);
-        entity.setCalificacionNumerica(12);
-        calificacionLogic.updateCalificacion(dataDispositivo.get(0).getId(), entity);
+    public void createCalificacionConNumeroMayorOMenor() throws BusinessLogicException {
+        CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
+        newEntity.setCalificacionNumerica(-2);
+        calificacionLogic.createCalificacion(newEntity);
     }
 }

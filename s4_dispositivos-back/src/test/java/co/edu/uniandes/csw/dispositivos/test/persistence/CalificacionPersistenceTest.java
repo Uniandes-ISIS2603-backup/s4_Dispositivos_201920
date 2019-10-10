@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
-import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +41,6 @@ public class CalificacionPersistenceTest {
     private EntityManager em;
 
     private List<CalificacionEntity> data = new ArrayList<>();
-    
-    private List<DispositivoEntity> dataDispositivo = new ArrayList<DispositivoEntity>();
 
     @Inject
     UserTransaction utx;
@@ -60,8 +57,6 @@ public class CalificacionPersistenceTest {
 
     private void clearData() {
         em.createQuery("delete from CalificacionEntity").executeUpdate();
-                em.createQuery("delete from DispositivoEntity").executeUpdate();
-
     }
 
     /**
@@ -70,16 +65,11 @@ public class CalificacionPersistenceTest {
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
-            DispositivoEntity entity = factory.manufacturePojo(DispositivoEntity.class);
-            em.persist(entity);
-            dataDispositivo.add(entity);
-        }
-        for (int i = 0; i < 3; i++) {
+
             CalificacionEntity entity = factory.manufacturePojo(CalificacionEntity.class);
-            if (i == 0) {
-                entity.setDispositivo(dataDispositivo.get(0));
-            }
+
             em.persist(entity);
+
             data.add(entity);
         }
     }
@@ -118,43 +108,8 @@ public class CalificacionPersistenceTest {
         CalificacionEntity entity = em.find(CalificacionEntity.class, ce.getId());
 
         Assert.assertEquals(newEntity.getComentario(), entity.getComentario());
-        Assert.assertEquals(newEntity.getDispositivo(), entity.getDispositivo());
+
         Assert.assertEquals(newEntity.getCalificacionNumerica(), entity.getCalificacionNumerica(),0);
-    }
-    
-    @Test
-    public void getReviewTest() {
-        CalificacionEntity entity = data.get(0);
-        CalificacionEntity newEntity = cp.find(dataDispositivo.get(0).getId(), entity.getId());
-        Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getCalificacionNumerica(), newEntity.getCalificacionNumerica(),0);
-        Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
-        Assert.assertEquals(entity.getDispositivo(), newEntity.getDispositivo());
-    }
-    
-    @Test
-    public void deleteReviewTest() {
-        CalificacionEntity entity = data.get(0);
-        cp.delete(entity.getId());
-        CalificacionEntity deleted = em.find(CalificacionEntity.class, entity.getId());
-        Assert.assertNull(deleted);
-    }
-    
-    @Test
-    public void updateReviewTest() {
-        CalificacionEntity entity = data.get(0);
-        PodamFactory factory = new PodamFactoryImpl();
-        CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
-
-        newEntity.setId(entity.getId());
-
-        cp.update(newEntity);
-
-        CalificacionEntity resp = em.find(CalificacionEntity.class, entity.getId());
-
-        Assert.assertEquals(newEntity.getCalificacionNumerica(), resp.getCalificacionNumerica(),0);
-        Assert.assertEquals(newEntity.getComentario(), resp.getComentario());
-        Assert.assertEquals(newEntity.getDispositivo().getCategoria(), resp.getDispositivo().getCategoria());
     }
 
     /**
@@ -211,4 +166,17 @@ public class CalificacionPersistenceTest {
         CalificacionEntity deleted = em.find(CalificacionEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
+    
+    /*
+    @Test
+    public void findCalificacionByCalificacionTest() {
+        CalificacionEntity entity = data.get(0);
+        CalificacionEntity newEntity = cp.findByCalificacion(entity.getCalificacionNumerica());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
+
+        newEntity = cp.findByCalificacion(null);
+        Assert.assertNull(newEntity);
+    }*/
+
 }
