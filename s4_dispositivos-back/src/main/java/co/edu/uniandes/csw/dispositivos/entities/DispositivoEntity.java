@@ -39,11 +39,11 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     private MediaEntity imagenes;
 
     @PodamExclude
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private MarcaEntity marca;
 
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private CategoriaEntity categoria;
 
     @PodamExclude
