@@ -6,10 +6,12 @@
 package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -31,6 +33,10 @@ public class VentaEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
     private VendedorEntity vendedor;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "venta")
+    private List<MediaEntity> fotos = new ArrayList<MediaEntity>();
 
     /**
      * Asociación con las fotos del dispositivo vendido
@@ -62,7 +68,7 @@ public class VentaEntity extends BaseEntity implements Serializable {
         this.precioReventa = precioReventa;
         this.vendedor = vendedor;
         //this.fotos = fotos;
-        //this.facturaOriginal = facturaOriginal;
+        this.facturaOriginal = facturaOriginal;
     }
 
     /**
@@ -126,29 +132,26 @@ public class VentaEntity extends BaseEntity implements Serializable {
      * Retorna la lista de fotos de la venta
      * @return the fotos
      *
-     * public List<MediaEntity> getFotos() { return fotos; }
-     *
+    public List<MediaEntity> getFotos() { return fotos; }
+    
      * /
      **
      * Asigna la lista de fotos de la venta
      * @param fotos the fotos to set
      *
      * public void setFotos(List<MediaEntity> fotos) { this.fotos = fotos; }
-     *
-     * /
-     **
+     */
+
+     /**
      * Retorna la factura original de la venta
      * @return the facturaOriginal
-     *
-     * public FacturaEntity getFacturaOriginal() { return facturaOriginal; }
-     *
-     * /
-     **
+     */
+    public FacturaEntity getFacturaOriginal() { return facturaOriginal; }    
+     
+     /**
      * Asigna la factura original de la venta
      * @param facturaOriginal the facturaOriginal to set
-     *
-     * public void setFacturaOriginal(FacturaEntity facturaOriginal) {
-     * this.facturaOriginal = facturaOriginal; }
-     * 
      */
+    public void setFacturaOriginal(FacturaEntity facturaOriginal) {
+    this.facturaOriginal = facturaOriginal; }    
 }

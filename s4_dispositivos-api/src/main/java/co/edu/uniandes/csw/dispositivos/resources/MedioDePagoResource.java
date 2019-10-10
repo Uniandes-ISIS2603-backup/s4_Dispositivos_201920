@@ -79,8 +79,8 @@ public class MedioDePagoResource {
      * Error de lógica que se genera cuando no se encuentra el medio de pago.
      */
     @GET
-    @Path("{mediodsId: \\d+}")
-    public MedioDePagoDTO getMedioDePagos(@PathParam("mediosId") Long medioId) throws WebApplicationException {
+    @Path("{medioId: \\d+}")
+    public MedioDePagoDTO getMedioDePagos(@PathParam("medioId") Long medioId) throws WebApplicationException {
         LOGGER.log(Level.INFO, "MedioDePagoResource getMedioDePago: input: {0}", medioId);
         MedioDePagoEntity mediopEntity = medioLogic.getMedioDePago(medioId);
         if (mediopEntity == null) {
