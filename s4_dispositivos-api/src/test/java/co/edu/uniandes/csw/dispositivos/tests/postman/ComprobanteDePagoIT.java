@@ -5,9 +5,9 @@
  */
 package co.edu.uniandes.csw.dispositivos.tests.postman;
 
-import co.edu.uniandes.csw.dispositivos.dtos.ComprobanteDePagoDTO;
+import co.edu.uniandes.csw.dispositivos.dtos.ClienteDTO;
 import co.edu.uniandes.csw.dispositivos.mappers.BusinessLogicExceptionMapper;
-import co.edu.uniandes.csw.dispositivos.resources.ComprobanteDePagoResource;
+import co.edu.uniandes.csw.dispositivos.resources.ClienteResource;
 import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- *  Pruebas de integracion del recurso de Comprobante de pago.
+ * Pruebas de integracion del recurso de Comprobante de pago.
  * @author Dianis Caro
  */
 @RunWith(Arquillian.class)
@@ -38,8 +38,8 @@ public class ComprobanteDePagoIT{
                         .importRuntimeDependencies().resolve()
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
-                .addPackage(ComprobanteDePagoResource.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
-                .addPackage(ComprobanteDePagoDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
+                .addPackage(ClienteResource.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
+                .addPackage(ClienteDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
                 .addPackage(BusinessLogicExceptionMapper.class.getPackage())
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
