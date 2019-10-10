@@ -25,7 +25,7 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
     /**
      * Factura original del DTODetail
      */
-    //private FacturaDTO facturaOriginal; 
+    private FacturaDTO facturaOriginal; 
     
     /**
      * Lista de fotos del DTODetail
@@ -48,8 +48,8 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
         if(refva != null)
         {    
             vendedor = new VendedorDTO(refva.getVendedor());
-            /**
             facturaOriginal = new FacturaDTO(refva.getFacturaOriginal());
+            /**
             if(refva.getFotos() != null)
             {
                 fotos = new ArrayList<>(); 
@@ -89,8 +89,8 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
         if(vendedor != null)
         {
             extventa.setVendedor(vendedor.toEntity());
-            /**
             extventa.setFacturaOriginal(facturaOriginal.toEntity());
+            /**
             if(getFotos() != null)
             {
             List<MediaEntity> photolist = new ArrayList<>();
@@ -106,7 +106,7 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
     /**
      * Retorna la factura del DTODetail
      * @return the facturaOriginal
-     
+     */
     public FacturaDTO getFacturaOriginal() {
         return facturaOriginal;
     }
@@ -114,7 +114,7 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
     /** 
      * Asigna la factura del DTODetail
      * @param facturaOriginal the facturaOriginal to set
-     
+     */
     public void setFacturaOriginal(FacturaDTO facturaOriginal) {
         this.facturaOriginal = facturaOriginal;
     }
