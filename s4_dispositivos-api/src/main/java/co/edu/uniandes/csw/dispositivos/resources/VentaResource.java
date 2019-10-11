@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.dispositivos.resources;
 
 import co.edu.uniandes.csw.dispositivos.dtos.VentaDTO;
 import co.edu.uniandes.csw.dispositivos.dtos.VentaDetailDTO;
+import co.edu.uniandes.csw.dispositivos.ejb.VendedorLogic;
 import co.edu.uniandes.csw.dispositivos.ejb.VentaLogic;
 import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
@@ -40,6 +41,9 @@ public class VentaResource
     
     @Inject
     private VentaLogic valogic;  
+    
+    @Inject
+    private VendedorLogic vrlogic;
 
     /**
      * Crea la venta mediante el DTO recibido por el URL.
@@ -87,7 +91,7 @@ public class VentaResource
         LOGGER.log(Level.INFO, "VentaResource getVenta: input: {0}", idVenta);
         VentaEntity wantedva = valogic.findVenta(idVenta);
         if(wantedva == null)
-            throw new WebApplicationException("No se encuentra el recurso /venta/" + idVenta, 404);
+            throw new WebApplicationException("No se encuentra el recurso /ventas/" + idVenta, 404);
         VentaDetailDTO vadetail = new VentaDetailDTO(wantedva);
         LOGGER.log(Level.INFO, "VentaResource getVenta: output: {0}", vadetail);
         return vadetail;        
@@ -103,13 +107,13 @@ public class VentaResource
      */
     @PUT
     @Path("{ventaID: \\d+}")
-    public VentaDTO updateVenta(@PathParam("ventaID") Long idVenta, VentaDTO vadto) throws BusinessLogicException
+    public VentaDTO updateVenta(@PathParam("ventaID") Long idVenta, VentaDetailDTO vadto) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "VentaResource updateVenta: input: {0}, venta: {1}", new Object[]{idVenta, vadto});
         vadto.setId(idVenta);
         if(valogic.findVenta(idVenta) == null)
-            throw new WebApplicationException("No se encuentra el recurso /venta/" + idVenta, 404);
-        VentaDTO detailVenta = new VentaDTO(valogic.updateVenta(vadto.toEntity()));
+            throw new WebApplicationException("No se encuentra el recurso /ventas/" + idVenta, 404);
+        VentaDetailDTO detailVenta = new VentaDetailDTO(valogic.updateVenta(vadto.toEntity()));
         LOGGER.log(Level.INFO, "VentaResource updateVenta: output: {0}", detailVenta);
         return detailVenta;
     }
@@ -127,9 +131,19 @@ public class VentaResource
         LOGGER.log(Level.INFO, "VentaResource deleteVenta: input: {0}", idVenta);
         VentaEntity notventa = valogic.findVenta(idVenta); 
         if(notventa == null)
-            throw new WebApplicationException("No se encuentra el recurso /venta/" + idVenta, 404); 
+            throw new WebApplicationException("No se encuentra el recurso /ventas/" + idVenta, 404); 
 
         valogic.deleteVenta(idVenta);
         LOGGER.info("VentaResource deleteVenta: output: void");
     }
+    
+    /**
+    @Path("{ventaID: \\d+}/photos")
+    public Class<MediaResource> getMediaResource(@PathParam("ventaID") Long idVenta) throws BusinessLogicException {
+    if (valogic.findVenta(idVenta) == null) {
+        throw new WebApplicationException("No se encuentra el recurso /ventas/" + idVenta, 404);
+    }
+    return MediaResource.class;
+    }
+    */
 }
