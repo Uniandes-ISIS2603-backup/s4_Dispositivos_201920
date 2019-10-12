@@ -73,7 +73,7 @@ public class VendedorVentaResource
     public List<VentaDetailDTO> getAllVentas(@PathParam("vendedorID") Long Idvendedor) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "VendedorVentaResource getAllVentas: input: {0}", Idvendedor);
-        List<VentaEntity> vaconteo = vralogic.findAllVentas(); //Corregir
+        List<VentaEntity> vaconteo = vralogic.findAllVentas(Idvendedor); 
         List<VentaDetailDTO> valisted = new ArrayList<>();
         for(VentaEntity vendedor : vaconteo)
             valisted.add(new VentaDetailDTO(vendedor));
@@ -97,7 +97,7 @@ public class VendedorVentaResource
         VentaEntity wantedva = valogic.findVenta(Idventa);
         if(wantedva == null)
             throw new WebApplicationException("No se encuentra el recurso /vendedores/" + Idvendedor + "/ventas/" + Idventa, 404);
-        VentaDetailDTO vadetail = new VentaDetailDTO(vralogic.findVenta(Idventa)); //Corregir
+        VentaDetailDTO vadetail = new VentaDetailDTO(vralogic.findVenta(Idvendedor, Idventa)); 
         LOGGER.log(Level.INFO, "VendedorVentaResource getVenta: output: {0}", vadetail);
         return vadetail;        
     }

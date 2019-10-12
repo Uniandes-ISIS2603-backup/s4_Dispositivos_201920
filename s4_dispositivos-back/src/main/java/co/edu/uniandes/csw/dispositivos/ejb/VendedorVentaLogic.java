@@ -23,17 +23,23 @@ import javax.inject.Inject;
 public class VendedorVentaLogic 
 {
     /**
-     * Conexión con la capa de persistencia
+     * Conexión con la capa de persistencia para Venta
      */
     @Inject
     private VentaPersistence vapersistence;
     
     /**
-     * Conexión con la capa de persistencia
+     * Conexión con la capa de persistencia para Vendedor
      */
     @Inject
     private VendedorPersistence vrpersistence;
     
+    /**
+     * Validación del método agregar venta
+     * @param Idvendedor
+     * @param Idventa
+     * @return venta creada
+     */
     public VentaEntity createVenta(Long Idvendedor, Long Idventa) 
     {
         VendedorEntity vrentity = vrpersistence.find(Idvendedor); 
@@ -43,66 +49,51 @@ public class VendedorVentaLogic
     }
     
     /**
-     * Validación del método agregar venta
-     * @param venta
-     * @return venta creada
-     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
-     */
-    public VentaEntity createVenta(VentaEntity venta) throws BusinessLogicException
-    {
-        if(venta.getPrecioReventa() < 0)
-        { throw new BusinessLogicException("El precio de reventa no puede ser negativo"); }
-        
-        venta = vapersistence.create(venta); 
-        return venta; 
-    }
-    
-    /**
      * Validación del método buscar venta
+     * @param idfVendedor
      * @param idfVenta
      * @return venta encontrada
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
-    public VentaEntity findVenta(Long idfVenta) throws BusinessLogicException
+    public VentaEntity findVenta(Long idfVendedor, Long idfVenta) throws BusinessLogicException
     {       
-        VentaEntity obtainedvr = vapersistence.find(idfVenta);      
-        return obtainedvr;
+        List<VentaEntity> vaset = vrpersistence.find(idfVendedor).getVentas(); 
+        VentaEntity obtainedvr = vapersistence.find(idfVenta); 
+        int indizer = vaset.indexOf(obtainedvr);
+        if(indizer < 0)
+        { throw new BusinessLogicException("No se encuentra ningún vendedor asociado a la venta"); }
+        else return obtainedvr;
     }
     
     /**
      * Validación del método encontrar todas las ventas
+     * @param vendedorID
      * @return lista de las ventas existentes
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException 
      */
-    public List<VentaEntity> findAllVentas() throws BusinessLogicException
+    public List<VentaEntity> findAllVentas(Long vendedorID) throws BusinessLogicException
     {
-        List<VentaEntity> valisted = vapersistence.findAll(); 
+        List<VentaEntity> valisted = vrpersistence.find(vendedorID).getVentas(); 
         return valisted;
     }
     
     /**
-     * Validación del método cambiar venta
-     * @param uvaEntity
-     * @return venta actualizada
-     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     * Reemplaza ventas de un vendedor
+     * @param ventas 
+     * @param vendedorId 
+     * @return 
      */
-    public VentaEntity updateVenta(VentaEntity uvaEntity) throws BusinessLogicException
+    public List<VentaEntity> replaceVentas(Long vendedorId, List<VentaEntity> ventas) 
     {
-        if(uvaEntity == null)
-        { throw new BusinessLogicException("No se recibieron datos para modificar"); }
-        VentaEntity changedva = vapersistence.update(uvaEntity); 
-        return changedva;
-    }
-    
-    /**
-     * Validación del método borrar venta
-     * @param iddVenta
-     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
-     */
-    public void deleteVenta(Long iddVenta) throws BusinessLogicException
-    {
-        if(vapersistence.find(iddVenta) == null)
-        { throw new BusinessLogicException("La venta ya no existe"); }
-        vapersistence.delete(iddVenta); 
+        VendedorEntity vendedor = vrpersistence.find(vendedorId);
+        List<VentaEntity> ventaList = vapersistence.findAll();
+        for (VentaEntity ventaE : ventaList) 
+        {
+            if (ventas.contains(ventaE))
+                ventaE.setVendedor(vendedor);
+            else if (ventaE.getVendedor() != null && ventaE.getVendedor().equals(vendedor))
+                ventaE.setVendedor(null);
+        }
+        return ventas;
     }
 }
