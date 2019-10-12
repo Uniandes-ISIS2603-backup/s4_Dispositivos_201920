@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.dispositivos.ejb;
 
 import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.dispositivos.persistence.VendedorPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.VentaPersistence;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -21,10 +22,16 @@ import javax.inject.Inject;
 public class VentaLogic 
 {
     /**
-     * Conexión con la capa de persistencia
+     * Conexión con la capa de persistencia de Venta
      */
     @Inject
     private VentaPersistence vapersistence;
+    
+    /**
+     * Conexión con la capa de persistencia de Vendedor
+     */
+    @Inject
+    private VendedorPersistence vrpersistence;
     
     /**
      * Validación del método agregar venta
@@ -34,10 +41,13 @@ public class VentaLogic
      */
     public VentaEntity createVenta(VentaEntity venta) throws BusinessLogicException
     {
-        if(venta.getPrecioReventa() < 0)
-        { throw new BusinessLogicException("El precio de reventa no puede ser negativo"); }
+        if(venta.getVendedor() == null || vrpersistence.find(venta.getVendedor().getId()) == null)
+            throw new BusinessLogicException("No se puede registrar una venta sin un vendedor asociado");
         
-        venta = vapersistence.create(venta); 
+        if(venta.getPrecioReventa() < 0)
+            throw new BusinessLogicException("El precio de reventa no puede ser negativo");
+        
+        vapersistence.create(venta); 
         return venta; 
     }
     

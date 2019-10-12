@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.dispositivos.resources;
 
 import co.edu.uniandes.csw.dispositivos.dtos.VentaDTO;
 import co.edu.uniandes.csw.dispositivos.dtos.VentaDetailDTO;
-import co.edu.uniandes.csw.dispositivos.ejb.VendedorLogic;
 import co.edu.uniandes.csw.dispositivos.ejb.VentaLogic;
 import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
@@ -40,13 +39,10 @@ public class VentaResource
     private static final Logger LOGGER = Logger.getLogger(VentaResource.class.getName());
     
     @Inject
-    private VentaLogic valogic;  
-    
-    @Inject
-    private VendedorLogic vrlogic;
+    private VentaLogic valogic;   
 
     /**
-     * Crea la venta mediante el DTO recibido por el URL.
+     * Crea la venta mediante el DTO recibido por JSON.
      * @param venta
      * @return Venta creada
      * @throws BusinessLogicException
@@ -55,9 +51,11 @@ public class VentaResource
     public VentaDTO createVenta(VentaDTO venta) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "VentaResource createVenta: input: {0}", venta);
-        VentaDTO newventa = new VentaDTO(valogic.createVenta(venta.toEntity()));
-        LOGGER.log(Level.INFO, "VentaResource createVenta: output: {0}", newventa);
-        return newventa;
+        VentaEntity varef = venta.toEntity();
+        VentaEntity newvaentity = valogic.createVenta(varef); 
+        VentaDTO newvadto = new VentaDTO(newvaentity);
+        LOGGER.log(Level.INFO, "VentaResource createVenta: output: {0}", newvadto);
+        return newvadto;
     }
 
     /**
@@ -71,8 +69,8 @@ public class VentaResource
         LOGGER.info("VentaResource getAllVentas: input: void");
         List<VentaEntity> vaconteo = valogic.findAllVentas(); 
         List<VentaDetailDTO> valisted = new ArrayList<>();
-        for(VentaEntity vendedor : vaconteo)
-            valisted.add(new VentaDetailDTO(vendedor));
+        for(VentaEntity venta : vaconteo)
+            valisted.add(new VentaDetailDTO(venta));
         LOGGER.log(Level.INFO, "VentaResource getAllVentas: output: {0}", valisted);
         return valisted;
     }
@@ -98,7 +96,7 @@ public class VentaResource
     }
 
     /**
-     * Actualiza la venta mediante el id y la nueva definición de la venta recibidos por el URL.
+     * Actualiza la venta mediante el id recibido por el URL y la nueva definición del venta recibida por JSON.
      * @param idVenta
      * @param vadto
      * @return Venta actualizada
@@ -132,7 +130,6 @@ public class VentaResource
         VentaEntity notventa = valogic.findVenta(idVenta); 
         if(notventa == null)
             throw new WebApplicationException("No se encuentra el recurso /ventas/" + idVenta, 404); 
-
         valogic.deleteVenta(idVenta);
         LOGGER.info("VentaResource deleteVenta: output: void");
     }

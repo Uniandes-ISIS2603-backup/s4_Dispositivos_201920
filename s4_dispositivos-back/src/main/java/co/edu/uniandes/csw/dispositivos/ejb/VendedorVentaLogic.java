@@ -61,7 +61,7 @@ public class VendedorVentaLogic
         VentaEntity obtainedvr = vapersistence.find(idfVenta); 
         int indizer = vaset.indexOf(obtainedvr);
         if(indizer < 0)
-        { throw new BusinessLogicException("No se encuentra ningún vendedor asociado a la venta"); }
+            throw new BusinessLogicException("No se encuentra ningún vendedor asociado a la venta");
         else return obtainedvr;
     }
     

@@ -34,9 +34,9 @@ public class VendedorLogic
         { throw new BusinessLogicException("El vendedor ya existe"); }
         
         if((((((vendedor.getNombre() == null || vendedor.getApellido() == null) || vendedor.getUsuario() == null) || vendedor.getContrasena() == null) || vendedor.getCedula() < 0) || vendedor.getCelular() < 0) || vendedor.getCorreoElectronico()==null)
-        {  throw new BusinessLogicException("Algún campo está vacío"); }
+        {  throw new BusinessLogicException("No puede haber ningún campo vacío"); }
         
-        vendedor = vrpersistence.create(vendedor); 
+        vrpersistence.create(vendedor); 
         return vendedor; 
     }
     
