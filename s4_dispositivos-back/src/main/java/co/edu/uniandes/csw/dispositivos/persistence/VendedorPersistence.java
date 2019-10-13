@@ -62,6 +62,34 @@ public class VendedorPersistence
     }
     
     /**
+     * Método para buscar un vendedor por su usuario
+     * @param idUser
+     * @return found Vendedor by Usuario
+     */
+    public VendedorEntity findByUsuario(String idUser)
+    {
+        TypedQuery<VendedorEntity> tq = em.createQuery("select e from VendedorEntity e where e.usuario = :usuario", VendedorEntity.class);
+        tq = tq.setParameter("usuario", idUser); 
+        List<VendedorEntity> usuarioFound = tq.getResultList();
+        VendedorEntity gotten = (usuarioFound == null || usuarioFound.isEmpty()) ? null : usuarioFound.get(0); 
+        return gotten;       
+    }
+    
+    /**
+     * Método para buscar un vendedor por su correo electrónico
+     * @param idEmail
+     * @return found Vendedor by Correo Electrónico
+     */
+    public VendedorEntity findByEmail(String idEmail)
+    {
+        TypedQuery<VendedorEntity> tq = em.createQuery("select e from VendedorEntity e where e.correoElectronico = :correoElectronico", VendedorEntity.class);
+        tq = tq.setParameter("correoElectronico", idEmail); 
+        List<VendedorEntity> emailFound = tq.getResultList();
+        VendedorEntity gotten = (emailFound == null || emailFound.isEmpty()) ? null : emailFound.get(0); 
+        return gotten;       
+    }
+    
+    /**
      * Método para encontrar todos los vendedores
      * @return Vendedores List
      */

@@ -167,15 +167,18 @@ public class VentaLogicTest {
         Assert.assertEquals(updating.getId(), updated.getId());
         Assert.assertEquals(updating.getPrecioReventa(), updated.getPrecioReventa(), 0.0);
     }
-
+    
     /**
-     * Test de falla de cambiar venta por una nula
+     * Test de falla de cambiar venta con precio de reventa negativo
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void updateNullVentaTest() throws BusinessLogicException {
-        VentaEntity updating = null;
-        valogic.updateVenta(updating);
+    public void updateNegativeVentaTest() throws BusinessLogicException {
+        VentaEntity uventa = valist.get(0);
+        VentaEntity venta = valfactory.manufacturePojo(VentaEntity.class);
+        venta.setId(uventa.getId());
+        venta.setPrecioReventa(-1.0);
+        valogic.updateVenta(venta);
     }
 
     /**
@@ -188,18 +191,5 @@ public class VentaLogicTest {
         valogic.deleteVenta(vaentity.getId());
         VentaEntity goneva = vam.find(VentaEntity.class, vaentity.getId());
         Assert.assertNull(goneva);
-    }
-
-    /**
-     * Test de falla de borrar venta inexistente
-     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
-     */
-    @Test(expected=BusinessLogicException.class)
-    public void deleteVentaNullTest() throws BusinessLogicException
-    {
-        VentaEntity vaentity = valist.get(0);
-        Long deleteid = vaentity.getId();
-        valogic.deleteVenta(vaentity.getId());
-        valogic.deleteVenta(deleteid);
     }
 }

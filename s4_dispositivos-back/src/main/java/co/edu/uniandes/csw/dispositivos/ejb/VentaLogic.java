@@ -82,8 +82,12 @@ public class VentaLogic
      */
     public VentaEntity updateVenta(VentaEntity uvaEntity) throws BusinessLogicException
     {
-        if(uvaEntity == null)
-        { throw new BusinessLogicException("No se recibieron datos para modificar"); }
+        if(uvaEntity.getVendedor() == null || vrpersistence.find(uvaEntity.getVendedor().getId()) == null)
+            throw new BusinessLogicException("No se puede definir el vendedor de una venta como null");
+        
+        if(uvaEntity.getPrecioReventa() < 0)
+            throw new BusinessLogicException("El precio de reventa no puede ser negativo");
+        
         VentaEntity changedva = vapersistence.update(uvaEntity); 
         return changedva;
     }
@@ -95,8 +99,6 @@ public class VentaLogic
      */
     public void deleteVenta(Long iddVenta) throws BusinessLogicException
     {
-        if(vapersistence.find(iddVenta) == null)
-        { throw new BusinessLogicException("La venta ya no existe"); }
         vapersistence.delete(iddVenta); 
     }
 }
