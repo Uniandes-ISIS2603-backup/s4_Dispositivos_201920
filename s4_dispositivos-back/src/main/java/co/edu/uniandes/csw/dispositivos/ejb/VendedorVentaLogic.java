@@ -71,7 +71,7 @@ public class VendedorVentaLogic
      * @return lista de las ventas existentes
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException 
      */
-    public List<VentaEntity> findAllVentas(Long vendedorID) throws BusinessLogicException
+    public List<VentaEntity> findAllVentas(Long vendedorID)
     {
         List<VentaEntity> valisted = vrpersistence.find(vendedorID).getVentas(); 
         return valisted;

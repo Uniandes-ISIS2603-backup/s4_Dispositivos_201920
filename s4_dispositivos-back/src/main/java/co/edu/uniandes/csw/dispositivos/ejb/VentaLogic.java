@@ -55,9 +55,8 @@ public class VentaLogic
      * Validación del método buscar venta
      * @param idfVenta
      * @return venta encontrada
-     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
-    public VentaEntity findVenta(Long idfVenta) throws BusinessLogicException
+    public VentaEntity findVenta(Long idfVenta)
     {       
         VentaEntity obtainedvr = vapersistence.find(idfVenta);      
         return obtainedvr;
@@ -65,10 +64,9 @@ public class VentaLogic
     
     /**
      * Validación del método encontrar todas las ventas
-     * @return lista de las ventas existentes
-     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException 
+     * @return lista de las ventas existentes 
      */
-    public List<VentaEntity> findAllVentas() throws BusinessLogicException
+    public List<VentaEntity> findAllVentas()
     {
         List<VentaEntity> valisted = vapersistence.findAll(); 
         return valisted;
@@ -95,9 +93,8 @@ public class VentaLogic
     /**
      * Validación del método borrar venta
      * @param iddVenta
-     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
-    public void deleteVenta(Long iddVenta) throws BusinessLogicException
+    public void deleteVenta(Long iddVenta)
     {
         vapersistence.delete(iddVenta); 
     }

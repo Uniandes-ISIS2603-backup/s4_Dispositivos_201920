@@ -36,7 +36,7 @@ public class VendedorLogicTest {
     /**
      * Persistencia donde operan los tests
      */
-    @PersistenceContext
+    @PersistenceContext(unitName="dispositivosPU")
     protected EntityManager vrm;
 
     /**
@@ -55,7 +55,7 @@ public class VendedorLogicTest {
     /**
      * Creador de entidades de prueba
      */
-    private PodamFactory vrlfactory = new PodamFactoryImpl();
+    private PodamFactory vrfactory = new PodamFactoryImpl();
 
     /**
      * Relación con la lógica de la clase
@@ -83,7 +83,6 @@ public class VendedorLogicTest {
             utxn.begin();
             vrm.joinTransaction();
             vrm.createQuery("delete from VendedorEntity").executeUpdate();
-            PodamFactory vrfactory = new PodamFactoryImpl();
             for (int i = 0; i < 5; i++) {
                 VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
                 vrm.persist(vendedor);
@@ -106,7 +105,7 @@ public class VendedorLogicTest {
      */
     @Test
     public void createVendedorTest() throws BusinessLogicException {
-        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
         VendedorEntity obtainedvr = vrlogic.createVendedor(vendedor);
         Assert.assertNotNull(obtainedvr);
     }
@@ -117,7 +116,7 @@ public class VendedorLogicTest {
      */
     @Test(expected = BusinessLogicException.class)
     public void createNullFirstnameVendedorTest() throws BusinessLogicException {
-        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
         vendedor.setNombre(null);
         vrlogic.createVendedor(vendedor);
     }
@@ -128,7 +127,7 @@ public class VendedorLogicTest {
      */
     @Test(expected = BusinessLogicException.class)
     public void createNullLastnameVendedorTest() throws BusinessLogicException {
-        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
         vendedor.setApellido(null);
         vrlogic.createVendedor(vendedor);
     }
@@ -139,7 +138,7 @@ public class VendedorLogicTest {
      */
     @Test(expected = BusinessLogicException.class)
     public void createNullUserVendedorTest() throws BusinessLogicException {
-        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
         vendedor.setUsuario(null);
         vrlogic.createVendedor(vendedor);
     }
@@ -150,7 +149,7 @@ public class VendedorLogicTest {
      */
     @Test(expected = BusinessLogicException.class)
     public void createNullPasswordVendedorTest() throws BusinessLogicException {
-        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
         vendedor.setContrasena(null);
         vrlogic.createVendedor(vendedor);
     }
@@ -161,7 +160,7 @@ public class VendedorLogicTest {
      */
     @Test(expected = BusinessLogicException.class)
     public void createNullEmailVendedorTest() throws BusinessLogicException {
-        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
         vendedor.setCorreoElectronico(null);
         vrlogic.createVendedor(vendedor);
     }
@@ -172,7 +171,7 @@ public class VendedorLogicTest {
      */
     @Test(expected = BusinessLogicException.class)
     public void createNullCedulaVendedorTest() throws BusinessLogicException {
-        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
         vendedor.setCedula(null);
         vrlogic.createVendedor(vendedor);
     }
@@ -183,7 +182,7 @@ public class VendedorLogicTest {
      */
     @Test(expected = BusinessLogicException.class)
     public void createNegativeCelularVendedorTest() throws BusinessLogicException {
-        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
         vendedor.setCelular(null);
         vrlogic.createVendedor(vendedor);
     }
@@ -195,7 +194,7 @@ public class VendedorLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void createVendedorClonedCedulaTest() throws BusinessLogicException {
         VendedorEntity ref = vrlist.get(0);
-        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
         vendedor.setCedula(ref.getCedula());
         vrlogic.createVendedor(vendedor);
     }
@@ -207,7 +206,7 @@ public class VendedorLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void createVendedorClonedUserTest() throws BusinessLogicException {
         VendedorEntity ref = vrlist.get(0);
-        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
         vendedor.setUsuario(ref.getUsuario());
         vrlogic.createVendedor(vendedor);
     }
@@ -219,7 +218,7 @@ public class VendedorLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void createVendedorClonedEmailTest() throws BusinessLogicException {
         VendedorEntity ref = vrlist.get(0);
-        VendedorEntity vendedor = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
         vendedor.setCorreoElectronico(ref.getCorreoElectronico());
         vrlogic.createVendedor(vendedor);
     }
@@ -353,7 +352,7 @@ public class VendedorLogicTest {
     @Test
     public void updateVendedorTest() throws BusinessLogicException {
         VendedorEntity vendedor = vrlist.get(0);
-        VendedorEntity updating = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity updating = vrfactory.manufacturePojo(VendedorEntity.class);
         updating.setId(vendedor.getId());
         vrlogic.updateVendedor(updating);
         VendedorEntity updated = vrm.find(VendedorEntity.class, vendedor.getId());
@@ -374,7 +373,7 @@ public class VendedorLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void updateNullFirstnameVendedorTest() throws BusinessLogicException {
         VendedorEntity ref = vrlist.get(0);
-        VendedorEntity wrongvr = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
         wrongvr.setId(ref.getId());
         wrongvr.setNombre(null);
         vrlogic.updateVendedor(wrongvr);
@@ -387,7 +386,7 @@ public class VendedorLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void updateNullLastnameVendedorTest() throws BusinessLogicException {
         VendedorEntity ref = vrlist.get(0);
-        VendedorEntity wrongvr = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
         wrongvr.setId(ref.getId());
         wrongvr.setApellido(null);
         vrlogic.updateVendedor(wrongvr);
@@ -400,7 +399,7 @@ public class VendedorLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void updateNullUserVendedorTest() throws BusinessLogicException {
         VendedorEntity ref = vrlist.get(0);
-        VendedorEntity wrongvr = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
         wrongvr.setId(ref.getId());
         wrongvr.setUsuario(null);
         vrlogic.updateVendedor(wrongvr);
@@ -413,7 +412,7 @@ public class VendedorLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void updateNullPasswordVendedorTest() throws BusinessLogicException {
         VendedorEntity ref = vrlist.get(0);
-        VendedorEntity wrongvr = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
         wrongvr.setId(ref.getId());
         wrongvr.setContrasena(null);
         vrlogic.updateVendedor(wrongvr);
@@ -426,7 +425,7 @@ public class VendedorLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void updateNullEmailVendedorTest() throws BusinessLogicException {
         VendedorEntity ref = vrlist.get(0);
-        VendedorEntity wrongvr = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
         wrongvr.setId(ref.getId());
         wrongvr.setCorreoElectronico(null);
         vrlogic.updateVendedor(wrongvr);
@@ -439,7 +438,7 @@ public class VendedorLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void updateNullVendedorTest() throws BusinessLogicException {
         VendedorEntity ref = vrlist.get(0);
-        VendedorEntity wrongvr = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
         wrongvr.setId(ref.getId());
         wrongvr.setCedula(null);
         vrlogic.updateVendedor(wrongvr);
@@ -452,7 +451,7 @@ public class VendedorLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void updateNullCellphoneVendedorTest() throws BusinessLogicException {
         VendedorEntity ref = vrlist.get(0);
-        VendedorEntity wrongvr = vrlfactory.manufacturePojo(VendedorEntity.class);
+        VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
         wrongvr.setId(ref.getId());
         wrongvr.setCelular(null);
         vrlogic.updateVendedor(wrongvr);

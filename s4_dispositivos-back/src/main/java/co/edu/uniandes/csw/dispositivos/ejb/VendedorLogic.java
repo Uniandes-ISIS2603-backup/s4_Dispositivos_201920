@@ -30,7 +30,7 @@ public class VendedorLogic
      */
     public VendedorEntity createVendedor(VendedorEntity vendedor) throws BusinessLogicException
     {
-        if(!verifyNotBlanks(vendedor))
+        if(verifyBlanks(vendedor))
         {  throw new BusinessLogicException("No puede haber ningún campo vacío"); }
         
         if(vrpersistence.findByCedula(vendedor.getCedula()) != null)
@@ -120,7 +120,7 @@ public class VendedorLogic
      */
     public VendedorEntity updateVendedor(VendedorEntity uvrEntity) throws BusinessLogicException
     {
-        if(!verifyNotBlanks(uvrEntity))
+        if(verifyBlanks(uvrEntity))
         {  throw new BusinessLogicException("No puede haber ningún campo vacío"); }
         VendedorEntity changedvr = vrpersistence.update(uvrEntity); 
         return changedvr;
@@ -136,10 +136,11 @@ public class VendedorLogic
     }
     
     /**
-     * Método auxiliar para validar valores no nulos
-     * @return true si ningún valor es nulo, false de lo contrario
+     * Método auxiliar para hallar valores nulos
+     * @param vendedorB
+     * @return false si ningún valor es nulo, true de lo contrario
      */
-    private boolean verifyNotBlanks(VendedorEntity vendedorB)
+    public boolean verifyBlanks(VendedorEntity vendedorB)
     {
         return (vendedorB.getNombre() == null || vendedorB.getNombre().trim().equals("")) || 
                (vendedorB.getApellido() == null || vendedorB.getApellido().trim().equals("")) ||
@@ -147,6 +148,6 @@ public class VendedorLogic
                (vendedorB.getContrasena() == null || vendedorB.getContrasena().trim().equals("")) ||
                (vendedorB.getCorreoElectronico() == null || vendedorB.getCorreoElectronico().trim().equals("")) ||
                (vendedorB.getCedula() == null || vendedorB.getCelular() == null) || 
-                (vendedorB.getCedula() < 0 || vendedorB.getCelular() < 0);
+               (vendedorB.getCedula() < 0 || vendedorB.getCelular() < 0);
     }
 }
