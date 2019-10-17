@@ -50,25 +50,13 @@ public class FacturaResource {
      *
      * @param clienteId id del cliente
      * @param factura factura
-     * @param dispositivos dispositivos de la factura
      * @return
      * @throws BusinessLogicException
      */
     @POST
-    public FacturaDTO createFactura(@PathParam("clienteId") Long clienteId, FacturaDTO factura, List<DispositivoDTO> dispositivos) throws BusinessLogicException {
+    public FacturaDTO createFactura(@PathParam("clienteId") Long clienteId, FacturaDetailDTO factura) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "FacturaResource createFactura: input: {0}", factura);
         FacturaEntity facturaEntity = factura.toEntity();
-        List<DispositivoEntity> disps = new ArrayList<DispositivoEntity>();
-        for (DispositivoDTO dispositivo : dispositivos) {
-            if (dispositivoLogic.getDispositivo(dispositivo.getId()) == null) {
-                DispositivoEntity dispositivoEntity = dispositivoLogic.createDispositivo(dispositivo.toEntity());
-                disps.add(dispositivoEntity);
-            } else {
-                DispositivoEntity d = dispositivo.toEntity();
-                disps.add(d);
-            }
-        }
-        facturaEntity.setDispositivos(disps);
         FacturaEntity nuevoMedioEntity = facturaLogic.createFactura(facturaEntity);
         FacturaDTO nuevoMedioDTO = new FacturaDTO(nuevoMedioEntity);
         LOGGER.log(Level.INFO, "FacturaResource createFactura: output: {0}", nuevoMedioDTO);

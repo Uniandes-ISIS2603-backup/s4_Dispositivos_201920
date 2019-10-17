@@ -140,12 +140,12 @@ public class ClienteLogic {
             throw new BusinessLogicException("La contraseña del cliente está vacía");
         } else if (clienteEntity.getCedula() == null || clienteEntity.getCedula() <= 0.0) {
             throw new BusinessLogicException("La cédula del cliente es menor o igual a 0 o es igual a null");
-        } else if (cp.findByCedula(clienteEntity.getCedula()) != null) {
-            throw new BusinessLogicException("Ya existe un cliente con la misma cédula");
-        } else if (cp.findByEmail(clienteEntity.getCorreoElectronico()) != null) {
-            throw new BusinessLogicException("Ya existe un cliente con el mismo email");
-        } else if (cp.findByUsuario(clienteEntity.getUsuario()) != null) {
-            throw new BusinessLogicException("Ya existe un cliente con el mismo usuario");
+        } else if (cp.findByCedula(clienteEntity.getCedula()) != null && !(clienteId.equals(cp.findByCedula(clienteEntity.getCedula()).getId()))) {
+            throw new BusinessLogicException("Ya existe un cliente con la misma cédula.");
+        } else if (cp.findByEmail(clienteEntity.getCorreoElectronico()) != null && !(clienteId.equals(cp.findByEmail(clienteEntity.getCorreoElectronico()).getId()))) {
+            throw new BusinessLogicException("Ya existe un cliente con el mismo email.");
+        } else if (cp.findByUsuario(clienteEntity.getUsuario()) != null && !(clienteId.equals(cp.findByUsuario(clienteEntity.getUsuario()).getId()))) {
+            throw new BusinessLogicException("Ya existe un cliente con el mismo usuario.");
         }
         return cp.update(clienteEntity);
     }

@@ -411,13 +411,15 @@ public class FacturaLogicTest {
 
         DispositivoEntity entity2 = factory.manufacturePojo(DispositivoEntity.class);
         dispositivos.add(entity2);
+        dispositivoLogic.createDispositivo(entity2);
 
         DispositivoEntity entity3 = factory.manufacturePojo(DispositivoEntity.class);
         dispositivos.add(entity3);
+        dispositivoLogic.createDispositivo(entity3);
 
         pojoEntity.setDispositivos(dispositivos);
         pojoEntity.setId(entity.getId());
-        facturaLogic.updateFactura(pojoEntity.getId(), pojoEntity);
+        facturaLogic.updateFactura(cliente.getId(), pojoEntity);
         FacturaEntity resp = em.find(FacturaEntity.class, entity.getId());
         Assert.assertEquals(pojoEntity.getImpuestos(), resp.getImpuestos());
         Assert.assertEquals(pojoEntity.getNumeroDeFactura(), resp.getNumeroDeFactura());
