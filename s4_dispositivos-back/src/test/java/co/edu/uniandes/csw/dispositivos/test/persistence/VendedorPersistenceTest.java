@@ -176,7 +176,29 @@ public class VendedorPersistenceTest
     {
         VendedorEntity ref = vrlist.get(0), block = vrp.findByCedula(ref.getCedula());
         Assert.assertNotNull(block);
-        Assert.assertEquals(block.getCedula(),ref.getCedula()); 
+        Assert.assertEquals(block.getCedula(), ref.getCedula()); 
+    }
+    
+    /**
+     * Test del método buscar vendedor por usuario
+     */
+    @Test
+    public void findByUsuarioTest()
+    {
+        VendedorEntity ref = vrlist.get(0), block = vrp.findByUsuario(ref.getUsuario());
+        Assert.assertNotNull(block);
+        Assert.assertEquals(block.getUsuario(), ref.getUsuario()); 
+    }
+    
+    /**
+     * Test del método buscar vendedor por correo electrónico
+     */
+    @Test
+    public void findByEmailTest()
+    {
+        VendedorEntity ref = vrlist.get(0), block = vrp.findByEmail(ref.getCorreoElectronico());
+        Assert.assertNotNull(block);
+        Assert.assertEquals(block.getCorreoElectronico(), ref.getCorreoElectronico()); 
     }
     
     /**

@@ -30,23 +30,28 @@ public class VendedorLogic
      */
     public VendedorEntity createVendedor(VendedorEntity vendedor) throws BusinessLogicException
     {
+        if(verifyBlanks(vendedor))
+        {  throw new BusinessLogicException("No puede haber ningún campo vacío"); }
+        
         if(vrpersistence.findByCedula(vendedor.getCedula()) != null)
-        { throw new BusinessLogicException("El vendedor ya existe"); }
+        { throw new BusinessLogicException("Ya existe un vendedor con esa cédula"); }
         
-        if((((((vendedor.getNombre() == null || vendedor.getApellido() == null) || vendedor.getUsuario() == null) || vendedor.getContrasena() == null) || vendedor.getCedula() < 0) || vendedor.getCelular() < 0) || vendedor.getCorreoElectronico()==null)
-        {  throw new BusinessLogicException("Algún campo está vacío"); }
+        if(vrpersistence.findByUsuario(vendedor.getUsuario()) != null)
+        { throw new BusinessLogicException("Ya existe un vendedor con ese usuario"); }
         
-        vendedor = vrpersistence.create(vendedor); 
+        if(vrpersistence.findByEmail(vendedor.getCorreoElectronico()) != null)
+        { throw new BusinessLogicException("Ya existe un vendedor con ese correo electrónico"); }
+        
+        vrpersistence.create(vendedor); 
         return vendedor; 
     }
     
     /**
      * Validación del método buscar vendedor
      * @param idfVendedor
-     * @return vendedor encontrado
-     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException 
+     * @return vendedor encontrado 
      */
-    public VendedorEntity findVendedor(Long idfVendedor) throws BusinessLogicException
+    public VendedorEntity findVendedor(Long idfVendedor)
     {
         VendedorEntity obtainedvr = vrpersistence.find(idfVendedor);         
         return obtainedvr; 
@@ -68,11 +73,40 @@ public class VendedorLogic
     }
     
     /**
+     * Validación del método buscar vendedor por cédula
+     * @param usuarioVendedorf
+     * @return vendedor obtenido por su cédula
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException 
+     */
+    public VendedorEntity findByUsuarioVendedor(String usuarioVendedorf) throws BusinessLogicException
+    {
+        if(usuarioVendedorf == null)
+        { throw new BusinessLogicException("No se recibió ningún usuario"); }
+        
+        VendedorEntity obtainedvr = vrpersistence.findByUsuario(usuarioVendedorf); 
+        return obtainedvr;
+    }
+    
+    /**
+     * Validación del método buscar vendedor por cédula
+     * @param emailVendedorf
+     * @return vendedor obtenido por su cédula
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException 
+     */
+    public VendedorEntity findByEmailVendedor(String emailVendedorf) throws BusinessLogicException
+    {
+        if(emailVendedorf == null)
+        { throw new BusinessLogicException("No se recibió ningún correo electrónico"); }
+        
+        VendedorEntity obtainedvr = vrpersistence.findByEmail(emailVendedorf); 
+        return obtainedvr;
+    }
+    
+    /**
      * Validación del método encontrar todos los vendedores
      * @return lista de los vendedores existentes
-     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
-    public List<VendedorEntity> findAllVendedores() throws BusinessLogicException
+    public List<VendedorEntity> findAllVendedores()
     {
         List<VendedorEntity> vrlisted = vrpersistence.findAll(); 
         return vrlisted;
@@ -86,8 +120,8 @@ public class VendedorLogic
      */
     public VendedorEntity updateVendedor(VendedorEntity uvrEntity) throws BusinessLogicException
     {
-        if(uvrEntity == null)
-        { throw new BusinessLogicException("No se recibieron datos para modificar"); }
+        if(verifyBlanks(uvrEntity))
+        {  throw new BusinessLogicException("No puede haber ningún campo vacío"); }
         VendedorEntity changedvr = vrpersistence.update(uvrEntity); 
         return changedvr;
     }
@@ -95,12 +129,25 @@ public class VendedorLogic
     /**
      * Validación del método borrar vendedor
      * @param iddVendedor
-     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
-    public void deleteVendedor(Long iddVendedor) throws BusinessLogicException
+    public void deleteVendedor(Long iddVendedor)
     {
-        if(vrpersistence.find(iddVendedor) == null)
-        { throw new BusinessLogicException("El vendedor ya no existe"); }
         vrpersistence.delete(iddVendedor); 
+    }
+    
+    /**
+     * Método auxiliar para hallar valores nulos
+     * @param vendedorB
+     * @return false si ningún valor es nulo, true de lo contrario
+     */
+    public boolean verifyBlanks(VendedorEntity vendedorB)
+    {
+        return (vendedorB.getNombre() == null || vendedorB.getNombre().trim().equals("")) || 
+               (vendedorB.getApellido() == null || vendedorB.getApellido().trim().equals("")) ||
+               (vendedorB.getUsuario() == null || vendedorB.getUsuario().trim().equals("")) ||
+               (vendedorB.getContrasena() == null || vendedorB.getContrasena().trim().equals("")) ||
+               (vendedorB.getCorreoElectronico() == null || vendedorB.getCorreoElectronico().trim().equals("")) ||
+               (vendedorB.getCedula() == null || vendedorB.getCelular() == null) || 
+               (vendedorB.getCedula() < 0 || vendedorB.getCelular() < 0);
     }
 }

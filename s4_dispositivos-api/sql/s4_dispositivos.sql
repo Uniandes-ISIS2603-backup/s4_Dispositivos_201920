@@ -95,8 +95,12 @@ insert into CATEGORIAENTITY (NOMBRECATEGORIA) values ('GMC');
 DELETE from DISPOSITIVOENTITY;
 DELETE FROM CALIFICACIONENTITY;
 DELETE FROM CATEGORIAENTITY;
+DELETE FROM MedioDePagoENTITY;
 
 
 DELETE FROM ComprobanteDePagoEntity;
+delete from clienteEntity;
 delete from ClienteEntity_DispositivoEntity;
 DELETE FROM ADMINISTRADORENTITY;
+delete from facturaEntity;
+delete from facturaEntity_DispositivoEntity;

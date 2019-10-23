@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.dispositivos.resources;
 
 import co.edu.uniandes.csw.dispositivos.dtos.FacturaDTO;
 import co.edu.uniandes.csw.dispositivos.dtos.FacturaDetailDTO;
+import co.edu.uniandes.csw.dispositivos.ejb.DispositivoLogic;
 import co.edu.uniandes.csw.dispositivos.ejb.FacturaLogic;
 import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
@@ -30,7 +31,6 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author Carlos Salazar
  */
-@Path("facturas")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
@@ -40,17 +40,29 @@ public class FacturaResource {
 
     @Inject
     private FacturaLogic facturaLogic;
+    @Inject
+    DispositivoLogic dispositivoLogic;
 
+    /**
+     *
+     * @param clienteId id del cliente
+     * @param factura factura
+     * @return
+     * @throws BusinessLogicException
+     */
     @POST
-    public FacturaDTO createFactura(@PathParam("facturaId") Long facturaId, FacturaDTO factura) throws BusinessLogicException {
+    public FacturaDetailDTO createFactura(@PathParam("clienteId") Long clienteId, FacturaDetailDTO factura) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "FacturaResource createFactura: input: {0}", factura);
-        FacturaEntity facturaEntity = factura.toEntity();
-        FacturaEntity nuevoMedioEntity = facturaLogic.createFactura(facturaEntity);
-        FacturaDTO nuevoMedioDTO = new FacturaDTO(nuevoMedioEntity);
+        FacturaDetailDTO nuevoMedioDTO = new FacturaDetailDTO(facturaLogic.createFactura(clienteId, factura.toEntity()));
         LOGGER.log(Level.INFO, "FacturaResource createFactura: output: {0}", nuevoMedioDTO);
         return nuevoMedioDTO;
     }
 
+    /**
+     *
+     * @param clienteId
+     * @return
+     */
     @GET
     public List<FacturaDetailDTO> getFacturas(@PathParam("clienteId") Long clienteId) {
         LOGGER.log(Level.INFO, "FacturaDePagoResource getFacturas: input: {0}", clienteId);
@@ -73,9 +85,17 @@ public class FacturaResource {
         return null;
     }
 
+    /**
+     *
+     * @param clienteId
+     * @param facturaId
+     * @param factura
+     * @return
+     * @throws BusinessLogicException
+     */
     @PUT
     @Path("{facturaId: \\d+}")
-    public FacturaDTO updateFactura(@PathParam("clienteId") Long clienteId, @PathParam("facturaId") Long facturaId, FacturaDTO factura) throws BusinessLogicException {
+    public FacturaDetailDTO updateFactura(@PathParam("clienteId") Long clienteId, @PathParam("facturaId") Long facturaId, FacturaDetailDTO factura) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "FacturaResource updateFactura: input: clienteId: {0} , facturaId: {1} , factura:{2}", new Object[]{clienteId, facturaId, factura});
         if (!facturaId.equals(factura.getId())) {
             throw new BusinessLogicException("Los ids del factura no coinciden.");
@@ -84,11 +104,17 @@ public class FacturaResource {
         if (entity == null) {
             throw new WebApplicationException("El recurso /clientes/" + clienteId + "/factura/" + facturaId + " no existe.", 404);
         }
-        FacturaDTO facturaDTO = new FacturaDTO(facturaLogic.updateFactura(clienteId, factura.toEntity()));
+        FacturaDetailDTO facturaDTO = new FacturaDetailDTO(facturaLogic.updateFactura(clienteId, factura.toEntity()));
         LOGGER.log(Level.INFO, "FacturaResource updateFactura: output:{0}", facturaDTO);
         return facturaDTO;
     }
 
+    /**
+     *
+     * @param clienteId
+     * @param facturaId
+     * @throws BusinessLogicException
+     */
     @DELETE
     @Path("{facturaId: \\d+}")
     public void deleteFactura(@PathParam("clienteId") Long clienteId, @PathParam("facturaId") Long facturaId) throws BusinessLogicException {

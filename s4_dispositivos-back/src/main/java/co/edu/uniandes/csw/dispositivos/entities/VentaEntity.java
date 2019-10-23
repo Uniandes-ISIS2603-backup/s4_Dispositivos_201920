@@ -68,7 +68,7 @@ public class VentaEntity extends BaseEntity implements Serializable {
         this.precioReventa = precioReventa;
         this.vendedor = vendedor;
         //this.fotos = fotos;
-        //this.facturaOriginal = facturaOriginal;
+        this.facturaOriginal = facturaOriginal;
     }
 
     /**
@@ -132,29 +132,26 @@ public class VentaEntity extends BaseEntity implements Serializable {
      * Retorna la lista de fotos de la venta
      * @return the fotos
      *
-     * public List<MediaEntity> getFotos() { return fotos; }
-     *
+    public List<MediaEntity> getFotos() { return fotos; }
+    
      * /
      **
      * Asigna la lista de fotos de la venta
      * @param fotos the fotos to set
      *
      * public void setFotos(List<MediaEntity> fotos) { this.fotos = fotos; }
-     *
-     * /
-     **
+     */
+
+     /**
      * Retorna la factura original de la venta
      * @return the facturaOriginal
-     *
-     * public FacturaEntity getFacturaOriginal() { return facturaOriginal; }
-     *
-     * /
-     **
+     */
+    public FacturaEntity getFacturaOriginal() { return facturaOriginal; }    
+     
+     /**
      * Asigna la factura original de la venta
      * @param facturaOriginal the facturaOriginal to set
-     *
-     * public void setFacturaOriginal(FacturaEntity facturaOriginal) {
-     * this.facturaOriginal = facturaOriginal; }
-     * 
      */
+    public void setFacturaOriginal(FacturaEntity facturaOriginal) {
+    this.facturaOriginal = facturaOriginal; }    
 }
