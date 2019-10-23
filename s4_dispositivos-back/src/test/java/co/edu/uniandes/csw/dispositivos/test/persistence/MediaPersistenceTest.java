@@ -102,16 +102,17 @@ public class MediaPersistenceTest {
     }
     
     @Test
-    public void getReviewTest() {
+    public void getMediaTest() {
         MediaEntity entity = data.get(0);
         MediaEntity newEntity = cp.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getLink(), newEntity.getLink());
         Assert.assertEquals(entity.getMarca(), newEntity.getMarca());
+        Assert.assertEquals(entity.getId(), newEntity.getId());
     }
     
     @Test
-    public void deleteReviewTest() {
+    public void deleteMediaTest() {
         MediaEntity entity = data.get(0);
         cp.delete(entity.getId());
         MediaEntity deleted = em.find(MediaEntity.class, entity.getId());
@@ -119,7 +120,7 @@ public class MediaPersistenceTest {
     }
     
     @Test
-    public void updateReviewTest() {
+    public void updateMediaTest() {
         MediaEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
         MediaEntity newEntity = factory.manufacturePojo(MediaEntity.class);
@@ -133,61 +134,4 @@ public class MediaPersistenceTest {
         Assert.assertEquals(newEntity.getLink(), resp.getLink());
         Assert.assertEquals(newEntity.getId(), resp.getId());
     }
-
-    /**
-     *
-     */
-    /*
-    @Test
-    public void getMediaTest() {
-        List<MediaEntity> list = cp.findAll();
-        Assert.assertEquals(list.size(), data.size());
-        for (MediaEntity ent : list) {
-            boolean found = false;
-            for (MediaEntity entity : data) {
-                if (ent.getId().equals(entity.getId())) {
-                    found = true;
-                }
-            }
-            Assert.assertTrue(found);
-        }
-    }
-    
-    @Test
-    public void findMediaTest() {
-        MediaEntity entity = data.get(0);
-        MediaEntity newEntity = cp.find(entity.getId());
-        Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getMediaNumerica(), newEntity.getMediaNumerica(),0);
-        Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
-
-    }
-
-    /**
-     *
-     */
-    /*
-    @Test
-    public void updateMediaTest() {
-        MediaEntity entity = data.get(0);
-        PodamFactory factory = new PodamFactoryImpl();
-        MediaEntity newEntity = factory.manufacturePojo(MediaEntity.class);
-
-        newEntity.setId(entity.getId());
-        cp.update(newEntity);
-
-        MediaEntity resp = em.find(MediaEntity.class, entity.getId());
-        Assert.assertEquals(newEntity.getMediaNumerica(), resp.getMediaNumerica(),0);
-    }
-
-    /**
-     *
-     *//*
-    @Test
-    public void deleteMediaTest() {
-        MediaEntity entity = data.get(0);
-        cp.delete(entity.getId());
-        MediaEntity deleted = em.find(MediaEntity.class, entity.getId());
-        Assert.assertNull(deleted);
-    }*/
 }

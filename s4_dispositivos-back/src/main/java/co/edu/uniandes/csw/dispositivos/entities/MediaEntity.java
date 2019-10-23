@@ -81,9 +81,38 @@ public class MediaEntity extends BaseEntity implements Serializable {
 
     /**
      * Establece una marca al contenido media
+     * @return 
      */
     public MarcaEntity getMarca() {
         return marca;
+    }
+
+    /**
+     * @return the dispositivo
+     */
+    public DispositivoEntity getDispositivo() {
+        return dispositivo;
+    }
+
+    /**
+     * @param dispositivo the dispositivo to set
+     */
+    public void setDispositivo(DispositivoEntity dispositivo) {
+        this.dispositivo = dispositivo;
+    }
+
+    /**
+     * @return the venta
+     */
+    public VentaEntity getVenta() {
+        return venta;
+    }
+
+    /**
+     * @param venta the venta to set
+     */
+    public void setVenta(VentaEntity venta) {
+        this.venta = venta;
     }
 
 }
