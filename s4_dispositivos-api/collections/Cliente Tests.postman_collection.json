@@ -1,0 +1,489 @@
+{
+	"info": {
+		"_postman_id": "0df7a9ae-420b-428a-b335-82ad426afbea",
+		"name": "Cliente Tests",
+		"description": "Prueba a cliente y sus relaciones con comprobanteDePago",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ef7b0fb-8155-465a-b61d-ba934cba533a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_c0\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Hanan\",\r\n  \"apellido\": \"Tedridge\",\r\n  \"correoElectronico\": \"htedridge0@reddit.com\",\r\n  \"cedula\": 1000000001,\r\n  \"direccion\": \"63 Fairview Terrace\",\r\n  \"usuario\": \"htedridge0\",\r\n  \"contrasena\": \"OD1RdhpYnh9\",\r\n  \"metodoDePago_ID\": \"0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "**Release: Crear cliente 1**\r\n\r\nCrea un nuevo cliente. El Id es inicializado por la BD y se debe ver en la respuesta.\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Cliente 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9e8d5059-ce0b-4e4e-bc87-4093627b6f2a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_c1\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n  \"nombre\": \"Petrina\",\r\n  \"apellido\": \"Caustic\",\r\n  \"correoElectronico\": \"pcaustic1@aboutads.info\",\r\n  \"cedula\": 1000000002,\r\n  \"direccion\": \"54 Pleasure Center\",\r\n  \"usuario\": \"pcaustic1\",\r\n  \"contrasena\": \"25UqtKTdg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "**Release: Crear cliente 2**\r\n\r\nCrea un nuevo cliente. El Id es inicializado por la BD y se debe ver en la respuesta.\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear dispositivo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3eeeaafc-0068-4330-a1e1-db4ed1c62fb5",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_d1\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n    {\r\n        \"descripcion\": \"El más veloz de la categoria\",\r\n        \"descuento\": 50.0,\r\n        \"enStock\": true,\r\n        \"esImportado\": false,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"Galaxy\",\r\n        \"nombre\": \"S10\",\r\n        \"precio\": 300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"usado\": false,\r\n        \"calificaciones\": []\r\n    }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/dispositivos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"dispositivos"
+					]
+				},
+				"description": "Crea un nuevo dispositivo. El id del dispositivo debe ser único\n**Codigo HTTP esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Factura",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"numeroDeFactura\": \"986708205\",\r\n  \"totalPago\": \"1862700.15\",\r\n  \"impuestos\": \"5.08\",\r\n  \"dispositivos\":[\r\n  \t{\r\n  \t\t\"id\":\"{{new_id_d1}}\"\r\n  \t}\r\n  \t],\r\n  \"venta\":0,\r\n  \"fechaDePago\": \"2017-03-03T00:00:00-05:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}/facturas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_c1}}",
+						"facturas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un Comprobante",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d41894c0-f294-4ddf-a0a1-e5a514d266a9",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"numeroDeFactura\": \"2897616\",\r\n  \"numeroDeTarjeta\": \"4147202105423658\",\r\n  \"totalDePago\": \"2791281.73\",\r\n  \"impuestos\": 0.4,\r\n  \"fechaDeFactura\": \"2017-03-03T00:00:00-05:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}/comprobantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_c1}}",
+						"comprobantes"
+					]
+				},
+				"description": "Crea un nuevo comprobante. El identificador del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un Comprobante adicional",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d41894c0-f294-4ddf-a0a1-e5a514d266a9",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"numeroDeFactura\": \"2897616\",\r\n  \"numeroDeTarjeta\": \"4147202105423658\",\r\n  \"totalDePago\": \"2791281.73\",\r\n  \"impuestos\": 0.4,\r\n  \"fechaDeFactura\": \"2017-03-03T00:00:00-05:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}/comprobantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_c1}}",
+						"comprobantes"
+					]
+				},
+				"description": "Crea un nuevo comprobante. El identificador del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f892e43b-b0e7-4c86-9e4c-991b040f4f7b",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n  \"id\":\"{{new_id_c1}}\",\r\n  \"nombre\": \"Petrina\",\r\n  \"apellido\": \"Caustic\",\r\n  \"correoElectronico\": \"pcaustic1@gmail.com\",\r\n  \"cedula\": 1000000002,\r\n  \"direccion\": \"Cra 21A 60C 16\",\r\n  \"usuario\": \"pcaustic1\",\r\n  \"contrasena\": \"25UqtKTdg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_c1}}"
+					]
+				},
+				"description": "Modifica un atributo a un cliente\n**Código HTTP esperado:200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener las facturas de un cliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}/facturas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_c1}}",
+						"facturas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener los comprobantes de un cliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}/comprobantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_c1}}",
+						"comprobantes"
+					]
+				},
+				"description": "Consulta los comprobantes de un cliente.\r\n\r\nSe envía el Id del cliente a consultar en el enlace.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7c35a0f-6c8f-4f12-b3be-3851508aa1e5",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_c1}}"
+					]
+				},
+				"description": "Elimina un cliente de la base de datos\n**Código HTTP esperado 204**"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "76b6fe83-e5fb-4a58-b5ff-f18fe9d39177",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5864e501-eb3b-46ec-a07e-e1cbb0f432f9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

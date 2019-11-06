@@ -79,7 +79,7 @@ public class ClientePersistence {
      * @return null si no existe ningùn cliente con el código del parametro. Si
      * existe alguna devuelve la primera.
      */
-    public ClienteEntity findByCedula(Double cedula) {
+    public ClienteEntity findByCedula(String cedula) {
         TypedQuery query = em.createQuery("Select c From ClienteEntity c where c.cedula = :cedula", ClienteEntity.class);
         query = query.setParameter("cedula", cedula);
         List<ClienteEntity> sameCode = query.getResultList();

@@ -56,8 +56,8 @@ public class ClienteLogic {
             throw new BusinessLogicException("El usuario del cliente es nulo o vacío");
         } else if (validarNoVacioONull(cliente.getContrasena())) {
             throw new BusinessLogicException("La contraseña del cliente está vacía");
-        } else if (cliente.getCedula() == null || cliente.getCedula() <= 0.0) {
-            throw new BusinessLogicException("La cédula del cliente es menor o igual a 0 o es igual a null");
+        } else if (cliente.getCedula() == null || cliente.getCedula().trim().equals("")) {
+            throw new BusinessLogicException("La cédula del cliente es vacía");
         } else if (cp.findByCedula(cliente.getCedula()) != null) {
             throw new BusinessLogicException("Ya existe un cliente con la misma cédula");
         } else if (cp.findByEmail(cliente.getCorreoElectronico()) != null) {
@@ -138,8 +138,8 @@ public class ClienteLogic {
             throw new BusinessLogicException("El usuario del cliente es nulo o vacío");
         } else if (validarNoVacioONull(clienteEntity.getContrasena())) {
             throw new BusinessLogicException("La contraseña del cliente está vacía");
-        } else if (clienteEntity.getCedula() == null || clienteEntity.getCedula() <= 0.0) {
-            throw new BusinessLogicException("La cédula del cliente es menor o igual a 0 o es igual a null");
+        } else if (clienteEntity.getCedula() == null || clienteEntity.getCedula().trim().equals("")) {
+            throw new BusinessLogicException("La cédula del cliente está vacía");
         } else if (cp.findByCedula(clienteEntity.getCedula()) != null && !(clienteId.equals(cp.findByCedula(clienteEntity.getCedula()).getId()))) {
             throw new BusinessLogicException("Ya existe un cliente con la misma cédula.");
         } else if (cp.findByEmail(clienteEntity.getCorreoElectronico()) != null && !(clienteId.equals(cp.findByEmail(clienteEntity.getCorreoElectronico()).getId()))) {

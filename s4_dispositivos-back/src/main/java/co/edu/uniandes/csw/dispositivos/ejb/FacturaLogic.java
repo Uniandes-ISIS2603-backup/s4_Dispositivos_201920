@@ -13,12 +13,14 @@ import co.edu.uniandes.csw.dispositivos.persistence.ClientePersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author Carlos Salazar
  */
+@Stateless
 public class FacturaLogic {
 
     @Inject

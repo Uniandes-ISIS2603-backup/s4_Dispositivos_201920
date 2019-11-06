@@ -279,14 +279,14 @@ public class ClienteLogicTest {
     }
 
     /**
-     * Test de crear un cliente con cédula negativa o cero.
+     * Test de crear un cliente con cedula vacía.
      *
      * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void createClienteCedulaNegOCeroTest() throws BusinessLogicException {
+    public void createClienteCedulaVaciaTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
-        newEntity.setCedula(-0.1);
+        newEntity.setCedula("");
         ClienteEntity result = clienteLogic.createCliente(newEntity);
     }
 
@@ -338,6 +338,19 @@ public class ClienteLogicTest {
     public void updateClienteNombreNullTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setNombre(null);
+        ClienteEntity entity = data.get(0);
+        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
+    }
+
+    /**
+     * Test de actualizar un cliente con cedula null.
+     *
+     * @throws BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateClienteCedulaNullTest() throws BusinessLogicException {
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setCedula(null);
         ClienteEntity entity = data.get(0);
         ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
     }
@@ -408,14 +421,14 @@ public class ClienteLogicTest {
     }
 
     /**
-     * Test de actualizar un cliente con cédula null.
+     * Test de actualizar un cliente con cédula vacía.
      *
      * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void updateClienteCedulaNullTest() throws BusinessLogicException {
+    public void updateClienteCedulaVaciaTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
-        newEntity.setCedula(null);
+        newEntity.setCedula("              ");
         ClienteEntity entity = data.get(0);
         ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
     }
@@ -498,19 +511,6 @@ public class ClienteLogicTest {
     }
 
     /**
-     * Test de actualizar un cliente con cédula negativa o cero.
-     *
-     * @throws BusinessLogicException
-     */
-    @Test(expected = BusinessLogicException.class)
-    public void updateClienteCedulaNegOCeroTest() throws BusinessLogicException {
-        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
-        newEntity.setCedula(-0.1);
-        ClienteEntity entity = data.get(0);
-        ClienteEntity result = clienteLogic.updateCliente(entity.getId(), newEntity);
-    }
-
-    /**
      * Prueba para crear un cliente con el mismo número de cèdula de un cliente
      * que ya existe.
      *
@@ -578,7 +578,7 @@ public class ClienteLogicTest {
         Assert.assertEquals(resultEntity.getNombre(), entity.getNombre());
         Assert.assertEquals(resultEntity.getApellido(), entity.getApellido());
         Assert.assertEquals(resultEntity.getCorreoElectronico(), entity.getCorreoElectronico());
-        Assert.assertEquals(resultEntity.getCedula(), entity.getCedula(), 0);
+        Assert.assertEquals(resultEntity.getCedula(), entity.getCedula());
         Assert.assertEquals(resultEntity.getDireccion(), entity.getDireccion());
         Assert.assertEquals(resultEntity.getUsuario(), entity.getUsuario());
         Assert.assertEquals(resultEntity.getContrasena(), entity.getContrasena());
@@ -599,7 +599,7 @@ public class ClienteLogicTest {
         Assert.assertEquals(pojoEntity.getNombre(), resp.getNombre());
         Assert.assertEquals(pojoEntity.getApellido(), resp.getApellido());
         Assert.assertEquals(pojoEntity.getCorreoElectronico(), resp.getCorreoElectronico());
-        Assert.assertEquals(pojoEntity.getCedula(), resp.getCedula(), 0);
+        Assert.assertEquals(pojoEntity.getCedula(), resp.getCedula());
         Assert.assertEquals(pojoEntity.getDireccion(), resp.getDireccion());
         Assert.assertEquals(pojoEntity.getUsuario(), resp.getUsuario());
         Assert.assertEquals(pojoEntity.getContrasena(), resp.getContrasena());
