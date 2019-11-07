@@ -70,7 +70,7 @@ public class ClienteResource {
     @GET
     @Path("{clienteId: \\d+}")
     public ClienteDTO getCliente(@PathParam("clienteId") Long clienteId) {
-        return null;
+        return new ClienteDetailDTO(clienteLogic.getCliente(clienteId));
     }
 
     @PUT
