@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.dispositivos.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -17,9 +19,26 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class MediaEntity extends BaseEntity implements Serializable {
 
-    private String link;
-
+    
+    @PodamExclude  
+    @OneToOne(
+        mappedBy = "imagenes",
+    	fetch = FetchType.LAZY
+    )
+    private DispositivoEntity dispositivo;
+    
+    @PodamExclude
+    @ManyToOne
+    private VentaEntity venta;
+    
+    @PodamExclude  
+    @OneToOne(
+        mappedBy = "logo",
+    	fetch = FetchType.LAZY
+    )
     private MarcaEntity marca;
+    
+    private String link;
 
     public MediaEntity() {
         /**

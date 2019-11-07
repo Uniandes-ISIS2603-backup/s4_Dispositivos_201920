@@ -36,7 +36,7 @@ public class FacturaDispositivoLogicTest {
 
     @Inject
     private FacturaLogic facturaLogic;
-    
+
     @Inject
     private FacturaDispositivoLogic facturaDispositivoLogic;
 
@@ -115,11 +115,10 @@ public class FacturaDispositivoLogicTest {
             List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
             dispositivos.add(dispositivosData.get(i));
             entity.setDispositivos(dispositivos);
-            facturaLogic.createFactura(entity);
+            facturaLogic.createFactura(cliente.getId(), entity);
             data.add(entity);
 
             if (i == 0) {
-                entity.setCliente(cliente);
                 List<FacturaEntity> facturas = new ArrayList<FacturaEntity>();
                 facturas.add(entity);
                 cliente.setFacturas(facturas);

@@ -42,6 +42,8 @@ public class FacturaDTO implements Serializable {
      */
     private Date fechaDePago;
 
+    private ClienteDTO cliente;
+
     /**
      * Constructor creado vacio para no tener problemas al implementar
      * Serializable
@@ -61,6 +63,11 @@ public class FacturaDTO implements Serializable {
             this.totalPago = factura.getTotalPago();
             this.impuestos = factura.getImpuestos();
             this.fechaDePago = factura.getFechaDePago();
+            if (factura.getCliente() != null) {
+                this.cliente = new ClienteDTO(factura.getCliente());
+            } else {
+                this.cliente = null;
+            }
         }
     }
 
@@ -95,6 +102,9 @@ public class FacturaDTO implements Serializable {
         facturaEntity.setTotalPago(this.getTotalPago());
         facturaEntity.setImpuestos(this.getImpuestos());
         facturaEntity.setFechaDePago(this.getFechaDePago());
+        if (this.cliente != null) {
+            facturaEntity.setCliente(this.cliente.toEntity());
+        }
         return facturaEntity;
     }
 
@@ -152,6 +162,20 @@ public class FacturaDTO implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * @return the cliente
+     */
+    public ClienteDTO getCliente() {
+        return cliente;
+    }
+
+    /**
+     * @param cliente the cliente to set
+     */
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
     }
 
 }

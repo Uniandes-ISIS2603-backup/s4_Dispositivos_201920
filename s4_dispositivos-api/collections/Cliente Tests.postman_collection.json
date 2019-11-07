@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6eaded95-a005-4729-aeb9-6cf34cf963e1",
+		"_postman_id": "0df7a9ae-420b-428a-b335-82ad426afbea",
 		"name": "Cliente Tests",
 		"description": "Prueba a cliente y sus relaciones con comprobanteDePago",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -165,24 +165,7 @@
 			"response": []
 		},
 		{
-			"name": "Crear una Factura",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "d41894c0-f294-4ddf-a0a1-e5a514d266a9",
-						"exec": [
-							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_c1\",data.id);",
-							"postman.setGlobalVariable(\"new_id_f1\",data.id);",
-							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
-							"console.log(data.id);",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
+			"name": "Crear Factura",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -195,7 +178,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"numeroDeFactura\": 2897616,\r\n  \"totalPago\": 2791281.73,\r\n  \"impuestos\": 8.42,\r\n  \"dispositivos\":[\r\n\t\t\t\t        {\r\n        \"descripcion\": \"El más veloz de la categoria\",\r\n        \"descuento\": 50.0,\r\n        \"enStock\": true,\r\n        \"esImportado\": false,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"Galaxy\",\r\n        \"nombre\": \"S10\",\r\n        \"precio\": 300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"usado\": false,\r\n        \"calificaciones\": []\r\n    }\r\n\t\t\t\t  ],\r\n  \"venta_ID\":0,\r\n  \"fechaDePago\": \"2017-03-03T00:00:00-05:00\"\r\n}",
+					"raw": "{\r\n  \"numeroDeFactura\": \"986708205\",\r\n  \"totalPago\": \"1862700.15\",\r\n  \"impuestos\": \"5.08\",\r\n  \"dispositivos\":[\r\n  \t{\r\n  \t\t\"id\":\"{{new_id_d1}}\"\r\n  \t}\r\n  \t],\r\n  \"venta\":0,\r\n  \"fechaDePago\": \"2017-03-03T00:00:00-05:00\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -216,8 +199,7 @@
 						"{{new_id_c1}}",
 						"facturas"
 					]
-				},
-				"description": "Crea una nueva factura. El identificador del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+				}
 			},
 			"response": []
 		},
@@ -379,6 +361,29 @@
 					]
 				},
 				"description": "Modifica un atributo a un cliente\n**Código HTTP esperado:200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener las facturas de un cliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}/facturas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"clientes",
+						"{{new_id_c1}}",
+						"facturas"
+					]
+				}
 			},
 			"response": []
 		},
