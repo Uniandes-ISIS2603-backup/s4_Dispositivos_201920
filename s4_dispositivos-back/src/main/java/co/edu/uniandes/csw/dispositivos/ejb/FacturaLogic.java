@@ -6,28 +6,36 @@
 package co.edu.uniandes.csw.dispositivos.ejb;
 
 import co.edu.uniandes.csw.dispositivos.entities.ClienteEntity;
+import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.ClientePersistence;
+import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author Carlos Salazar
  */
+@Stateless
 public class FacturaLogic {
 
     @Inject
     private FacturaPersistence fp;
     @Inject
     private ClientePersistence cp;
+    @Inject
+    private DispositivoPersistence dp;
 
     /**
      * Crea una factura por ID
      *
      * @param factura La entidad factura a crear
+     * @param clienteId id del cliente
+     *
      * @return La entidad factura luego de crearla
      * @throws BusinessLogicException <br>
      * Si los dispositivos de la factura están vacíos. <br>
@@ -36,7 +44,7 @@ public class FacturaLogic {
      * Si los impuestos de la factura son mernos a 0 o no existen <br>
      * Si Ya existe una factura con el mismo número <br>
      */
-    public FacturaEntity createFactura(FacturaEntity factura) throws BusinessLogicException {
+    public FacturaEntity createFactura(Long clienteId, FacturaEntity factura) throws BusinessLogicException {
         if (factura.getDispositivos() == null) {
             throw new BusinessLogicException("Los dispositivos de la factura están vacíos");
         } else if (factura.getNumeroDeFactura() == null || factura.getNumeroDeFactura() < 1) {
@@ -47,7 +55,16 @@ public class FacturaLogic {
             throw new BusinessLogicException("Los impuestos de la factura son mernos a 0 o no existen");
         } else if (fp.findByCode(factura.getNumeroDeFactura()) != null) {
             throw new BusinessLogicException("Ya existe una factura con el mismo número");
+        } else if (cp.find(clienteId) == null) {
+            throw new BusinessLogicException("No existe el cliente asociado a la factura");
         }
+        for (DispositivoEntity dispositivo : factura.getDispositivos()) {
+            if (dp.find(dispositivo.getId()) == null) {
+                throw new BusinessLogicException("El dispositivo no existe");
+            }
+        }
+        ClienteEntity cliente = cp.find(clienteId);
+        factura.setCliente(cliente);
         factura = fp.create(factura);
         return factura;
     }
@@ -104,10 +121,16 @@ public class FacturaLogic {
             throw new BusinessLogicException("El total pago de la factura es menor a 0 o no existe");
         } else if (facturaEntity.getImpuestos() == null || facturaEntity.getImpuestos() < 0.0) {
             throw new BusinessLogicException("Los impuestos de la factura son mernos a 0 o no existen");
-        } else if (fp.findByCode(facturaEntity.getNumeroDeFactura()) != null) {
+        } else if (fp.findByCode(facturaEntity.getNumeroDeFactura()) != null && !facturaEntity.getId().equals(fp.findByCode(facturaEntity.getNumeroDeFactura()).getId())) {
             throw new BusinessLogicException("Ya existe una factura con el mismo número");
+        } else if (cp.find(clienteId) == null) {
+            throw new BusinessLogicException("No existe el cliente asociado al comprobante de pago");
         }
-
+        for (DispositivoEntity dispositivo : facturaEntity.getDispositivos()) {
+            if (dp.find(dispositivo.getId()) == null) {
+                throw new BusinessLogicException("El dispositivo no existe");
+            }
+        }
         ClienteEntity clienteEntity = cp.find(clienteId);
         facturaEntity.setCliente(clienteEntity);
         return fp.update(facturaEntity);

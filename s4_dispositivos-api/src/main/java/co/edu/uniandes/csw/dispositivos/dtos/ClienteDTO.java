@@ -39,7 +39,7 @@ public class ClienteDTO implements Serializable {
     /**
      * Atributo que modela la cedula del cliente.
      */
-    private Double cedula;
+    private String cedula;
 
     /**
      * Atributo que modela la direcciòn del cliente.
@@ -161,14 +161,14 @@ public class ClienteDTO implements Serializable {
     /**
      * @return the cedula
      */
-    public Double getCedula() {
+    public String getCedula() {
         return cedula;
     }
 
     /**
      * @param cedula the cedula to set
      */
-    public void setCedula(Double cedula) {
+    public void setCedula(String cedula) {
         this.cedula = cedula;
     }
 

@@ -32,6 +32,8 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     private String modelo;
     private String descripcion;
     private String nombre;
+    @PodamExclude
+    private String imagen;
 
     /**
      * Clases
@@ -280,6 +282,10 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         return calificaciones;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
+
     /**
      * Asigan la modelo al dispositivo
      *
@@ -427,6 +433,10 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      */
     public void setCalificaciones(List<CalificacionEntity> calificaciones) {
         this.calificaciones = calificaciones;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     /**

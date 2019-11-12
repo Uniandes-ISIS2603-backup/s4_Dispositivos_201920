@@ -121,7 +121,8 @@ public class VentaPersistenceTest
         List<MediaEntity> testfotos = new ArrayList<>();
         VentaEntity newva = new VentaEntity(35000.0, auxvr, vfactura, testfotos);
         Assert.assertEquals(35000.0, newva.getPrecioReventa(), 0.0);
-        Assert.assertEquals(auxvr, newva.getVendedor()); 
+        Assert.assertEquals(auxvr, newva.getVendedor());
+        Assert.assertEquals(vfactura, newva.getFacturaOriginal());
     }
     
     /**
@@ -138,6 +139,7 @@ public class VentaPersistenceTest
         Assert.assertEquals(venta.getId(), vaentity.getId());
         Assert.assertEquals(venta.getPrecioReventa(), vaentity.getPrecioReventa(), 0.0);
         Assert.assertEquals(venta.getVendedor(), vaentity.getVendedor()); 
+        Assert.assertEquals(venta.getFacturaOriginal(), vaentity.getFacturaOriginal()); 
     }
 
     /**
@@ -186,6 +188,7 @@ public class VentaPersistenceTest
         Assert.assertEquals(updating.getId(), updated.getId());
         Assert.assertEquals(updating.getPrecioReventa(), updated.getPrecioReventa(), 0.0);
         Assert.assertEquals(updating.getVendedor(), updated.getVendedor()); 
+        Assert.assertEquals(updating.getFacturaOriginal(), updated.getFacturaOriginal()); 
     }
 
     /**
