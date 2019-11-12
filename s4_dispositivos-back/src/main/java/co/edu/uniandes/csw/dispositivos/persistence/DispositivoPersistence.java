@@ -6,8 +6,10 @@
 package co.edu.uniandes.csw.dispositivos.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
+import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -22,6 +24,9 @@ public class DispositivoPersistence {
 
     @PersistenceContext(unitName = "dispositivosPU")
     protected EntityManager em;
+
+    @Inject
+    FacturaPersistence facturaPersistence;
 
     /**
      * Método para crear la entidad
@@ -80,20 +85,16 @@ public class DispositivoPersistence {
      * @return comprobante de pago correspondiente si lo encuentra, de lo
      * contrario null
      */
-    public DispositivoEntity find(Long facturaId, Long id) {
-        TypedQuery<DispositivoEntity> q = em.createQuery("select p from DispositivoEntity p where (p.factura.id = :facturaid) and (p.id = :dispositivoId)", DispositivoEntity.class);
-        q.setParameter("facturaid", facturaId);
-        q.setParameter("dispositivoId", id);
-        List<DispositivoEntity> results = q.getResultList();
-        DispositivoEntity dispositivo = null;
-        if (results == null) {
-            dispositivo = null;
-        } else if (results.isEmpty()) {
-            dispositivo = null;
-        } else if (results.size() >= 1) {
-            dispositivo = results.get(0);
+    public DispositivoEntity find(Long facturaId, Long id, Long clienteId) {
+        FacturaEntity fact = facturaPersistence.find(clienteId, facturaId);
+        if (fact != null) {
+            for (DispositivoEntity dispositivo : fact.getDispositivos()) {
+                if (dispositivo.getId().equals(id)) {
+                    return dispositivo;
+                }
+            }
         }
-        return dispositivo;
+        return null;
     }
 
 }

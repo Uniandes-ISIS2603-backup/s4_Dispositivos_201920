@@ -110,7 +110,7 @@ public class DispositivoLogic {
      */
     public DispositivoEntity getDispositivo(Long facturasId, Long dispositivoId, Long clienteId) throws BusinessLogicException {
         List<DispositivoEntity> dispositivo = fp.find(clienteId, facturasId).getDispositivos();
-        DispositivoEntity dispositivoEntity = persistence.find(facturasId, dispositivoId);
+        DispositivoEntity dispositivoEntity = persistence.find(facturasId, dispositivoId, clienteId);
         int index = dispositivo.indexOf(dispositivoEntity);
         if (index >= 0) {
             return dispositivo.get(index);
