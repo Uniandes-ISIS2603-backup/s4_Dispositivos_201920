@@ -161,14 +161,14 @@ public class ClientePersistenceTest {
      */
     @Test
     public void crearClienteTest() {
-        ClienteEntity clientePrueba = new ClienteEntity("nombre", "apellido", "email", 2.3, "direccion", "usuario", "contrasena");
-        ClienteEntity clientePrueba2 = new ClienteEntity("nombre", "apellido", "email", 2.3, "direccion", "usuario", "contrasena");
-        ClienteEntity clientePrueba3 = new ClienteEntity("nombre", "apellido", "email", 2.4, "direccion", "usuario", "contrasena");
+        ClienteEntity clientePrueba = new ClienteEntity("nombre", "apellido", "email", "2.3", "direccion", "usuario", "contrasena");
+        ClienteEntity clientePrueba2 = new ClienteEntity("nombre", "apellido", "email", "2.3", "direccion", "usuario", "contrasena");
+        ClienteEntity clientePrueba3 = new ClienteEntity("nombre", "apellido", "email", "2.4", "direccion", "usuario", "contrasena");
 
         Assert.assertEquals("nombre", clientePrueba.getNombre());
         Assert.assertEquals("apellido", clientePrueba.getApellido());
         Assert.assertEquals("email", clientePrueba.getCorreoElectronico());
-        Assert.assertEquals(2.3, clientePrueba.getCedula(), 0);
+        Assert.assertEquals("2.3", clientePrueba.getCedula());
         Assert.assertEquals("direccion", clientePrueba.getDireccion());
         Assert.assertEquals("usuario", clientePrueba.getUsuario());
         Assert.assertEquals("contrasena", clientePrueba.getContrasena());
@@ -181,14 +181,14 @@ public class ClientePersistenceTest {
      */
     @Test
     public void buscarClientePorCedulaTest() {
-        ClienteEntity clientePrueba = new ClienteEntity("nombre", "apellido", "email", 2.3, "direccion", "usuario", "contrasena");
+        ClienteEntity clientePrueba = new ClienteEntity("nombre", "apellido", "email", "2.3", "direccion", "usuario", "contrasena");
         mp.create(clientePrueba);
-        Assert.assertNotNull(mp.findByCedula(2.3));
-        Assert.assertNull(mp.findByCedula(3.5));
+        Assert.assertNotNull(mp.findByCedula("2.3"));
+        Assert.assertNull(mp.findByCedula("3.5"));
         Assert.assertEquals("nombre", clientePrueba.getNombre());
         Assert.assertEquals("apellido", clientePrueba.getApellido());
         Assert.assertEquals("email", clientePrueba.getCorreoElectronico());
-        Assert.assertEquals(2.3, clientePrueba.getCedula(), 0);
+        Assert.assertEquals("2.3", clientePrueba.getCedula());
         Assert.assertEquals("direccion", clientePrueba.getDireccion());
         Assert.assertEquals("usuario", clientePrueba.getUsuario());
         Assert.assertEquals("contrasena", clientePrueba.getContrasena());
@@ -199,14 +199,14 @@ public class ClientePersistenceTest {
      */
     @Test
     public void buscarClientePorEmailTest() {
-        ClienteEntity clientePrueba = new ClienteEntity("nombre", "apellido", "email", 2.3, "direccion", "usuario", "contrasena");
+        ClienteEntity clientePrueba = new ClienteEntity("nombre", "apellido", "email", "2.3", "direccion", "usuario", "contrasena");
         mp.create(clientePrueba);
         Assert.assertNotNull(mp.findByEmail("email"));
         Assert.assertNull(mp.findByEmail("eamil"));
         Assert.assertEquals("nombre", clientePrueba.getNombre());
         Assert.assertEquals("apellido", clientePrueba.getApellido());
         Assert.assertEquals("email", clientePrueba.getCorreoElectronico());
-        Assert.assertEquals(2.3, clientePrueba.getCedula(), 0);
+        Assert.assertEquals("2.3", clientePrueba.getCedula());
         Assert.assertEquals("direccion", clientePrueba.getDireccion());
         Assert.assertEquals("usuario", clientePrueba.getUsuario());
         Assert.assertEquals("contrasena", clientePrueba.getContrasena());
@@ -217,14 +217,14 @@ public class ClientePersistenceTest {
      */
     @Test
     public void buscarClientePorUsuarioTest() {
-        ClienteEntity clientePrueba = new ClienteEntity("nombre", "apellido", "email", 2.3, "direccion", "usuario", "contrasena");
+        ClienteEntity clientePrueba = new ClienteEntity("nombre", "apellido", "email", "2.3", "direccion", "usuario", "contrasena");
         mp.create(clientePrueba);
         Assert.assertNotNull(mp.findByUsuario("usuario"));
         Assert.assertNull(mp.findByUsuario("oirausu"));
         Assert.assertEquals("nombre", clientePrueba.getNombre());
         Assert.assertEquals("apellido", clientePrueba.getApellido());
         Assert.assertEquals("email", clientePrueba.getCorreoElectronico());
-        Assert.assertEquals(2.3, clientePrueba.getCedula(), 0);
+        Assert.assertEquals("2.3", clientePrueba.getCedula());
         Assert.assertEquals("direccion", clientePrueba.getDireccion());
         Assert.assertEquals("usuario", clientePrueba.getUsuario());
         Assert.assertEquals("contrasena", clientePrueba.getContrasena());

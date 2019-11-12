@@ -42,8 +42,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     /**
      * Atributo que modela la cedula del cliente.
      */
-    @PodamDoubleValue(minValue = 1.0, maxValue = Double.MAX_VALUE)
-    private Double cedula;
+    private String cedula;
 
     /**
      * Atributo que modela la direcciòn del cliente.
@@ -111,7 +110,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
      * @param pContrasena contrasena a establecer
      *
      */
-    public ClienteEntity(String pNombre, String pApellido, String pCorreoElectronico, Double pCedula, String pDireccion, String pUsuario, String pContrasena) {
+    public ClienteEntity(String pNombre, String pApellido, String pCorreoElectronico, String pCedula, String pDireccion, String pUsuario, String pContrasena) {
         this.nombre = pNombre;
         this.apellido = pApellido;
         this.correoElectronico = pCorreoElectronico;
@@ -166,14 +165,14 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     /**
      * @return the cedula
      */
-    public Double getCedula() {
+    public String getCedula() {
         return cedula;
     }
 
     /**
      * @param cedula the cedula to set
      */
-    public void setCedula(Double cedula) {
+    public void setCedula(String cedula) {
         this.cedula = cedula;
     }
 

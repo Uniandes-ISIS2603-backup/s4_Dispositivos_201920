@@ -102,3 +102,5 @@ DELETE FROM ComprobanteDePagoEntity;
 delete from clienteEntity;
 delete from ClienteEntity_DispositivoEntity;
 DELETE FROM ADMINISTRADORENTITY;
+delete from facturaEntity;
+delete from facturaEntity_DispositivoEntity;
