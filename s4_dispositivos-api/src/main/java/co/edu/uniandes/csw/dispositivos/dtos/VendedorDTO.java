@@ -149,7 +149,7 @@ public class VendedorDTO implements Serializable
      * Retorna el celular del DTO
      * @return the celular
      */
-    public double getCelular() {
+    public Double getCelular() {
         return celular;
     }
 
@@ -157,7 +157,7 @@ public class VendedorDTO implements Serializable
      * Asigna el celular del DTO
      * @param celular the celular to set
      */
-    public void setCelular(double celular) {
+    public void setCelular(Double celular) {
         this.celular = celular;
     }
 
@@ -165,7 +165,7 @@ public class VendedorDTO implements Serializable
      * Retorna el cedula del DTO
      * @return the cedula
      */
-    public double getCedula() {
+    public Double getCedula() {
         return cedula;
     }
 
@@ -173,7 +173,7 @@ public class VendedorDTO implements Serializable
      * Asigna el cedula del DTO
      * @param cedula the cedula to set
      */
-    public void setCedula(double cedula) {
+    public void setCedula(Double cedula) {
         this.cedula = cedula;
     }
 

@@ -131,16 +131,15 @@ public class VentaEntity extends BaseEntity implements Serializable {
     /**
      * Retorna la lista de fotos de la venta
      * @return the fotos
-     *
+     */
     public List<MediaEntity> getFotos() { return fotos; }
     
-     * /
-     **
+     /**
      * Asigna la lista de fotos de la venta
      * @param fotos the fotos to set
-     *
-     * public void setFotos(List<MediaEntity> fotos) { this.fotos = fotos; }
      */
+    public void setFotos(List<MediaEntity> fotos) { this.fotos = fotos; }
+
 
      /**
      * Retorna la factura original de la venta
