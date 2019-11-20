@@ -91,14 +91,23 @@ public class MediaLogicTest {
             data.add(entity);
         }
     }
+    
+    @Test
+    public void createMediaTest() throws BusinessLogicException {
+        MediaEntity newEntity = factory.manufacturePojo(MediaEntity.class);
+        newEntity.setLinks("io puta");
+        MediaEntity result = mediaLogic.createMedia(newEntity);
+        Assert.assertNotNull(result);
+        MediaEntity entity = em.find(MediaEntity.class, result.getId());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+    }
 
     /**
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
     
     @Test(expected = BusinessLogicException.class)
-    public void createMediaConNumeroMayorOMenor() throws BusinessLogicException {
+    public void createMediaConLinkVacio() throws BusinessLogicException {
         MediaEntity newEntity = factory.manufacturePojo(MediaEntity.class);
         newEntity.setLinks(null);
         mediaLogic.createMedia(newEntity);
