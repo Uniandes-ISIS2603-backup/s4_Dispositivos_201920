@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e612fec4-e188-4ee8-97a2-18976478f451",
+		"_postman_id": "65c2edb1-b0fb-460d-af0e-f61842474853",
 		"name": "Administrador_Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -246,7 +246,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"id\":\"0\",\r\n\t\"numeroDeFactura\":45570941,\r\n\t\"totalDePago\":26567411.05,\r\n\t\"impuestos\":0.19,\r\n\t\"numeroDeTarjeta\":\"5897550546537999\",\r\n\t\"fechaDeFactura\":\"2017-04-04T00:00:00-05:00\"\r\n}"
+					"raw": "{\r\n\t\"usuario\":\"hdbekdfk09\",\r\n\t\"contrasena\":\"1HCf4pC9xPz\",\r\n\t\"correo\":\"hellodbdj@wireless.com\"\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores/0",
