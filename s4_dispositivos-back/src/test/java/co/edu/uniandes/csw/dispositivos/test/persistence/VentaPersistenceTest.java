@@ -78,6 +78,7 @@ public class VentaPersistenceTest
      * Contenedor con las entidades de la clase
      */
     private final List<VentaEntity> valist = new ArrayList<>();
+    private final List<VendedorEntity> vrlist = new ArrayList<>();
 
     /**
      * Establece las configuraciones iniciales del test
@@ -90,6 +91,7 @@ public class VentaPersistenceTest
             utxn.begin();
             vam.joinTransaction();
             vam.createQuery("delete from VentaEntity").executeUpdate();
+            vam.createQuery("delete from VendedorEntity").executeUpdate();
             PodamFactory vafactory = new PodamFactoryImpl();
             for (int u = 0; u < 5; u++) 
             {
@@ -148,7 +150,7 @@ public class VentaPersistenceTest
     @Test
     public void findVentaTest() 
     {
-        VentaEntity ref = valist.get(0), block = vap.find(ref.getId());
+        VentaEntity ref = valist.get(0), block = vap.find(vrlist.get(1).getId(), ref.getId());
         Assert.assertNotNull(block);
         Assert.assertEquals(ref.getId(), block.getId());
         Assert.assertEquals(ref.getPrecioReventa(), block.getPrecioReventa(), 0.0);

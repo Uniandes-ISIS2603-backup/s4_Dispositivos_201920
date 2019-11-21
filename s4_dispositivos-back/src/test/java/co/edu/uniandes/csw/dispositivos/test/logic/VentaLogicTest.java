@@ -116,7 +116,7 @@ public class VentaLogicTest {
     public void createVentaTest() throws BusinessLogicException {
         VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
         venta.setVendedor(vrlist.get(1));
-        VentaEntity obtainedva = valogic.createVenta(venta);
+        VentaEntity obtainedva = valogic.createVenta(vrlist.get(1).getId(), venta);
         Assert.assertNotNull(obtainedva);
     }
 
@@ -128,7 +128,7 @@ public class VentaLogicTest {
     public void createNegativeVentaTest() throws BusinessLogicException {
         VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
         venta.setPrecioReventa(-1.0);
-        valogic.createVenta(venta);
+        valogic.createVenta(vrlist.get(0).getId(), venta);
     }
 
     /**
@@ -136,7 +136,7 @@ public class VentaLogicTest {
      */
     @Test
     public void findVentaTest(){
-        VentaEntity ref = valist.get(0), block = valogic.findVenta(ref.getId());
+        VentaEntity ref = valist.get(0), block = valogic.findVenta(vrlist.get(0).getId(), ref.getId());
         Assert.assertNotNull(block);
         Assert.assertEquals(ref.getId(), block.getId());
         Assert.assertEquals(ref.getPrecioReventa(), block.getPrecioReventa(), 0.0);
@@ -149,7 +149,7 @@ public class VentaLogicTest {
      */
     @Test
     public void findAllVentasTest(){
-        List<VentaEntity> allgotten = valogic.findAllVentas();
+        List<VentaEntity> allgotten = valogic.findAllVentas(vrlist.get(2).getId());
         Assert.assertEquals(allgotten.size(), valist.size());
         for (VentaEntity vablock : allgotten) {
             boolean ticked = false;
@@ -172,7 +172,7 @@ public class VentaLogicTest {
         VentaEntity updating = vafactory.manufacturePojo(VentaEntity.class);
         updating.setId(venta.getId());
         updating.setVendedor(vrlist.get(2));
-        valogic.updateVenta(updating);
+        valogic.updateVenta(vrlist.get(0).getId(), updating);
         VentaEntity updated = vam.find(VentaEntity.class, updating.getId());
         Assert.assertEquals(updating.getId(), updated.getId());
         Assert.assertEquals(updating.getPrecioReventa(), updated.getPrecioReventa(), 0.0);
@@ -190,16 +190,17 @@ public class VentaLogicTest {
         VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
         venta.setId(uventa.getId());
         venta.setPrecioReventa(-1.0);
-        valogic.updateVenta(venta);
+        valogic.updateVenta(vrlist.get(0).getId(), venta);
     }
 
     /**
      * Test de la validación de borrar venta
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
     @Test
-    public void deleteVentaTest(){
+    public void deleteVentaTest() throws BusinessLogicException{
         VentaEntity vaentity = valist.get(0);
-        valogic.deleteVenta(vaentity.getId());
+        valogic.deleteVenta(vrlist.get(1).getId(), vaentity.getId());
         VentaEntity goneva = vam.find(VentaEntity.class, vaentity.getId());
         Assert.assertNull(goneva);
     }
