@@ -139,7 +139,7 @@ public class ComprobanteDePagoResource
      * @return la lista de comprobantes en forma DTO (json)
      */
     private List<ComprobanteDePagoDTO> listEntity2DTO(List<ComprobanteDePagoEntity> entityList) {
-        List<ComprobanteDePagoDTO> list = new ArrayList<ComprobanteDePagoDTO>();
+        List<ComprobanteDePagoDTO> list = new ArrayList<>();
         for (ComprobanteDePagoEntity entity : entityList) {
             list.add(new ComprobanteDePagoDTO(entity));
         }

@@ -36,14 +36,14 @@ public class VendedorVentaLogic
     
     /**
      * Validación del método agregar venta
-     * @param Idvendedor
-     * @param Idventa
+     * @param idVendedor
+     * @param idVenta
      * @return venta creada
      */
-    public VentaEntity createVenta(Long Idvendedor, Long Idventa) 
+    public VentaEntity createVenta(Long idVendedor, Long idVenta) 
     {
-        VendedorEntity vrentity = vrpersistence.find(Idvendedor); 
-        VentaEntity vaentity = vapersistence.find(Idvendedor, Idventa); 
+        VendedorEntity vrentity = vrpersistence.find(idVendedor); 
+        VentaEntity vaentity = vapersistence.find(idVendedor, idVenta); 
         vaentity.setVendedor(vrentity);
         return vaentity; 
     }

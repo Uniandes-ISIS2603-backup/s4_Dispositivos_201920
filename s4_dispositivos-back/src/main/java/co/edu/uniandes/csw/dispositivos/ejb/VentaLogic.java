@@ -63,8 +63,7 @@ public class VentaLogic
      */
     public VentaEntity findVenta(Long idfVendedor, Long idfVenta)
     {       
-        VentaEntity obtainedvr = vapersistence.find(idfVendedor, idfVenta);      
-        return obtainedvr;
+        return vapersistence.find(idfVendedor, idfVenta);
     }
     
     /**
@@ -94,8 +93,7 @@ public class VentaLogic
             throw new BusinessLogicException("El precio de reventa no puede ser negativo");
         VendedorEntity vendedor = vrpersistence.find(vrID);
         uvaEntity.setVendedor(vendedor);
-        uvaEntity = vapersistence.update(uvaEntity); 
-        return uvaEntity;
+        return vapersistence.update(uvaEntity);
     }
     
     /**

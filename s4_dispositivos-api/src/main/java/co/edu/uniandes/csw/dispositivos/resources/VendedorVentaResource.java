@@ -44,35 +44,35 @@ public class VendedorVentaResource
 
     /**
      * Crea la referentva mediante el DTO recibido por el URL.
-     * @param Idvendedor
-     * @param Idventa
+     * @param idVendedor
+     * @param idVenta
      * @return Venta creada
      * @throws BusinessLogicException
      */
     @POST
     @Path("{ventaID: \\d+}")
-    public VentaDTO createVenta(@PathParam("vendedorID") Long Idvendedor, @PathParam("ventaID") Long Idventa) throws BusinessLogicException
+    public VentaDTO createVenta(@PathParam("vendedorID") Long idVendedor, @PathParam("ventaID") Long idVenta) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "VendedorVentaResource createVenta: input: vendedorID: {0}, ventaID: {1}", new Object[]{Idvendedor, Idventa});
-        VentaEntity required = valogic.findVenta(Idvendedor, Idventa);
+        LOGGER.log(Level.INFO, "VendedorVentaResource createVenta: input: vendedorID: {0}, ventaID: {1}", new Object[]{idVendedor, idVenta});
+        VentaEntity required = valogic.findVenta(idVendedor, idVenta);
         if(required == null)
-            throw new WebApplicationException("No se encuentra el recurso /ventas/" + Idventa, 404);
-        VentaDTO newventa = new VentaDTO(vralogic.createVenta(Idvendedor, Idventa));
+            throw new WebApplicationException("No se encuentra el recurso /ventas/" + idVenta, 404);
+        VentaDTO newventa = new VentaDTO(vralogic.createVenta(idVendedor, idVenta));
         LOGGER.log(Level.INFO, "VendedorVentaResource createVenta: output: {0}", newventa);
         return newventa;
     }
 
     /**
      * Obtiene la lista de todas las ventas existentes.
-     * @param Idvendedor
+     * @param idVendedor
      * @return Lista de todas las ventas
      * @throws BusinessLogicException
      */
     @GET
-    public List<VentaDetailDTO> getAllVentas(@PathParam("vendedorID") Long Idvendedor) throws BusinessLogicException
+    public List<VentaDetailDTO> getAllVentas(@PathParam("vendedorID") Long idVendedor) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "VendedorVentaResource getAllVentas: input: {0}", Idvendedor);
-        List<VentaEntity> vaconteo = vralogic.findAllVentas(Idvendedor); 
+        LOGGER.log(Level.INFO, "VendedorVentaResource getAllVentas: input: {0}", idVendedor);
+        List<VentaEntity> vaconteo = vralogic.findAllVentas(idVendedor); 
         List<VentaDetailDTO> valisted = new ArrayList<>();
         for(VentaEntity referentva : vaconteo)
             valisted.add(new VentaDetailDTO(referentva));
@@ -82,21 +82,21 @@ public class VendedorVentaResource
 
     /**
      * Obtiene la referentva mediante el id recibido por el URL.
-     * @param Idvendedor
-     * @param Idventa
+     * @param idVendedor
+     * @param idVenta
      * @return Venta obtenida
      * @throws BusinessLogicException
      * @throws WebApplicationException
      */
     @GET
     @Path("{ventaID: \\d+}")
-    public VentaDetailDTO getVenta(@PathParam("vendedorID") Long Idvendedor, @PathParam("ventaID") Long Idventa) throws BusinessLogicException
+    public VentaDetailDTO getVenta(@PathParam("vendedorID") Long idVendedor, @PathParam("ventaID") Long idVenta) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "VendedorVentaResource getVenta: input: vendedorID: {0}, ventaID: {1}", new Object[]{Idvendedor, Idventa});
-        VentaEntity wantedva = valogic.findVenta(Idvendedor, Idventa);
+        LOGGER.log(Level.INFO, "VendedorVentaResource getVenta: input: vendedorID: {0}, ventaID: {1}", new Object[]{idVendedor, idVenta});
+        VentaEntity wantedva = valogic.findVenta(idVendedor, idVenta);
         if(wantedva == null)
-            throw new WebApplicationException("No se encuentra el recurso /vendedores/" + Idvendedor + "/ventas/" + Idventa, 404);
-        VentaDetailDTO vadetail = new VentaDetailDTO(vralogic.findVenta(Idvendedor, Idventa)); 
+            throw new WebApplicationException("No se encuentra el recurso /vendedores/" + idVendedor + "/ventas/" + idVenta, 404);
+        VentaDetailDTO vadetail = new VentaDetailDTO(vralogic.findVenta(idVendedor, idVenta)); 
         LOGGER.log(Level.INFO, "VendedorVentaResource getVenta: output: {0}", vadetail);
         return vadetail;        
     }
@@ -105,7 +105,7 @@ public class VendedorVentaResource
      * Reemplaza las instancias de ComprobanteDePago asociadas a una instancia de
      * Cliente
      *
-     * @param Idvendedor 
+     * @param idVendedor 
      * @param ventas 
      * @return JSON {@link ComprobanteDePagoDTO} - El arreglo de libros guardado
      * en el cliente.
@@ -113,17 +113,17 @@ public class VendedorVentaResource
      * @throws BusinessLogicException
      */
     @PUT
-    public List<VentaDetailDTO> replaceVentas(@PathParam("vendedorID") Long Idvendedor, List<VentaDetailDTO> ventas) throws BusinessLogicException 
+    public List<VentaDetailDTO> replaceVentas(@PathParam("vendedorID") Long idVendedor, List<VentaDetailDTO> ventas) throws BusinessLogicException 
     {
-        LOGGER.log(Level.INFO, "VendedorVentaResource replaceVentas: input: vendedorID: {0}, ventas: {1}", new Object[]{Idvendedor, ventas});
+        LOGGER.log(Level.INFO, "VendedorVentaResource replaceVentas: input: vendedorID: {0}, ventas: {1}", new Object[]{idVendedor, ventas});
         List<VentaEntity> plantilla = new ArrayList<>();
         for (VentaDetailDTO vadetaildto : ventas) 
         {
-            if (valogic.findVenta(Idvendedor, vadetaildto.getId()) == null)
-                throw new WebApplicationException("No se encuentra el recurso /ventas/" + Idvendedor, 404);
+            if (valogic.findVenta(idVendedor, vadetaildto.getId()) == null)
+                throw new WebApplicationException("No se encuentra el recurso /ventas/" + idVendedor, 404);
             else plantilla.add(vadetaildto.toEntity()); 
         }
-        List<VentaEntity> referentva = vralogic.replaceVentas(Idvendedor, plantilla); 
+        List<VentaEntity> referentva = vralogic.replaceVentas(idVendedor, plantilla); 
         List<VentaDetailDTO> refreshedventas = new ArrayList<>();
         for(VentaEntity venta : referentva)
             refreshedventas.add(new VentaDetailDTO(venta));
