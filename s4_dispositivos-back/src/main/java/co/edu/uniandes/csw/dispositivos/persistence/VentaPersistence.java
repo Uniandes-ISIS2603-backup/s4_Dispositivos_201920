@@ -48,11 +48,10 @@ public class VentaPersistence
         TypedQuery<VentaEntity> vatq = em.createQuery("select v from VentaEntity v where (v.vendedor.id = :vendedorfID) and (v.id = :ventafID)", VentaEntity.class);
         vatq.setParameter("vendedorfID", vendedorfID); 
         vatq.setParameter("ventafID", ventafID);
-        List<VentaEntity> vresults = vatq.getResultList();
-        VentaEntity vrecord = null; 
-        if (vresults == null || vresults.isEmpty()) vrecord = null; 
-        else if (vresults.size() >= 1) vrecord = vresults.get(0);
-        return vrecord;
+        List<VentaEntity> vresults = vatq.getResultList(); 
+        if (vresults != null && !vresults.isEmpty() && vresults.size() >= 1) 
+            return vresults.get(0);
+        else return null; 
     }
 
     /**
