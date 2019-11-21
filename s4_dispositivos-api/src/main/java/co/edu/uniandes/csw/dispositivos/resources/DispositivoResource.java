@@ -39,7 +39,8 @@ import javax.ws.rs.WebApplicationException;
 public class DispositivoResource {
 
     private static final Logger LOGGER = Logger.getLogger(DispositivoResource.class.getName());
-
+    private static final String RUTA_ERROR_DISPOSITIVOS = "El recurso /dispositivos/";
+    private static final String RUTA_ERROR_TERMINACION = " no existe.";
     @Inject
     private DispositivoLogic dispositivoLogic;
 
@@ -86,7 +87,7 @@ public class DispositivoResource {
         LOGGER.log(Level.INFO, "DispositivoResource getDispositivo: input: {0}", dispositivosId);
         DispositivoEntity dispositivoEntity = dispositivoLogic.getDispositivo(dispositivosId);
         if (dispositivoEntity == null) {
-            throw new WebApplicationException("El recurso /dispositivos/" + dispositivosId + " no existe.", 404);
+            throw new WebApplicationException(RUTA_ERROR_DISPOSITIVOS + dispositivosId + RUTA_ERROR_TERMINACION, 404);
         }
         DispositivoDetailDTO dispositivoDetailDTO = new DispositivoDetailDTO(dispositivoEntity);
         LOGGER.log(Level.INFO, "DispositivoResource getDispositivo: output: {0}", dispositivoDetailDTO);
@@ -106,7 +107,7 @@ public class DispositivoResource {
         LOGGER.log(Level.INFO, "DispositivoResource updateDispositivo: input: id: {0} , dispositivo: {1}", new Object[]{dispositivosId, dispositivo});
         dispositivo.setId(dispositivosId);
         if (dispositivoLogic.getDispositivo(dispositivo.getId()) == null) {
-            throw new WebApplicationException("El recurso /dispositivos/" + dispositivosId + " no existe.", 404);
+            throw new WebApplicationException(RUTA_ERROR_DISPOSITIVOS + dispositivosId + RUTA_ERROR_TERMINACION, 404);
 
         }
         DispositivoDetailDTO detailDTO = new DispositivoDetailDTO(dispositivoLogic.updateDispositivo(dispositivosId, dispositivo.toEntity()));
@@ -125,7 +126,7 @@ public class DispositivoResource {
         LOGGER.log(Level.INFO, "DispositivoResource deleteDispositivo: input: {0}", dispositivosId);
         DispositivoEntity entity = dispositivoLogic.getDispositivo(dispositivosId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /dispositivos/" + dispositivosId + " no existe.", 404);
+            throw new WebApplicationException(RUTA_ERROR_DISPOSITIVOS + dispositivosId + RUTA_ERROR_TERMINACION, 404);
         }
         dispositivoCategoriaLogic.removeCategoria(dispositivosId);
         dispositivoMarcaLogic.removeMarca(dispositivosId);

@@ -8,8 +8,6 @@ package co.edu.uniandes.csw.dispositivos.entities;
 import co.edu.uniandes.csw.dispositivos.podam.MedioDePagoStrategy;
 import co.edu.uniandes.csw.dispositivos.podam.MetodoDePagoStrategy;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
