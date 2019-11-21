@@ -41,12 +41,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/administradores",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -86,12 +86,12 @@
 					"raw": "{\n\t\"usuario\":\"jduigan1\",\n\t\"contrasena\":\"GXJ5uV\",\n\t\"correo\":\"wglencross1@wireless.com\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/administradores",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -122,12 +122,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/administradores",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -158,12 +158,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores/{{new_id_admin1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/administradores/{{new_id_admin1}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -204,12 +204,12 @@
 					"raw": "{\r\n\t\"usuario\":\"hdbekdfk09\",\r\n\t\"contrasena\":\"1HCf4pC9xPz\",\r\n\t\"correo\":\"hellodbdj@wireless.com\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores/{{new_id_admin1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/administradores/{{new_id_admin1}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -249,12 +249,12 @@
 					"raw": "{\r\n\t\"usuario\":\"hdbekdfk09\",\r\n\t\"contrasena\":\"1HCf4pC9xPz\",\r\n\t\"correo\":\"hellodbdj@wireless.com\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/administradores/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -301,12 +301,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/administradores/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -340,12 +340,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores/{{new_id_admin1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/administradores/{{new_id_admin1}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -379,12 +379,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/administradores/{{new_id_admin2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/administradores/{{new_id_admin2}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
