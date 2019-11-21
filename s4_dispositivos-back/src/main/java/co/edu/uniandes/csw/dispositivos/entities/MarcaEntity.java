@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -30,11 +29,9 @@ public class MarcaEntity extends BaseEntity implements Serializable {
     private List<DispositivoEntity> dispositivos;
 
     /**
-     * atributo que modela la logo de la marca.
+     * Atributo que modela la logo de la marca
      */
-    @PodamExclude
-    @OneToOne
-    private MediaEntity logo;
+    private String logo;
 
     /**
      * Constructor creado vacio para no tener problemas al implementar
@@ -51,7 +48,7 @@ public class MarcaEntity extends BaseEntity implements Serializable {
      * @param pImagen logo a establecer.
      * @param pDispositivos dispositivos a establecer.
      */
-    public MarcaEntity(String pNombreMarca, MediaEntity pImagen, List<DispositivoEntity> pDispositivos) {
+    public MarcaEntity(String pNombreMarca, String pImagen, List<DispositivoEntity> pDispositivos) {
         this.nombreMarca = pNombreMarca;
         this.logo = pImagen;
         this.dispositivos = pDispositivos;
@@ -90,14 +87,14 @@ public class MarcaEntity extends BaseEntity implements Serializable {
     /**
      * @return the logo
      */
-    public MediaEntity getLogo() {
+    public String getLogo() {
         return this.logo;
     }
 
     /**
      * @param logo the logo to set
      */
-    public void setLogo(MediaEntity logo) {
+    public void setLogo(String logo) {
         this.logo = logo;
     }
 

@@ -15,7 +15,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamDoubleValue;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -32,15 +31,8 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     private String modelo;
     private String descripcion;
     private String nombre;
-    @PodamExclude
-    private String imagen;
 
-    /**
-     * Clases
-     */
-    @PodamExclude
-    @OneToOne
-    private MediaEntity imagenes;
+    private String[] imagenes;
 
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -112,7 +104,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      * debe tener cero calificaciones
      */
     public DispositivoEntity(String modelo, String descripcion, String nombre, double precio, double precioImportacion,
-            double descuento, boolean promocion, boolean enStock, boolean usado, boolean esImportado, MediaEntity imagenes,
+            double descuento, boolean promocion, boolean enStock, boolean usado, boolean esImportado, String[] imagenes,
             Tipo tipo, EstadoDispositivo estado, MarcaEntity marca, List<CalificacionEntity> calificaciones, CategoriaEntity categoria) {
 
         this.modelo = modelo;
@@ -165,7 +157,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      *
      * @return Imagenes del dispositivo
      */
-    public MediaEntity getImagenes() {
+    public String[] getImagenes() {
         return imagenes;
     }
 
@@ -282,10 +274,6 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
         return calificaciones;
     }
 
-    public String getImagen() {
-        return imagen;
-    }
-
     /**
      * Asigan la modelo al dispositivo
      *
@@ -318,7 +306,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      *
      * @param imagenes Objeto que contiene las imagenes correspondientes
      */
-    public void setImagenes(MediaEntity imagenes) {
+    public void setImagenes(String[] imagenes) {
         this.imagenes = imagenes;
     }
 
@@ -433,10 +421,6 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      */
     public void setCalificaciones(List<CalificacionEntity> calificaciones) {
         this.calificaciones = calificaciones;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
     }
 
     /**
