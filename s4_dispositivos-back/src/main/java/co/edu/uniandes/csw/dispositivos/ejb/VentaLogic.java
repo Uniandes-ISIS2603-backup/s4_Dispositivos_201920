@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.dispositivos.ejb;
 
+import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
 import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.VendedorPersistence;
@@ -35,67 +36,78 @@ public class VentaLogic
     
     /**
      * Validación del método agregar venta
+     * @param vendedor
      * @param venta
      * @return venta creada
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
-    public VentaEntity createVenta(VentaEntity venta) throws BusinessLogicException
+    public VentaEntity createVenta(Long vendedor, VentaEntity venta) throws BusinessLogicException
     {
-        if(venta.getVendedor() == null || vrpersistence.find(venta.getVendedor().getId()) == null)
+        if(venta.getVendedor() == null || vrpersistence.find(vendedor) == null)
             throw new BusinessLogicException("No se puede registrar una venta sin un vendedor asociado");
         
-        if(venta.getPrecioReventa() < 0)
+        if(venta.getPrecioReventa() == null || venta.getPrecioReventa() < 0)
             throw new BusinessLogicException("El precio de reventa no puede ser negativo");
         
-        vapersistence.create(venta); 
+        VendedorEntity vre = vrpersistence.find(vendedor);
+        venta.setVendedor(vre);
+        venta = vapersistence.create(venta); 
         return venta; 
     }
     
     /**
      * Validación del método buscar venta
+     * @param idfVendedor
      * @param idfVenta
      * @return venta encontrada
      */
-    public VentaEntity findVenta(Long idfVenta)
+    public VentaEntity findVenta(Long idfVendedor, Long idfVenta)
     {       
-        VentaEntity obtainedvr = vapersistence.find(idfVenta);      
+        VentaEntity obtainedvr = vapersistence.find(idfVendedor, idfVenta);      
         return obtainedvr;
     }
     
     /**
      * Validación del método encontrar todas las ventas
-     * @return lista de las ventas existentes 
+     * @param vendedorId
+     * @return lista de las ventas del vendedor 
      */
-    public List<VentaEntity> findAllVentas()
+    public List<VentaEntity> findAllVentas(Long vendedorId)
     {
-        List<VentaEntity> valisted = vapersistence.findAll(); 
-        return valisted;
+        VendedorEntity ventity = vrpersistence.find(vendedorId); 
+        return ventity.getVentas();
     }
     
     /**
      * Validación del método cambiar venta
+     * @param vrID
      * @param uvaEntity
      * @return venta actualizada
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
-    public VentaEntity updateVenta(VentaEntity uvaEntity) throws BusinessLogicException
+    public VentaEntity updateVenta(Long vrID, VentaEntity uvaEntity) throws BusinessLogicException
     {
-        if(uvaEntity.getVendedor() == null || vrpersistence.find(uvaEntity.getVendedor().getId()) == null)
+        if(uvaEntity.getVendedor() == null || vrpersistence.find(vrID) == null)
             throw new BusinessLogicException("No se puede definir el vendedor de una venta como null");
         
-        if(uvaEntity.getPrecioReventa() < 0)
+        if(uvaEntity.getPrecioReventa() == null || uvaEntity.getPrecioReventa() < 0)
             throw new BusinessLogicException("El precio de reventa no puede ser negativo");
-        
-        VentaEntity changedva = vapersistence.update(uvaEntity); 
-        return changedva;
+        VendedorEntity vendedor = vrpersistence.find(vrID);
+        uvaEntity.setVendedor(vendedor);
+        uvaEntity = vapersistence.update(uvaEntity); 
+        return uvaEntity;
     }
     
     /**
      * Validación del método borrar venta
+     * @param iddVendedor
      * @param iddVenta
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
-    public void deleteVenta(Long iddVenta)
+    public void deleteVenta(Long iddVendedor, Long iddVenta) throws BusinessLogicException
     {
-        vapersistence.delete(iddVenta); 
+        VentaEntity nonventa = findVenta(iddVendedor, iddVenta);
+        if(nonventa == null) throw new BusinessLogicException("No se encuentra la venta con id = " + iddVenta); 
+        vapersistence.delete(nonventa.getId()); 
     }
 }

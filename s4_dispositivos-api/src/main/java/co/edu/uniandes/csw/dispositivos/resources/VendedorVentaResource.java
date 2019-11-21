@@ -54,7 +54,7 @@ public class VendedorVentaResource
     public VentaDTO createVenta(@PathParam("vendedorID") Long Idvendedor, @PathParam("ventaID") Long Idventa) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "VendedorVentaResource createVenta: input: vendedorID: {0}, ventaID: {1}", new Object[]{Idvendedor, Idventa});
-        VentaEntity required = valogic.findVenta(Idventa);
+        VentaEntity required = valogic.findVenta(Idvendedor, Idventa);
         if(required == null)
             throw new WebApplicationException("No se encuentra el recurso /ventas/" + Idventa, 404);
         VentaDTO newventa = new VentaDTO(vralogic.createVenta(Idvendedor, Idventa));
@@ -93,7 +93,7 @@ public class VendedorVentaResource
     public VentaDetailDTO getVenta(@PathParam("vendedorID") Long Idvendedor, @PathParam("ventaID") Long Idventa) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "VendedorVentaResource getVenta: input: vendedorID: {0}, ventaID: {1}", new Object[]{Idvendedor, Idventa});
-        VentaEntity wantedva = valogic.findVenta(Idventa);
+        VentaEntity wantedva = valogic.findVenta(Idvendedor, Idventa);
         if(wantedva == null)
             throw new WebApplicationException("No se encuentra el recurso /vendedores/" + Idvendedor + "/ventas/" + Idventa, 404);
         VentaDetailDTO vadetail = new VentaDetailDTO(vralogic.findVenta(Idvendedor, Idventa)); 
@@ -119,7 +119,7 @@ public class VendedorVentaResource
         List<VentaEntity> plantilla = new ArrayList<>();
         for (VentaDetailDTO vadetaildto : ventas) 
         {
-            if (valogic.findVenta(vadetaildto.getId()) == null)
+            if (valogic.findVenta(Idvendedor, vadetaildto.getId()) == null)
                 throw new WebApplicationException("No se encuentra el recurso /ventas/" + Idvendedor, 404);
             else plantilla.add(vadetaildto.toEntity()); 
         }
