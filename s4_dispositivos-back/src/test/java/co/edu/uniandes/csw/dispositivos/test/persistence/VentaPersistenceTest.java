@@ -95,7 +95,14 @@ public class VentaPersistenceTest
             PodamFactory vafactory = new PodamFactoryImpl();
             for (int u = 0; u < 5; u++) 
             {
+                VendedorEntity vendedor = vafactory.manufacturePojo(VendedorEntity.class);
+                vam.persist(vendedor);
+                vrlist.add(vendedor);
+            }
+            for (int v = 0; v < 5; v++) 
+            {
                 VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
+                if(v == 0) venta.setVendedor(vrlist.get(0));
                 vam.persist(venta);
                 valist.add(venta);
             }
@@ -150,7 +157,8 @@ public class VentaPersistenceTest
     @Test
     public void findVentaTest() 
     {
-        VentaEntity ref = valist.get(0), block = vap.find(vrlist.get(1).getId(), ref.getId());
+        VentaEntity ref = valist.get(0); 
+        VentaEntity block = vap.find(vrlist.get(0).getId(), ref.getId());
         Assert.assertNotNull(block);
         Assert.assertEquals(ref.getId(), block.getId());
         Assert.assertEquals(ref.getPrecioReventa(), block.getPrecioReventa(), 0.0);
