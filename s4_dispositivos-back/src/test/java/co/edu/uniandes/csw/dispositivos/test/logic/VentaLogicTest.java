@@ -93,7 +93,7 @@ public class VentaLogicTest {
             }
             for (int v = 0; v < 5; v++) {
                 VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
-                venta.setVendedor(vrlist.get(0));
+                if(v == 0) venta.setVendedor(vrlist.get(0));
                 vam.persist(venta);
                 valist.add(venta);
             }
@@ -126,7 +126,7 @@ public class VentaLogicTest {
      */
     @Test(expected = BusinessLogicException.class)
     public void createNegativeVentaTest() throws BusinessLogicException {
-        VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
+        VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);   
         venta.setPrecioReventa(-1.0);
         valogic.createVenta(vrlist.get(0).getId(), venta);
     }
@@ -149,8 +149,8 @@ public class VentaLogicTest {
      */
     @Test
     public void findAllVentasTest(){
-        List<VentaEntity> allgotten = valogic.findAllVentas(vrlist.get(2).getId());
-        Assert.assertEquals(allgotten.size(), valist.size());
+        List<VentaEntity> allgotten = valogic.findAllVentas(vrlist.get(0).getId());
+        Assert.assertEquals(1, allgotten.size());
         for (VentaEntity vablock : allgotten) {
             boolean ticked = false;
             for (VentaEntity varef : valist) {
@@ -200,7 +200,7 @@ public class VentaLogicTest {
     @Test
     public void deleteVentaTest() throws BusinessLogicException{
         VentaEntity vaentity = valist.get(0);
-        valogic.deleteVenta(vrlist.get(1).getId(), vaentity.getId());
+        valogic.deleteVenta(vrlist.get(0).getId(), vaentity.getId());
         VentaEntity goneva = vam.find(VentaEntity.class, vaentity.getId());
         Assert.assertNull(goneva);
     }
