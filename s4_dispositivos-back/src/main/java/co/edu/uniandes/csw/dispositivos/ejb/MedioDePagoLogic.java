@@ -95,13 +95,12 @@ public class MedioDePagoLogic {
      *
      * Actualizar un medio de pago.
      *
-     * @param pMedio: id del medio de pago para buscarla en la base de datos.
      * @param medioPago: medio de pago con los cambios para ser actualizada, por
      * ejemplo el nombre.
      * @return la medio de pago con los cambios actualizados en la base de
      * datos. Null en el caso de no poder actualizarla.
      */
-    public MedioDePagoEntity updateMedioDePago(Long pMedio, MedioDePagoEntity medioPago) throws BusinessLogicException {
+    public MedioDePagoEntity updateMedioDePago(MedioDePagoEntity medioPago) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar un medio de pago.");
 
         if (!verificarLasReglasNegocioMedioDePago(medioPago)) {

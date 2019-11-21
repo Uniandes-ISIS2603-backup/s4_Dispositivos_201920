@@ -10,8 +10,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.TypedQuery;
 
 /**
@@ -20,8 +18,6 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class CategoriaPersistence {
-
-    private static final Logger LOGGER = Logger.getLogger(CategoriaPersistence.class.getName());
 
     @PersistenceContext(unitName = "dispositivosPU")
     protected EntityManager em;
@@ -33,9 +29,7 @@ public class CategoriaPersistence {
      * @return La entidad creada.
      */
     public CategoriaEntity create(CategoriaEntity categoriaEntity) {
-        LOGGER.log(Level.INFO, "Creando una categoria nueva");
         em.persist(categoriaEntity);
-        LOGGER.log(Level.INFO, "Categoria creada");
         return categoriaEntity;
     }
 
@@ -46,7 +40,6 @@ public class CategoriaPersistence {
      * @return La entidad actualizada.
      */
     public CategoriaEntity update(CategoriaEntity categoriaEntity) {
-        LOGGER.log(Level.INFO, "Actualizando una categoria con id = {0}", categoriaEntity.getId());
         return em.merge(categoriaEntity);
     }
 
@@ -56,10 +49,8 @@ public class CategoriaPersistence {
      * @param categoriaId El id de la categoria que se desea eliminar.
      */
     public void delete(Long categoriaId) {
-        LOGGER.log(Level.INFO, "Borrando categoria con id = {0}", categoriaId);
         CategoriaEntity categoriaEntity = em.find(CategoriaEntity.class, categoriaId);
         em.remove(categoriaEntity);
-        LOGGER.log(Level.INFO, "Saliendo de borrar La categoria con id = {0}", categoriaId);
     }
 
     /**
@@ -78,7 +69,6 @@ public class CategoriaPersistence {
      * @return La lista de todos los medios de pago.
      */
     public List<CategoriaEntity> findAll() {
-        LOGGER.log(Level.INFO, "Consultando todas las categorias");
         TypedQuery query = em.createQuery("select u from CategoriaEntity u", CategoriaEntity.class);
         return query.getResultList();
     }
@@ -91,7 +81,6 @@ public class CategoriaPersistence {
      * Si existe alguna devuelve la primera.
      */
     public CategoriaEntity findByName(String pNombreCategoria) {
-        LOGGER.log(Level.INFO, "Consultando categoria por nombre ", pNombreCategoria);
         TypedQuery query = em.createQuery("Select u From CategoriaEntity u where u.nombreCategoria = :nombreCat", CategoriaEntity.class);
         query = query.setParameter("nombreCat", pNombreCategoria);
         List<CategoriaEntity> sameName = query.getResultList();
@@ -103,7 +92,6 @@ public class CategoriaPersistence {
         } else {
             result = sameName.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar categoria por nombre ", pNombreCategoria);
         return result;
     }
     

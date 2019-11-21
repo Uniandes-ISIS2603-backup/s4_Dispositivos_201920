@@ -135,7 +135,7 @@ public class DispositivoResource {
     }
 
     private List<DispositivoDetailDTO> listEntity2DetailDTO(List<DispositivoEntity> entityList) {
-        List<DispositivoDetailDTO> list = new ArrayList<DispositivoDetailDTO>();
+        List<DispositivoDetailDTO> list = new ArrayList<>();
         for (DispositivoEntity entity : entityList) {
             list.add(new DispositivoDetailDTO(entity));
         }

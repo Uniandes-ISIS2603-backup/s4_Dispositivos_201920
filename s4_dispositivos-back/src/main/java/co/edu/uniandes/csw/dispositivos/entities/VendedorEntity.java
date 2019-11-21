@@ -115,27 +115,11 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
-     * Asigna el nombre del vendedor
-     * @param nombre 
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    /**
      * Retorna el apellido del vendedor
      * @return apellido
      */
     public String getApellido() {
         return apellido;
-    }
-
-    /**
-     * Asigna el apellido del vendedor
-     * @param apellido 
-     */
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
     }
 
     /**
@@ -153,13 +137,13 @@ public class VendedorEntity extends BaseEntity implements Serializable
     public void setCelular(Double celular) {
         this.celular = celular;
     }
-
+    
     /**
-     * Retorna la cedula del vendedor
-     * @return cedula
+     * Asigna el nombre del vendedor
+     * @param nombre 
      */
-    public Double getCedula() {
-        return cedula;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     /**
@@ -179,6 +163,14 @@ public class VendedorEntity extends BaseEntity implements Serializable
     }
 
     /**
+     * Retorna la cedula del vendedor
+     * @return cedula
+     */
+    public Double getCedula() {
+        return cedula;
+    }    
+    
+    /**
      * Asigna el usuario del vendedor
      * @param usuario 
      */
@@ -186,6 +178,14 @@ public class VendedorEntity extends BaseEntity implements Serializable
         this.usuario = usuario;
     }
 
+    /**
+     * Asigna el apellido del vendedor
+     * @param apellido 
+     */
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+    
     /**
      * Retorna la contraseña del vendedor
      * @return contrasena

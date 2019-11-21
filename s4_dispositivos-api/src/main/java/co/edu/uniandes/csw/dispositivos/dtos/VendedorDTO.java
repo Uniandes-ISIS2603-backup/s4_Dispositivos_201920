@@ -105,13 +105,6 @@ public class VendedorDTO implements Serializable
         return correoElectronico;
     }
 
-    /**
-     * Asigna el correo electronico del DTO
-     * @param correoElectronico the correoElectronico to set
-     */
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
-    }
 
     /**
      * Retorna el nombre del DTO
@@ -138,13 +131,13 @@ public class VendedorDTO implements Serializable
     }
 
     /**
-     * Asigna el apellido del DTO
-     * @param apellido the apellido to set
+     * Asigna el correo electronico del DTO
+     * @param correoElectronico the correoElectronico to set
      */
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
     }
-
+    
     /**
      * Retorna el celular del DTO
      * @return the celular
@@ -178,6 +171,14 @@ public class VendedorDTO implements Serializable
     }
 
     /**
+     * Asigna el contrasena del DTO
+     * @param contrasena the contrasena to set
+     */
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+    
+    /**
      * Retorna el usuario del DTO
      * @return the usuario
      */
@@ -185,6 +186,14 @@ public class VendedorDTO implements Serializable
         return usuario;
     }
 
+    /**
+     * Asigna el apellido del DTO
+     * @param apellido the apellido to set
+     */
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+    
     /**
      * Asigna el usuario del DTO
      * @param usuario the usuario to set
@@ -199,14 +208,6 @@ public class VendedorDTO implements Serializable
      */
     public String getContrasena() {
         return contrasena;
-    }
-
-    /**
-     * Asigna el contrasena del DTO
-     * @param contrasena the contrasena to set
-     */
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
     }
     
     /**

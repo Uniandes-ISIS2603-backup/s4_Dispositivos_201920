@@ -131,7 +131,7 @@ public class AdministradorResource
      * @return la lista de adminstradores en forma DTO (json)
      */
     private List<AdministradorDTO> listEntity2DetailDTO(List<AdministradorEntity> entityList) {
-        List<AdministradorDTO> list = new ArrayList<AdministradorDTO>();
+        List<AdministradorDTO> list = new ArrayList<>();
         for (AdministradorEntity entity : entityList)
         {
             list.add(new AdministradorDTO(entity));

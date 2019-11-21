@@ -140,7 +140,7 @@ public class CategoriaResource {
     }
 
     private List<CategoriaDetailDTO> listEntity2DetailDTO(List<CategoriaEntity> entityList) {
-        List<CategoriaDetailDTO> list = new ArrayList<CategoriaDetailDTO>();
+        List<CategoriaDetailDTO> list = new ArrayList<>();
         for (CategoriaEntity entity : entityList) {
             list.add(new CategoriaDetailDTO(entity));
         }

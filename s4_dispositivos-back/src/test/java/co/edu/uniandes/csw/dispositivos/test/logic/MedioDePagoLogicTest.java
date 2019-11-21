@@ -228,7 +228,7 @@ public class MedioDePagoLogicTest {
         
         pojoEntity.setNumeroTarjeta("410");
         
-        medioLogic.updateMedioDePago(pojoEntity.getId(), pojoEntity);
+        medioLogic.updateMedioDePago(pojoEntity);
         
         MedioDePagoEntity resp = em.find(MedioDePagoEntity.class, entity.getId());
         

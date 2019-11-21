@@ -112,7 +112,7 @@ public class MedioDePagoResource {
         if (medioLogic.getMedioDePago(medioId) == null) {
             throw new WebApplicationException("El recurso /medios/" + medioId + " no existe.", 404);
         }
-        MedioDePagoDTO detailDTO = new MedioDePagoDTO(medioLogic.updateMedioDePago(medioId, medio.toEntity()));
+        MedioDePagoDTO detailDTO = new MedioDePagoDTO(medioLogic.updateMedioDePago(medio.toEntity()));
         LOGGER.log(Level.INFO, "MedioDePagoResource updateMedioDePago: output: {0}", detailDTO);
         return detailDTO;
     }

@@ -60,7 +60,7 @@ public class ClienteResource {
     }
 
     private List<ClienteDetailDTO> listEntity2DetailDTO(List<ClienteEntity> entityList) {
-        List<ClienteDetailDTO> list = new ArrayList<ClienteDetailDTO>();
+        List<ClienteDetailDTO> list = new ArrayList<>();
         for (ClienteEntity entity : entityList) {
             list.add(new ClienteDetailDTO(entity));
         }
