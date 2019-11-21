@@ -5,20 +5,8 @@
  */
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
-import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
-import co.edu.uniandes.csw.dispositivos.entities.CategoriaEntity;
-import co.edu.uniandes.csw.dispositivos.entities.ClienteEntity;
-import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
-import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
-import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
-import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
-import co.edu.uniandes.csw.dispositivos.persistence.CategoriaPersistence;
-import co.edu.uniandes.csw.dispositivos.persistence.ClientePersistence;
-import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
-import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.MarcaPersistence;
-import co.edu.uniandes.csw.dispositivos.persistence.MediaPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -73,7 +61,6 @@ public class MarcaPersistenceTest {
         MarcaEntity entity = em.find(MarcaEntity.class, result.getId());
         Assert.assertEquals(marcaEntity.getNombreMarca(), entity.getNombreMarca());
         Assert.assertEquals(marcaEntity.getLogo(), entity.getLogo());
-
     }
 
     @Before
@@ -103,7 +90,6 @@ public class MarcaPersistenceTest {
     private void clearData() {
         em.createQuery("delete from DispositivoEntity").executeUpdate();
         em.createQuery("delete from MarcaEntity").executeUpdate();
-        em.createQuery("delete from MediaEntity").executeUpdate();
     }
 
     @Test

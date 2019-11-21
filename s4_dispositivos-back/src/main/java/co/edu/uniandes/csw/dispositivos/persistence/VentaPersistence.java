@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -38,12 +39,20 @@ public class VentaPersistence
 
     /**
      * Método para buscar una venta
+     * @param vendedorfID
      * @param ventafID
      * @return found Venta
      */
-    public VentaEntity find(Long ventafID) 
+    public VentaEntity find(Long vendedorfID, Long ventafID) 
     {
-        return em.find(VentaEntity.class, ventafID);
+        TypedQuery<VentaEntity> vatq = em.createQuery("select v from VentaEntity v where (v.vendedor.id = :vendedorfID) and (v.id = :ventafID)", VentaEntity.class);
+        vatq.setParameter("vendedorfID", vendedorfID); 
+        vatq.setParameter("ventafID", ventafID);
+        List<VentaEntity> vresults = vatq.getResultList();
+        VentaEntity vrecord = null; 
+        if (vresults == null || vresults.isEmpty()) vrecord = null; 
+        else if (vresults.size() >= 1) vrecord = vresults.get(0);
+        return vrecord;
     }
 
     /**

@@ -5,12 +5,8 @@
  */
 package co.edu.uniandes.csw.dispositivos.dtos;
 
-import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author Zharet Bautista Montes
@@ -30,7 +26,7 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
     /**
      * Lista de fotos del DTODetail
      */
-    //private List<MediaDTO> fotos; 
+    private String[] fotos; 
     
     /**
      * Constructor vacío
@@ -49,14 +45,11 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
         {    
             vendedor = new VendedorDTO(refva.getVendedor());
             facturaOriginal = new FacturaDTO(refva.getFacturaOriginal());
-            /**
-            if(refva.getFotos() != null)
+            if(refva.getFotos().length != 0)
             {
-                fotos = new ArrayList<>(); 
-                for(MediaEntity mediava : refva.getFotos())
-                    fotos.add(new MediaDTO(mediava));
+                fotos = new String[refva.getFotos().length];
+                fotos = refva.getFotos();
             }
-            */
         }
     }
     
@@ -90,15 +83,11 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
         {
             extventa.setVendedor(vendedor.toEntity());
             extventa.setFacturaOriginal(facturaOriginal.toEntity());
-            /**
-            if(getFotos() != null)
+            if(getFotos().length != 0)
             {
-            List<MediaEntity> photolist = new ArrayList<>();
-            for(MediaDTO dtomedia : getFotos())
-                photolist.add(dtomedia.toEntity());
+            String[] photolist = getFotos();
             extventa.setFotos(photolist); 
             }
-            */
         }
         return extventa; 
     }
@@ -122,17 +111,16 @@ public class VentaDetailDTO extends VentaDTO implements Serializable
     /**
      * Retorna las fotos del DTODetail
      * @return the fotos
-     
-    public List<MediaDTO> getFotos() {
+     */
+    public String[] getFotos() {
         return fotos;
     }
 
     /**
      * Asigna las fotos del DTODetail
      * @param fotos the fotos to set
-     
-    public void setFotos(List<MediaDTO> fotos) {
+     */
+    public void setFotos(String[] fotos) {
         this.fotos = fotos;
-    }
-    */
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 }
