@@ -144,7 +144,7 @@ public class MedioDePagoLogic {
         }
 
         if (medioDePagoEntity.getNumeroDeVerificacion().split("").length <= 0 && medioDePagoEntity.getNumeroDeVerificacion().split("").length > 3) {
-            throw new BusinessLogicException("La cantidad de numeros no corresponde con la esperada. Siendo " + medioDePagoEntity.getNumeroTarjeta().split("").length);
+            throw new BusinessLogicException("La cantidad de numeros no corresponde con la esperada: " + medioDePagoEntity.getNumeroTarjeta().split("").length);
         }
 
         try {

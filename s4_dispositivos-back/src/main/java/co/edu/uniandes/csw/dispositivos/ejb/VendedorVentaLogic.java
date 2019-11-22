@@ -72,8 +72,7 @@ public class VendedorVentaLogic
      */
     public List<VentaEntity> findAllVentas(Long vendedorID)
     {
-        List<VentaEntity> valisted = vrpersistence.find(vendedorID).getVentas(); 
-        return valisted;
+        return vrpersistence.find(vendedorID).getVentas(); 
     }
     
     /**

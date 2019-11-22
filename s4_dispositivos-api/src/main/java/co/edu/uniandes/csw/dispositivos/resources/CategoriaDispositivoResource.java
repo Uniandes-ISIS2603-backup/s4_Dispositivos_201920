@@ -65,7 +65,7 @@ public class CategoriaDispositivoResource {
     public DispositivoDTO addDispositivo(@PathParam("categoriasId") Long categoriaId, @PathParam("dispositivoId") Long dispositivoId) {
         LOGGER.log(Level.INFO, "CategoriaDispositivoResource addDispositivo: input: categoriaID: {0} , dispositivoId: {1}", new Object[]{categoriaId, dispositivoId});
         if (dispositivoLogic.getDispositivo(dispositivoId) == null) {
-            throw new WebApplicationException("El recurso /dispositivo/" + dispositivoId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /dispositivo/" + dispositivoId + " no existe", 404);
         }
         DispositivoDTO dispositivoDTO = new DispositivoDTO(categoriaDispositivoLogic.addDispositivo(dispositivoId, categoriaId));
         LOGGER.log(Level.INFO, "CategoriaDispositivoResource addBook: output: {0}", dispositivoDTO);
