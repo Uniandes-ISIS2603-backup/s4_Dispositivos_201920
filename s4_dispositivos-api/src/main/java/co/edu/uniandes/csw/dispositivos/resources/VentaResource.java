@@ -35,6 +35,8 @@ public class VentaResource
 {
     private static final Logger LOGGER = Logger.getLogger(VentaResource.class.getName());
     
+    private static final String NOTVAMSG = "No se encuentra el recurso /ventas/";
+    
     @Inject
     private VentaLogic valogic;   
 
@@ -89,7 +91,7 @@ public class VentaResource
         LOGGER.log(Level.INFO, "VentaResource getVenta: input: {0}", idVenta);
         VentaEntity wantedva = valogic.findVenta(vendedorId, idVenta);
         if(wantedva == null)
-            throw new WebApplicationException("No se encuentra el recurso /ventas/" + idVenta, 404);
+            throw new WebApplicationException(NOTVAMSG + idVenta, 404);
         VentaDetailDTO vadetail = new VentaDetailDTO(wantedva);
         LOGGER.log(Level.INFO, "VentaResource getVenta: output: {0}", vadetail);
         return vadetail;        
@@ -111,7 +113,7 @@ public class VentaResource
         LOGGER.log(Level.INFO, "VentaResource updateVenta: input: {0}, venta: {1}", new Object[]{idVenta, vadto});
         vadto.setId(idVenta);
         if(valogic.findVenta(vendedorId, idVenta) == null)
-            throw new WebApplicationException("No se encuentra el recurso /ventas/" + idVenta, 404);
+            throw new WebApplicationException(NOTVAMSG + idVenta, 404);
         VentaDetailDTO detailVenta = new VentaDetailDTO(valogic.updateVenta(vendedorId, vadto.toEntity()));
         LOGGER.log(Level.INFO, "VentaResource updateVenta: output: {0}", detailVenta);
         return detailVenta;
@@ -131,18 +133,8 @@ public class VentaResource
         LOGGER.log(Level.INFO, "VentaResource deleteVenta: input: {0}", idVenta);
         VentaEntity notventa = valogic.findVenta(vendedorId, idVenta); 
         if(notventa == null)
-            throw new WebApplicationException("No se encuentra el recurso /ventas/" + idVenta, 404); 
+            throw new WebApplicationException(NOTVAMSG + idVenta, 404); 
         valogic.deleteVenta(vendedorId, idVenta);
         LOGGER.info("VentaResource deleteVenta: output: void");
     }
-    
-    /**
-    @Path("{ventaID: \\d+}/photos")
-    public Class<MediaResource> getMediaResource(@PathParam("ventaID") Long idVenta) throws BusinessLogicException {
-    if (valogic.findVenta(idVenta) == null) {
-        throw new WebApplicationException("No se encuentra el recurso /ventas/" + idVenta, 404);
-    }
-    return MediaResource.class;
-    }
-    */
 }
