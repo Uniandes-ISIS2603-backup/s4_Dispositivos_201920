@@ -6,8 +6,6 @@
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
-import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
-import co.edu.uniandes.csw.dispositivos.persistence.MediaPersistence;
 import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
 import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
@@ -56,8 +54,6 @@ public class VendedorPersistenceTest
                 .addPackage(VentaPersistence.class.getPackage())
                 .addPackage(FacturaEntity.class.getPackage())
                 .addPackage(FacturaPersistence.class.getPackage())
-                .addPackage(MediaEntity.class.getPackage())
-                .addPackage(MediaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }

@@ -22,7 +22,7 @@ public class DispositivoDTO implements Serializable {
     private String modelo;
     private String descripcion;
     private String nombre;
-    private String imagen;
+    private String[] imagenes;
 
     /**
      * Doubles
@@ -83,7 +83,7 @@ public class DispositivoDTO implements Serializable {
             this.promocion = dispositivo.isPromocion();
             this.tipo = dispositivo.getTipo();
             this.usado = dispositivo.isUsado();
-            this.imagen = dispositivo.getImagen();
+            this.imagenes = dispositivo.getImagenes();
 
             if (dispositivo.getMarca() != null) {
                 this.marca = new MarcaDTO(dispositivo.getMarca());
@@ -110,7 +110,7 @@ public class DispositivoDTO implements Serializable {
         dispositivoEntity.setPromocion(this.promocion);
         dispositivoEntity.setTipo(this.tipo);
         dispositivoEntity.setUsado(this.usado);
-        dispositivoEntity.setImagen(this.imagen);
+        dispositivoEntity.setImagenes(this.imagenes);
 
         if (this.marca != null) {
             dispositivoEntity.setMarca(this.marca.toEntity());
@@ -137,8 +137,8 @@ public class DispositivoDTO implements Serializable {
         return tipo;
     }
 
-    public String getImagen() {
-        return imagen;
+    public String[] getImagenes() {
+        return imagenes;
     }
 
     /**
@@ -353,8 +353,8 @@ public class DispositivoDTO implements Serializable {
         this.categoria = categoria;
     }
 
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
+    public void setImagen(String[] imagenes) {
+        this.imagenes = imagenes;
     }
 
 }

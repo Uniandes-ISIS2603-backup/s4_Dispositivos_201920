@@ -30,8 +30,7 @@ public class CalificacionLogic {
             if(calificacion.getCalificacionNumerica()<0 || calificacion.getCalificacionNumerica()>10){
                  throw new BusinessLogicException("Existe una calificacion con numero menor a 0 o mayor a 10 \"" + calificacion.getId() + "\"");        
             }
-        calificacion= cp.create(calificacion);
-        return calificacion;
+        return cp.create(calificacion);
     }
     
     public CalificacionEntity updateCalificacion(CalificacionEntity calificacion) throws BusinessLogicException{
@@ -42,7 +41,6 @@ public class CalificacionLogic {
             return calificacion;
     }
             
-    
     /**
      *
      * Obtener todas las editoriales existentes en la base de datos.
@@ -50,13 +48,11 @@ public class CalificacionLogic {
      * @return una lista de editoriales.
      */
     public List<CalificacionEntity> getCalificaciones() {
-        List<CalificacionEntity> editorials = cp.findAll();
-        return editorials;
+        return cp.findAll();
     }
     
     public CalificacionEntity getCalificacion(Long calificacionId) {
-        CalificacionEntity editorialEntity = cp.find(calificacionId);
-        return editorialEntity;
+        return cp.find(calificacionId);
     }
     
    public void deleteCalificacion(Long calificacionId) {

@@ -8,8 +8,6 @@ package co.edu.uniandes.csw.dispositivos.entities;
 import co.edu.uniandes.csw.dispositivos.podam.MedioDePagoStrategy;
 import co.edu.uniandes.csw.dispositivos.podam.MetodoDePagoStrategy;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
@@ -63,14 +61,6 @@ public class MedioDePagoEntity extends BaseEntity {
         this.tipoCredito = tipoCredito;
         this.tipoTarjeta = tipoTarjeta;
     }
-
-    /**
-     * @return the numeroTarjeta
-     */
-    public String getNumeroTarjeta() {
-        return numeroTarjeta;
-    }
-
     /**
      * @param numeroTarjeta the numeroTarjeta to set
      */
@@ -78,6 +68,20 @@ public class MedioDePagoEntity extends BaseEntity {
         this.numeroTarjeta = numeroTarjeta;
     }
 
+    /**
+     * @return the numeroTarjeta
+     */
+    public String getNumeroTarjeta() {
+        return numeroTarjeta;
+    }
+    
+    /**
+     * @return the tipoTarjeta
+     */
+    public String getTipoTarjeta() {
+        return tipoTarjeta;
+    }
+    
     /**
      * @return the numeroDeVerificacion
      */
@@ -93,20 +97,6 @@ public class MedioDePagoEntity extends BaseEntity {
     }
 
     /**
-     * @return the tipoTarjeta
-     */
-    public String getTipoTarjeta() {
-        return tipoTarjeta;
-    }
-
-    /**
-     * @param tipoTarjeta the tipoTarjeta to set
-     */
-    public void setTipoTarjeta(String tipoTarjeta) {
-        this.tipoTarjeta = tipoTarjeta;
-    }
-
-    /**
      * @return the tipoCredito
      */
     public String getTipoCredito() {
@@ -118,6 +108,13 @@ public class MedioDePagoEntity extends BaseEntity {
      */
     public void setTipoCredito(String tipoCredito) {
         this.tipoCredito = tipoCredito;
+    }
+    
+    /**
+     * @param tipoTarjeta the tipoTarjeta to set
+     */
+    public void setTipoTarjeta(String tipoTarjeta) {
+        this.tipoTarjeta = tipoTarjeta;
     }
 
     /**

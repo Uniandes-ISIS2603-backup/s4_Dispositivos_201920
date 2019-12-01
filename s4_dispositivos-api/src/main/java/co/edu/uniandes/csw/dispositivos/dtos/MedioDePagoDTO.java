@@ -70,13 +70,6 @@ public class MedioDePagoDTO implements Serializable {
     }
 
     /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
      * @param id the id to set
      */
     public void setId(Long id) {
@@ -91,19 +84,26 @@ public class MedioDePagoDTO implements Serializable {
     }
 
     /**
-     * @param numeroTarjeta the numeroTarjeta to set
-     */
-    public void setNumeroTarjeta(String numeroTarjeta) {
-        this.numeroTarjeta = numeroTarjeta;
-    }
-
-    /**
      * @return the numeroDeVerificacion
      */
     public String getNumeroDeVerificacion() {
         return numeroDeVerificacion;
     }
-
+    
+    /**
+     * @param tipoCredito the tipoCredito to set
+     */
+    public void setTipoCredito(String tipoCredito) {
+        this.tipoCredito = tipoCredito;
+    }
+    
+    /**
+     * @param numeroTarjeta the numeroTarjeta to set
+     */
+    public void setNumeroTarjeta(String numeroTarjeta) {
+        this.numeroTarjeta = numeroTarjeta;
+    }
+    
     /**
      * @param numeroDeVerificacion the numeroDeVerificacion to set
      */
@@ -112,17 +112,17 @@ public class MedioDePagoDTO implements Serializable {
     }
 
     /**
-     * @return the tipoTarjeta
-     */
-    public String getTipoTarjeta() {
-        return tipoTarjeta;
-    }
-
-    /**
      * @param tipoTarjeta the tipoTarjeta to set
      */
     public void setTipoTarjeta(String tipoTarjeta) {
         this.tipoTarjeta = tipoTarjeta;
+    }
+    
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
     }
 
     /**
@@ -131,12 +131,12 @@ public class MedioDePagoDTO implements Serializable {
     public String getTipoCredito() {
         return tipoCredito;
     }
-
+    
     /**
-     * @param tipoCredito the tipoCredito to set
+     * @return the tipoTarjeta
      */
-    public void setTipoCredito(String tipoCredito) {
-        this.tipoCredito = tipoCredito;
+    public String getTipoTarjeta() {
+        return tipoTarjeta;
     }
 
 }

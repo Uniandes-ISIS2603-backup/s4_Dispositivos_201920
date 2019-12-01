@@ -19,7 +19,6 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -70,9 +69,7 @@ public class FacturaDispositivoResource {
     }
 
     /**
-     * x
-     * Busca y devuelve todos los libros que existen en la factura.
-     *
+     * Busca y devuelve todos los libros que existen en la factura
      * @param facturaId Identificador de la factura que se esta buscando. Este
      * @param clienteId Identificador del cliente que se desea guardar.
      * @return JSONArray {@link DispositivoDetailDTO} - Los libros encontrados
@@ -123,21 +120,6 @@ public class FacturaDispositivoResource {
         List<DispositivoDetailDTO> list = new ArrayList();
         for (DispositivoEntity entity : entityList) {
             list.add(new DispositivoDetailDTO(entity));
-        }
-        return list;
-    }
-
-    /**
-     * Convierte una lista de DispositivoDetailDTO a una lista de
-     * DispositivoEntity.
-     *
-     * @param dtos Lista de DispositivoDetailDTO a convertir.
-     * @return Lista de DispositivoEntity convertida.
-     */
-    private List<DispositivoEntity> dispositivosListDTO2Entity(List<DispositivoDetailDTO> dtos) {
-        List<DispositivoEntity> list = new ArrayList<>();
-        for (DispositivoDetailDTO dto : dtos) {
-            list.add(dto.toEntity());
         }
         return list;
     }
