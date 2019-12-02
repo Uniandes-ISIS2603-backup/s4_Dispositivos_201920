@@ -8,9 +8,9 @@ package co.edu.uniandes.csw.dispositivos.ejb;
 import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -23,6 +23,8 @@ public class CalificacionLogic {
 
     @Inject
     private CalificacionPersistence cp;
+    
+    private static final Logger LOGGER = Logger.getLogger(CalificacionLogic.class.getName());
 
     /**
      *
