@@ -8,7 +8,9 @@ package co.edu.uniandes.csw.dispositivos.ejb;
 import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.List;
+import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -18,29 +20,34 @@ import javax.inject.Inject;
  */
 @Stateless
 public class CalificacionLogic {
+
     @Inject
     private CalificacionPersistence cp;
+
     /**
-     * 
+     *
      * @param calificacion
      * @return
-     * @throws BusinessLogicException 
+     * @throws BusinessLogicException
      */
-    public CalificacionEntity createCalificacion(CalificacionEntity calificacion) throws BusinessLogicException{
-            if(calificacion.getCalificacionNumerica()<0 || calificacion.getCalificacionNumerica()>10){
-                 throw new BusinessLogicException("Existe una calificacion con numero menor a 0 o mayor a 10 \"" + calificacion.getId() + "\"");        
-            }
+    public CalificacionEntity createCalificacion(CalificacionEntity calificacion) throws BusinessLogicException {
+        if (calificacion.getCalificacionNumerica() < 0 || calificacion.getCalificacionNumerica() > 10) {
+            throw new BusinessLogicException("Existe una calificacion con numero menor a 0 o mayor a 10 \"" + calificacion.getId() + "\"");
+        }
         return cp.create(calificacion);
     }
-    
-    public CalificacionEntity updateCalificacion(CalificacionEntity calificacion) throws BusinessLogicException{
-            if(calificacion.getCalificacionNumerica()<0 || calificacion.getCalificacionNumerica()>10){
-                 throw new BusinessLogicException("Existe una calificacion con numero menor a 0 o mayor a 10 \"" + calificacion.getId() + "\"");        
-           }
-            cp.update(calificacion);
-            return calificacion;
+
+    public CalificacionEntity updateCalificacion(Long pCategoriaId, CalificacionEntity calificacion) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar la calificacion con id = {0}", pCategoriaId);
+        if (!calificacion.getComentario().equals("")) {
+            CalificacionEntity newEntity = cp.update(calificacion);
+            LOGGER.log(Level.INFO, "Termina proceso de actualizar la categoria con id = {0}", calificacion.getId());
+            return newEntity;
+        } else {
+            throw new BusinessLogicException("La categoria no puede ser creada, ya que existe una con el nombre es inválida");
+        }
     }
-            
+
     /**
      *
      * Obtener todas las editoriales existentes en la base de datos.
@@ -50,13 +57,13 @@ public class CalificacionLogic {
     public List<CalificacionEntity> getCalificaciones() {
         return cp.findAll();
     }
-    
+
     public CalificacionEntity getCalificacion(Long calificacionId) {
         return cp.find(calificacionId);
     }
-    
-   public void deleteCalificacion(Long calificacionId) {
+
+    public void deleteCalificacion(Long calificacionId) {
 
         cp.delete(calificacionId);
-    }   
+    }
 }
