@@ -128,6 +128,7 @@ public class VentaPersistenceTest
         Assert.assertEquals(35000.0, newva.getPrecioReventa(), 0.0);
         Assert.assertEquals(auxvr, newva.getVendedor());
         Assert.assertEquals(vfactura, newva.getFacturaOriginal());
+        Assert.assertArrayEquals(testfotos, newva.getFotos());
     }
     
     /**
@@ -145,6 +146,7 @@ public class VentaPersistenceTest
         Assert.assertEquals(venta.getPrecioReventa(), vaentity.getPrecioReventa(), 0.0);
         Assert.assertEquals(venta.getVendedor(), vaentity.getVendedor()); 
         Assert.assertEquals(venta.getFacturaOriginal(), vaentity.getFacturaOriginal()); 
+        Assert.assertArrayEquals(venta.getFotos(), vaentity.getFotos());
     }
 
     /**
@@ -159,6 +161,20 @@ public class VentaPersistenceTest
         Assert.assertEquals(ref.getId(), block.getId());
         Assert.assertEquals(ref.getPrecioReventa(), block.getPrecioReventa(), 0.0);
         Assert.assertEquals(ref.getVendedor(), block.getVendedor()); 
+        Assert.assertEquals(ref.getFacturaOriginal(), block.getFacturaOriginal()); 
+        Assert.assertArrayEquals(ref.getFotos(), block.getFotos());
+    }
+    
+    /**
+     * Test del método buscar venta inexistente
+     */
+    @Test
+    public void findVentaNullTest() 
+    {
+        VentaEntity ref = valist.get(4); 
+        vap.delete(ref.getId());
+        VentaEntity block = vap.find(vrlist.get(0).getId(), ref.getId());
+        Assert.assertNull(block);
     }
 
     /**
@@ -195,6 +211,8 @@ public class VentaPersistenceTest
         Assert.assertEquals(updating.getPrecioReventa(), updated.getPrecioReventa(), 0.0);
         Assert.assertEquals(updating.getVendedor(), updated.getVendedor()); 
         Assert.assertEquals(updating.getFacturaOriginal(), updated.getFacturaOriginal()); 
+        Assert.assertEquals(updating.getFacturaOriginal(), updated.getFacturaOriginal()); 
+        Assert.assertArrayEquals(updating.getFotos(), updated.getFotos());
     }
 
     /**

@@ -46,8 +46,7 @@ public class VentaEntity extends BaseEntity implements Serializable {
     /**
      * Constructor vacío
      */
-    public VentaEntity() {
-    }
+    public VentaEntity() {}
 
     /**
      * Constructor que recibe parámetros
@@ -56,7 +55,7 @@ public class VentaEntity extends BaseEntity implements Serializable {
      * @param facturaOriginal
      * @param fotos
      */
-    public VentaEntity(Double precioReventa, VendedorEntity vendedor, FacturaEntity facturaOriginal, String[]fotos) 
+    public VentaEntity(Double precioReventa, VendedorEntity vendedor, FacturaEntity facturaOriginal, String[] fotos) 
     {
         this.precioReventa = precioReventa;
         this.vendedor = vendedor;
@@ -68,15 +67,17 @@ public class VentaEntity extends BaseEntity implements Serializable {
      * Retorna el precio de reventa de la venta
      * @return precioReventa
      */
-    public Double getPrecioReventa() {
-        return this.precioReventa;
+    public Double getPrecioReventa() 
+    { 
+        return this.precioReventa; 
     }
 
     /**
      * Asigna el precio de reventa de la venta
      * @param precioReventa
      */
-    public void setPrecioReventa(Double precioReventa) {
+    public void setPrecioReventa(Double precioReventa) 
+    {
         this.precioReventa = precioReventa;
     }
 
@@ -88,9 +89,8 @@ public class VentaEntity extends BaseEntity implements Serializable {
      */
     @Override
     @Deprecated
-    public boolean equals(Object oe) {
-        return super.equals(oe);
-    }
+    public boolean equals(Object oe) 
+    { return super.equals(oe); }
 
     /**
      * Método no requerido
@@ -100,15 +100,15 @@ public class VentaEntity extends BaseEntity implements Serializable {
      */
     @Override
     @Deprecated
-    public int hashCode() {
-        return super.hashCode();
-    }
+    public int hashCode() 
+    { return super.hashCode(); }
 
     /**
      * Retorna el vendedor de la venta
      * @return the vendedor
      */
-    public VendedorEntity getVendedor() {
+    public VendedorEntity getVendedor() 
+    {
         return vendedor;
     }
 
@@ -116,7 +116,8 @@ public class VentaEntity extends BaseEntity implements Serializable {
      * Asigna el vendedor de la venta
      * @param vendedor the vendedor to set
      */
-    public void setVendedor(VendedorEntity vendedor) {
+    public void setVendedor(VendedorEntity vendedor) 
+    {
         this.vendedor = vendedor;
     }
 
@@ -125,25 +126,35 @@ public class VentaEntity extends BaseEntity implements Serializable {
      * Retorna la lista de fotos de la venta
      * @return the fotos
      */
-    public String[] getFotos() { return fotos; }
+    public String[] getFotos() 
+    { 
+        return fotos; 
+    }
     
      /**
      * Asigna la lista de fotos de la venta
      * @param fotos the fotos to set
      */
-    public void setFotos(String[] fotos) { this.fotos = fotos; }
-
+    public void setFotos(String[] fotos) 
+    { 
+        this.fotos = fotos; 
+    }
 
      /**
      * Retorna la factura original de la venta
      * @return the facturaOriginal
      */
-    public FacturaEntity getFacturaOriginal() { return facturaOriginal; }    
+    public FacturaEntity getFacturaOriginal() 
+    { 
+        return facturaOriginal; 
+    }    
      
      /**
      * Asigna la factura original de la venta
      * @param facturaOriginal the facturaOriginal to set
      */
-    public void setFacturaOriginal(FacturaEntity facturaOriginal) {
-    this.facturaOriginal = facturaOriginal; }    
+    public void setFacturaOriginal(FacturaEntity facturaOriginal) 
+    {
+        this.facturaOriginal = facturaOriginal; 
+    }    
 }
