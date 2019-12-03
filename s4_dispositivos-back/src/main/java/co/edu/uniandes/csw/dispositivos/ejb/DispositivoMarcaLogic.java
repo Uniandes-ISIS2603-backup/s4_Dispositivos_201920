@@ -51,13 +51,11 @@ public class DispositivoMarcaLogic {
      * @param dispositivoId
      */
     public void removeMarca(Long dispositivoId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar dispositivo con id = {0}", dispositivoId);
         DispositivoEntity dispositivoEntity = dispositivoPersistence.find(dispositivoId);
-        MarcaEntity marcaEntity = marcaPersistence.find(dispositivoEntity.getCategoria().getId());
+        MarcaEntity marcaEntity = marcaPersistence.find(dispositivoEntity.getMarca().getId());
         dispositivoEntity.setMarca(null);
         marcaEntity.getDispositivos().remove(dispositivoEntity);
-        LOGGER.log(Level.INFO, "Finaliza proceso de borrar dispositivo con id = {0}", dispositivoId);
-
+        dispositivoPersistence.update(dispositivoEntity);
     }
 
 }

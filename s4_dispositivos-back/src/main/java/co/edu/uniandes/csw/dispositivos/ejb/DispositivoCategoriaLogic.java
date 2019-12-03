@@ -46,10 +46,10 @@ public class DispositivoCategoriaLogic {
 
     /**
      *
-     * @param dispositivoId
+     * @param categoriaId
      */
-    public void removeCategoria(Long dispositivoId) {
-        DispositivoEntity dispositivoEntity = dispositivoPersistence.find(dispositivoId);
+    public void removeCategoria(Long categoriaId) {
+        DispositivoEntity dispositivoEntity = dispositivoPersistence.find(categoriaId);
         CategoriaEntity categoriaEntity = categoriaPersistence.find(dispositivoEntity.getCategoria().getId());
         dispositivoEntity.setCategoria(null);
         categoriaEntity.getDispositivos().remove(dispositivoEntity);
