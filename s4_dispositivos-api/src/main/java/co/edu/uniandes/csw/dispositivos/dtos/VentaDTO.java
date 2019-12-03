@@ -65,7 +65,7 @@ public class VentaDTO implements Serializable
      * Retorna el precio de reventa del DTO
      * @return the precioReventa
      */
-    public double getPrecioReventa() 
+    public Double getPrecioReventa() 
     {
         return precioReventa;
     }
@@ -74,7 +74,7 @@ public class VentaDTO implements Serializable
      * Asigna el precio de reventa del DTO
      * @param precioReventa the precioReventa to set
      */
-    public void setPrecioReventa(double precioReventa) 
+    public void setPrecioReventa(Double precioReventa) 
     {
         this.precioReventa = precioReventa;
     }

@@ -37,7 +37,6 @@ public class CalificacionLogicTest {
 
     private List<CalificacionEntity> data = new ArrayList<CalificacionEntity>();
 
-
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
      * El jar contiene las clases, el descriptor de la base de datos y el
@@ -94,7 +93,7 @@ public class CalificacionLogicTest {
     }
 
     /**
-     * Prueba para crear un Editorial.
+     * Prueba para crear una calificacion.
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
@@ -106,18 +105,75 @@ public class CalificacionLogicTest {
         Assert.assertNotNull(result);
         CalificacionEntity entity = em.find(CalificacionEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
-        Assert.assertEquals(newEntity.getCalificacionNumerica(), entity.getCalificacionNumerica(),0);
+        Assert.assertEquals(newEntity.getCalificacionNumerica(), entity.getCalificacionNumerica(), 0);
     }
 
     /**
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
-    
     @Test(expected = BusinessLogicException.class)
     public void createCalificacionConNumeroMayorOMenor() throws BusinessLogicException {
         CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
         newEntity.setCalificacionNumerica(-2);
         calificacionLogic.createCalificacion(newEntity);
+    }
+
+    /**
+     * Prueba para consultar la lista de calificacion.
+     */
+    @Test
+    public void getCalificacionesTest() {
+        List<CalificacionEntity> list = calificacionLogic.getCalificaciones();
+        Assert.assertEquals(data.size(), list.size());
+        for (CalificacionEntity entity : list) {
+            boolean found = false;
+            for (CalificacionEntity entity2 : data) {
+                if (entity.getId().equals(entity2.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+
+    /**
+     * Prueba para consultar una calificacion.
+     */
+    @Test
+    public void getCalificacionTest() {
+        CalificacionEntity entity = data.get(0);
+        CalificacionEntity resultEntity = calificacionLogic.getCalificacion(entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getComentario(), resultEntity.getComentario());
+        Assert.assertEquals(entity.getDispositivo(), resultEntity.getDispositivo());
+    }
+
+    /**
+     * Prueba para eliminar una calificacion.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
+    @Test
+    public void deleteCalificacionTest() throws BusinessLogicException {
+        CalificacionEntity entity = data.get(1);
+        calificacionLogic.deleteCalificacion(entity.getId());
+        CalificacionEntity deleted = em.find(CalificacionEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
+    
+            /**
+     * Prueba para actualizar una categoria.
+     */
+    @Test
+    public void updateCalificacionTest() throws BusinessLogicException {
+        CalificacionEntity entity = data.get(0);
+        CalificacionEntity pojoEntity = factory.manufacturePojo(CalificacionEntity.class);
+        pojoEntity.setId(entity.getId());
+        calificacionLogic.updateCalificacion(pojoEntity.getId(), pojoEntity);
+        CalificacionEntity resp = em.find(CalificacionEntity.class, entity.getId());
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getComentario(), resp.getComentario());
     }
 }

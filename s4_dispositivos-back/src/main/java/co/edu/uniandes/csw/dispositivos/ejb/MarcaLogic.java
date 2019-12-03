@@ -27,6 +27,8 @@ public class MarcaLogic {
             throw new BusinessLogicException("El nombre de la marca está vacío");
         } else if (marca.getLogo() == null) {
             throw new BusinessLogicException("La imagen de la marca es nula");
+        } else if (marca.getLogo().equals("")) {
+            throw new BusinessLogicException("La imagen de la marca está vacía");
         } else if (mp.findByNombre(marca.getNombreMarca()) != null) {
             throw new BusinessLogicException("Ya existe una marca con el mismo nombre");
         }
@@ -70,6 +72,8 @@ public class MarcaLogic {
             throw new BusinessLogicException("El nombre de la marca está vacío");
         } else if (marcaEntity.getLogo() == null) {
             throw new BusinessLogicException("La imagen de la marca es nula");
+        } else if (marcaEntity.getLogo().equals("")) {
+            throw new BusinessLogicException("La imagen de la marca está vacía");
         } else if (mp.findByNombre(marcaEntity.getNombreMarca()) != null) {
             throw new BusinessLogicException("Ya existe una marca con el mismo nombre");
         }

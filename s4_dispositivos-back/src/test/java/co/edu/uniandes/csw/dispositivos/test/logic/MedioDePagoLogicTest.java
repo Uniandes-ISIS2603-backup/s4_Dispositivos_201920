@@ -108,7 +108,7 @@ public class MedioDePagoLogicTest {
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
     @Test
-    public void createCategoriaTest() throws BusinessLogicException {
+    public void createMedioDePagoTest() throws BusinessLogicException {
 
         MedioDePagoEntity newEntity = factory.manufacturePojo(MedioDePagoEntity.class);
 
@@ -120,6 +120,20 @@ public class MedioDePagoLogicTest {
         Assert.assertEquals(newEntity.getNumeroTarjeta(), entity.getNumeroTarjeta());
         Assert.assertEquals(newEntity.getTipoCredito(), entity.getTipoCredito());
         Assert.assertEquals(newEntity.getTipoTarjeta(), entity.getTipoTarjeta());
+
+        boolean numeroTarjeta = false;
+        if (entity.getNumeroTarjeta().length() <= 16) {
+            numeroTarjeta = true;
+        }
+
+        Assert.assertTrue(numeroTarjeta);
+
+        boolean numeroVerificacion = false;
+        if (entity.getNumeroDeVerificacion().length() == 3) {
+            numeroVerificacion = true;
+        }
+
+        Assert.assertTrue(numeroVerificacion);
 
         try {
             newEntity.setNumeroTarjeta("51000000");
@@ -220,18 +234,18 @@ public class MedioDePagoLogicTest {
     public void updateCategoriaTest() throws BusinessLogicException {
 
         MedioDePagoEntity entity = data.get(0);
-        
+
         MedioDePagoEntity pojoEntity = factory.manufacturePojo(MedioDePagoEntity.class);
 
         pojoEntity.setId(entity.getId());
         pojoEntity.setNumeroTarjeta("400");
-        
+
         pojoEntity.setNumeroTarjeta("410");
-        
-        medioLogic.updateMedioDePago(pojoEntity.getId(), pojoEntity);
-        
+
+        medioLogic.updateMedioDePago(pojoEntity);
+
         MedioDePagoEntity resp = em.find(MedioDePagoEntity.class, entity.getId());
-        
+
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getNumeroDeVerificacion(), resp.getNumeroDeVerificacion());
     }

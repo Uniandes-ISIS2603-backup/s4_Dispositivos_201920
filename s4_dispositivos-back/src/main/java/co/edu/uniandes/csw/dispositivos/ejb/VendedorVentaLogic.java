@@ -36,14 +36,14 @@ public class VendedorVentaLogic
     
     /**
      * Validación del método agregar venta
-     * @param Idvendedor
-     * @param Idventa
+     * @param idVendedor
+     * @param idVenta
      * @return venta creada
      */
-    public VentaEntity createVenta(Long Idvendedor, Long Idventa) 
+    public VentaEntity createVenta(Long idVendedor, Long idVenta) 
     {
-        VendedorEntity vrentity = vrpersistence.find(Idvendedor); 
-        VentaEntity vaentity = vapersistence.find(Idventa); 
+        VendedorEntity vrentity = vrpersistence.find(idVendedor); 
+        VentaEntity vaentity = vapersistence.find(idVendedor, idVenta); 
         vaentity.setVendedor(vrentity);
         return vaentity; 
     }
@@ -58,23 +58,21 @@ public class VendedorVentaLogic
     public VentaEntity findVenta(Long idfVendedor, Long idfVenta) throws BusinessLogicException
     {       
         List<VentaEntity> vaset = vrpersistence.find(idfVendedor).getVentas(); 
-        VentaEntity obtainedvr = vapersistence.find(idfVenta); 
+        VentaEntity obtainedvr = vapersistence.find(idfVendedor, idfVenta); 
         int indizer = vaset.indexOf(obtainedvr);
         if(indizer < 0)
             throw new BusinessLogicException("No se encuentra ningún vendedor asociado a la venta");
-        else return obtainedvr;
+        else return vaset.get(indizer);
     }
     
     /**
      * Validación del método encontrar todas las ventas
      * @param vendedorID
-     * @return lista de las ventas existentes
-     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException 
+     * @return lista de las ventas existentes 
      */
     public List<VentaEntity> findAllVentas(Long vendedorID)
     {
-        List<VentaEntity> valisted = vrpersistence.find(vendedorID).getVentas(); 
-        return valisted;
+        return vrpersistence.find(vendedorID).getVentas(); 
     }
     
     /**

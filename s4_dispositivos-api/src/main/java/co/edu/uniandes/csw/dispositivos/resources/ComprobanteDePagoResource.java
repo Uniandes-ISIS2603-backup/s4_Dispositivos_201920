@@ -33,6 +33,10 @@ import javax.ws.rs.WebApplicationException;
 public class ComprobanteDePagoResource 
 {    
     private static final Logger LOGGER = Logger.getLogger(ComprobanteDePagoResource.class.getName());
+    private static final String RUTA_ERROR_CLIENTES = "El recurso /clientes/";
+    private static final String RUTA_ERROR_COMPROBANTES = "/comprobante/";
+    private static final String RUTA_ERROR_TERMINACION = " no existe.";
+
     /**
      * Inyección de la lógica de comprobante de pago
      */
@@ -84,7 +88,7 @@ public class ComprobanteDePagoResource
         ComprobanteDePagoEntity entity = comprobanteLogic.getComprobante(comprobanteId, clienteId);
         if (entity == null) 
         {
-            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/comprobante/" + comprobanteId + " no existe.", 404);
+            throw new WebApplicationException(RUTA_ERROR_CLIENTES + clienteId + RUTA_ERROR_COMPROBANTES + comprobanteId + RUTA_ERROR_TERMINACION, 404);
         }
         ComprobanteDePagoDTO comprobanteDTO = new ComprobanteDePagoDTO(entity);
         LOGGER.log(Level.INFO, "ComprobanteDePagoResource getComprobanteDePago: output: {0}", comprobanteDTO);
@@ -110,7 +114,7 @@ public class ComprobanteDePagoResource
         
         ComprobanteDePagoEntity entity = comprobanteLogic.getComprobante(comprobanteId, clienteId);
         if (entity == null)
-            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/comprobante/" + comprobanteId + " no existe.", 404);
+            throw new WebApplicationException(RUTA_ERROR_CLIENTES + clienteId + RUTA_ERROR_COMPROBANTES + comprobanteId + RUTA_ERROR_TERMINACION, 404);
         
         ComprobanteDePagoDTO comprobanteDTO = new ComprobanteDePagoDTO(comprobanteLogic.updateComprobanteDePago(comprobante.toEntity(), clienteId));
         LOGGER.log(Level.INFO, "ComprobanteDePagoResource updateComprobante: output:{0}", comprobanteDTO);
@@ -128,7 +132,7 @@ public class ComprobanteDePagoResource
     public void deleteComprobanteDePago(@PathParam("clienteId") Long clienteId, @PathParam("comprobanteId") Long comprobanteId) throws BusinessLogicException {
         ComprobanteDePagoEntity entity = comprobanteLogic.getComprobante(comprobanteId, clienteId);
         if (entity == null)
-            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/comprobante/" + comprobanteId + " no existe.", 404);
+            throw new WebApplicationException(RUTA_ERROR_CLIENTES + clienteId + RUTA_ERROR_COMPROBANTES + comprobanteId + RUTA_ERROR_TERMINACION, 404);
 
         comprobanteLogic.deleteComprobante(comprobanteId, clienteId);
     }
@@ -139,7 +143,7 @@ public class ComprobanteDePagoResource
      * @return la lista de comprobantes en forma DTO (json)
      */
     private List<ComprobanteDePagoDTO> listEntity2DTO(List<ComprobanteDePagoEntity> entityList) {
-        List<ComprobanteDePagoDTO> list = new ArrayList<ComprobanteDePagoDTO>();
+        List<ComprobanteDePagoDTO> list = new ArrayList<>();
         for (ComprobanteDePagoEntity entity : entityList) {
             list.add(new ComprobanteDePagoDTO(entity));
         }

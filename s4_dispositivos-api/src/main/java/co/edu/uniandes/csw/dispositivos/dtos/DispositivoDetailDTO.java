@@ -33,7 +33,7 @@ public class DispositivoDetailDTO extends DispositivoDTO implements Serializable
     public DispositivoDetailDTO(DispositivoEntity dispositivoEntity) {
         super(dispositivoEntity);
         if (dispositivoEntity.getCalificaciones() != null) {
-            calificaciones = new ArrayList<CalificacionDTO>();
+            calificaciones = new ArrayList<>();
             for (CalificacionEntity calificacionEntity : dispositivoEntity.getCalificaciones()) {
                 calificaciones.add(new CalificacionDTO(calificacionEntity));
             }
@@ -48,7 +48,7 @@ public class DispositivoDetailDTO extends DispositivoDTO implements Serializable
     public DispositivoEntity toEntity() {
         DispositivoEntity dispositivoEntity = super.toEntity();
         if (calificaciones != null) {
-            List<CalificacionEntity> calificacionesEntity = new ArrayList<CalificacionEntity>();
+            List<CalificacionEntity> calificacionesEntity = new ArrayList<>();
             for (CalificacionDTO dtoCalificacion : getCalificaciones()) {
                 calificacionesEntity.add(dtoCalificacion.toEntity());
             }
