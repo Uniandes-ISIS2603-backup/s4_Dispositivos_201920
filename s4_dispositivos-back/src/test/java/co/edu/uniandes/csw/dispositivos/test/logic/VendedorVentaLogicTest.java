@@ -139,15 +139,14 @@ public class VendedorVentaLogicTest {
     }
     
     /**
-     * Test de falla de agregar venta sin vendedor
+     * Test de falla de consultar una venta sin vendedor
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void createVentaWithoutVendedorTest() throws BusinessLogicException {
+    public void findVentaWithoutVendedorTest() throws BusinessLogicException {
         VendedorEntity vcontainer = vrlist.get(2);
-        VentaEntity vcontained = valist.get(0); 
-        vrlogic.deleteVendedor(vcontainer.getId());
-        VentaEntity vresult = varlogic.createVenta(vcontainer.getId(), vcontained.getId());
+        VentaEntity vcontained = valist.get(0);
+        varlogic.findVenta(vcontainer.getId(), vcontained.getId());
     }
 
     /**
