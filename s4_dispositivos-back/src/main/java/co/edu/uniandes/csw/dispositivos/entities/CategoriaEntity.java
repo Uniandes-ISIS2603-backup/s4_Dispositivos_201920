@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.dispositivos.entities;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -17,7 +18,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Juan L
  */
 @Entity
-public class CategoriaEntity extends BaseEntity {
+public class CategoriaEntity extends BaseEntity implements Serializable{
 
     /**
      * Representa el nombre de una categoria.

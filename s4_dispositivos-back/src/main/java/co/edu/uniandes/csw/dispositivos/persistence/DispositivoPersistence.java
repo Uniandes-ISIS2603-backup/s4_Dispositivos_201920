@@ -44,7 +44,7 @@ public class DispositivoPersistence {
 
     public List<DispositivoEntity> findAll() {
 
-        Query query = em.createQuery("select u from DispositivoEntity u");
+        Query query = em.createQuery("select u from DispositivoEntity u", DispositivoEntity.class);
         return query.getResultList();
     }
 
@@ -60,7 +60,7 @@ public class DispositivoPersistence {
     public boolean containsDispositivo(DispositivoEntity dispositivo) {
         List<DispositivoEntity> all = this.findAll();
         boolean existe = false;
-        if (all.isEmpty()) {
+        if (all.size() > 0) {
             for (DispositivoEntity dis : all) {
                 if (dis.getNombre().equals(dispositivo.getNombre())) {
                     existe = true;

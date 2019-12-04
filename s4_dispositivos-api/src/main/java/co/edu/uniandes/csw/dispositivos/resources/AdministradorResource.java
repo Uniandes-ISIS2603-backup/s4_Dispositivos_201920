@@ -29,7 +29,7 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author Dianis Caro
  */
-@Path("administrador")
+@Path("administradores")
 @Consumes("application/json")
 @Produces("application/json")
 @RequestScoped

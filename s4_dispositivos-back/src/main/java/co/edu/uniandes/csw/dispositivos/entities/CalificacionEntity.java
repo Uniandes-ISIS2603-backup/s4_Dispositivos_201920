@@ -16,7 +16,8 @@ import uk.co.jemos.podam.common.PodamDoubleValue;
  * @author Javier Peniche
  */
 @Entity
-public class CalificacionEntity extends BaseEntity implements Serializable {
+public class CalificacionEntity extends BaseEntity 
+{
 
 
     @PodamDoubleValue(minValue = 0.0, maxValue = 5.0)
