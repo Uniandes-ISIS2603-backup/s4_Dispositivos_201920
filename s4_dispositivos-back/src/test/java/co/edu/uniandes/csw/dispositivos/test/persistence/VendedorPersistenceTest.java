@@ -198,6 +198,45 @@ public class VendedorPersistenceTest
     }
     
     /**
+     * Test del método buscar vendedor inexistente por cédula
+     */
+    @Test
+    public void findByCedulaNullTest()
+    {
+        VendedorEntity ref = vrlist.get(4);
+        Double nullcedula = ref.getCedula();
+        vrp.delete(ref.getId());
+        VendedorEntity block = vrp.findByCedula(nullcedula);
+        Assert.assertNull(block); 
+    }
+    
+    /**
+     * Test del método buscar vendedor inexistente por usuario
+     */
+    @Test
+    public void findByUsuarioNullTest()
+    {
+        VendedorEntity ref = vrlist.get(4);
+        String nullusuario = ref.getUsuario();
+        vrp.delete(ref.getId());
+        VendedorEntity block = vrp.findByUsuario(nullusuario);
+        Assert.assertNull(block); 
+    }
+    
+    /**
+     * Test del método buscar vendedor por inexistente correo electrónico
+     */
+    @Test
+    public void findByEmailNullTest()
+    {
+        VendedorEntity ref = vrlist.get(4);
+        String nullemail = ref.getCorreoElectronico();
+        vrp.delete(ref.getId());
+        VendedorEntity block = vrp.findByEmail(nullemail);
+        Assert.assertNull(block); 
+    }
+    
+    /**
      * Test del método encontrar todos los vendedores
      */
     @Test
@@ -233,8 +272,8 @@ public class VendedorPersistenceTest
         Assert.assertEquals(updating.getCorreoElectronico(), updated.getCorreoElectronico());
         Assert.assertEquals(updating.getContrasena(), updated.getContrasena());
         Assert.assertEquals(updating.getUsuario(), updated.getUsuario());
-        Assert.assertEquals(updating.getCelular(), updated.getCelular(),0);        
-        Assert.assertEquals(updating.getCedula(), updated.getCedula(),0); 
+        Assert.assertEquals(updating.getCelular(), updated.getCelular(), 0.0);        
+        Assert.assertEquals(updating.getCedula(), updated.getCedula(), 0.0); 
         Assert.assertEquals(updating.getVentas(), updated.getVentas());
     }
     

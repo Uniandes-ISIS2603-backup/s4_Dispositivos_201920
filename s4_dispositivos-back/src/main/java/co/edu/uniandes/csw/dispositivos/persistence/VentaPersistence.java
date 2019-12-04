@@ -49,7 +49,7 @@ public class VentaPersistence
         vatq.setParameter("vendedorfID", vendedorfID); 
         vatq.setParameter("ventafID", ventafID);
         List<VentaEntity> vresults = vatq.getResultList(); 
-        if (vresults != null && !vresults.isEmpty() && vresults.size() >= 1) 
+        if (vresults != null && !vresults.isEmpty()) 
             return vresults.get(0);
         else return null; 
     }

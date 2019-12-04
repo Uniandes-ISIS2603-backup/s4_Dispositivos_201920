@@ -35,14 +35,11 @@ public class VendedorDetailDTO extends VendedorDTO implements Serializable
     public VendedorDetailDTO(VendedorEntity refvr) 
     {
         super(refvr);
-        if(refvr != null)
+        if(refvr != null && refvr.getVentas() != null)
         {
-            if(refvr.getVentas() != null)
-            {
-                ventas = new ArrayList<>(); 
-                for(VentaEntity ventavr : refvr.getVentas())
-                    ventas.add(new VentaDTO(ventavr));
-            }
+            ventas = new ArrayList<>(); 
+            for(VentaEntity ventavr : refvr.getVentas())
+            ventas.add(new VentaDTO(ventavr));
         }
     }
     
