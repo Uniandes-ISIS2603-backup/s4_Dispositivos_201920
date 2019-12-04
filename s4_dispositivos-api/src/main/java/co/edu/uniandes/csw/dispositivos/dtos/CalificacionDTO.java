@@ -17,7 +17,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class CalificacionDTO implements Serializable {
 
     private Long id;
-    private double calificacionNumerica;
+    private Double calificacionNumerica;
     private String comentario;
 
     private DispositivoDTO dispositivo;
@@ -73,14 +73,14 @@ public class CalificacionDTO implements Serializable {
     /**
      * @return the calificacionNumerica
      */
-    public double getCalificacionNumerica() {
+    public Double getCalificacionNumerica() {
         return calificacionNumerica;
     }
 
     /**
      * @param calificacionNumerica the calificacionNumerica to set
      */
-    public void setCalificacionNumerica(double calificacionNumerica) {
+    public void setCalificacionNumerica(Double calificacionNumerica) {
         this.calificacionNumerica = calificacionNumerica;
     }
 

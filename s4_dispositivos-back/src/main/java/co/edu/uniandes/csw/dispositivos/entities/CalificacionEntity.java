@@ -20,7 +20,7 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
 
 
     @PodamDoubleValue(minValue = 0.0, maxValue = 5.0)
-    double calificacionNumerica;
+    Double calificacionNumerica;
 
     String comentario;
 
@@ -39,7 +39,7 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
         this.dispositivo = dispositivo;
     }
 
-    public double getCalificacionNumerica() {
+    public Double getCalificacionNumerica() {
         return calificacionNumerica;
     }
 
@@ -51,7 +51,7 @@ public class CalificacionEntity extends BaseEntity implements Serializable {
         return dispositivo;
     }
 
-    public void setCalificacionNumerica(double calificacionNumerica) {
+    public void setCalificacionNumerica(Double calificacionNumerica) {
         this.calificacionNumerica = calificacionNumerica;
     }
 
