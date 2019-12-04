@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "85dc95a6-7e46-42e4-861e-a96bcf286a50",
+		"_postman_id": "78728242-f668-4f5d-9b75-e2e268e16750",
 		"name": "Categoria_Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -41,12 +41,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/categorias",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -66,7 +66,7 @@
 						"id": "11587cf9-5ddd-4d7a-ad4c-d7448ceb185e",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_e2\",data.id);",
+							"postman.setGlobalVariable(\"new_id_e1\",data.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
@@ -93,12 +93,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/categorias",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -136,12 +136,12 @@
 					"raw": "{\n\t\"nombreCategoria\":\"Prueba 1\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/categorias",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -191,12 +191,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/categorias",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -227,12 +227,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/categorias/{{new_id_e2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/{{new_id_e2}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -241,6 +241,40 @@
 					]
 				},
 				"description": "Obtiene una categoria por el Id"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una Categoria que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75d835cf-17fb-4929-b876-886f8a88b969",
+						"exec": [
+							"tests[\"No genera error en el Get\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"categorias",
+						"0"
+					]
+				}
 			},
 			"response": []
 		},
@@ -280,12 +314,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/categorias/{{new_id_e2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/{{new_id_e2}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -324,12 +358,12 @@
 					"raw": "{\n    \"nombreCategoria\": \"Categoria con nuevo nombre\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/categorias/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -374,12 +408,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/categorias/{{new_id_e2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/{{new_id_e2}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -392,7 +426,58 @@
 			"response": []
 		},
 		{
-			"name": "Borrar una editorial que no existe",
+			"name": "Eliminar Categoria 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7c35a0f-6c8f-4f12-b3be-3851508aa1e5",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/{{new_id_e1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"categorias",
+						"{{new_id_e1}}"
+					]
+				},
+				"description": "Elimina una categoria por su ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar una categoria que no existe",
 			"event": [
 				{
 					"listen": "test",
@@ -413,12 +498,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/categorias/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
