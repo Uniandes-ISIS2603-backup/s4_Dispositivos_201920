@@ -56,9 +56,8 @@ public class VendedorPersistence
     {
         TypedQuery<VendedorEntity> tq = em.createQuery("select e from VendedorEntity e where e.cedula = :cedula", VendedorEntity.class);
         tq = tq.setParameter("cedula", idCard); 
-        List<VendedorEntity> cedulaFound = tq.getResultList();
-        VendedorEntity gotten = (cedulaFound == null || cedulaFound.isEmpty()) ? null : cedulaFound.get(0); 
-        return gotten;       
+        List<VendedorEntity> cedulaFound = tq.getResultList(); 
+        return (cedulaFound == null || cedulaFound.isEmpty()) ? null : cedulaFound.get(0);       
     }
     
     /**
@@ -70,9 +69,8 @@ public class VendedorPersistence
     {
         TypedQuery<VendedorEntity> tq = em.createQuery("select e from VendedorEntity e where e.usuario = :usuario", VendedorEntity.class);
         tq = tq.setParameter("usuario", idUser); 
-        List<VendedorEntity> usuarioFound = tq.getResultList();
-        VendedorEntity gotten = (usuarioFound == null || usuarioFound.isEmpty()) ? null : usuarioFound.get(0); 
-        return gotten;       
+        List<VendedorEntity> usuarioFound = tq.getResultList(); 
+        return (usuarioFound == null || usuarioFound.isEmpty()) ? null : usuarioFound.get(0);       
     }
     
     /**
@@ -85,8 +83,7 @@ public class VendedorPersistence
         TypedQuery<VendedorEntity> tq = em.createQuery("select e from VendedorEntity e where e.correoElectronico = :correoElectronico", VendedorEntity.class);
         tq = tq.setParameter("correoElectronico", idEmail); 
         List<VendedorEntity> emailFound = tq.getResultList();
-        VendedorEntity gotten = (emailFound == null || emailFound.isEmpty()) ? null : emailFound.get(0); 
-        return gotten;       
+        return (emailFound == null || emailFound.isEmpty()) ? null : emailFound.get(0);       
     }
     
     /**

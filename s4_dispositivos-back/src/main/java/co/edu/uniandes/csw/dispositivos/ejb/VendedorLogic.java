@@ -31,17 +31,13 @@ public class VendedorLogic
     public VendedorEntity createVendedor(VendedorEntity vendedor) throws BusinessLogicException
     {
         if(verifyBlanks(vendedor))
-        {  throw new BusinessLogicException("No puede haber ningún campo vacío"); }
-        
-        if(vrpersistence.findByCedula(vendedor.getCedula()) != null)
-        { throw new BusinessLogicException("Ya existe un vendedor con esa cédula"); }
-        
-        if(vrpersistence.findByUsuario(vendedor.getUsuario()) != null)
-        { throw new BusinessLogicException("Ya existe un vendedor con ese usuario"); }
-        
-        if(vrpersistence.findByEmail(vendedor.getCorreoElectronico()) != null)
-        { throw new BusinessLogicException("Ya existe un vendedor con ese correo electrónico"); }
-        
+        {  throw new BusinessLogicException("No puede haber ningún campo vacío"); }        
+        else if(vrpersistence.findByCedula(vendedor.getCedula()) != null)
+        { throw new BusinessLogicException("Ya existe un vendedor con esa cédula"); }        
+        else if(vrpersistence.findByUsuario(vendedor.getUsuario()) != null)
+        { throw new BusinessLogicException("Ya existe un vendedor con ese usuario"); }        
+        else if(vrpersistence.findByEmail(vendedor.getCorreoElectronico()) != null)
+        { throw new BusinessLogicException("Ya existe un vendedor con ese correo electrónico"); }       
         vrpersistence.create(vendedor); 
         return vendedor; 
     }
@@ -116,15 +112,24 @@ public class VendedorLogic
     {
         if(verifyBlanks(uvrEntity))
         {  throw new BusinessLogicException("No puede haber ningún campo vacío"); }
+        else if(vrpersistence.findByCedula(uvrEntity.getCedula()) != null)
+        { throw new BusinessLogicException("Ya existe un vendedor con esa cédula"); }        
+        else if(vrpersistence.findByUsuario(uvrEntity.getUsuario()) != null)
+        { throw new BusinessLogicException("Ya existe un vendedor con ese usuario"); }        
+        else if(vrpersistence.findByEmail(uvrEntity.getCorreoElectronico()) != null)
+        { throw new BusinessLogicException("Ya existe un vendedor con ese correo electrónico"); }
         return vrpersistence.update(uvrEntity);
     }
     
     /**
      * Validación del método borrar vendedor
      * @param iddVendedor
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
-    public void deleteVendedor(Long iddVendedor)
+    public void deleteVendedor(Long iddVendedor) throws BusinessLogicException 
     {
+        VendedorEntity nonvendedor = findVendedor(iddVendedor);
+        if(nonvendedor == null) throw new BusinessLogicException("No se encuentra el vendedor con id = " + iddVendedor); 
         vrpersistence.delete(iddVendedor); 
     }
     

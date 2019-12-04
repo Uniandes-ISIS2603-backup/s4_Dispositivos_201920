@@ -119,13 +119,35 @@ public class VentaLogicTest {
         VentaEntity obtainedva = valogic.createVenta(vrlist.get(1).getId(), venta);
         Assert.assertNotNull(obtainedva);
     }
+    
+    /**
+     * Test de falla de agregar venta sin vendedor
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createVentaNullVendedorTest() throws BusinessLogicException {
+        VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
+        venta.setVendedor(null);
+        valogic.createVenta(vrlist.get(1).getId(), venta);
+    }
+    
+    /**
+     * Test de falla de agregar venta con precio de reventa nulo
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createNullPriceVentaTest() throws BusinessLogicException {
+        VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);   
+        venta.setPrecioReventa(null);
+        valogic.createVenta(vrlist.get(0).getId(), venta);
+    }
 
     /**
      * Test de falla de agregar venta con precio de reventa negativo
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void createNegativeVentaTest() throws BusinessLogicException {
+    public void createNegativePriceVentaTest() throws BusinessLogicException {
         VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);   
         venta.setPrecioReventa(-1.0);
         valogic.createVenta(vrlist.get(0).getId(), venta);
@@ -142,6 +164,7 @@ public class VentaLogicTest {
         Assert.assertEquals(ref.getPrecioReventa(), block.getPrecioReventa(), 0.0);
         Assert.assertEquals(ref.getVendedor(), block.getVendedor());
         Assert.assertEquals(ref.getFacturaOriginal(), block.getFacturaOriginal());
+        Assert.assertArrayEquals(ref.getFotos(), block.getFotos());
     }
 
     /**
@@ -178,6 +201,33 @@ public class VentaLogicTest {
         Assert.assertEquals(updating.getPrecioReventa(), updated.getPrecioReventa(), 0.0);
         Assert.assertEquals(updating.getVendedor(), updated.getVendedor());
         Assert.assertEquals(updating.getFacturaOriginal(), updated.getFacturaOriginal());
+        Assert.assertArrayEquals(updating.getFotos(), updated.getFotos());
+    }
+    
+    /**
+     * Test de falla de cambiar venta sin vendedor
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateVentaNullVendedorTest() throws BusinessLogicException {
+        VentaEntity uventa = valist.get(0);
+        VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
+        venta.setId(uventa.getId());
+        venta.setVendedor(null);
+        valogic.updateVenta(vrlist.get(0).getId(), venta);
+    }
+    
+    /**
+     * Test de falla de cambiar venta con precio de reventa nulo
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateNullPriceVentaTest() throws BusinessLogicException {
+        VentaEntity uventa = valist.get(0);
+        VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
+        venta.setId(uventa.getId());
+        venta.setPrecioReventa(null);
+        valogic.updateVenta(vrlist.get(0).getId(), venta);
     }
     
     /**
@@ -185,7 +235,7 @@ public class VentaLogicTest {
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void updateNegativeVentaTest() throws BusinessLogicException {
+    public void updateNegativePriceVentaTest() throws BusinessLogicException {
         VentaEntity uventa = valist.get(0);
         VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
         venta.setId(uventa.getId());
@@ -194,7 +244,7 @@ public class VentaLogicTest {
     }
 
     /**
-     * Test de la validación de borrar venta
+     * Test de la validación de borrar una venta
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
     @Test
@@ -203,5 +253,16 @@ public class VentaLogicTest {
         valogic.deleteVenta(vrlist.get(0).getId(), vaentity.getId());
         VentaEntity goneva = vam.find(VentaEntity.class, vaentity.getId());
         Assert.assertNull(goneva);
+    }
+    
+    /**
+     * Test de falla de borrar una venta nula
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void deleteNullVentaTest() throws BusinessLogicException{
+        VentaEntity vaentity = valist.get(0);
+        valogic.deleteVenta(vrlist.get(0).getId(), vaentity.getId());
+        valogic.deleteVenta(vrlist.get(0).getId(), vaentity.getId());
     }
 }

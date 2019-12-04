@@ -106,10 +106,13 @@ public class VendedorVentaLogicTest {
                 VendedorEntity vendedor = varfactory.manufacturePojo(VendedorEntity.class);
                 varm.persist(vendedor);
                 vrlist.add(vendedor);
-                valist.get(j).setVendedor(vendedor);
-                List<VentaEntity> vregister = new ArrayList<>();
-                vregister.add(valist.get(j));
-                vendedor.setVentas(vregister);
+                if(j == 0)
+                {
+                    valist.get(j).setVendedor(vendedor);
+                    List<VentaEntity> vregister = new ArrayList<>();
+                    vregister.add(valist.get(j));
+                    vendedor.setVentas(vregister);
+                }
             }
             utxn.commit();
         } catch (Exception e1) {
@@ -133,6 +136,17 @@ public class VendedorVentaLogicTest {
         VentaEntity vresult = varlogic.createVenta(vcontainer.getId(), vcontained.getId());
         Assert.assertNotNull(vresult);
         Assert.assertEquals(vresult.getId(), vcontained.getId());
+    }
+    
+    /**
+     * Test de falla de consultar una venta sin vendedor
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void findVentaWithoutVendedorTest() throws BusinessLogicException {
+        VendedorEntity vcontainer = vrlist.get(2);
+        VentaEntity vcontained = valist.get(0);
+        varlogic.findVenta(vcontainer.getId(), vcontained.getId());
     }
 
     /**
@@ -162,7 +176,7 @@ public class VendedorVentaLogicTest {
      * Test de validación de reemplazar las ventas de un vendedor.
      */
     @Test
-    public void replaceComprobantesTest() {
+    public void replaceVentasTest() {
         VendedorEntity vmanager = vrlist.get(0);
         List<VentaEntity> listedva = valist.subList(2, 4);
         varlogic.replaceVentas(vmanager.getId(), listedva);

@@ -167,16 +167,18 @@ public class CalificacionPersistenceTest {
         Assert.assertNull(deleted);
     }
     
-    /*
+    /**
+     * Prueba para consultar una calificaion por id.
+     */
     @Test
-    public void findCalificacionByCalificacionTest() {
+    public void findCalificacionByComentarioTest() {
         CalificacionEntity entity = data.get(0);
-        CalificacionEntity newEntity = cp.findByCalificacion(entity.getCalificacionNumerica());
+        CalificacionEntity newEntity = cp.findByComentario(entity.getComentario());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
 
-        newEntity = cp.findByCalificacion(null);
+        newEntity = cp.findByComentario(null);
         Assert.assertNull(newEntity);
-    }*/
+    }
 
 }
