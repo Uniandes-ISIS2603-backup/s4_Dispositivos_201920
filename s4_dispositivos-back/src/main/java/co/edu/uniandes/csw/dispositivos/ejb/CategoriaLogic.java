@@ -109,7 +109,7 @@ public class CategoriaLogic {
      * @param pCategoriaId: id de la categoria a borrar
      * @throws BusinessLogicException Si la categoria a eliminar.
      */
-    public void deleteCategoria(Long pCategoriaId) throws BusinessLogicException {
+     public void deleteCategoria(Long pCategoriaId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar la categoria con id = {0}", pCategoriaId);
         persistence.delete(pCategoriaId);
         LOGGER.log(Level.INFO, "Termina proceso de borrar la categoria con id = {0}", pCategoriaId);
