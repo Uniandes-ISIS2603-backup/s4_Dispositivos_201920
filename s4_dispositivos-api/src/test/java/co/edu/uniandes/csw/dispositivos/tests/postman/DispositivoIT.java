@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.dispositivos.dtos.DispositivoDTO;
 import co.edu.uniandes.csw.dispositivos.mappers.BusinessLogicExceptionMapper;
 import co.edu.uniandes.csw.dispositivos.resources.ClienteResource;
 import co.edu.uniandes.csw.dispositivos.resources.DispositivoResource;
+import co.edu.uniandes.csw.dispositivos.resources.RestConfig;
 import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
 import java.io.File;
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class DispositivoIT {
                         .importRuntimeDependencies().resolve()
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
-                .addPackage(DispositivoResource.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
+                .addPackage(RestConfig.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
                 .addPackage(DispositivoDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
                 .addPackage(BusinessLogicExceptionMapper.class.getPackage())
                 // El archivo que contiene la configuracion a la base de datos.
