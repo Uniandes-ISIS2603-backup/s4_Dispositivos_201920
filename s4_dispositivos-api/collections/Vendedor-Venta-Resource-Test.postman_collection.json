@@ -133,8 +133,7 @@
 					"script": {
 						"id": "65e119ea-fe38-41ef-9bd7-7132634d6316",
 						"exec": [
-							"tests[\"No crea un vendedor con cédula repetida\"] = responseCode.code === 412;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un vendedor con esa cédula\"); "
+							"tests[\"No crea un vendedor con cédula repetida\"] = responseCode.code === 412;"
 						],
 						"type": "text/javascript"
 					}
@@ -312,8 +311,7 @@
 					"script": {
 						"id": "65e119ea-fe38-41ef-9bd7-7132634d6316",
 						"exec": [
-							"tests[\"No crea una venta con precio de reventa negativo\"] = responseCode.code === 412;",
-							""
+							"tests[\"No crea una venta con precio de reventa negativo\"] = responseCode.code === 412;"
 						],
 						"type": "text/javascript"
 					}
