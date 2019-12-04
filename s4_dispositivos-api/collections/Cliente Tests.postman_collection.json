@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0df7a9ae-420b-428a-b335-82ad426afbea",
+		"_postman_id": "57219bf1-9208-49bc-a042-8972b23591d5",
 		"name": "Cliente Tests",
 		"description": "Prueba a cliente y sus relaciones con comprobanteDePago",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -43,12 +43,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -96,12 +96,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -148,12 +148,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/dispositivos",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -186,12 +186,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}/facturas",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_c1}}/facturas",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -239,12 +239,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}/comprobantes",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_c1}}/comprobantes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -293,12 +293,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}/comprobantes",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_c1}}/comprobantes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -347,12 +347,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_c1}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -370,12 +370,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}/facturas",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_c1}}/facturas",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -393,12 +393,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}/comprobantes",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_c1}}/comprobantes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -445,12 +445,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_c1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_c1}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
