@@ -13,6 +13,8 @@ import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -406,6 +408,34 @@ public class DispositivoLogicTest {
         dispositivoLogic.deleteDispositivo(entity.getId());
         DispositivoEntity deleted = em.find(DispositivoEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+
+    /**
+     * Prueba para consultar la lista de categorias.
+     */
+    @Test
+    public void getDispositivosTest() {
+
+        List<DispositivoEntity> data = new ArrayList<DispositivoEntity>();
+        PodamFactory factory = new PodamFactoryImpl();
+
+        for (int i = 0; i < 3; i++) {
+            DispositivoEntity entity = factory.manufacturePojo(DispositivoEntity.class);
+            em.persist(entity);
+            data.add(entity);
+        }
+
+        List<DispositivoEntity> list = dispositivoLogic.getDispositivos();
+        Assert.assertEquals(data.size(), list.size());
+        for (DispositivoEntity entity : list) {
+            boolean found = false;
+            for (DispositivoEntity entity2 : data) {
+                if (entity.getId().equals(entity2.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
     }
 
 }
