@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.dispositivos.tests.postman;
 
 import co.edu.uniandes.csw.dispositivos.dtos.AdministradorDTO;
-import co.edu.uniandes.csw.dispositivos.dtos.CascaraDTO;
 import co.edu.uniandes.csw.dispositivos.mappers.BusinessLogicExceptionMapper;
 import co.edu.uniandes.csw.dispositivos.resources.AdministradorResource;
 import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
