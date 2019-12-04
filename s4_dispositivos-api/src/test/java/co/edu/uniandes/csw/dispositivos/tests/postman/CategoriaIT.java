@@ -34,6 +34,7 @@ public class CategoriaIT {
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "s4_dispositivos-api.war")//War del modulo api
                 // Se agrega las dependencias
+                // Se agrega las dependencias
                 .addAsLibraries(Maven.resolver().loadPomFromFile("pom.xml")
                         .importRuntimeDependencies().resolve()
                         .withTransitivity().asFile())
