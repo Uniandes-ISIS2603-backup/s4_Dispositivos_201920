@@ -175,7 +175,7 @@
 						"id": "235687ad-e750-4fea-b37f-0dccb2edc9bd",
 						"exec": [
 							"tests[\"No se puede asociar un comprobante a un cliente que no existe.\"] = responseCode.code === 404;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /cliente/0/comprobantes no existe.\");"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -344,7 +344,7 @@
 						"exec": [
 							"tests[\"No se puede editar un comprobante que no existe.\"] = responseCode.code === 404;",
 							"let id = pm.variables.get(\"new_id_cliente1\");",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/\"+id+\"/comprobante/0 no existe.\");  "
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -492,7 +492,7 @@
 						"id": "0c199000-a389-4706-8406-5cdc8f12186b",
 						"exec": [
 							"tests[\"No se puede borrar un comprobante sobre un cliente que no existe.\"] = responseCode.code === 404;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /cliente/0/comprobantes no existe.\");"
+							""
 						],
 						"type": "text/javascript"
 					}
