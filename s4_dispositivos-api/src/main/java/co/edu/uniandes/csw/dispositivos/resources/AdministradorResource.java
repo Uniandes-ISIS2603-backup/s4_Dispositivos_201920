@@ -60,7 +60,7 @@ public class AdministradorResource
      * Busca y devuelve todos los administradores que existen en la aplicación
      * @return JSONArray Los administradores encontrados en la aplicación. Si no hay ninguno retorna una lista vacía.
      */
-    @GET
+        @GET
     public List<AdministradorDTO> getAdministradores()
     {
         LOGGER.info("AdministradorResource getAdministradores: input: void");
@@ -81,7 +81,7 @@ public class AdministradorResource
         LOGGER.log(Level.INFO, "AdministradorResource getAdministrador: input: {0}", adminId);
         AdministradorEntity adminEntity = adminLogic.getAdministrador(adminId);
         if (adminEntity == null) {
-            throw new WebApplicationException("El recurso /administrador/" + adminId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /administradorGet/" + adminId + " no existe.", 404);
         }
         AdministradorDTO adminDTO = new AdministradorDTO(adminEntity);
         LOGGER.log(Level.INFO, "AdministradorResource getAdministrador: output: {0}", adminDTO);
@@ -102,7 +102,7 @@ public class AdministradorResource
         LOGGER.log(Level.INFO, "AdministradorResource updateAdministrador: input: id: {0} , administrador: {1}", new Object[]{adminId, admin});
         admin.setId(adminId);
         if (adminLogic.getAdministrador(adminId) == null)
-            throw new WebApplicationException("El recurso /administrador/" + adminId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /administradorUpdate/" + adminId + " no existe.", 404);
         
         AdministradorDTO adminDTO = new AdministradorDTO(adminLogic.updateAdministrador(adminId, admin.toEntity()));
         LOGGER.log(Level.INFO, "AdministradorResource updateAdministrador: output: {0}", adminDTO);
@@ -121,7 +121,7 @@ public class AdministradorResource
         LOGGER.log(Level.INFO, "AdministradorResource deleteAdministrador: input: {0}", adminId);
         AdministradorEntity entity = adminLogic.getAdministrador(adminId);
         if (entity == null)
-            throw new WebApplicationException("El recurso /administrador/" + adminId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /administradorDelete/" + adminId + " no existe.", 404);
         
         LOGGER.info("AdministradorResource deleteAdministrador: output: void");
     }

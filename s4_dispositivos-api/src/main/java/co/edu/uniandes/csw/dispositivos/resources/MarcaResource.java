@@ -77,7 +77,7 @@ public class MarcaResource {
         LOGGER.log(Level.INFO, "MarcaResource getMarca: input: {0}", marcaId);
         MarcaEntity marcaEntity = marcaLogic.getMarca(marcaId);
         if (marcaEntity == null) {
-            throw new WebApplicationException("El recurso /marcas/" + marcaId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /marcasGet/" + marcaId + " no existe.", 404);
         }
         MarcaDTO detailDTO = new MarcaDTO(marcaEntity);
         LOGGER.log(Level.INFO, "MarcaResource getMarca: output: {0}", detailDTO);
@@ -102,7 +102,7 @@ public class MarcaResource {
         LOGGER.log(Level.INFO, "MarcaResource updateMarca: input: id:{0} , marca: {1}", new Object[]{marcaId, marca});
         marca.setId(marcaId);
         if (marcaLogic.getMarca(marcaId) == null) {
-            throw new WebApplicationException("El recurso /marcas/" + marcaId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /marcasUpdate/" + marcaId + " no existe.", 404);
         }
         MarcaDTO detailDTO = new MarcaDTO(marcaLogic.updateMarca(marcaId, marca.toEntity()));
         LOGGER.log(Level.INFO, "MarcaResource updateMarca: output: {0}", detailDTO);
@@ -124,7 +124,7 @@ public class MarcaResource {
     public void deleteMarca(@PathParam("marcasId") Long marcaId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "MarcaResource deleteMarca: input: {0}", marcaId);
         if (marcaLogic.getMarca(marcaId) == null) {
-            throw new WebApplicationException("El recurso /marcas/" + marcaId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /marcasDelete/" + marcaId + " no existe.", 404);
         }
         marcaLogic.deleteMarca(marcaId);
         LOGGER.info("MarcaResource deleteMarca: output: void");
@@ -139,7 +139,7 @@ public class MarcaResource {
     }
 
     private List<MarcaDetailDTO> listEntity2DetailDTO(List<MarcaEntity> entityList) {
-        List<MarcaDetailDTO> list = new ArrayList<MarcaDetailDTO>();
+        List<MarcaDetailDTO> list = new ArrayList<>();
         for (MarcaEntity entity : entityList) {
             list.add(new MarcaDetailDTO(entity));
         }
