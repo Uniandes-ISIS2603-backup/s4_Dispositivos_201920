@@ -92,12 +92,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/medios",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -135,12 +135,12 @@
 					"raw": "{\n\t\"numeroTarjeta\":\"523456789012345\",\n\t\"numeroDeVerificacion\" : \"123\", \n\t\"tipoTarjeta\" : \"VISA\", \n\t\"tipoCredito\" : \"DEBITO\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/medios",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -185,12 +185,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/medios",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -235,12 +235,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/medios",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -287,12 +287,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/medios",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -322,12 +322,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/medios/{{new_id_m}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios/{{new_id_m}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -356,12 +356,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/medios/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",

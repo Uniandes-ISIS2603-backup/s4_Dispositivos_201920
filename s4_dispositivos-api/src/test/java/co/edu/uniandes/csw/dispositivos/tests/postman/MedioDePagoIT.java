@@ -31,6 +31,7 @@ public class MedioDePagoIT {
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "s4_dispositivos-api.war")//War del modulo api
                 // Se agrega las dependencias
+                // Se agrega las dependencias
                 .addAsLibraries(Maven.resolver().loadPomFromFile("pom.xml")
                         .importRuntimeDependencies().resolve()
                         .withTransitivity().asFile())
@@ -51,7 +52,7 @@ public class MedioDePagoIT {
     @RunAsClient
     public void postman() throws IOException {
         PostmanTestBuilder tp = new PostmanTestBuilder();
-        tp.setTestWithoutLogin(COLLECTION, "Entorno-IT.postman_environment");
+        tp.setTestWithoutLogin(COLLECTION, "Entorno-Colecciones.postman_environment");
         String desiredResult = "0";
         Assert.assertEquals("Error en Iterations de: " + COLLECTION, desiredResult, tp.getIterations_failed());
 
