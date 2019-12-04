@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 /**
  *
@@ -61,7 +60,7 @@ public class DispositivoPersistence {
     public boolean containsDispositivo(DispositivoEntity dispositivo) {
         List<DispositivoEntity> all = this.findAll();
         boolean existe = false;
-        if (all.size() > 0) {
+        if (all.isEmpty()) {
             for (DispositivoEntity dis : all) {
                 if (dis.getNombre().equals(dispositivo.getNombre())) {
                     existe = true;
