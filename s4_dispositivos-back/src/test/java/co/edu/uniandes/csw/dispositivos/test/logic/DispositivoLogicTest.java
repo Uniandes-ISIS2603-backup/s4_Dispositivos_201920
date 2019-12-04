@@ -57,7 +57,9 @@ public class DispositivoLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<DispositivoEntity> data = new ArrayList<DispositivoEntity>();
+    private List<DispositivoEntity> dataDispo = new ArrayList<DispositivoEntity>();
+    private List<CategoriaEntity> dataCategoria = new ArrayList<CategoriaEntity>();
+    private List<MarcaEntity> dataMarca = new ArrayList<MarcaEntity>();
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -104,9 +106,22 @@ public class DispositivoLogicTest {
         PodamFactory factory = new PodamFactoryImpl();
 
         for (int i = 0; i < 3; i++) {
+            MarcaEntity marca = factory.manufacturePojo(MarcaEntity.class);
+            em.persist(marca);
+            dataMarca.add(marca);
+        }
+        for (int i = 0; i < 3; i++) {
+            CategoriaEntity categoria = factory.manufacturePojo(CategoriaEntity.class);
+            em.persist(categoria);
+            dataCategoria.add(categoria);
+        }
+        for (int i = 0; i < 3; i++) {
             DispositivoEntity entity = factory.manufacturePojo(DispositivoEntity.class);
+            entity.setCategoria(dataCategoria.get(0));
+            entity.setMarca(dataMarca.get(0));
+
             em.persist(entity);
-            data.add(entity);
+            dataDispo.add(entity);
         }
     }
 
@@ -417,31 +432,57 @@ public class DispositivoLogicTest {
      */
     @Test
     public void updateDispositivoTest() throws BusinessLogicException {
-        DispositivoEntity entity = factory.manufacturePojo(DispositivoEntity.class);
-        DispositivoEntity result = dispositivoLogic.createDispositivo(entity);
+//        DispositivoEntity entity = dataDispo.get(0);
+//        DispositivoEntity pojoEntity = factory.manufacturePojo(DispositivoEntity.class);
+//        CategoriaEntity categoriaEntity = factory.manufacturePojo(CategoriaEntity.class);
+//        MarcaEntity marcaEntity = factory.manufacturePojo(MarcaEntity.class);
+//        CategoriaEntity result2 = categoriaLogic.createCategoria(categoriaEntity);
+//        MarcaEntity result3 = marcaLogic.createMarca(marcaEntity);
+//        pojoEntity.setId(entity.getId());
+//        pojoEntity.setCategoria(result2);
+//        pojoEntity.setMarca(result3);
+//        Assert.assertNotNull(categoriaEntity);
+//        Assert.assertNotNull(marcaEntity);
+//
+//        boolean descuento = false;
+//        if (pojoEntity.getPrecio() > pojoEntity.getDescuento()) {
+//            descuento = true;
+//        } else {
+//            pojoEntity.setPrecio(pojoEntity.getDescuento() + pojoEntity.getPrecio());
+//        }
+//        descuento = true;
+//        Assert.assertTrue(descuento);
+//        dispositivoLogic.updateDispositivo(pojoEntity.getId(), pojoEntity);
+//        DispositivoEntity resp = em.find(DispositivoEntity.class, entity.getId());
+//        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+//        Assert.assertEquals(pojoEntity.getNombre(), resp.getNombre());
+        DispositivoEntity entity = dataDispo.get(0);
         DispositivoEntity pojoEntity = factory.manufacturePojo(DispositivoEntity.class);
         CategoriaEntity categoriaEntity = factory.manufacturePojo(CategoriaEntity.class);
         MarcaEntity marcaEntity = factory.manufacturePojo(MarcaEntity.class);
         CategoriaEntity result2 = categoriaLogic.createCategoria(categoriaEntity);
         MarcaEntity result3 = marcaLogic.createMarca(marcaEntity);
-        pojoEntity.setId(entity.getId());
         pojoEntity.setCategoria(result2);
         pojoEntity.setMarca(result3);
         Assert.assertNotNull(categoriaEntity);
         Assert.assertNotNull(marcaEntity);
+        pojoEntity.setId(entity.getId());
 
         boolean descuento = false;
-        if (pojoEntity.getPrecio() > pojoEntity.getDescuento()) {
+        if (pojoEntity.getPrecio() < pojoEntity.getDescuento()) {
+            pojoEntity.setPrecio(pojoEntity.getDescuento() + 1);
             descuento = true;
-        } else {
-            pojoEntity.setPrecio(pojoEntity.getDescuento() + pojoEntity.getPrecio());
         }
         descuento = true;
         Assert.assertTrue(descuento);
         dispositivoLogic.updateDispositivo(pojoEntity.getId(), pojoEntity);
         DispositivoEntity resp = em.find(DispositivoEntity.class, entity.getId());
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
-        Assert.assertEquals(pojoEntity.getNombre(), resp.getNombre());
+        Assert.assertEquals(pojoEntity.getDescripcion(), resp.getDescripcion());
+        Assert.assertEquals(pojoEntity.getDescuento(), resp.getDescuento());
+        Assert.assertEquals(pojoEntity.getEstado(), resp.getEstado());
+        Assert.assertEquals(pojoEntity.getMarca(), resp.getMarca());
+        Assert.assertEquals(pojoEntity.getCategoria(), resp.getCategoria());
     }
 
     /**
@@ -464,10 +505,10 @@ public class DispositivoLogicTest {
     @Test
     public void getDispositivosTest() {
         List<DispositivoEntity> list = dispositivoLogic.getDispositivos();
-        Assert.assertEquals(data.size(), list.size());
+        Assert.assertEquals(dataDispo.size(), list.size());
         for (DispositivoEntity entity : list) {
             boolean found = false;
-            for (DispositivoEntity entity2 : data) {
+            for (DispositivoEntity entity2 : dataDispo) {
                 if (entity.getId().equals(entity2.getId())) {
                     found = true;
                 }
