@@ -35,6 +35,7 @@ public class AdministradorEntity extends BaseEntity implements Serializable
      * Constructor de la clase
      * @param pUsuario usuario de indetificacion
      * @param pContrasena contrasena de verificacion
+     * @param pCorreo
      */
     public AdministradorEntity(String pUsuario, String pContrasena, String pCorreo)
     {
