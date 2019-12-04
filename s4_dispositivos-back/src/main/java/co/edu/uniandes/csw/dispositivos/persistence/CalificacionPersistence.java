@@ -45,9 +45,9 @@ public class CalificacionPersistence {
         em.remove(entity);
     }
     
-    public CalificacionEntity findByCalificacion(double calificacion) {
-        TypedQuery query = em.createQuery("Select f From CalificacionEntity f where f.calificacionNumerica = :calificacion", CalificacionEntity.class);
-        query = query.setParameter("calificacion", calificacion);
+    public CalificacionEntity findByComentario(String pComentario) {
+        TypedQuery query = em.createQuery("Select f From CalificacionEntity f where f.comentario = :pComentario", CalificacionEntity.class);
+        query = query.setParameter("pComentario", pComentario);
         List<CalificacionEntity> sameCode = query.getResultList();
         CalificacionEntity result;
         if (sameCode == null) {

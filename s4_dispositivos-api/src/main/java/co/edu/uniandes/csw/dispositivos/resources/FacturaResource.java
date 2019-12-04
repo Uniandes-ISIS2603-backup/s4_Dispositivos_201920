@@ -72,7 +72,7 @@ public class FacturaResource {
     }
 
     private List<FacturaDetailDTO> listEntity2DetailDTO(List<FacturaEntity> entityList) {
-        List<FacturaDetailDTO> list = new ArrayList<FacturaDetailDTO>();
+        List<FacturaDetailDTO> list = new ArrayList<>();
         for (FacturaEntity entity : entityList) {
             list.add(new FacturaDetailDTO(entity));
         }

@@ -84,7 +84,7 @@ public class MedioDePagoResource {
         LOGGER.log(Level.INFO, "MedioDePagoResource getMedioDePago: input: {0}", medioId);
         MedioDePagoEntity mediopEntity = medioLogic.getMedioDePago(medioId);
         if (mediopEntity == null) {
-            throw new WebApplicationException("El recurso /medios/" + medioId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /mediosGet/" + medioId + " no existe 1.", 404);
         }
         MedioDePagoDTO detailDTO = new MedioDePagoDTO(mediopEntity);
         LOGGER.log(Level.INFO, "MedioDePagoResource getMedioDePago: output: {0}", detailDTO);
@@ -110,9 +110,9 @@ public class MedioDePagoResource {
         LOGGER.log(Level.INFO, "MedioDePagoResource updateMedioDePago: input: id:{0} , medio de pago: {1}", new Object[]{medioId, medio});
         medio.setId(medioId);
         if (medioLogic.getMedioDePago(medioId) == null) {
-            throw new WebApplicationException("El recurso /medios/" + medioId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /mediosUpdate/" + medioId + " no existe 2.", 404);
         }
-        MedioDePagoDTO detailDTO = new MedioDePagoDTO(medioLogic.updateMedioDePago(medioId, medio.toEntity()));
+        MedioDePagoDTO detailDTO = new MedioDePagoDTO(medioLogic.updateMedioDePago(medio.toEntity()));
         LOGGER.log(Level.INFO, "MedioDePagoResource updateMedioDePago: output: {0}", detailDTO);
         return detailDTO;
     }
@@ -133,7 +133,7 @@ public class MedioDePagoResource {
     public void deleteMedioDePago(@PathParam("mediosId") Long medioId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "MedioDePagoResource deleteMedioDePago: input: {0}", medioId);
         if (medioLogic.getMedioDePago(medioId) == null) {
-            throw new WebApplicationException("El recurso /medios/" + medioId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /mediosDelete/" + medioId + " no existe 3.", 404);
         }
         medioLogic.deleteMedioDePago(medioId);
         LOGGER.info("MedioDePagoResource deleteMedioDePago: output: void");
@@ -148,7 +148,7 @@ public class MedioDePagoResource {
     }
 
     private List<MedioDePagoDTO> listEntity2DetailDTO(List<MedioDePagoEntity> entityList) {
-        List<MedioDePagoDTO> list = new ArrayList<MedioDePagoDTO>();
+        List<MedioDePagoDTO> list = new ArrayList<>();
         for (MedioDePagoEntity entity : entityList) {
             list.add(new MedioDePagoDTO(entity));
         }

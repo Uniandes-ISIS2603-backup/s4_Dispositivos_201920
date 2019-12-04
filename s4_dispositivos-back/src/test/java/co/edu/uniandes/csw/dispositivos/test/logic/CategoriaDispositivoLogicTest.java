@@ -114,7 +114,7 @@ public class CategoriaDispositivoLogicTest {
             CategoriaEntity entity = factory.manufacturePojo(CategoriaEntity.class);
             if (i == 0) {
                 dispositivos.get(i).setCategoria(entity);
-                List<DispositivoEntity> dispositivosw=new ArrayList<>();
+                List<DispositivoEntity> dispositivosw = new ArrayList<>();
                 dispositivosw.add(dispositivos.get(i));
                 entity.setDispositivos(dispositivosw);
 
@@ -184,7 +184,7 @@ public class CategoriaDispositivoLogicTest {
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void getBookNoAsociadoTest() throws BusinessLogicException {
+    public void getDispositivosNoAsociadoTest() throws BusinessLogicException {
         CategoriaEntity entity = data.get(0);
         DispositivoEntity bookEntity = dispositivos.get(1);
         categoriaDispositivoLogic.getDispositivo(entity.getId(), bookEntity.getId());
@@ -195,7 +195,7 @@ public class CategoriaDispositivoLogicTest {
      * instancia de categoria.
      */
     @Test
-    public void replaceBooksTest() {
+    public void replaceDispositivosTest() {
         CategoriaEntity entity = data.get(0);
         List<DispositivoEntity> list = dispositivos.subList(1, 3);
         categoriaDispositivoLogic.replaceDispositivos(entity.getId(), list);

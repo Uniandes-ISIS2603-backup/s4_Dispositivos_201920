@@ -11,8 +11,6 @@ import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.ClientePersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.ComprobanteDePagoPersistence;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -22,8 +20,6 @@ import javax.inject.Inject;
  */
 @Stateless
 public class ClienteComprobanteLogic {
-
-    private static final Logger LOGGER = Logger.getLogger(ClienteComprobanteLogic.class.getName());
 
     @Inject
     private ComprobanteDePagoPersistence comprobantePersistence;
@@ -40,11 +36,9 @@ public class ClienteComprobanteLogic {
      * @return El comprobante creado.
      */
     public ComprobanteDePagoEntity addComprobante(Long comprobantesId, Long clientesId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de agregarle un comprobante a el cliente con id = {0}", clientesId);
         ClienteEntity clienteEntity = clientePersistence.find(clientesId);
         ComprobanteDePagoEntity comprobanteEntity = comprobantePersistence.find(clientesId, comprobantesId);
         comprobanteEntity.setCliente(clienteEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de agregarle un comprobante a el cliente con id = {0}", clientesId);
         return comprobanteEntity;
     }
 
@@ -55,7 +49,6 @@ public class ClienteComprobanteLogic {
      * @return La lista de comprobantes de el cliente
      */
     public List<ComprobanteDePagoEntity> getComprobantes(Long clientesId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar los comprobantes asociadas a el cliente con id = {0}", clientesId);
         return clientePersistence.find(clientesId).getComprobantesRecibidos();
     }
 
@@ -69,11 +62,9 @@ public class ClienteComprobanteLogic {
      * cliente
      */
     public ComprobanteDePagoEntity getComprobante(Long clientesId, Long comprobantesId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el comprobante con id = {0} de el cliente con id = " + clientesId, comprobantesId);
         List<ComprobanteDePagoEntity> comprobantes = clientePersistence.find(clientesId).getComprobantesRecibidos();
         ComprobanteDePagoEntity comprobanteEntity = comprobantePersistence.find(clientesId, comprobantesId);
         int index = comprobantes.indexOf(comprobanteEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el comprobante con id = {0} de el cliente con id = " + clientesId, comprobantesId);
         if (index >= 0) {
             return comprobantes.get(index);
         }
@@ -88,7 +79,6 @@ public class ClienteComprobanteLogic {
      * @return La lista de comprobantes actualizada.
      */
     public List<ComprobanteDePagoEntity> replaceComprobantes(Long clientesId, List<ComprobanteDePagoEntity> comprobantes) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el cliente con id = {0}", clientesId);
         ClienteEntity clienteEntity = clientePersistence.find(clientesId);
         List<ComprobanteDePagoEntity> comprobanteList = comprobantePersistence.findAll();
         for (ComprobanteDePagoEntity comprobante : comprobanteList) {
@@ -98,7 +88,6 @@ public class ClienteComprobanteLogic {
                 comprobante.setCliente(null);
             }
         }
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el cliente con id = {0}", clientesId);
         return comprobantes;
     }
 }

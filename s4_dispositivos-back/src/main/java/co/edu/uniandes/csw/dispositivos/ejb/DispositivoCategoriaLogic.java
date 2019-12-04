@@ -9,8 +9,6 @@ import co.edu.uniandes.csw.dispositivos.entities.CategoriaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.CategoriaPersistence;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -20,8 +18,6 @@ import javax.inject.Inject;
  */
 @Stateless
 public class DispositivoCategoriaLogic {
-
-    private static final Logger LOGGER = Logger.getLogger(DispositivoCategoriaLogic.class.getName());
 
     @Inject
     private DispositivoPersistence dispositivoPersistence;
@@ -46,10 +42,10 @@ public class DispositivoCategoriaLogic {
 
     /**
      *
-     * @param dispositivoId
+     * @param categoriaId
      */
-    public void removeCategoria(Long dispositivoId) {
-        DispositivoEntity dispositivoEntity = dispositivoPersistence.find(dispositivoId);
+    public void removeCategoria(Long categoriaId) {
+        DispositivoEntity dispositivoEntity = dispositivoPersistence.find(categoriaId);
         CategoriaEntity categoriaEntity = categoriaPersistence.find(dispositivoEntity.getCategoria().getId());
         dispositivoEntity.setCategoria(null);
         categoriaEntity.getDispositivos().remove(dispositivoEntity);

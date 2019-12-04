@@ -15,70 +15,67 @@ import java.util.List;
  *
  * @author Zharet Bautista Montes
  */
-public class VendedorDetailDTO extends VendedorDTO implements Serializable
-{
+public class VendedorDetailDTO extends VendedorDTO implements Serializable {
+
     /**
      * Lista de ventas del DTODetail
      */
-    private List<VentaDTO> ventas; 
-    
+    private List<VentaDTO> ventas;
+
     /**
      * Constructor vacío
      */
-    public VendedorDetailDTO() 
-    {    }
-    
+    public VendedorDetailDTO() {
+    }
+
     /**
      * Constructor basado en la entidad
+     *
      * @param refvr
      */
-    public VendedorDetailDTO(VendedorEntity refvr) 
-    {
+    public VendedorDetailDTO(VendedorEntity refvr) {
         super(refvr);
-        if(refvr != null)
-        {
-            if(refvr.getVentas() != null)
-            {
-                ventas = new ArrayList<>(); 
-                for(VentaEntity ventavr : refvr.getVentas())
-                    ventas.add(new VentaDTO(ventavr));
+        if (refvr != null && refvr.getVentas() != null) {
+            ventas = new ArrayList<>();
+            for (VentaEntity ventavr : refvr.getVentas()) {
+                ventas.add(new VentaDTO(ventavr));
             }
         }
     }
-    
+
     /**
      * Retorna las ventas del DTODetail
+     *
      * @return the ventas
      */
-    public List<VentaDTO> getVentas() 
-    {
+    public List<VentaDTO> getVentas() {
         return ventas;
     }
 
     /**
      * Asigna las ventas del DTODetail
+     *
      * @param ventas the ventas to set
      */
-    public void setVentas(List<VentaDTO> ventas) 
-    {
+    public void setVentas(List<VentaDTO> ventas) {
         this.ventas = ventas;
     }
-    
+
     /**
      * Transforma el DTODetail en un Entity con asociaciones
+     *
      * @return VendedorEntity
      */
     @Override
-    public VendedorEntity toEntity()
-    {
+    public VendedorEntity toEntity() {
         VendedorEntity extvendedor = super.toEntity();
-        if(getVentas() != null)
-        {
+        if (getVentas() != null) {
             List<VentaEntity> ventalist = new ArrayList<>();
-            for(VentaDTO dtoventa : getVentas())
+            for (VentaDTO dtoventa : getVentas()) {
                 ventalist.add(dtoventa.toEntity());
-            extvendedor.setVentas(ventalist); 
+            }
+            extvendedor.setVentas(ventalist);
         }
-        return extvendedor; 
+        return extvendedor;
     }
 }

@@ -182,7 +182,7 @@ public class CategoriaLogicTest {
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
     @Test
-    public void deleteMedioDePagoTest() throws BusinessLogicException {
+    public void deleteCategoriaTest() throws BusinessLogicException {
         CategoriaEntity entity = data.get(1);
         categoriaLogic.deleteCategoria(entity.getId());
         CategoriaEntity deleted = em.find(CategoriaEntity.class, entity.getId());

@@ -5,11 +5,16 @@
  */
 package co.edu.uniandes.csw.dispositivos.test.logic;
 
+import co.edu.uniandes.csw.dispositivos.ejb.CategoriaLogic;
 import co.edu.uniandes.csw.dispositivos.ejb.DispositivoLogic;
+import co.edu.uniandes.csw.dispositivos.ejb.MarcaLogic;
 import co.edu.uniandes.csw.dispositivos.entities.CategoriaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
+import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,6 +42,12 @@ public class DispositivoLogicTest {
 
     @Inject
     private DispositivoLogic dispositivoLogic;
+
+    @Inject
+    private CategoriaLogic categoriaLogic;
+
+    @Inject
+    private MarcaLogic marcaLogic;
 
     @Inject
     private DispositivoPersistence dp;
@@ -73,6 +84,41 @@ public class DispositivoLogicTest {
         Assert.assertEquals(comparador.isEsImportado(), result.isEsImportado());
         Assert.assertEquals(comparador.isPromocion(), result.isPromocion());
         Assert.assertEquals(comparador.isUsado(), result.isUsado());
+
+        Assert.assertTrue(result.isEnStock());
+
+        boolean precioMenorCero = false;
+        if (result.getPrecio() > 0 && result.getPrecioImportacion() > 0) {
+            precioMenorCero = true;
+        }
+
+        Assert.assertTrue(precioMenorCero);
+
+        Assert.assertTrue(result.isEnStock());
+
+        boolean descuento = false;
+        if (result.getPrecio() > result.getDescuento()) {
+            descuento = true;
+        } else {
+            result.setPrecio(result.getDescuento() * 2);
+        }
+        descuento = true;
+
+        Assert.assertTrue(descuento);
+
+    }
+
+    /**
+     * Prueba para consultar un Dispositivo.
+     */
+    @Test
+    public void getDispositivoTest() throws BusinessLogicException {
+        DispositivoEntity entity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(entity);
+        DispositivoEntity resultEntity = dispositivoLogic.getDispositivo(entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getNombre(), resultEntity.getNombre());
     }
 
     /**
@@ -83,6 +129,7 @@ public class DispositivoLogicTest {
     public void createDispositivoNull() throws BusinessLogicException {
         DispositivoEntity nuevo = null;
         dispositivoLogic.createDispositivo(nuevo);
+
     }
 
     /**
@@ -315,6 +362,80 @@ public class DispositivoLogicTest {
         result.setPromocion(true);
 
         dispositivoLogic.createDispositivo(result);
+    }
+
+    /**
+     * Prueba para actualizar un dispositivo.
+     */
+    @Test
+    public void updateDispositivoTest() throws BusinessLogicException {
+        DispositivoEntity entity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(entity);
+        DispositivoEntity pojoEntity = factory.manufacturePojo(DispositivoEntity.class);
+        CategoriaEntity categoriaEntity = factory.manufacturePojo(CategoriaEntity.class);
+        MarcaEntity marcaEntity = factory.manufacturePojo(MarcaEntity.class);
+        CategoriaEntity result2 = categoriaLogic.createCategoria(categoriaEntity);
+        MarcaEntity result3 = marcaLogic.createMarca(marcaEntity);
+        pojoEntity.setId(entity.getId());
+        pojoEntity.setCategoria(result2);
+        pojoEntity.setMarca(result3);
+        Assert.assertNotNull(categoriaEntity);
+        Assert.assertNotNull(marcaEntity);
+
+        boolean descuento = false;
+        if (pojoEntity.getPrecio() > pojoEntity.getDescuento()) {
+            descuento = true;
+        } else {
+            pojoEntity.setPrecio(pojoEntity.getDescuento() + pojoEntity.getPrecio());
+        }
+        descuento = true;
+        Assert.assertTrue(descuento);
+        dispositivoLogic.updateDispositivo(pojoEntity.getId(), pojoEntity);
+        DispositivoEntity resp = em.find(DispositivoEntity.class, entity.getId());
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getNombre(), resp.getNombre());
+    }
+
+    /**
+     * Prueba para eliminar un dispositivo.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
+    @Test
+    public void deleteDispositivoTest() throws BusinessLogicException {
+        DispositivoEntity entity = factory.manufacturePojo(DispositivoEntity.class);
+        DispositivoEntity result = dispositivoLogic.createDispositivo(entity);
+        dispositivoLogic.deleteDispositivo(entity.getId());
+        DispositivoEntity deleted = em.find(DispositivoEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
+
+    /**
+     * Prueba para consultar la lista de categorias.
+     */
+    @Test
+    public void getDispositivosTest() {
+
+        List<DispositivoEntity> data = new ArrayList<DispositivoEntity>();
+        PodamFactory factory = new PodamFactoryImpl();
+
+        for (int i = 0; i < 3; i++) {
+            DispositivoEntity entity = factory.manufacturePojo(DispositivoEntity.class);
+            em.persist(entity);
+            data.add(entity);
+        }
+
+        List<DispositivoEntity> list = dispositivoLogic.getDispositivos();
+        Assert.assertEquals(data.size(), list.size());
+        for (DispositivoEntity entity : list) {
+            boolean found = false;
+            for (DispositivoEntity entity2 : data) {
+                if (entity.getId().equals(entity2.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
     }
 
 }

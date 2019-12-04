@@ -6,11 +6,9 @@
 package co.edu.uniandes.csw.dispositivos.test.persistence;
 
 import co.edu.uniandes.csw.dispositivos.entities.FacturaEntity;
-import co.edu.uniandes.csw.dispositivos.entities.MediaEntity;
 import co.edu.uniandes.csw.dispositivos.entities.VendedorEntity;
 import co.edu.uniandes.csw.dispositivos.entities.VentaEntity;
 import co.edu.uniandes.csw.dispositivos.persistence.FacturaPersistence;
-import co.edu.uniandes.csw.dispositivos.persistence.MediaPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.VendedorPersistence;
 import co.edu.uniandes.csw.dispositivos.persistence.VentaPersistence;
 import java.util.ArrayList;
@@ -56,8 +54,6 @@ public class VentaPersistenceTest
                 .addPackage(VendedorPersistence.class.getPackage())
                 .addPackage(FacturaEntity.class.getPackage())
                 .addPackage(FacturaPersistence.class.getPackage())
-                .addPackage(MediaEntity.class.getPackage())
-                .addPackage(MediaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -78,6 +74,7 @@ public class VentaPersistenceTest
      * Contenedor con las entidades de la clase
      */
     private final List<VentaEntity> valist = new ArrayList<>();
+    private final List<VendedorEntity> vrlist = new ArrayList<>();
 
     /**
      * Establece las configuraciones iniciales del test
@@ -90,10 +87,18 @@ public class VentaPersistenceTest
             utxn.begin();
             vam.joinTransaction();
             vam.createQuery("delete from VentaEntity").executeUpdate();
+            vam.createQuery("delete from VendedorEntity").executeUpdate();
             PodamFactory vafactory = new PodamFactoryImpl();
             for (int u = 0; u < 5; u++) 
             {
+                VendedorEntity vendedor = vafactory.manufacturePojo(VendedorEntity.class);
+                vam.persist(vendedor);
+                vrlist.add(vendedor);
+            }
+            for (int v = 0; v < 5; v++) 
+            {
                 VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
+                if(v == 0) venta.setVendedor(vrlist.get(0));
                 vam.persist(venta);
                 valist.add(venta);
             }
@@ -118,11 +123,12 @@ public class VentaPersistenceTest
         PodamFactory factory = new PodamFactoryImpl();
         VendedorEntity auxvr = factory.manufacturePojo(VendedorEntity.class);
         FacturaEntity  vfactura = factory.manufacturePojo(FacturaEntity.class);
-        List<MediaEntity> testfotos = new ArrayList<>();
+        String[] testfotos = new String[2];
         VentaEntity newva = new VentaEntity(35000.0, auxvr, vfactura, testfotos);
         Assert.assertEquals(35000.0, newva.getPrecioReventa(), 0.0);
         Assert.assertEquals(auxvr, newva.getVendedor());
         Assert.assertEquals(vfactura, newva.getFacturaOriginal());
+        Assert.assertArrayEquals(testfotos, newva.getFotos());
     }
     
     /**
@@ -140,6 +146,7 @@ public class VentaPersistenceTest
         Assert.assertEquals(venta.getPrecioReventa(), vaentity.getPrecioReventa(), 0.0);
         Assert.assertEquals(venta.getVendedor(), vaentity.getVendedor()); 
         Assert.assertEquals(venta.getFacturaOriginal(), vaentity.getFacturaOriginal()); 
+        Assert.assertArrayEquals(venta.getFotos(), vaentity.getFotos());
     }
 
     /**
@@ -148,11 +155,26 @@ public class VentaPersistenceTest
     @Test
     public void findVentaTest() 
     {
-        VentaEntity ref = valist.get(0), block = vap.find(ref.getId());
+        VentaEntity ref = valist.get(0); 
+        VentaEntity block = vap.find(vrlist.get(0).getId(), ref.getId());
         Assert.assertNotNull(block);
         Assert.assertEquals(ref.getId(), block.getId());
         Assert.assertEquals(ref.getPrecioReventa(), block.getPrecioReventa(), 0.0);
         Assert.assertEquals(ref.getVendedor(), block.getVendedor()); 
+        Assert.assertEquals(ref.getFacturaOriginal(), block.getFacturaOriginal()); 
+        Assert.assertArrayEquals(ref.getFotos(), block.getFotos());
+    }
+    
+    /**
+     * Test del método buscar venta inexistente
+     */
+    @Test
+    public void findVentaNullTest() 
+    {
+        VentaEntity ref = valist.get(4); 
+        vap.delete(ref.getId());
+        VentaEntity block = vap.find(vrlist.get(0).getId(), ref.getId());
+        Assert.assertNull(block);
     }
 
     /**
@@ -189,6 +211,8 @@ public class VentaPersistenceTest
         Assert.assertEquals(updating.getPrecioReventa(), updated.getPrecioReventa(), 0.0);
         Assert.assertEquals(updating.getVendedor(), updated.getVendedor()); 
         Assert.assertEquals(updating.getFacturaOriginal(), updated.getFacturaOriginal()); 
+        Assert.assertEquals(updating.getFacturaOriginal(), updated.getFacturaOriginal()); 
+        Assert.assertArrayEquals(updating.getFotos(), updated.getFotos());
     }
 
     /**

@@ -4,7 +4,7 @@ insert into DISPOSITIVOENTITY (DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMBRE, 
 insert into DISPOSITIVOENTITY (DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMBRE, PRECIO, PRECIOIMPORTACION, PROMOCION, ESIMPORTADO, USADO, ESTADO, TIPO, CATEGORIA_ID) values ('382 Thackeray Trail', 26.48, 0, 'Granby', 'DabZ', 162.93, 143.2, 0, 0, 1, 0, 1, 8);
 insert into DISPOSITIVOENTITY (DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMBRE, PRECIO, PRECIOIMPORTACION, PROMOCION, ESIMPORTADO, USADO, ESTADO, TIPO, CATEGORIA_ID) values ('327 Melrose Plaza', 44.63, 1, 'Ludington', 'Mynte', 240.97, 146.02, 1, 1, 0, 0, 1, 1);
 insert into DISPOSITIVOENTITY (DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMBRE, PRECIO, PRECIOIMPORTACION, PROMOCION, ESIMPORTADO, USADO, ESTADO, TIPO, CATEGORIA_ID) values ('5 Barnett Junction', 59.2, 1, 'Shelley', 'Divavu', 106.39, 149.1, 1, 0, 0, 1, 2, 3);
-insert into DISPOSITIVOENTITY (DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMBRE, PRECIO, PRECIOIMPORTACION, PROMOCION, ESIMPORTADO, USADO, ESTADO, TIPO, CATEGORIA_ID) values ('493 Northview Center', 14.73, 0, 'Autumn Leaf', 'Brightbean', 242.79, 139.96, 1, 0, 1, 1, 0, 4);
+insert into DISPOSITIVOENTITY (DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMBRE, PRECIO, PRECIOIMPORTACION, PROMOCION, ESIMPORTADO, USADO, ESTADO, TIPO, CATEGORIA_ID) values ("493 Northview Center", 14.73, 0, "Autumn Leaf", "Brightbean", 242.79, 139.96, 1, 0, 1, 1, 0, 4);
 insert into DISPOSITIVOENTITY (DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMBRE, PRECIO, PRECIOIMPORTACION, PROMOCION, ESIMPORTADO, USADO, ESTADO, TIPO, CATEGORIA_ID) values ('664 Everett Alley', 12.16, 1, 'Stuart', 'Realcube', 160.78, 166.0, 1, 0, 0, 2, 0, 8);
 insert into DISPOSITIVOENTITY (DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMBRE, PRECIO, PRECIOIMPORTACION, PROMOCION, ESIMPORTADO, USADO, ESTADO, TIPO, CATEGORIA_ID) values ('78 Loftsgordon Trail', 46.53, 0, 'Sundown', 'Voomm', 120.45, 127.74, 0, 1, 0, 2, 0, 9);
 insert into DISPOSITIVOENTITY (DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMBRE, PRECIO, PRECIOIMPORTACION, PROMOCION, ESIMPORTADO, USADO, ESTADO, TIPO, CATEGORIA_ID) values ('9 Hansons Point', 48.7, 0, 'Tomscot', 'Skivee', 100.07, 130.16, 0, 0, 1, 2, 2, 6);
@@ -29,11 +29,11 @@ insert into DISPOSITIVOENTITY (DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMBRE, 
 insert into DISPOSITIVOENTITY (DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMBRE, PRECIO, PRECIOIMPORTACION, PROMOCION, ESIMPORTADO, USADO, ESTADO, TIPO, CATEGORIA_ID) values ('5 Algoma Road', 54.07, 1, 'Express', 'Zooxo', 192.79, 168.89, 1, 0, 1, 0, 1, 8);
 insert into DISPOSITIVOENTITY (DESCRIPCION, DESCUENTO, ENSTOCK, MODELO, NOMBRE, PRECIO, PRECIOIMPORTACION, PROMOCION, ESIMPORTADO, USADO, ESTADO, TIPO, CATEGORIA_ID) values ('0074 Center Plaza', 25.63, 0, 'Badeau', 'Realcube', 112.2, 141.99, 1, 1, 1, 0, 1, 9);
 
-insert into MedioDePagoEntity (id, numeroDeVerificacion, NumeroTarjeta, TipoCredito, tipoTarjeta) values (1, '120', '56022446126012302', 'uowens0@usnews.com', 'china-unionpay');
-insert into MedioDePagoEntity (id, numeroDeVerificacion, NumeroTarjeta, TipoCredito, tipoTarjeta) values (2, '722', '3573796078114570', 'ddaveridge1@amazon.co.jp', 'jcb');
-insert into MedioDePagoEntity (id, numeroDeVerificacion, NumeroTarjeta, TipoCredito, tipoTarjeta) values (3, '545', '3533731234914158', 'ktonry2@smh.com.au', 'jcb');
-insert into MedioDePagoEntity (id, numeroDeVerificacion, NumeroTarjeta, TipoCredito, tipoTarjeta) values (4, '715', '201607497866748', 'sgason3@howstuffworks.com', 'diners-club-enroute');
-insert into MedioDePagoEntity (id, numeroDeVerificacion, NumeroTarjeta, TipoCredito, tipoTarjeta) values (5, '332', '30421328304227', 'cgoggin4@tumblr.com', 'diners-club-carte-blanche');
+insert into MedioDePagoEntity (id, numeroTarjeta, numeroDeVerificacion, TipoCredito, tipoTarjeta) values (1, "55446126", "120", 'mastercard', 'debito');
+insert into MedioDePagoEntity (id, numeroDeVerificacion, NumeroTarjeta, TipoCredito, tipoTarjeta) values (2, "722", "496745646", 'visa', 'credito');
+insert into MedioDePagoEntity (id, numeroDeVerificacion, NumeroTarjeta, TipoCredito, tipoTarjeta) values (3, "545", "51123491", 'mastercard', 'credito');
+insert into MedioDePagoEntity (id, numeroDeVerificacion, NumeroTarjeta, TipoCredito, tipoTarjeta) values (4, "715", "47497866", 'Visa', 'credito');
+insert into MedioDePagoEntity (id, numeroDeVerificacion, NumeroTarjeta, TipoCredito, tipoTarjeta) values (5, "332", "50213283", 'mastercard', 'debito');
 
 insert into ClienteEntity (nombre, apellido, correoElectronico, cedula, direccion, usuario, contrasena, metodoDePago_ID, id) values ('Yurik', 'Wann', 'ywann0@ftc.gov', 1000000001, '7 David Parkway', 'ywann0', 'cYXxs6Eb7O', 0, 1);
 insert into ClienteEntity (nombre, apellido, correoElectronico, cedula, direccion, usuario, contrasena, metodoDePago_ID, id) values ('Arnaldo', 'McGilmartin', 'amcgilmartin1@archive.org', 1000000002, '32 Jackson Alley', 'amcgilmartin1', 'OlNhxhmEEw', 1, 2);
@@ -91,11 +91,17 @@ insert into CATEGORIAENTITY (NOMBRECATEGORIA) values ('BMW');
 insert into CATEGORIAENTITY (NOMBRECATEGORIA) values ('Mercedes-Benz');
 insert into CATEGORIAENTITY (NOMBRECATEGORIA) values ('GMC');
 
+select * from APP.CATEGORIAENTITY; 
+
 
 DELETE from DISPOSITIVOENTITY;
 DELETE FROM CALIFICACIONENTITY;
 DELETE FROM CATEGORIAENTITY;
 DELETE FROM MedioDePagoENTITY;
+
+select * from categoriaEntity;
+
+select * from vendedorEntity;
 
 
 DELETE FROM ComprobanteDePagoEntity;
@@ -104,3 +110,4 @@ delete from ClienteEntity_DispositivoEntity;
 DELETE FROM ADMINISTRADORENTITY;
 delete from facturaEntity;
 delete from facturaEntity_DispositivoEntity;
+DELETE FROM APP.DISPOSITIVOENTITY; 
