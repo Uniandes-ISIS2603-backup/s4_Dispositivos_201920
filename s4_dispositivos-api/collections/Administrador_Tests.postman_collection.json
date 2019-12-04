@@ -41,7 +41,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/administradores",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/administrador",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -50,7 +50,7 @@
 					"path": [
 						"s4_dispositivos-api",
 						"api",
-						"administradores"
+						"administrador"
 					]
 				},
 				"description": "Crea una nuevo adminitrador.\r\n\r\n**Código http esperado: 200**"
@@ -86,7 +86,7 @@
 					"raw": "{\n\t\"usuario\":\"jduigan1\",\n\t\"contrasena\":\"GXJ5uV\",\n\t\"correo\":\"wglencross1@wireless.com\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/administradores",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/administrador",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -95,7 +95,7 @@
 					"path": [
 						"s4_dispositivos-api",
 						"api",
-						"administradores"
+						"administrador"
 					]
 				},
 				"description": "Crea una nuevo adminitrador.\r\n\r\n**Código http esperado: 200**"
