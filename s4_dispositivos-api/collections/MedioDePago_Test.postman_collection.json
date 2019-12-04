@@ -303,7 +303,7 @@
 			"response": []
 		},
 		{
-			"name": "Obtener una Medio de Pago que no existe.",
+			"name": "Obtener una Medio de Pago que Existe",
 			"event": [
 				{
 					"listen": "test",
@@ -339,7 +339,7 @@
 			"response": []
 		},
 		{
-			"name": "Obtener una Categoria que no existe.",
+			"name": "Obtener una Medios que no existe.",
 			"event": [
 				{
 					"listen": "test",
