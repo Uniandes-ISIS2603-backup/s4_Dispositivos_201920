@@ -120,6 +120,17 @@ public class VendedorLogicTest {
         vendedor.setNombre(null);
         vrlogic.createVendedor(vendedor);
     }
+    
+    /**
+     * Test de falla de agregar un vendedor con nombre vacío
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createBlankFirstnameVendedorTest() throws BusinessLogicException {
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setNombre(" ");
+        vrlogic.createVendedor(vendedor);
+    }
 
     /**
      * Test de falla de agregar un vendedor sin apellido
@@ -129,6 +140,17 @@ public class VendedorLogicTest {
     public void createNullLastnameVendedorTest() throws BusinessLogicException {
         VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
         vendedor.setApellido(null);
+        vrlogic.createVendedor(vendedor);
+    }
+    
+    /**
+     * Test de falla de agregar un vendedor con apellido vacío
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createBlankLastnameVendedorTest() throws BusinessLogicException {
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setApellido(" ");
         vrlogic.createVendedor(vendedor);
     }
 
@@ -142,6 +164,17 @@ public class VendedorLogicTest {
         vendedor.setUsuario(null);
         vrlogic.createVendedor(vendedor);
     }
+    
+    /**
+     * Test de falla de agregar un vendedor con usuario vacío
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createBlankUserVendedorTest() throws BusinessLogicException {
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setUsuario(" ");
+        vrlogic.createVendedor(vendedor);
+    }
 
     /**
      * Test de falla de agregar un vendedor sin contraseña
@@ -153,6 +186,17 @@ public class VendedorLogicTest {
         vendedor.setContrasena(null);
         vrlogic.createVendedor(vendedor);
     }
+    
+    /**
+     * Test de falla de agregar un vendedor con contraseña vacía
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createBlankPasswordVendedorTest() throws BusinessLogicException {
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setContrasena(" ");
+        vrlogic.createVendedor(vendedor);
+    }
 
     /**
      * Test de falla de agregar un vendedor sin correo electrónico
@@ -162,6 +206,17 @@ public class VendedorLogicTest {
     public void createNullEmailVendedorTest() throws BusinessLogicException {
         VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
         vendedor.setCorreoElectronico(null);
+        vrlogic.createVendedor(vendedor);
+    }
+    
+    /**
+     * Test de falla de agregar un vendedor con correo electrónico vacío
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createBlankEmailVendedorTest() throws BusinessLogicException {
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setCorreoElectronico(" ");
         vrlogic.createVendedor(vendedor);
     }
 
@@ -177,13 +232,35 @@ public class VendedorLogicTest {
     }
     
     /**
+     * Test de falla de agregar un vendedor con cédula negativa
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createNegativeCedulaVendedorTest() throws BusinessLogicException {
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setCedula(-1.0);
+        vrlogic.createVendedor(vendedor);
+    }
+    
+    /**
      * Test de falla de agregar un vendedor sin celular
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createNullCelularVendedorTest() throws BusinessLogicException {
+        VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
+        vendedor.setCelular(null);
+        vrlogic.createVendedor(vendedor);
+    }
+    
+    /**
+     * Test de falla de agregar un vendedor con célular negativo
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void createNegativeCelularVendedorTest() throws BusinessLogicException {
         VendedorEntity vendedor = vrfactory.manufacturePojo(VendedorEntity.class);
-        vendedor.setCelular(null);
+        vendedor.setCelular(-1.0);
         vrlogic.createVendedor(vendedor);
     }
     
@@ -378,6 +455,19 @@ public class VendedorLogicTest {
         wrongvr.setNombre(null);
         vrlogic.updateVendedor(wrongvr);
     }
+    
+    /**
+     * Test de falla de cambiar a un vendedor con nombre vacío
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateBlankFirstnameVendedorTest() throws BusinessLogicException {
+        VendedorEntity ref = vrlist.get(0);
+        VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
+        wrongvr.setId(ref.getId());
+        wrongvr.setNombre(" ");
+        vrlogic.updateVendedor(wrongvr);
+    }
 
     /**
      * Test de falla de cambiar a un vendedor sin apellido
@@ -389,6 +479,19 @@ public class VendedorLogicTest {
         VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
         wrongvr.setId(ref.getId());
         wrongvr.setApellido(null);
+        vrlogic.updateVendedor(wrongvr);
+    }
+    
+    /**
+     * Test de falla de cambiar a un vendedor con apellido vacío
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateBlankLastnameVendedorTest() throws BusinessLogicException {
+        VendedorEntity ref = vrlist.get(0);
+        VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
+        wrongvr.setId(ref.getId());
+        wrongvr.setApellido(" ");
         vrlogic.updateVendedor(wrongvr);
     }
 
@@ -404,6 +507,19 @@ public class VendedorLogicTest {
         wrongvr.setUsuario(null);
         vrlogic.updateVendedor(wrongvr);
     }
+    
+    /**
+     * Test de falla de cambiar a un vendedor con usuario vacío
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateBlankUserVendedorTest() throws BusinessLogicException {
+        VendedorEntity ref = vrlist.get(0);
+        VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
+        wrongvr.setId(ref.getId());
+        wrongvr.setUsuario(" ");
+        vrlogic.updateVendedor(wrongvr);
+    }
 
     /**
      * Test de falla de cambiar a un vendedor sin contraseña
@@ -415,6 +531,19 @@ public class VendedorLogicTest {
         VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
         wrongvr.setId(ref.getId());
         wrongvr.setContrasena(null);
+        vrlogic.updateVendedor(wrongvr);
+    }
+    
+    /**
+     * Test de falla de cambiar a un vendedor con contraseña vacío
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateBlankPasswordVendedorTest() throws BusinessLogicException {
+        VendedorEntity ref = vrlist.get(0);
+        VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
+        wrongvr.setId(ref.getId());
+        wrongvr.setContrasena(" ");
         vrlogic.updateVendedor(wrongvr);
     }
 
@@ -430,17 +559,43 @@ public class VendedorLogicTest {
         wrongvr.setCorreoElectronico(null);
         vrlogic.updateVendedor(wrongvr);
     }
+    
+    /**
+     * Test de falla de cambiar a un vendedor con correo electrónico vacío
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateBlankEmailVendedorTest() throws BusinessLogicException {
+        VendedorEntity ref = vrlist.get(0);
+        VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
+        wrongvr.setId(ref.getId());
+        wrongvr.setCorreoElectronico(" ");
+        vrlogic.updateVendedor(wrongvr);
+    }
 
     /**
      * Test de falla de cambiar a un vendedor sin cédula
      * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void updateNullVendedorTest() throws BusinessLogicException {
+    public void updateNullCedulaVendedorTest() throws BusinessLogicException {
         VendedorEntity ref = vrlist.get(0);
         VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
         wrongvr.setId(ref.getId());
         wrongvr.setCedula(null);
+        vrlogic.updateVendedor(wrongvr);
+    }
+    
+    /**
+     * Test de falla de cambiar a un vendedor con cédula negativa
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateNegativeCedulaVendedorTest() throws BusinessLogicException {
+        VendedorEntity ref = vrlist.get(0);
+        VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
+        wrongvr.setId(ref.getId());
+        wrongvr.setCedula(-1.0);
         vrlogic.updateVendedor(wrongvr);
     }
     
@@ -456,15 +611,40 @@ public class VendedorLogicTest {
         wrongvr.setCelular(null);
         vrlogic.updateVendedor(wrongvr);
     }
+    
+    /**
+     * Test de falla de cambiar a un vendedor con celular negativo
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void updateNegativeCellphoneVendedorTest() throws BusinessLogicException {
+        VendedorEntity ref = vrlist.get(0);
+        VendedorEntity wrongvr = vrfactory.manufacturePojo(VendedorEntity.class);
+        wrongvr.setId(ref.getId());
+        wrongvr.setCelular(-1.0);
+        vrlogic.updateVendedor(wrongvr);
+    }
 
     /**
      * Test de la validación de borrar un vendedor
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
      */
     @Test
-    public void deleteVendedorTest() {
+    public void deleteVendedorTest() throws BusinessLogicException {
         VendedorEntity vrentity = vrlist.get(0);
         vrlogic.deleteVendedor(vrentity.getId());
         VendedorEntity gonevr = vrm.find(VendedorEntity.class, vrentity.getId());
         Assert.assertNull(gonevr);
+    }
+    
+    /**
+     * Test de falla de borrar un vendedor nulo
+     * @throws co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void deleteNullVendedorTest() throws BusinessLogicException {
+        VendedorEntity vrentity = vrlist.get(0);
+        vrlogic.deleteVendedor(vrentity.getId());
+        vrlogic.deleteVendedor(vrentity.getId());
     }
 }

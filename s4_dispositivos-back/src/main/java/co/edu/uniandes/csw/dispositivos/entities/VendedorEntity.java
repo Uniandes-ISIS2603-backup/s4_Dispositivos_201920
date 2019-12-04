@@ -58,14 +58,13 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Asociación con las ventas que realizó el vendedor
      */
     @PodamExclude
-    @OneToMany(mappedBy = "vendedor", cascade = CascadeType.PERSIST, orphanRemoval = false)
+    @OneToMany(mappedBy = "vendedor", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<VentaEntity> ventas;
     
     /**
      * Constructor vacío
      */
-    public VendedorEntity()
-    {   }
+    public VendedorEntity() {}
 
     /**
      * Constructor con parámetros
@@ -94,7 +93,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Retorna el correo electrónico del vendedor
      * @return correoElectronico
      */
-    public String getCorreoElectronico() {
+    public String getCorreoElectronico() 
+    {
         return correoElectronico;
     }
 
@@ -102,7 +102,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Asigna el correo electrónico del vendedor
      * @param correoElectronico 
      */
-    public void setCorreoElectronico(String correoElectronico) {
+    public void setCorreoElectronico(String correoElectronico) 
+    {
         this.correoElectronico = correoElectronico;
     }
 
@@ -110,7 +111,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Retorna el nombre del vendedor
      * @return nombre
      */
-    public String getNombre() {
+    public String getNombre() 
+    {
         return nombre;
     }
 
@@ -118,7 +120,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Retorna el apellido del vendedor
      * @return apellido
      */
-    public String getApellido() {
+    public String getApellido() 
+    {
         return apellido;
     }
 
@@ -126,7 +129,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Retorna el celular del vendedor
      * @return celular
      */
-    public Double getCelular() {
+    public Double getCelular() 
+    {
         return celular;
     }
 
@@ -134,7 +138,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Asigna el celular del vendedor
      * @param celular 
      */
-    public void setCelular(Double celular) {
+    public void setCelular(Double celular) 
+    {
         this.celular = celular;
     }
     
@@ -142,7 +147,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Asigna el nombre del vendedor
      * @param nombre 
      */
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre) 
+    {
         this.nombre = nombre;
     }
 
@@ -150,7 +156,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Asigna el celular del vendedor
      * @param cedula 
      */
-    public void setCedula(Double cedula) {
+    public void setCedula(Double cedula) 
+    {
         this.cedula = cedula;
     }
 
@@ -158,7 +165,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Retorna el usuario del vendedor
      * @return usuario
      */
-    public String getUsuario() {
+    public String getUsuario() 
+    {
         return usuario;
     }
 
@@ -166,7 +174,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Retorna la cedula del vendedor
      * @return cedula
      */
-    public Double getCedula() {
+    public Double getCedula() 
+    {
         return cedula;
     }    
     
@@ -174,7 +183,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Asigna el usuario del vendedor
      * @param usuario 
      */
-    public void setUsuario(String usuario) {
+    public void setUsuario(String usuario) 
+    {
         this.usuario = usuario;
     }
 
@@ -182,7 +192,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Asigna el apellido del vendedor
      * @param apellido 
      */
-    public void setApellido(String apellido) {
+    public void setApellido(String apellido) 
+    {
         this.apellido = apellido;
     }
     
@@ -190,7 +201,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Retorna la contraseña del vendedor
      * @return contrasena
      */
-    public String getContrasena() {
+    public String getContrasena() 
+    {
         return contrasena;
     }
 
@@ -198,7 +210,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Asigna la contraseña del vendedor
      * @param contrasena 
      */
-    public void setContrasena(String contrasena) {
+    public void setContrasena(String contrasena) 
+    {
         this.contrasena = contrasena;
     }   
     
@@ -231,7 +244,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Retorna la lista de ventas del vendedor
      * @return the ventas
      */
-    public List<VentaEntity> getVentas() {
+    public List<VentaEntity> getVentas() 
+    {
         return ventas;
     }
 
@@ -239,7 +253,8 @@ public class VendedorEntity extends BaseEntity implements Serializable
      * Asigna la lista de ventas del vendedor
      * @param ventas the ventas to set
      */
-    public void setVentas(List<VentaEntity> ventas) {
+    public void setVentas(List<VentaEntity> ventas) 
+    {
         this.ventas = ventas;
     }
 }
