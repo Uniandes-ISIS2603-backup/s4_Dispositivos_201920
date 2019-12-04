@@ -391,7 +391,7 @@
 						"id": "ce6fc66f-cb19-4e0d-bc0a-aff100e295ee",
 						"exec": [
 							"tests[\"No se puede editar un review sobre un book que no existe.\"] = responseCode.code === 404;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /cliente/0/comprobantes no existe.\");"
+							""
 						],
 						"type": "text/javascript"
 					}
