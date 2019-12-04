@@ -46,7 +46,7 @@ public class AdministradorPersistence
      */
     public List<AdministradorEntity> findAll()
     {
-        Query query = em.createQuery("select u from AdministradorEntity u");
+        Query query = em.createQuery("select u from AdministradorEntity u", AdministradorEntity.class);
         return query.getResultList();
     }
     /**
