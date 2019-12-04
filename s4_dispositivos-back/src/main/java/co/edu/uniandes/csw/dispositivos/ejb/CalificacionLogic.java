@@ -8,6 +8,8 @@ package co.edu.uniandes.csw.dispositivos.ejb;
 import co.edu.uniandes.csw.dispositivos.entities.CalificacionEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.CalificacionPersistence;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,12 +22,12 @@ import javax.inject.Inject;
  */
 @Stateless
 public class CalificacionLogic {
+    
+    private static final Logger LOGGER = Logger.getLogger(CategoriaLogic.class.getName());
 
     @Inject
     private CalificacionPersistence cp;
     
-    private static final Logger LOGGER = Logger.getLogger(CalificacionLogic.class.getName());
-
     /**
      *
      * @param calificacion
@@ -40,6 +42,7 @@ public class CalificacionLogic {
     }
 
     public CalificacionEntity updateCalificacion(Long pCategoriaId, CalificacionEntity calificacion) throws BusinessLogicException {
+        
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la calificacion con id = {0}", pCategoriaId);
         if (!calificacion.getComentario().equals("")) {
             CalificacionEntity newEntity = cp.update(calificacion);

@@ -98,7 +98,7 @@ public class DispositivoLogicTest {
         if (result.getPrecio() > result.getDescuento()) {
             descuento = true;
         } else {
-            result.setDescuento(result.getDescuento() * 2);
+            result.setPrecio(result.getDescuento() * 2);
         }
         descuento = true;
 
@@ -378,7 +378,16 @@ public class DispositivoLogicTest {
         pojoEntity.setCategoria(result2);
         pojoEntity.setMarca(result3);
         Assert.assertNotNull(categoriaEntity);
-        pojoEntity.setDescuento(pojoEntity.getPrecio()*0.5);
+        Assert.assertNotNull(marcaEntity);
+
+        boolean descuento = false;
+        if (pojoEntity.getPrecio() > pojoEntity.getDescuento()) {
+            descuento = true;
+        } else {
+            pojoEntity.setPrecio(pojoEntity.getDescuento() + pojoEntity.getPrecio());
+        }
+        descuento = true;
+        Assert.assertTrue(descuento);
         dispositivoLogic.updateDispositivo(pojoEntity.getId(), pojoEntity);
         DispositivoEntity resp = em.find(DispositivoEntity.class, entity.getId());
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
