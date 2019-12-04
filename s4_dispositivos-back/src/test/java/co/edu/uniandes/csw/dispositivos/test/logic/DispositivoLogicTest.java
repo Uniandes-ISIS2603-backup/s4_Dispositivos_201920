@@ -378,6 +378,7 @@ public class DispositivoLogicTest {
         pojoEntity.setCategoria(result2);
         pojoEntity.setMarca(result3);
         Assert.assertNotNull(categoriaEntity);
+        pojoEntity.setDescuento(pojoEntity.getPrecio()*0.5);
         dispositivoLogic.updateDispositivo(pojoEntity.getId(), pojoEntity);
         DispositivoEntity resp = em.find(DispositivoEntity.class, entity.getId());
         Assert.assertEquals(pojoEntity.getId(), resp.getId());

@@ -6,9 +6,11 @@
 package co.edu.uniandes.csw.dispositivos.tests.postman;
 
 import co.edu.uniandes.csw.dispositivos.dtos.AdministradorDTO;
+import co.edu.uniandes.csw.dispositivos.dtos.CascaraDTO;
 import co.edu.uniandes.csw.dispositivos.mappers.BusinessLogicExceptionMapper;
 import co.edu.uniandes.csw.dispositivos.resources.AdministradorResource;
 import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
+import co.edu.uniandes.csw.dispositivos.resources.RestConfig;
 import java.io.File;
 import java.io.IOException;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -38,8 +40,8 @@ public class AdministradorIT{
                         .importRuntimeDependencies().resolve()
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
-                .addPackage(AdministradorResource.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
-                .addPackage(AdministradorDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
+                .addPackage(RestConfig.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
+                .addPackage(CascaraDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
                 .addPackage(BusinessLogicExceptionMapper.class.getPackage())
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
@@ -56,6 +58,7 @@ public class AdministradorIT{
         PostmanTestBuilder tp = new PostmanTestBuilder();
         tp.setTestWithoutLogin(COLLECTION, "Entorno-IT.postman_environment");
         String desiredResult = "0";
+        System.out.println(tp.getIterations_failed());
         Assert.assertEquals("Error en Iterations de: " + COLLECTION, desiredResult, tp.getIterations_failed());
 
         Assert.assertEquals("Error en Requests de: " + COLLECTION, desiredResult, tp.getRequests_failed());
