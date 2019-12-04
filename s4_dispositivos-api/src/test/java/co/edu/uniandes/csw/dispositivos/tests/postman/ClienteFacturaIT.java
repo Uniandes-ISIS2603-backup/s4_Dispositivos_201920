@@ -58,7 +58,7 @@ public class ClienteFacturaIT {
     @RunAsClient
     public void postman() throws IOException {
         PostmanTestBuilder tp = new PostmanTestBuilder();
-        tp.setTestWithoutLogin(COLLECTION, "Entorno-Colecciones.postman_environment");
+        tp.setTestWithoutLogin(COLLECTION, "Entorno-IT.postman_environment");
         String desiredResult = "0";
         Assert.assertEquals("Error en Iterations de: " + COLLECTION, desiredResult, tp.getIterations_failed());
 
