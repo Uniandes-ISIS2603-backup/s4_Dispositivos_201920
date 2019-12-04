@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ca5708e3-bc5b-479f-b231-54287c48a81f",
+		"_postman_id": "6db65ee1-5171-461d-9b5a-2c8b2bf7741d",
 		"name": "DispositivoResourceTest",
 		"description": "Dispositivo Resource Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -66,7 +66,7 @@
 						"id": "2cb09173-e77b-4a85-becb-1ac270f83c6e",
 						"exec": [
 							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un dispositivo con el nombre\");"
+							""
 						],
 						"type": "text/javascript"
 					}
