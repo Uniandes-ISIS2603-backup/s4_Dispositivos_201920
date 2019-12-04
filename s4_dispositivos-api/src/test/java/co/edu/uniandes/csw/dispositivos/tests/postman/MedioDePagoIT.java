@@ -25,7 +25,7 @@ import org.junit.Test;
  */
 public class MedioDePagoIT {
     
-            private static final String COLLECTION = "Categoria_Tests.postman_collection";
+            private static final String COLLECTION = "MedioDePago_Test.postman_collection";
 
     @Deployment(testable = true)
     public static WebArchive createDeployment() {
