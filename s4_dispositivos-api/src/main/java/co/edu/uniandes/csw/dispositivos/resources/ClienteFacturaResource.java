@@ -59,7 +59,7 @@ public class ClienteFacturaResource {
     public FacturaDTO addFactura(@PathParam("clienteId") Long clienteId, @PathParam("facturaId") Long facturaId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ClienteFacturaResource addFactura: input: clientesID: {0} , facturaId: {1}", new Object[]{clienteId, facturaId});
         if (facturaLogic.getFactura(clienteId, facturaId) == null) {
-            throw new WebApplicationException("El recurso /facturas/" + facturaId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /facturas/" + facturaId + " no existe 1.", 404);
         }
         FacturaDTO facturaDTO = new FacturaDTO(clienteFacturaLogic.addFactura(facturaId, clienteId));
         LOGGER.log(Level.INFO, "ClienteFacturaResource addFactura: output: {0}", facturaDTO);
@@ -101,7 +101,7 @@ public class ClienteFacturaResource {
     public FacturaDetailDTO getFactura(@PathParam("clienteId") Long clienteId, @PathParam("facturaId") Long facturaId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ClienteFacturaResource getFactura: input: clientesID: {0} , facturaId: {1}", new Object[]{clienteId, facturaId});
         if (facturaLogic.getFactura(clienteId, facturaId) == null) {
-            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/facturas/" + facturaId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/facturas/" + facturaId + " no existe 2.", 404);
         }
         FacturaDetailDTO facturaDetailDTO = new FacturaDetailDTO(clienteFacturaLogic.getFactura(clienteId, facturaId));
         LOGGER.log(Level.INFO, "ClienteFacturaResource getFactura: output: {0}", facturaDetailDTO);
@@ -126,7 +126,7 @@ public class ClienteFacturaResource {
         LOGGER.log(Level.INFO, "ClienteFacturaResource replaceFactura: input: clienteId: {0} , facturas: {1}", new Object[]{clienteId, facturas});
         for (FacturaDetailDTO factura : facturas) {
             if (facturaLogic.getFactura(clienteId, factura.getId()) == null) {
-                throw new WebApplicationException("El recurso /facturas/" + factura.getId() + " no existe.", 404);
+                throw new WebApplicationException("El recurso /facturas/" + factura.getId() + " no existe 3.", 404);
             }
         }
         List<FacturaDetailDTO> listaDetailDTOs = facturasListEntity2DTO(clienteFacturaLogic.replaceFacturas(clienteId, facturasListDTO2Entity(facturas)));

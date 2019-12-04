@@ -13,6 +13,8 @@ import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -98,7 +100,7 @@ public class DispositivoLogicTest {
         if (result.getPrecio() > result.getDescuento()) {
             descuento = true;
         } else {
-            result.setDescuento(result.getDescuento() * 2);
+            result.setPrecio(result.getDescuento() * 2);
         }
         descuento = true;
 
@@ -378,7 +380,16 @@ public class DispositivoLogicTest {
         pojoEntity.setCategoria(result2);
         pojoEntity.setMarca(result3);
         Assert.assertNotNull(categoriaEntity);
-        pojoEntity.setDescuento(pojoEntity.getPrecio()*0.5);
+        Assert.assertNotNull(marcaEntity);
+
+        boolean descuento = false;
+        if (pojoEntity.getPrecio() > pojoEntity.getDescuento()) {
+            descuento = true;
+        } else {
+            pojoEntity.setPrecio(pojoEntity.getDescuento() + pojoEntity.getPrecio());
+        }
+        descuento = true;
+        Assert.assertTrue(descuento);
         dispositivoLogic.updateDispositivo(pojoEntity.getId(), pojoEntity);
         DispositivoEntity resp = em.find(DispositivoEntity.class, entity.getId());
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
@@ -397,6 +408,34 @@ public class DispositivoLogicTest {
         dispositivoLogic.deleteDispositivo(entity.getId());
         DispositivoEntity deleted = em.find(DispositivoEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+
+    /**
+     * Prueba para consultar la lista de categorias.
+     */
+    @Test
+    public void getDispositivosTest() {
+
+        List<DispositivoEntity> data = new ArrayList<DispositivoEntity>();
+        PodamFactory factory = new PodamFactoryImpl();
+
+        for (int i = 0; i < 3; i++) {
+            DispositivoEntity entity = factory.manufacturePojo(DispositivoEntity.class);
+            em.persist(entity);
+            data.add(entity);
+        }
+
+        List<DispositivoEntity> list = dispositivoLogic.getDispositivos();
+        Assert.assertEquals(data.size(), list.size());
+        for (DispositivoEntity entity : list) {
+            boolean found = false;
+            for (DispositivoEntity entity2 : data) {
+                if (entity.getId().equals(entity2.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
     }
 
 }

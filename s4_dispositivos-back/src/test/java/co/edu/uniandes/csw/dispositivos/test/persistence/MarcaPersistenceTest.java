@@ -134,6 +134,8 @@ public class MarcaPersistenceTest {
 
         MarcaEntity resp = em.find(MarcaEntity.class, entity.getId());
 
+        
+        Assert.assertEquals(newEntity.getId(), resp.getId());
         Assert.assertEquals(newEntity.getNombreMarca(), resp.getNombreMarca());
         Assert.assertEquals(newEntity.getLogo(), resp.getLogo());
     }

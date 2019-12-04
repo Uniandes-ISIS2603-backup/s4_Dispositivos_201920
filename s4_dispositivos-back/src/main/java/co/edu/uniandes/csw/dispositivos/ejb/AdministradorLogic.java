@@ -119,8 +119,8 @@ public class AdministradorLogic
             throw new BusinessLogicException("Ya existe una administrador con el mismo usuario");
         
         LOGGER.log(Level.INFO, "Termina proceso de actualizar un administrador.");
-        AdministradorEntity newEntity = persistence.update(adminEntity);
-        return newEntity;
+        AdministradorEntity newEntity;
+        return newEntity = persistence.update(adminEntity);
     }
     /**
      * Elimina una instancia de Administrador de la base de datos
