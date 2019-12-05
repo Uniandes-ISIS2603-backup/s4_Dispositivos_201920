@@ -127,8 +127,8 @@ public class VentaLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void createVentaNullVendedorTest() throws BusinessLogicException {
         VentaEntity venta = vafactory.manufacturePojo(VentaEntity.class);
-        venta.setVendedor(null);
-        valogic.createVenta(vrlist.get(1).getId(), venta);
+        vrlist.add(null);
+        valogic.createVenta(new Long(5), venta);
     }
     
     /**
