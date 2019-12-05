@@ -103,7 +103,7 @@ DELETE FROM CalificacionENTITY;
 
 select * from categoriaEntity;
 
-select * from vendedorEntity;
+select * from clienteEntity;
 
 
 DELETE FROM ComprobanteDePagoEntity;
