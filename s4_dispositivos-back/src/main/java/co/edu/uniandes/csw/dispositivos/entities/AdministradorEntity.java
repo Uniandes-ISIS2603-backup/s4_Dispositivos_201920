@@ -5,11 +5,11 @@ import javax.persistence.Entity;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
- *Clase que corresponde a la tabla BD para clase Administrador
+ * Clase que corresponde a la tabla BD para clase Administrador
  * @author Dianis Caro
  */
 @Entity
-public class AdministradorEntity extends BaseEntity implements Serializable 
+public class AdministradorEntity extends BaseEntity implements Serializable
 {
     /**
      * Usuario de identificacion en la plataforma
@@ -35,6 +35,7 @@ public class AdministradorEntity extends BaseEntity implements Serializable
      * Constructor de la clase
      * @param pUsuario usuario de indetificacion
      * @param pContrasena contrasena de verificacion
+     * @param pCorreo
      */
     public AdministradorEntity(String pUsuario, String pContrasena, String pCorreo)
     {

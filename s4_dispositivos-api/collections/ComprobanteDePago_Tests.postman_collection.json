@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "afa8e0fc-8579-4bf3-bb5f-6674b4a06942",
+		"_postman_id": "d28b79d3-f779-4fae-9b98-9e04b325e3d0",
 		"name": "ComprobanteDePago Tests",
 		"description": "Colección de pruebas sobre el recurso Comprobante de pago",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -42,12 +42,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -94,12 +94,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -148,12 +148,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -175,7 +175,7 @@
 						"id": "235687ad-e750-4fea-b37f-0dccb2edc9bd",
 						"exec": [
 							"tests[\"No se puede asociar un comprobante a un cliente que no existe.\"] = responseCode.code === 404;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /cliente/0/comprobantes no existe.\");"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -194,12 +194,12 @@
 					"raw": "{\r\n\t\"numeroDeFactura\":\"2435677\",\r\n\t\"totalDePago\":\"35452463.85\",\r\n\t\"impuestos\":0.17,\r\n\t\"numeroDeTarjeta\":\"9345675604422081\",\r\n\t\"fechaDeFactura\":\"2017-05-03T00:00:00-05:00\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/0/comprobantes",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/0/comprobantes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -232,12 +232,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -270,12 +270,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -315,12 +315,12 @@
 					"raw": "{\r\n\t\"id\":\"{{new_id_comprobante1}}\",\r\n\t\"numeroDeFactura\":45570941,\r\n\t\"totalDePago\":26567411.05,\r\n\t\"impuestos\":0.19,\r\n\t\"numeroDeTarjeta\":\"5897550546537999\",\r\n\t\"fechaDeFactura\":\"2017-04-04T00:00:00-05:00\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/{{new_id_comprobante1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/{{new_id_comprobante1}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -344,7 +344,7 @@
 						"exec": [
 							"tests[\"No se puede editar un comprobante que no existe.\"] = responseCode.code === 404;",
 							"let id = pm.variables.get(\"new_id_cliente1\");",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/\"+id+\"/comprobante/0 no existe.\");  "
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -363,12 +363,12 @@
 					"raw": "{\r\n\t\"id\":\"0\",\r\n\t\"numeroDeFactura\":45570941,\r\n\t\"totalDePago\":26567411.05,\r\n\t\"impuestos\":0.19,\r\n\t\"numeroDeTarjeta\":\"5897550546537999\",\r\n\t\"fechaDeFactura\":\"2017-04-04T00:00:00-05:00\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -391,7 +391,7 @@
 						"id": "ce6fc66f-cb19-4e0d-bc0a-aff100e295ee",
 						"exec": [
 							"tests[\"No se puede editar un review sobre un book que no existe.\"] = responseCode.code === 404;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /cliente/0/comprobantes no existe.\");"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -410,12 +410,12 @@
 					"raw": "{\r\n\t\"id\":\"{{new_id_comprobante1}}\",\r\n\t\"numeroDeFactura\":45570941,\r\n\t\"totalDePago\":26567411.05,\r\n\t\"impuestos\":0.19,\r\n\t\"numeroDeTarjeta\":\"5897550546537999\",\r\n\t\"fechaDeFactura\":\"2017-04-04T00:00:00-05:00\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/0/comprobantes/{{new_id_comprobante1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/0/comprobantes/{{new_id_comprobante1}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -464,12 +464,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -492,7 +492,7 @@
 						"id": "0c199000-a389-4706-8406-5cdc8f12186b",
 						"exec": [
 							"tests[\"No se puede borrar un comprobante sobre un cliente que no existe.\"] = responseCode.code === 404;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /cliente/0/comprobantes no existe.\");"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -506,12 +506,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/0/comprobantes/{{new_id_comprobante1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/0/comprobantes/{{new_id_comprobante1}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -547,12 +547,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/{{new_id_comprobante1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/{{new_id_comprobante1}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -588,12 +588,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/{{new_id_comprobante2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}/comprobantes/{{new_id_comprobante2}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",
@@ -629,12 +629,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/clientes/{{new_id_cliente1}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_dispositivos-api",
 						"api",

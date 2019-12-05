@@ -1,4 +1,4 @@
-/*
+        /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -20,12 +20,12 @@ import javax.inject.Inject;
  */
 @Stateless
 public class CalificacionLogic {
+    
+    private static final Logger LOGGER = Logger.getLogger(CategoriaLogic.class.getName());
 
     @Inject
     private CalificacionPersistence cp;
     
-    private static final Logger LOGGER = Logger.getLogger(CalificacionLogic.class.getName());
-
     /**
      *
      * @param calificacion
@@ -40,6 +40,7 @@ public class CalificacionLogic {
     }
 
     public CalificacionEntity updateCalificacion(Long pCategoriaId, CalificacionEntity calificacion) throws BusinessLogicException {
+        
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la calificacion con id = {0}", pCategoriaId);
         if (!calificacion.getComentario().equals("")) {
             CalificacionEntity newEntity = cp.update(calificacion);

@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -22,7 +23,7 @@ public class DispositivoDTO implements Serializable {
     private String modelo;
     private String descripcion;
     private String nombre;
-    private String[] imagenes;
+    private String imagenes;
 
     /**
      * Doubles
@@ -87,9 +88,13 @@ public class DispositivoDTO implements Serializable {
 
             if (dispositivo.getMarca() != null) {
                 this.marca = new MarcaDTO(dispositivo.getMarca());
+            } else {
+                this.marca = null;
             }
             if (dispositivo.getCategoria() != null) {
                 this.categoria = new CategoriaDTO(dispositivo.getCategoria());
+            } else {
+                this.categoria = null;
             }
         }
     }
@@ -97,20 +102,20 @@ public class DispositivoDTO implements Serializable {
     public DispositivoEntity toEntity() {
 
         DispositivoEntity dispositivoEntity = new DispositivoEntity();
-        dispositivoEntity.setId(this.id);
-        dispositivoEntity.setDescripcion(this.descripcion);
-        dispositivoEntity.setDescuento(this.descuento);
-        dispositivoEntity.setEnStock(this.enStock);
-        dispositivoEntity.setEsImportado(this.esImportado);
-        dispositivoEntity.setEstado(this.estado);
-        dispositivoEntity.setModelo(this.modelo);
-        dispositivoEntity.setNombre(this.nombre);
-        dispositivoEntity.setPrecio(this.precio);
-        dispositivoEntity.setPrecioImportacion(this.precioImportacion);
+        dispositivoEntity.setId(this.getId());
+        dispositivoEntity.setDescripcion(this.getDescripcion());
+        dispositivoEntity.setDescuento(this.getDescuento());
+        dispositivoEntity.setEnStock(this.isEnStock());
+        dispositivoEntity.setEsImportado(this.isEsImportado());
+        dispositivoEntity.setEstado(this.getEstado());
+        dispositivoEntity.setModelo(this.getModelo());
+        dispositivoEntity.setNombre(this.getNombre());
+        dispositivoEntity.setPrecio(this.getPrecio());
+        dispositivoEntity.setPrecioImportacion(this.getPrecioImportacion());
         dispositivoEntity.setPromocion(this.promocion);
         dispositivoEntity.setTipo(this.tipo);
         dispositivoEntity.setUsado(this.usado);
-        dispositivoEntity.setImagenes(this.imagenes);
+        dispositivoEntity.setImagenes(this.getImagenes());
 
         if (this.marca != null) {
             dispositivoEntity.setMarca(this.marca.toEntity());
@@ -137,7 +142,7 @@ public class DispositivoDTO implements Serializable {
         return tipo;
     }
 
-    public String[] getImagenes() {
+    public String getImagenes() {
         return imagenes;
     }
 
@@ -353,7 +358,7 @@ public class DispositivoDTO implements Serializable {
         this.categoria = categoria;
     }
 
-    public void setImagen(String[] imagenes) {
+    public void setImagen(String imagenes) {
         this.imagenes = imagenes;
     }
 

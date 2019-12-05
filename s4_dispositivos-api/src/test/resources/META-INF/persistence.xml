@@ -25,6 +25,7 @@
             <property name="javax.persistence.jdbc.password" value="APP"/>
             <property name="eclipselink.logging.level" value="FINE"/>
             <property name="eclipselink.logging.parameters" value="true"/>
+            <property name="eclipselink.weaving" value="static"/>
         </properties>
     </persistence-unit>
 </persistence>

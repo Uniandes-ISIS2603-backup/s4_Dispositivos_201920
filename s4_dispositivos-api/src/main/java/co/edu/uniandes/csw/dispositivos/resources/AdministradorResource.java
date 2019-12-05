@@ -29,7 +29,7 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author Dianis Caro
  */
-@Path("administrador")
+@Path("administradores")
 @Consumes("application/json")
 @Produces("application/json")
 @RequestScoped
@@ -75,8 +75,7 @@ public class AdministradorResource
     @GET
     @Path("{administradorId: \\d+}")
     public AdministradorDTO getAdministrador(@PathParam("administradorId") Long id) throws BusinessLogicException
-    {
-     
+    {    
      AdministradorEntity r = administradorLogic.getAdministrador(id);
         if(r==null)
         {
@@ -89,7 +88,6 @@ public class AdministradorResource
     @GET
     public List<AdministradorDTO> getAdministradores() throws BusinessLogicException
     {
-      // List<AdministradorDetailDTO> admin = entity2DTO(administradorLogic.getAdministradores()  );
         return entity2DTO(administradorLogic.getAdministradores() );
     }
     

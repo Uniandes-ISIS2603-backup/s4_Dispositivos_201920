@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 /**
  *
@@ -45,7 +44,7 @@ public class DispositivoPersistence {
 
     public List<DispositivoEntity> findAll() {
 
-        Query query = em.createQuery("select u from DispositivoEntity u");
+        Query query = em.createQuery("select u from DispositivoEntity u", DispositivoEntity.class);
         return query.getResultList();
     }
 

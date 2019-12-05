@@ -49,9 +49,10 @@ public class DispositivoLogic {
                         }
                     }
 
-                    if (dispositivo.isPromocion()) {
-                        if (dispositivo.getPrecio() < dispositivo.getDescuento()) {
-
+                    if (dispositivo.isPromocion()) 
+                    {
+                        if (dispositivo.getPrecio() < dispositivo.getDescuento()) 
+                        {
                             throw new BusinessLogicException("El descuento es mayor al precio del dispositivo");
                         }
                     }

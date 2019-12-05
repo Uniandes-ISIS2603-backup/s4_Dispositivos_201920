@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.dispositivos.tests.postman;
 import co.edu.uniandes.csw.dispositivos.dtos.VendedorDTO;
 import co.edu.uniandes.csw.dispositivos.dtos.VentaDTO;
 import co.edu.uniandes.csw.dispositivos.mappers.BusinessLogicExceptionMapper;
+import co.edu.uniandes.csw.dispositivos.resources.RestConfig;
 import co.edu.uniandes.csw.dispositivos.resources.VendedorResource;
 import co.edu.uniandes.csw.dispositivos.resources.VentaResource;
 import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
@@ -40,7 +41,7 @@ public class VendedorVentaIT {
                         .importRuntimeDependencies().resolve()
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
-                .addPackage(VendedorResource.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
+                .addPackage(RestConfig.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
                 .addPackage(VendedorDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
                 .addPackage(VentaResource.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
                 .addPackage(VentaDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
@@ -58,7 +59,7 @@ public class VendedorVentaIT {
     @RunAsClient
     public void postman() throws IOException {
         PostmanTestBuilder tp = new PostmanTestBuilder();
-        tp.setTestWithoutLogin(COLLECTION, "Entorno-Colecciones.postman_environment");
+        tp.setTestWithoutLogin(COLLECTION, "Entorno-IT.postman_environment");
         String desiredResult = "0";
         Assert.assertEquals("Error en Iterations de: " + COLLECTION, desiredResult, tp.getIterations_failed());
 

@@ -32,7 +32,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     private String descripcion;
     private String nombre;
 
-    private String[] imagenes;
+    private String imagenes;
 
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -59,10 +59,10 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     /**
      * Booleans
      */
-    private boolean promocion;
-    private boolean enStock;
-    private boolean esImportado;
-    private boolean usado;
+    private Boolean promocion;
+    private Boolean enStock;
+    private Boolean esImportado;
+    private Boolean usado;
 
     /**
      * Enums
@@ -102,9 +102,10 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      * @param marca La marca a la que pertenece el dispositivo
      * @param calificaciones Las calificaciones del dispositivo. Inicialmenre
      * debe tener cero calificaciones
+     * @param categoria Categoría del dispositivo
      */
-    public DispositivoEntity(String modelo, String descripcion, String nombre, double precio, double precioImportacion,
-            double descuento, boolean promocion, boolean enStock, boolean usado, boolean esImportado, String[] imagenes,
+    public DispositivoEntity(String modelo, String descripcion, String nombre, Double precio, Double precioImportacion,
+            Double descuento, Boolean promocion, Boolean enStock, Boolean usado, Boolean esImportado, String imagenes,
             Tipo tipo, EstadoDispositivo estado, MarcaEntity marca, List<CalificacionEntity> calificaciones, CategoriaEntity categoria) {
 
         this.modelo = modelo;
@@ -157,7 +158,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      *
      * @return Imagenes del dispositivo
      */
-    public String[] getImagenes() {
+    public String getImagenes() {
         return imagenes;
     }
 
@@ -196,7 +197,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      * @return True si el dispositivo esta en promocion. False si no esta en
      * promocion
      */
-    public boolean isPromocion() {
+    public Boolean isPromocion() {
         return promocion;
     }
 
@@ -205,7 +206,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      *
      * @return True si esta en stock. False si no esta en stock
      */
-    public boolean isEnStock() {
+    public Boolean isEnStock() {
         return enStock;
     }
 
@@ -215,7 +216,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      * @return True si el dispositivo es importado. False si el dispositivo no
      * es importado
      */
-    public boolean isEsImportado() {
+    public Boolean isEsImportado() {
         return esImportado;
     }
 
@@ -225,7 +226,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      * @return True si el dispositivo es usado. False si el dispositivo no es
      * usado
      */
-    public boolean isUsado() {
+    public Boolean isUsado() {
         return usado;
     }
 
@@ -306,7 +307,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      *
      * @param imagenes Objeto que contiene las imagenes correspondientes
      */
-    public void setImagenes(String[] imagenes) {
+    public void setImagenes(String imagenes) {
         this.imagenes = imagenes;
     }
 
@@ -344,7 +345,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      * @param promocion True si el dispositivo esta en promocion. False si el no
      * esta en promocion
      */
-    public void setPromocion(boolean promocion) {
+    public void setPromocion(Boolean promocion) {
         this.promocion = promocion;
     }
 
@@ -354,7 +355,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      * @param enStock True si el dispositivo esta en stock. False si el
      * dispositivo no esta en stock
      */
-    public void setEnStock(boolean enStock) {
+    public void setEnStock(Boolean enStock) {
         this.enStock = enStock;
     }
 
@@ -364,7 +365,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      * @param esImportado True si el dispositivo es importado. False si el
      * dispositivo no es importado
      */
-    public void setEsImportado(boolean esImportado) {
+    public void setEsImportado(Boolean esImportado) {
         this.esImportado = esImportado;
     }
 
@@ -374,7 +375,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      * @param usado True si el dispositivo es usado. False si el dispositivo no
      * es usado
      */
-    public void setUsado(boolean usado) {
+    public void setUsado(Boolean usado) {
         this.usado = usado;
     }
 

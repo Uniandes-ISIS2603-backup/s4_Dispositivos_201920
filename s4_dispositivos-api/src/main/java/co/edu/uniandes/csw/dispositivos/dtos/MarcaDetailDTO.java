@@ -18,7 +18,6 @@ public class MarcaDetailDTO extends MarcaDTO implements Serializable {
 
     private List<DispositivoDTO> dispositivos;
 
-    //private String logo;
     public MarcaDetailDTO() {
         super();
     }
@@ -37,7 +36,6 @@ public class MarcaDetailDTO extends MarcaDTO implements Serializable {
             }
         }
         if (marcaEntity.getLogo() != null) {
-            //logo = marcaEntity.getLogo();
         }
     }
 
@@ -56,9 +54,6 @@ public class MarcaDetailDTO extends MarcaDTO implements Serializable {
             }
             marcaEntity.setDispositivos(dispositivosEntity);
         }
-        //if (logo != null) {
-        //    marcaEntity.setLogo(logo);
-        // }
         return marcaEntity;
     }
 

@@ -13,14 +13,18 @@ import co.edu.uniandes.csw.dispositivos.entities.DispositivoEntity;
 import co.edu.uniandes.csw.dispositivos.entities.MarcaEntity;
 import co.edu.uniandes.csw.dispositivos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.dispositivos.persistence.DispositivoPersistence;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -50,6 +54,13 @@ public class DispositivoLogicTest {
     @Inject
     private DispositivoPersistence dp;
 
+    @Inject
+    private UserTransaction utx;
+
+    private List<DispositivoEntity> dataDispo = new ArrayList<DispositivoEntity>();
+    private List<CategoriaEntity> dataCategoria = new ArrayList<CategoriaEntity>();
+    private List<MarcaEntity> dataMarca = new ArrayList<MarcaEntity>();
+
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -58,6 +69,60 @@ public class DispositivoLogicTest {
                 .addPackage(DispositivoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
+    }
+
+    /**
+     * Configuración inicial de la prueba.
+     */
+    @Before
+    public void configTest() {
+        try {
+            utx.begin();
+            clearData();
+            insertData();
+            utx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                utx.rollback();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
+    private void clearData() {
+        em.createQuery("delete from DispositivoEntity").executeUpdate();
+    }
+
+    /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
+     */
+    private void insertData() {
+        PodamFactory factory = new PodamFactoryImpl();
+
+        for (int i = 0; i < 3; i++) {
+            MarcaEntity marca = factory.manufacturePojo(MarcaEntity.class);
+            em.persist(marca);
+            dataMarca.add(marca);
+        }
+        for (int i = 0; i < 3; i++) {
+            CategoriaEntity categoria = factory.manufacturePojo(CategoriaEntity.class);
+            em.persist(categoria);
+            dataCategoria.add(categoria);
+        }
+        for (int i = 0; i < 3; i++) {
+            DispositivoEntity entity = factory.manufacturePojo(DispositivoEntity.class);
+            entity.setCategoria(dataCategoria.get(0));
+            entity.setMarca(dataMarca.get(0));
+
+            em.persist(entity);
+            dataDispo.add(entity);
+        }
     }
 
     @Test
@@ -98,7 +163,7 @@ public class DispositivoLogicTest {
         if (result.getPrecio() > result.getDescuento()) {
             descuento = true;
         } else {
-            result.setDescuento(result.getDescuento() * 2);
+            result.setPrecio(result.getDescuento() * 2);
         }
         descuento = true;
 
@@ -354,6 +419,8 @@ public class DispositivoLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void createDispositivoEnPromocionPrecioLessDescuento() throws BusinessLogicException {
         DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        newEntity.setPrecio(10.0);
+        newEntity.setDescuento(1.0);
         DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
         result.setPrecio(100.0);
         result.setDescuento(200.0);
@@ -367,22 +434,57 @@ public class DispositivoLogicTest {
      */
     @Test
     public void updateDispositivoTest() throws BusinessLogicException {
-        DispositivoEntity entity = factory.manufacturePojo(DispositivoEntity.class);
-        DispositivoEntity result = dispositivoLogic.createDispositivo(entity);
+//        DispositivoEntity entity = dataDispo.get(0);
+//        DispositivoEntity pojoEntity = factory.manufacturePojo(DispositivoEntity.class);
+//        CategoriaEntity categoriaEntity = factory.manufacturePojo(CategoriaEntity.class);
+//        MarcaEntity marcaEntity = factory.manufacturePojo(MarcaEntity.class);
+//        CategoriaEntity result2 = categoriaLogic.createCategoria(categoriaEntity);
+//        MarcaEntity result3 = marcaLogic.createMarca(marcaEntity);
+//        pojoEntity.setId(entity.getId());
+//        pojoEntity.setCategoria(result2);
+//        pojoEntity.setMarca(result3);
+//        Assert.assertNotNull(categoriaEntity);
+//        Assert.assertNotNull(marcaEntity);
+//
+//        boolean descuento = false;
+//        if (pojoEntity.getPrecio() > pojoEntity.getDescuento()) {
+//            descuento = true;
+//        } else {
+//            pojoEntity.setPrecio(pojoEntity.getDescuento() + pojoEntity.getPrecio());
+//        }
+//        descuento = true;
+//        Assert.assertTrue(descuento);
+//        dispositivoLogic.updateDispositivo(pojoEntity.getId(), pojoEntity);
+//        DispositivoEntity resp = em.find(DispositivoEntity.class, entity.getId());
+//        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+//        Assert.assertEquals(pojoEntity.getNombre(), resp.getNombre());
+        DispositivoEntity entity = dataDispo.get(0);
         DispositivoEntity pojoEntity = factory.manufacturePojo(DispositivoEntity.class);
         CategoriaEntity categoriaEntity = factory.manufacturePojo(CategoriaEntity.class);
         MarcaEntity marcaEntity = factory.manufacturePojo(MarcaEntity.class);
         CategoriaEntity result2 = categoriaLogic.createCategoria(categoriaEntity);
         MarcaEntity result3 = marcaLogic.createMarca(marcaEntity);
-        pojoEntity.setId(entity.getId());
         pojoEntity.setCategoria(result2);
         pojoEntity.setMarca(result3);
         Assert.assertNotNull(categoriaEntity);
-        pojoEntity.setDescuento(pojoEntity.getPrecio()*0.5);
+        Assert.assertNotNull(marcaEntity);
+        pojoEntity.setId(entity.getId());
+
+        boolean descuento = false;
+        if (pojoEntity.getPrecio() < pojoEntity.getDescuento()) {
+            pojoEntity.setPrecio(pojoEntity.getDescuento() + 1);
+            descuento = true;
+        }
+        descuento = true;
+        Assert.assertTrue(descuento);
         dispositivoLogic.updateDispositivo(pojoEntity.getId(), pojoEntity);
         DispositivoEntity resp = em.find(DispositivoEntity.class, entity.getId());
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
-        Assert.assertEquals(pojoEntity.getNombre(), resp.getNombre());
+        Assert.assertEquals(pojoEntity.getDescripcion(), resp.getDescripcion());
+        Assert.assertEquals(pojoEntity.getDescuento(), resp.getDescuento());
+        Assert.assertEquals(pojoEntity.getEstado(), resp.getEstado());
+        Assert.assertEquals(pojoEntity.getMarca(), resp.getMarca());
+        Assert.assertEquals(pojoEntity.getCategoria(), resp.getCategoria());
     }
 
     /**
@@ -397,6 +499,24 @@ public class DispositivoLogicTest {
         dispositivoLogic.deleteDispositivo(entity.getId());
         DispositivoEntity deleted = em.find(DispositivoEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+
+    /**
+     * Prueba para consultar la lista de categorias.
+     */
+    @Test
+    public void getDispositivosTest() {
+        List<DispositivoEntity> list = dispositivoLogic.getDispositivos();
+        Assert.assertEquals(dataDispo.size(), list.size());
+        for (DispositivoEntity entity : list) {
+            boolean found = false;
+            for (DispositivoEntity entity2 : dataDispo) {
+                if (entity.getId().equals(entity2.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
     }
 
 }

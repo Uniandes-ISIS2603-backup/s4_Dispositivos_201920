@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -79,7 +80,7 @@ public class ClienteResource {
         LOGGER.log(Level.INFO, "ClienteResource updateCliente: input: id:{0} , cliente: {1}", new Object[]{clienteId, cliente});
         cliente.setId(clienteId);
         if (clienteLogic.getCliente(clienteId) == null) {
-            throw new WebApplicationException("El recurso /clientes/" + clienteId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /clientesUpdate/" + clienteId + " no existe 1.", 404);
         }
         ClienteDTO detailDTO = new ClienteDTO(clienteLogic.updateCliente(clienteId, cliente.toEntity()));
         LOGGER.log(Level.INFO, "ClienteResource updateCliente: output: {0}", detailDTO);
@@ -91,7 +92,7 @@ public class ClienteResource {
     public void deleteCliente(@PathParam("clienteId") Long clienteId) {
         LOGGER.log(Level.INFO, "ClienteResource deleteCliente: input: {0}", clienteId);
         if (clienteLogic.getCliente(clienteId) == null) {
-            throw new WebApplicationException("El recurso /clientes/" + clienteId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /clientesDelete/" + clienteId + " no existe 2.", 404);
         }
         clienteLogic.deleteCliente(clienteId);
         LOGGER.info("ClienteResource deleteCliente: output: void");
@@ -114,7 +115,7 @@ public class ClienteResource {
     @Path("{clienteId: \\d+}/comprobantes")
     public Class<ComprobanteDePagoResource> getComprobanteResource(@PathParam("clienteId") Long clienteId) {
         if (clienteLogic.getCliente(clienteId) == null) {
-            throw new WebApplicationException("El recurso /cliente/" + clienteId + "/comprobantes no existe.", 404);
+            throw new WebApplicationException("El recurso /clienteGet/" + clienteId + "/comprobantes no existe 3.", 404);
         }
         return ComprobanteDePagoResource.class;
     }
@@ -140,5 +141,10 @@ public class ClienteResource {
         }
         return FacturaResource.class;
     }
-
+    
+    @GET
+    @Path("user/{clienteUsuario: \\w+}")
+    public ClienteDTO getClienteUsuario(@PathParam("clienteUsuario") String clienteId) {
+        return new ClienteDetailDTO(clienteLogic.getClienteUsuario(clienteId));
+    }
 }

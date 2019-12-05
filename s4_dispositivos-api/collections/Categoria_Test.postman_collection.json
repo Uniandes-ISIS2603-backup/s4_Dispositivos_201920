@@ -1,21 +1,20 @@
 {
 	"info": {
-		"_postman_id": "87e0e952-f8fb-467d-84fe-1f21c0c2da2d",
-		"name": "DispositivoResourceTest",
-		"description": "Dispositivo Resource Test",
+		"_postman_id": "78728242-f668-4f5d-9b75-e2e268e16750",
+		"name": "Categoria_Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Agregar un dispositivo",
+			"name": "Crear Categoria 1",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "e74eb368-b72c-4da3-bffa-4e7c58473f50",
+						"id": "11587cf9-5ddd-4d7a-ad4c-d7448ceb185e",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_d\",data.id);",
+							"postman.setGlobalVariable(\"new_id_e2\",data.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
@@ -34,7 +33,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\r\n        \"descripcion\": \"El más veloz de la categoria\",\r\n        \"descuento\": 50.0,\r\n        \"enStock\": true,\r\n        \"esImportado\": false,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"Galaxy\",\r\n        \"nombre\": \"S10\",\r\n        \"precio\": 300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"categoria\": { \"id\": {{new_id_e2}} },\r\n        \"imagenes\": \"1, 2\",\r\n        \"usado\": false\r\n    }\r\n\r\n",
+					"raw": "{\"nombreCategoria\":\"Prueba 1\"}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -42,7 +41,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -51,133 +50,148 @@
 					"path": [
 						"s4_dispositivos-api",
 						"api",
-						"dispositivos"
+						"categorias"
 					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Agregar un dispositivo ya existente",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "2cb09173-e77b-4a85-becb-1ac270f83c6e",
-						"exec": [
-							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "\r\n    {\r\n        \"descripcion\": \"El más veloz de la categoria\",\r\n        \"descuento\": 50.0,\r\n        \"enStock\": true,\r\n        \"esImportado\": false,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"Galaxy\",\r\n        \"nombre\": \"S10\",\r\n        \"precio\": 300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"usado\": false,\r\n        \"calificaciones\": []\r\n    }\r\n\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
 				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s4_dispositivos-api",
-						"api",
-						"dispositivos"
-					]
-				}
+				"description": "Crea una nueva categoria en la base de datos."
 			},
 			"response": []
 		},
 		{
-			"name": "Agregar Un Dispositivo Ya Existente",
+			"name": "Crear Categoria 2",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "784cf0a5-1644-4703-8d62-17fdd70be05b",
+						"id": "11587cf9-5ddd-4d7a-ad4c-d7448ceb185e",
 						"exec": [
-							"tests[\"No pudo realizarse la creacion de un dispositivo.\"] = responseCode.code === 412;",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "    {\r\n        \"descripcion\": \"El más veloz de la categoria\",\r\n        \"descuento\": 50.0,\r\n        \"enStock\": true,\r\n        \"esImportado\": false,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"Galaxy\",\r\n        \"nombre\": \"S10\",\r\n        \"precio\": 300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"categoria\": {\"id\": 3 } ,\r\n        \"usado\": false\r\n    }\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s4_dispositivos-api",
-						"api",
-						"dispositivos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener un dispositivo por ID",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "b057e487-3b15-4deb-a496-eca2879bb602",
-						"exec": [
-							"console.log(responseBody); ",
 							"var data = JSON.parse(responseBody);",
-							"tests[\"No se genera error del get\"] = responseCode.code === 200; "
+							"postman.setGlobalVariable(\"new_id_e1\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nombreCategoria\":\"Prueba 2\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una categoriacon el mismo nombre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"No pudo realizarse la creacion de una categoria.\"] = responseCode.code === 412;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreCategoria\":\"Prueba 1\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"categorias"
+					]
+				},
+				"description": "Crea una categoria con un nombre que ya existe."
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener las Categorias",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "11587cf9-5ddd-4d7a-ad4c-d7448ceb185e",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_e\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos/{{new_id_d}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -186,20 +200,20 @@
 					"path": [
 						"s4_dispositivos-api",
 						"api",
-						"dispositivos",
-						"{{new_id_d}}"
+						"categorias"
 					]
-				}
+				},
+				"description": "Obtiene todas las categorias de la base de datos."
 			},
 			"response": []
 		},
 		{
-			"name": "Obtener todos los dispositivos",
+			"name": "Obtener una Categoria por su ID",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "72eef936-ea33-42c0-b849-f74c32c1e6c6",
+						"id": "75d835cf-17fb-4929-b876-886f8a88b969",
 						"exec": [
 							"console.log(responseBody);",
 							"var data = JSON.parse(responseBody);",
@@ -213,7 +227,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/{{new_id_e2}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -222,19 +236,21 @@
 					"path": [
 						"s4_dispositivos-api",
 						"api",
-						"dispositivos"
+						"categorias",
+						"{{new_id_e2}}"
 					]
-				}
+				},
+				"description": "Obtiene una categoria por el Id"
 			},
 			"response": []
 		},
 		{
-			"name": "Obtener un dispositivo que no existe",
+			"name": "Obtener una Categoria que no existe",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "aceb4100-39e3-4637-aadb-1d9badc6be27",
+						"id": "75d835cf-17fb-4929-b876-886f8a88b969",
 						"exec": [
 							"tests[\"No genera error en el Get\"] = responseCode.code === 404;"
 						],
@@ -246,7 +262,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/0",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -255,7 +271,7 @@
 					"path": [
 						"s4_dispositivos-api",
 						"api",
-						"dispositivos",
+						"categorias",
 						"0"
 					]
 				}
@@ -263,12 +279,12 @@
 			"response": []
 		},
 		{
-			"name": "Modificar Un Dispositivo",
+			"name": "Modificar Categoria",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "da29e89c-94df-404f-9693-7475e759aac5",
+						"id": "f892e43b-b0e7-4c86-9e4c-991b040f4f7b",
 						"exec": [
 							"console.log(responseBody);",
 							"var data = JSON.parse(responseBody);",
@@ -290,7 +306,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\r\n        \"descripcion\": \"La mejor compra\",\r\n        \"descuento\": 500.0,\r\n        \"enStock\": false,\r\n        \"esImportado\": true,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"iPhone\",\r\n        \"nombre\": \"XR\",\r\n        \"precio\": 1300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"categoria\": { \"id\": {{new_id_e2}} },\r\n        \"usado\": true\r\n    }\r\n",
+					"raw": " {\r\n  \"id\":\"{{new_id_e2}}\",\r\n  \"nombreCategoria\": \" NuevoNombre\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -298,7 +314,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos/{{new_id_d}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/{{new_id_e2}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -307,15 +323,16 @@
 					"path": [
 						"s4_dispositivos-api",
 						"api",
-						"dispositivos",
-						"{{new_id_d}}"
+						"categorias",
+						"{{new_id_e2}}"
 					]
-				}
+				},
+				"description": "Modifica el nombre de una categoria por su ID"
 			},
 			"response": []
 		},
 		{
-			"name": "Modificar Un Dispositivo Que No Existe",
+			"name": "Editar una categoria que no existe",
 			"event": [
 				{
 					"listen": "test",
@@ -338,10 +355,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\r\n        \"descripcion\": \"La mejor compra\",\r\n        \"descuento\": 500.0,\r\n        \"enStock\": false,\r\n        \"esImportado\": true,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"iPhone\",\r\n        \"nombre\": \"XR\",\r\n        \"precio\": 1300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"categoria\": { \"id\": {{new_id_e2}} },\r\n        \"usado\": true\r\n    }\r\n"
+					"raw": "{\n    \"nombreCategoria\": \"Categoria con nuevo nombre\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/0",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -350,7 +367,7 @@
 					"path": [
 						"s4_dispositivos-api",
 						"api",
-						"dispositivos",
+						"categorias",
 						"0"
 					]
 				}
@@ -358,12 +375,12 @@
 			"response": []
 		},
 		{
-			"name": "Borrar Un Dispositivo",
+			"name": "Eliminar Categoria",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "30cf4d3d-368e-42f1-81bb-63a00b1bb177",
+						"id": "c7c35a0f-6c8f-4f12-b3be-3851508aa1e5",
 						"exec": [
 							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
 						],
@@ -373,9 +390,25 @@
 			],
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos/{{new_id_d}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/{{new_id_e2}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -384,15 +417,67 @@
 					"path": [
 						"s4_dispositivos-api",
 						"api",
-						"dispositivos",
-						"{{new_id_d}}"
+						"categorias",
+						"{{new_id_e2}}"
 					]
-				}
+				},
+				"description": "Elimina una categoria por su ID"
 			},
 			"response": []
 		},
 		{
-			"name": "Borrar Un Dispositivo Que No Existe",
+			"name": "Eliminar Categoria 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7c35a0f-6c8f-4f12-b3be-3851508aa1e5",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/{{new_id_e1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"categorias",
+						"{{new_id_e1}}"
+					]
+				},
+				"description": "Elimina una categoria por su ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar una categoria que no existe",
 			"event": [
 				{
 					"listen": "test",
@@ -413,7 +498,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/0",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -422,7 +507,7 @@
 					"path": [
 						"s4_dispositivos-api",
 						"api",
-						"dispositivos",
+						"categorias",
 						"0"
 					]
 				}

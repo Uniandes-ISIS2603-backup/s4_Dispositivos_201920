@@ -1,0 +1,572 @@
+{
+	"info": {
+		"_postman_id": "abfe4b82-c6b1-45fe-a3cb-1acc9a94546d",
+		"name": "MedioDePago_Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un medio de pago Visa",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "11587cf9-5ddd-4d7a-ad4c-d7448ceb185e",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_m\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"numeroTarjeta\":\"423456789012345\",\n\t\"numeroDeVerificacion\" : \"123\", \n\t\"tipoTarjeta\" : \"VISA\", \n\t\"tipoCredito\" : \"DEBITO\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"medios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un medio de pago de tipo Mastercad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "11587cf9-5ddd-4d7a-ad4c-d7448ceb185e",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_m1\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"numeroTarjeta\":\"523456789012345\",\n\t\"numeroDeVerificacion\" : \"123\", \n\t\"tipoTarjeta\" : \"MASTERCARD\", \n\t\"tipoCredito\" : \"DEBITO\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"medios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un medio de pago con el numreo de tarjeta creado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"No pudo realizarse la creacion de una categoria.\"] = responseCode.code === 412;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"numeroTarjeta\":\"523456789012345\",\n\t\"numeroDeVerificacion\" : \"123\", \n\t\"tipoTarjeta\" : \"VISA\", \n\t\"tipoCredito\" : \"DEBITO\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"medios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un medio de pago de tipo MasteCardInvalido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "11587cf9-5ddd-4d7a-ad4c-d7448ceb185e",
+						"exec": [
+							"tests[\"Genera error en el post\"] = responseCode.code === 412;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"numeroTarjeta\":\"523456789012345\",\n\t\"numeroDeVerificacion\" : \"123\", \n\t\"tipoTarjeta\" : \"Visa\", \n\t\"tipoCredito\" : \"DEBITO\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"medios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un medio de pago de tipo Mastercad Invalido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "11587cf9-5ddd-4d7a-ad4c-d7448ceb185e",
+						"exec": [
+							"tests[\"Genera error en el post\"] = responseCode.code === 412;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"numeroTarjeta\":\"103456789012345\",\n\t\"numeroDeVerificacion\" : \"123\", \n\t\"tipoTarjeta\" : \"Mastercard\", \n\t\"tipoCredito\" : \"DEBITO\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"medios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener las Medios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "11587cf9-5ddd-4d7a-ad4c-d7448ceb185e",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"medios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una Medio de Pago que Existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75d835cf-17fb-4929-b876-886f8a88b969",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios/{{new_id_m}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"medios",
+						"{{new_id_m}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una Medios que no existe.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75d835cf-17fb-4929-b876-886f8a88b969",
+						"exec": [
+							"tests[\"No genera error en el Get\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"medios",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar Medio que ya Existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f892e43b-b0e7-4c86-9e4c-991b040f4f7b",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"numeroTarjeta\":\"443456789012345\",\n\t\"numeroDeVerificacion\" : \"123\", \n\t\"tipoTarjeta\" : \"VISA\", \n\t\"tipoCredito\" : \"DEBITO\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios/{{new_id_m}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"medios",
+						"{{new_id_m}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar una medio de pago que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b9df8d7c-f845-4e0d-b244-f10ecadbbf44",
+						"exec": [
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombreCategoria\": \"Categoria con nuevo nombre\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"medios",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Medio de pago 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7c35a0f-6c8f-4f12-b3be-3851508aa1e5",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios/{{new_id_m}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"medios",
+						"{{new_id_m}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Medio de pago 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7c35a0f-6c8f-4f12-b3be-3851508aa1e5",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/medios/{{new_id_m1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"medios",
+						"{{new_id_m1}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

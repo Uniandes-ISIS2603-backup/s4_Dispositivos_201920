@@ -86,7 +86,7 @@ public class CalificacionLogicTest {
     private void insertData() {
         for (int i = 0; i < 3; i++) {
             CalificacionEntity entity = factory.manufacturePojo(CalificacionEntity.class);
-            entity.setCalificacionNumerica(5);
+            entity.setCalificacionNumerica(new Double(5));
             em.persist(entity);
             data.add(entity);
         }
@@ -100,7 +100,7 @@ public class CalificacionLogicTest {
     @Test
     public void createCalificacionTest() throws BusinessLogicException {
         CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
-        newEntity.setCalificacionNumerica(5);
+        newEntity.setCalificacionNumerica(new Double(5));
         CalificacionEntity result = calificacionLogic.createCalificacion(newEntity);
         Assert.assertNotNull(result);
         CalificacionEntity entity = em.find(CalificacionEntity.class, result.getId());
@@ -115,7 +115,7 @@ public class CalificacionLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void createCalificacionConNumeroMayorOMenor() throws BusinessLogicException {
         CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
-        newEntity.setCalificacionNumerica(-2);
+        newEntity.setCalificacionNumerica(new Double(-2));
         calificacionLogic.createCalificacion(newEntity);
     }
 
