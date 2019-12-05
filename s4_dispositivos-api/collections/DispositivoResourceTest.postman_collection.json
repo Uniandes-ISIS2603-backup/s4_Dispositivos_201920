@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6db65ee1-5171-461d-9b5a-2c8b2bf7741d",
+		"_postman_id": "87e0e952-f8fb-467d-84fe-1f21c0c2da2d",
 		"name": "DispositivoResourceTest",
 		"description": "Dispositivo Resource Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -34,7 +34,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\r\n        \"descripcion\": \"El más veloz de la categoria\",\r\n        \"descuento\": 50.0,\r\n        \"enStock\": true,\r\n        \"esImportado\": false,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"Galaxy\",\r\n        \"nombre\": \"S10\",\r\n        \"precio\": 300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"categoria\": {\"id\": 3 } ,\r\n        \"usado\": false\r\n    }\r\n\r\n",
+					"raw": "    {\r\n        \"descripcion\": \"El más veloz de la categoria\",\r\n        \"descuento\": 50.0,\r\n        \"enStock\": true,\r\n        \"esImportado\": false,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"Galaxy\",\r\n        \"nombre\": \"S10\",\r\n        \"precio\": 300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"categoria\": { \"id\": {{new_id_e2}} },\r\n        \"usado\": false\r\n    }\r\n\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -85,6 +85,56 @@
 				"body": {
 					"mode": "raw",
 					"raw": "\r\n    {\r\n        \"descripcion\": \"El más veloz de la categoria\",\r\n        \"descuento\": 50.0,\r\n        \"enStock\": true,\r\n        \"esImportado\": false,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"Galaxy\",\r\n        \"nombre\": \"S10\",\r\n        \"precio\": 300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"usado\": false,\r\n        \"calificaciones\": []\r\n    }\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"dispositivos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar Un Dispositivo Ya Existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "784cf0a5-1644-4703-8d62-17fdd70be05b",
+						"exec": [
+							"tests[\"No pudo realizarse la creacion de un dispositivo.\"] = responseCode.code === 412;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"descripcion\": \"El más veloz de la categoria\",\r\n        \"descuento\": 50.0,\r\n        \"enStock\": true,\r\n        \"esImportado\": false,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"Galaxy\",\r\n        \"nombre\": \"S10\",\r\n        \"precio\": 300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"categoria\": {\"id\": 3 } ,\r\n        \"usado\": false\r\n    }\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -173,6 +223,207 @@
 						"s4_dispositivos-api",
 						"api",
 						"dispositivos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un dispositivo que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aceb4100-39e3-4637-aadb-1d9badc6be27",
+						"exec": [
+							"tests[\"No genera error en el Get\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"dispositivos",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar Un Dispositivo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "da29e89c-94df-404f-9693-7475e759aac5",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"descripcion\": \"La mejor compra\",\r\n        \"descuento\": 500.0,\r\n        \"enStock\": false,\r\n        \"esImportado\": true,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"iPhone\",\r\n        \"nombre\": \"XR\",\r\n        \"precio\": 1300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"categoria\": { \"id\": {{new_id_e2}} },\r\n        \"usado\": true\r\n    }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos/{{new_id_d}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"dispositivos",
+						"{{new_id_d}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar Un Dispositivo Que No Existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b9df8d7c-f845-4e0d-b244-f10ecadbbf44",
+						"exec": [
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"descripcion\": \"La mejor compra\",\r\n        \"descuento\": 500.0,\r\n        \"enStock\": false,\r\n        \"esImportado\": true,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"iPhone\",\r\n        \"nombre\": \"XR\",\r\n        \"precio\": 1300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"categoria\": { \"id\": {{new_id_e2}} },\r\n        \"usado\": true\r\n    }\r\n"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"dispositivos",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar Un Dispositivo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "30cf4d3d-368e-42f1-81bb-63a00b1bb177",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/dispositivos/{{new_id_d}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"dispositivos",
+						"{{new_id_d}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar Un Dispositivo Que No Existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "89d81851-eeab-4e87-b483-8179a61e9ce7",
+						"exec": [
+							"tests[\"No borra con id que no existe\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/categorias/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"categorias",
+						"0"
 					]
 				}
 			},

@@ -128,8 +128,8 @@ public class DispositivoResource {
         if (entity == null) {
             throw new WebApplicationException(RUTA_ERROR_DISPOSITIVOS + dispositivosId + RUTA_ERROR_TERMINACION, 404);
         }
-        dispositivoCategoriaLogic.removeCategoria(dispositivosId);
-        dispositivoMarcaLogic.removeMarca(dispositivosId);
+        //dispositivoCategoriaLogic.removeCategoria(dispositivosId);
+        //dispositivoMarcaLogic.removeMarca(dispositivosId);
         dispositivoLogic.deleteDispositivo(dispositivosId);
         LOGGER.info("DispositivoResource deleteDispositivo: output: void");
 
