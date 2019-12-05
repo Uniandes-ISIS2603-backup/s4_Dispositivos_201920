@@ -61,7 +61,7 @@ public class CalificacionResource {
 
     @GET
     @Path("{calificacionId: \\d+}")
-    public CalificacionDTO getCalificacion(@PathParam("calificacionId") Long calificacionId) {
+    public CalificacionDTO getCalificacion(@PathParam("calificacionId") Long calificacionId) throws BusinessLogicException {
                 LOGGER.log(Level.INFO, "CalificacionResource getCalificacion: input: {0}", calificacionId);
         CalificacionEntity calificacionEntity = calificacionLogic.getCalificacion(calificacionId);
         if (calificacionEntity == null) {

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -29,8 +30,10 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author Zharet Bautista Montes
  */
+@Path("ventas")
 @Produces("application/json")
 @Consumes("application/json")
+@RequestScoped
 public class VentaResource 
 {
     private static final Logger LOGGER = Logger.getLogger(VentaResource.class.getName());

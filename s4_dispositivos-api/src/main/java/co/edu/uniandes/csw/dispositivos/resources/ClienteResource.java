@@ -70,8 +70,15 @@ public class ClienteResource {
 
     @GET
     @Path("{clienteId: \\d+}")
-    public ClienteDTO getCliente(@PathParam("clienteId") Long clienteId) {
-        return null;
+    public ClienteDTO getCliente(@PathParam("clienteId") Long clienteId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "ClienteResource getCliente: input: {0}", clienteId);
+        ClienteEntity cliente = clienteLogic.getCliente(clienteId);
+        if(cliente == null) {
+            throw new WebApplicationException("El recurso /clientesGet/" + clienteId + " no existe.", 404);
+        }
+        ClienteDetailDTO clienteDetail = new ClienteDetailDTO(cliente);
+        LOGGER.log(Level.INFO, "ClienteResource getCliente: output: {0}", clienteDetail);
+        return clienteDetail;  
     }
 
     @PUT

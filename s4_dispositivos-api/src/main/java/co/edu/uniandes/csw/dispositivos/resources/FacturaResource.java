@@ -81,8 +81,15 @@ public class FacturaResource {
 
     @GET
     @Path("{facturaId: \\d+}")
-    public FacturaDTO getFactura(@PathParam("facturaId") Long facturaId) {
-        return null;
+    public FacturaDTO getFactura(@PathParam("clienteId") Long clienteId, @PathParam("facturaId") Long facturaId) throws BusinessLogicException
+    {
+        LOGGER.log(Level.INFO, "FacturaDePagoResource getFacturas: input: {0}", facturaId);
+        FacturaEntity facturaEntity = facturaLogic.getFactura(clienteId, facturaId);
+        if(facturaEntity == null)
+            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/factura/" + facturaId + " no existe.", 404);
+        FacturaDetailDTO facturaDetail = new FacturaDetailDTO(facturaEntity);
+        LOGGER.log(Level.INFO, "FacturaDePagoResource getFacturas: output: {0}", facturaDetail);
+        return facturaDetail;  
     }
 
     /**
