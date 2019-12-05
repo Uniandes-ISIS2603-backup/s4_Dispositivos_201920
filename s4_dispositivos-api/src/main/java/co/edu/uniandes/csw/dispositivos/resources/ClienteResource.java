@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -139,10 +140,5 @@ public class ClienteResource {
             throw new WebApplicationException("El recurso /clientes/" + clienteId + "/facturas no existe.", 404);
         }
         return FacturaResource.class;
-    }
-@GET
-    @Path("{clienteUsuario: \\w+}")
-    public ClienteDTO getClienteUsuario(@PathParam("clienteUsuario") String clienteId) {
-        return new ClienteDetailDTO(clienteLogic.getClienteUsuario(clienteId));
     }
 }
