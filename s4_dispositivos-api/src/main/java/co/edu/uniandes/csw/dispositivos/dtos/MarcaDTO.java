@@ -21,6 +21,11 @@ public class MarcaDTO implements Serializable {
      */
     private String nombreMarca;
 
+    /**
+     * Logo de la marca
+     */
+    
+    private String logo;
 
 
     /**
@@ -43,6 +48,7 @@ public class MarcaDTO implements Serializable {
         if (marcaEntity != null) {
             this.id = marcaEntity.getId();
             this.nombreMarca = marcaEntity.getNombreMarca();
+            this.logo = marcaEntity.getLogo();
         }
     }
 
@@ -55,6 +61,7 @@ public class MarcaDTO implements Serializable {
         MarcaEntity marcaEntity = new MarcaEntity();
         marcaEntity.setId(this.getId());
         marcaEntity.setNombreMarca(this.getNombreMarca());
+        marcaEntity.setLogo(this.getLogo());
         return marcaEntity;
     }
 
@@ -89,6 +96,20 @@ public class MarcaDTO implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * @return the logo
+     */
+    public String getLogo() {
+        return logo;
+    }
+
+    /**
+     * @param logo the logo to set
+     */
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
 }
