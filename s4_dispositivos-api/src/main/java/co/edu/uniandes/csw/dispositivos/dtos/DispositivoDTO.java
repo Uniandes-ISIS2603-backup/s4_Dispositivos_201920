@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -34,15 +35,15 @@ public class DispositivoDTO implements Serializable {
     /**
      * Longs
      */
-    private Long id;
+    private long id;
 
     /**
      * Booleans
      */
-    private Boolean promocion;
-    private Boolean enStock;
-    private Boolean esImportado;
-    private Boolean usado;
+    private boolean promocion;
+    private boolean enStock;
+    private boolean esImportado;
+    private boolean usado;
 
     /**
      * Enums
@@ -87,9 +88,13 @@ public class DispositivoDTO implements Serializable {
 
             if (dispositivo.getMarca() != null) {
                 this.marca = new MarcaDTO(dispositivo.getMarca());
+            } else {
+                this.marca = null;
             }
             if (dispositivo.getCategoria() != null) {
                 this.categoria = new CategoriaDTO(dispositivo.getCategoria());
+            } else {
+                this.categoria = null;
             }
         }
     }
@@ -97,20 +102,20 @@ public class DispositivoDTO implements Serializable {
     public DispositivoEntity toEntity() {
 
         DispositivoEntity dispositivoEntity = new DispositivoEntity();
-        dispositivoEntity.setId(this.id);
-        dispositivoEntity.setDescripcion(this.descripcion);
-        dispositivoEntity.setDescuento(this.descuento);
-        dispositivoEntity.setEnStock(this.enStock);
-        dispositivoEntity.setEsImportado(this.esImportado);
-        dispositivoEntity.setEstado(this.estado);
-        dispositivoEntity.setModelo(this.modelo);
-        dispositivoEntity.setNombre(this.nombre);
-        dispositivoEntity.setPrecio(this.precio);
-        dispositivoEntity.setPrecioImportacion(this.precioImportacion);
+        dispositivoEntity.setId(this.getId());
+        dispositivoEntity.setDescripcion(this.getDescripcion());
+        dispositivoEntity.setDescuento(this.getDescuento());
+        dispositivoEntity.setEnStock(this.isEnStock());
+        dispositivoEntity.setEsImportado(this.isEsImportado());
+        dispositivoEntity.setEstado(this.getEstado());
+        dispositivoEntity.setModelo(this.getModelo());
+        dispositivoEntity.setNombre(this.getNombre());
+        dispositivoEntity.setPrecio(this.getPrecio());
+        dispositivoEntity.setPrecioImportacion(this.getPrecioImportacion());
         dispositivoEntity.setPromocion(this.promocion);
         dispositivoEntity.setTipo(this.tipo);
         dispositivoEntity.setUsado(this.usado);
-        dispositivoEntity.setImagenes(this.imagenes);
+        dispositivoEntity.setImagenes(this.getImagenes());
 
         if (this.marca != null) {
             dispositivoEntity.setMarca(this.marca.toEntity());
@@ -125,7 +130,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @return
      */
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -197,7 +202,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @return
      */
-    public Boolean isPromocion() {
+    public boolean isPromocion() {
         return promocion;
     }
 
@@ -205,7 +210,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @return
      */
-    public Boolean isEnStock() {
+    public boolean isEnStock() {
         return enStock;
     }
 
@@ -213,7 +218,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @return
      */
-    public Boolean isEsImportado() {
+    public boolean isEsImportado() {
         return esImportado;
     }
 
@@ -221,7 +226,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @return
      */
-    public Boolean isUsado() {
+    public boolean isUsado() {
         return usado;
     }
 
@@ -245,7 +250,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @param id
      */
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -317,7 +322,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @param promocion
      */
-    public void setPromocion(Boolean promocion) {
+    public void setPromocion(boolean promocion) {
         this.promocion = promocion;
     }
 
@@ -325,7 +330,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @param enStock
      */
-    public void setEnStock(Boolean enStock) {
+    public void setEnStock(boolean enStock) {
         this.enStock = enStock;
     }
 
@@ -333,7 +338,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @param esImportado
      */
-    public void setEsImportado(Boolean esImportado) {
+    public void setEsImportado(boolean esImportado) {
         this.esImportado = esImportado;
     }
 
@@ -341,7 +346,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @param usado
      */
-    public void setUsado(Boolean usado) {
+    public void setUsado(boolean usado) {
         this.usado = usado;
     }
 
