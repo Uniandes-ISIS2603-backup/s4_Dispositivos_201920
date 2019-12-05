@@ -1,0 +1,450 @@
+{
+	"info": {
+		"_postman_id": "46af1047-76a6-426a-a825-2b3fe73dd027",
+		"name": "Calificaciones_Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear una calificaciones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75c8a441-0114-4ee7-b66e-0df2b802155a",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_c\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"calificacionNumerica\": 2.0, \n\t\"comentario\": \"Comentario calificacion\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/calificaciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"calificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una calificacion 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "951877f3-cba0-4c76-b6cf-2a006e89dfe3",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_c1\",data.id);",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"calificacionNumerica\": 5.0, \n\t\"comentario\": \"Comentario calificacion 2\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/calificaciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"calificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una calificacion con un numero negativo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"El valor de \"] = responseCode.code === 412;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"calificacionNumerica\": -2.0, \n\t\"comentario\": \"Comentario calificacion\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/calificaciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"calificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar una calificacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1ba3a9f-12f2-4dea-8ed8-328c08edb346",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"calificacionNumerica\": 1.0, \n\t\"comentario\": \"Comentario calificacion\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/calificaciones/{{new_id_c}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"calificaciones",
+						"{{new_id_c}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar una calificacion que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b9df8d7c-f845-4e0d-b244-f10ecadbbf44",
+						"exec": [
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Editorial con nuevo nombre\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/calificaciones/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"calificaciones",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todas las calificaciones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75d835cf-17fb-4929-b876-886f8a88b969",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"tests[\"calificaciones count\"] = data.length > 1;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/calificaciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"calificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una calificacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "72eef936-ea33-42c0-b849-f74c32c1e6c6",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/calificaciones/{{new_id_c}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"calificaciones",
+						"{{new_id_c}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una editorial que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "521005a5-fdc4-4a18-9b70-ed56c3a72d2f",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/calificaciones/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"calificaciones",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar una calificacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bbc923bd-eb17-44c4-8151-b3acec604364",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/calificaciones/{{new_id_c}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"calificaciones",
+						"{{new_id_c}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar una calificacion que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bbc923bd-eb17-44c4-8151-b3acec604364",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/calificaciones/{{new_id_c1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"calificaciones",
+						"{{new_id_c1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar una calificacion que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bbc923bd-eb17-44c4-8151-b3acec604364",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_dispositivos-api/api/calificaciones/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_dispositivos-api",
+						"api",
+						"calificaciones",
+						"0"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
