@@ -255,7 +255,7 @@ public class FacturaLogicTest {
     public void createFacturaConMismoNumeroTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
         List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
-        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", 10500, 12000, 230, true, true, true, true, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
+        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", new Double(10500), new Double(12000), new Double(230), true, true, true, true, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
         dispositivoLogic.createDispositivo(entity2);
         dispositivos.add(entity2);
         newEntity.setDispositivos(dispositivos);
@@ -297,7 +297,7 @@ public class FacturaLogicTest {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
         newEntity.setNumeroDeFactura(null);
         List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
-        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", 10500, 12000, 230, true, true, true, true, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
+        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", new Double(10500), new Double(12000), new Double(230), true, true, true, true, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
         dispositivoLogic.createDispositivo(entity2);
         dispositivos.add(entity2);
         newEntity.setDispositivos(dispositivos);
@@ -314,7 +314,7 @@ public class FacturaLogicTest {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
         newEntity.setNumeroDeFactura(0);
         List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
-        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", 10500, 12000, 230, true, true, true, true, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
+        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", new Double(10500), new Double(12000), new Double(230), true, true, true, true, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
         dispositivoLogic.createDispositivo(entity2);
         dispositivos.add(entity2);
         newEntity.setDispositivos(dispositivos);
@@ -331,7 +331,7 @@ public class FacturaLogicTest {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
         newEntity.setImpuestos(null);
         List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
-        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", 10500, 12000, 230, true, true, true, true, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
+        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", new Double(10500), new Double(12000), new Double(230), true, true, true, true, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
         dispositivoLogic.createDispositivo(entity2);
         dispositivos.add(entity2);
         newEntity.setDispositivos(dispositivos);
@@ -361,7 +361,7 @@ public class FacturaLogicTest {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
         newEntity.setTotalPago(null);
         List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
-        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", 10500, 12000, 230, true, true, true, true, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
+        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", new Double(10500), new Double(12000), new Double(230), true, true, true, true, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
         dispositivoLogic.createDispositivo(entity2);
         dispositivos.add(entity2);
         newEntity.setDispositivos(dispositivos);
@@ -392,7 +392,7 @@ public class FacturaLogicTest {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
         newEntity.setNumeroDeFactura(data.get(0).getNumeroDeFactura());
         List<DispositivoEntity> dispositivos = new ArrayList<DispositivoEntity>();
-        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", 10500, 12000, 230, true, true, true, true, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
+        DispositivoEntity entity2 = new DispositivoEntity("P10 Lite", "Celular nuevo", "Huawei P10 Lite", new Double(10500), new Double(12000), new Double(230), true, true, true, true, null, Tipo.CELULAR, EstadoDispositivo.NUEVO, null, null, null);
         dispositivoLogic.createDispositivo(entity2);
         dispositivos.add(entity2);
         newEntity.setDispositivos(dispositivos);
