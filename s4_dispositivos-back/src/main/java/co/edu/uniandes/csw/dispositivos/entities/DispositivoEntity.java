@@ -32,7 +32,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
     private String descripcion;
     private String nombre;
 
-    private String[] imagenes;
+    private String imagenes;
 
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -105,7 +105,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      * @param categoria Categoría del dispositivo
      */
     public DispositivoEntity(String modelo, String descripcion, String nombre, Double precio, Double precioImportacion,
-            Double descuento, Boolean promocion, Boolean enStock, Boolean usado, Boolean esImportado, String[] imagenes,
+            Double descuento, Boolean promocion, Boolean enStock, Boolean usado, Boolean esImportado, String imagenes,
             Tipo tipo, EstadoDispositivo estado, MarcaEntity marca, List<CalificacionEntity> calificaciones, CategoriaEntity categoria) {
 
         this.modelo = modelo;
@@ -158,7 +158,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      *
      * @return Imagenes del dispositivo
      */
-    public String[] getImagenes() {
+    public String getImagenes() {
         return imagenes;
     }
 
@@ -307,7 +307,7 @@ public class DispositivoEntity extends BaseEntity implements Serializable {
      *
      * @param imagenes Objeto que contiene las imagenes correspondientes
      */
-    public void setImagenes(String[] imagenes) {
+    public void setImagenes(String imagenes) {
         this.imagenes = imagenes;
     }
 

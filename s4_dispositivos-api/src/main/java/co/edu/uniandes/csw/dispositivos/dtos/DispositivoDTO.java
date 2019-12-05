@@ -23,7 +23,7 @@ public class DispositivoDTO implements Serializable {
     private String modelo;
     private String descripcion;
     private String nombre;
-    private String[] imagenes;
+    private String imagenes;
 
     /**
      * Doubles
@@ -142,7 +142,7 @@ public class DispositivoDTO implements Serializable {
         return tipo;
     }
 
-    public String[] getImagenes() {
+    public String getImagenes() {
         return imagenes;
     }
 
@@ -358,7 +358,7 @@ public class DispositivoDTO implements Serializable {
         this.categoria = categoria;
     }
 
-    public void setImagen(String[] imagenes) {
+    public void setImagen(String imagenes) {
         this.imagenes = imagenes;
     }
 
