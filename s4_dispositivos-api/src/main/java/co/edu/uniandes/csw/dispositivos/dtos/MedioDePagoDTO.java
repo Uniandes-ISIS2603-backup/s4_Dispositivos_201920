@@ -77,31 +77,37 @@ public class MedioDePagoDTO implements Serializable {
     }
 
     /**
+     * @return the numeroTarjeta
+     */
+    public String getNumeroTarjeta() {
+        return numeroTarjeta;
+    }
+    /**
      * @param id the id to set
      */
     public void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     * @return the numeroTarjeta
-     */
-    public String getNumeroTarjeta() {
-        return numeroTarjeta;
-    }
 
-    /**
-     * @param numeroTarjeta the numeroTarjeta to set
-     */
-    public void setNumeroTarjeta(String numeroTarjeta) {
-        this.numeroTarjeta = numeroTarjeta;
-    }
 
     /**
      * @return the numeroDeVerificacion
      */
     public String getNumeroDeVerificacion() {
         return numeroDeVerificacion;
+    }
+    /**
+     * @return the tipoCredito
+     */
+    public String getTipoCredito() {
+        return tipoCredito;
+    }
+    /**
+     * @param numeroTarjeta the numeroTarjeta to set
+     */
+    public void setNumeroTarjeta(String numeroTarjeta) {
+        this.numeroTarjeta = numeroTarjeta;
     }
 
     /**
@@ -111,12 +117,6 @@ public class MedioDePagoDTO implements Serializable {
         this.numeroDeVerificacion = numeroDeVerificacion;
     }
 
-    /**
-     * @return the tipoTarjeta
-     */
-    public String getTipoTarjeta() {
-        return tipoTarjeta;
-    }
 
     /**
      * @param tipoTarjeta the tipoTarjeta to set
@@ -124,13 +124,13 @@ public class MedioDePagoDTO implements Serializable {
     public void setTipoTarjeta(String tipoTarjeta) {
         this.tipoTarjeta = tipoTarjeta;
     }
-
     /**
-     * @return the tipoCredito
+     * @return the tipoTarjeta
      */
-    public String getTipoCredito() {
-        return tipoCredito;
+    public String getTipoTarjeta() {
+        return tipoTarjeta;
     }
+
 
     /**
      * @param tipoCredito the tipoCredito to set
