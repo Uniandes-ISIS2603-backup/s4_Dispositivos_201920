@@ -30,10 +30,8 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author Zharet Bautista Montes
  */
-@Path("ventas")
 @Produces("application/json")
 @Consumes("application/json")
-@RequestScoped
 public class VentaResource 
 {
     private static final Logger LOGGER = Logger.getLogger(VentaResource.class.getName());
