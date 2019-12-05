@@ -27,7 +27,7 @@ import javax.ws.rs.WebApplicationException;
 
 /**
  *
- * @author Javier Peniche
+ * @author Juan L
  */
 @Path("calificaciones")
 @Produces("application/json")
