@@ -41,9 +41,10 @@ public class VendedorVentaIT {
                         .importRuntimeDependencies().resolve()
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
-                .addPackage(RestConfig.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
+                .addPackage(RestConfig.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquete.
                 .addPackage(VendedorDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
-                .addPackage(VentaResource.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquet
+                .addPackage(VendedorResource.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquete.
+                .addPackage(VentaResource.class.getPackage()) //No importa cual recurso usar, lo importante es agregar el paquete.
                 .addPackage(VentaDTO.class.getPackage()) //No importa cual dto usar, lo importante es agregar el paquete.
                 .addPackage(BusinessLogicExceptionMapper.class.getPackage())
                 // El archivo que contiene la configuracion a la base de datos.

@@ -43,7 +43,7 @@ public class VentaLogic
      */
     public VentaEntity createVenta(Long vendedor, VentaEntity venta) throws BusinessLogicException
     {
-        if(venta.getVendedor() == null || vrpersistence.find(vendedor) == null)
+        if(vrpersistence.find(vendedor) == null)
             throw new BusinessLogicException("No se puede registrar una venta sin un vendedor asociado");
         
         if(venta.getPrecioReventa() == null || venta.getPrecioReventa() < 0)

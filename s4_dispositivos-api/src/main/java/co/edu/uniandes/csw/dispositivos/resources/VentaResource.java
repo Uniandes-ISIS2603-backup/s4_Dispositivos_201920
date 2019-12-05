@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -49,7 +48,7 @@ public class VentaResource
      * @throws BusinessLogicException
      */
     @POST
-    public VentaDTO createVenta(@PathParam("vendedorId") Long vendedorId, VentaDTO venta) throws BusinessLogicException
+    public VentaDTO createVenta(@PathParam("vendedorID") Long vendedorId, VentaDTO venta) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "VentaResource createVenta: input: {0}", venta);
         VentaEntity varef = venta.toEntity();
@@ -66,13 +65,13 @@ public class VentaResource
      * @throws BusinessLogicException
      */
     @GET
-    public List<VentaDetailDTO> getAllVentas(@PathParam("vendedorId") Long vendedorId) throws BusinessLogicException
+    public List<VentaDTO> getAllVentas(@PathParam("vendedorID") Long vendedorId) throws BusinessLogicException
     {
-        LOGGER.info("VentaResource getAllVentas: input: void");
+        LOGGER.info("VentaResource getAllVentas: input: {0}");
         List<VentaEntity> vaconteo = valogic.findAllVentas(vendedorId); 
-        List<VentaDetailDTO> valisted = new ArrayList<>();
+        List<VentaDTO> valisted = new ArrayList<>();
         for(VentaEntity venta : vaconteo)
-            valisted.add(new VentaDetailDTO(venta));
+            valisted.add(new VentaDTO(venta));
         LOGGER.log(Level.INFO, "VentaResource getAllVentas: output: {0}", valisted);
         return valisted;
     }
@@ -87,13 +86,13 @@ public class VentaResource
      */
     @GET
     @Path("{ventaID: \\d+}")
-    public VentaDetailDTO getVenta(@PathParam("vendedorId") Long vendedorId, @PathParam("ventaID") Long idVenta) throws BusinessLogicException
+    public VentaDTO getVenta(@PathParam("vendedorID") Long vendedorId, @PathParam("ventaID") Long idVenta) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "VentaResource getVenta: input: {0}", idVenta);
         VentaEntity wantedva = valogic.findVenta(vendedorId, idVenta);
         if(wantedva == null)
             throw new WebApplicationException(NOTVAMSG + idVenta, 404);
-        VentaDetailDTO vadetail = new VentaDetailDTO(wantedva);
+        VentaDTO vadetail = new VentaDTO(wantedva);
         LOGGER.log(Level.INFO, "VentaResource getVenta: output: {0}", vadetail);
         return vadetail;        
     }
@@ -109,13 +108,13 @@ public class VentaResource
      */
     @PUT
     @Path("{ventaID: \\d+}")
-    public VentaDTO updateVenta(@PathParam("vendedorId") Long vendedorId, @PathParam("ventaID") Long idVenta, VentaDetailDTO vadto) throws BusinessLogicException
+    public VentaDTO updateVenta(@PathParam("vendedorID") Long vendedorId, @PathParam("ventaID") Long idVenta, VentaDetailDTO vadto) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "VentaResource updateVenta: input: {0}, venta: {1}", new Object[]{idVenta, vadto});
         vadto.setId(idVenta);
         if(valogic.findVenta(vendedorId, idVenta) == null)
             throw new WebApplicationException(NOTVAMSG + idVenta, 404);
-        VentaDetailDTO detailVenta = new VentaDetailDTO(valogic.updateVenta(vendedorId, vadto.toEntity()));
+        VentaDTO detailVenta = new VentaDTO(valogic.updateVenta(vendedorId, vadto.toEntity()));
         LOGGER.log(Level.INFO, "VentaResource updateVenta: output: {0}", detailVenta);
         return detailVenta;
     }
@@ -129,7 +128,7 @@ public class VentaResource
      */
     @DELETE
     @Path("{ventaID: \\d+}")
-    public void deleteVenta(@PathParam("vendedorId") Long vendedorId, @PathParam("ventaID") Long idVenta) throws BusinessLogicException
+    public void deleteVenta(@PathParam("vendedorID") Long vendedorId, @PathParam("ventaID") Long idVenta) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "VentaResource deleteVenta: input: {0}", idVenta);
         VentaEntity notventa = valogic.findVenta(vendedorId, idVenta); 
