@@ -19,6 +19,7 @@ public class CategoriaDTO implements Serializable {
 
     /**
      * Constructor por defecto
+     * Constructor por Defecto prueba
      */
     public CategoriaDTO() {
     }
