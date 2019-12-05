@@ -33,7 +33,6 @@ public class MarcaIT {
     @Deployment(testable = true)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "s4_dispositivos-api.war")//War del modulo api
-                // Se agrega las dependencias
                 .addAsLibraries(Maven.resolver().loadPomFromFile("pom.xml")
                         .importRuntimeDependencies().resolve()
                         .withTransitivity().asFile())
