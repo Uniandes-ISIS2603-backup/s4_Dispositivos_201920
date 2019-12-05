@@ -61,61 +61,6 @@ public class MedioDePagoEntity extends BaseEntity {
         this.tipoCredito = tipoCredito;
         this.tipoTarjeta = tipoTarjeta;
     }
-    /**
-     * @param numeroTarjeta the numeroTarjeta to set
-     */
-    public void setNumeroTarjeta(String numeroTarjeta) {
-        this.numeroTarjeta = numeroTarjeta;
-    }
-
-    /**
-     * @return the numeroTarjeta
-     */
-    public String getNumeroTarjeta() {
-        return numeroTarjeta;
-    }
-    
-    /**
-     * @return the tipoTarjeta
-     */
-    public String getTipoTarjeta() {
-        return tipoTarjeta;
-    }
-    
-    /**
-     * @return the numeroDeVerificacion
-     */
-    public String getNumeroDeVerificacion() {
-        return numeroDeVerificacion;
-    }
-
-    /**
-     * @param numeroDeVerificacion the numeroDeVerificacion to set
-     */
-    public void setNumeroDeVerificacion(String numeroDeVerificacion) {
-        this.numeroDeVerificacion = numeroDeVerificacion;
-    }
-
-    /**
-     * @return the tipoCredito
-     */
-    public String getTipoCredito() {
-        return tipoCredito;
-    }
-
-    /**
-     * @param tipoCredito the tipoCredito to set
-     */
-    public void setTipoCredito(String tipoCredito) {
-        this.tipoCredito = tipoCredito;
-    }
-    
-    /**
-     * @param tipoTarjeta the tipoTarjeta to set
-     */
-    public void setTipoTarjeta(String tipoTarjeta) {
-        this.tipoTarjeta = tipoTarjeta;
-    }
 
     /**
      * Metodo no usado
@@ -140,6 +85,62 @@ public class MedioDePagoEntity extends BaseEntity {
     @Deprecated
     public int hashCode() {
         return super.hashCode();
+    }
+
+    /**
+     * @return the numeroTarjeta
+     */
+    public String getNumeroTarjeta() {
+        return numeroTarjeta;
+    }
+
+    /**
+     * @param numeroTarjeta the numeroTarjeta to set
+     */
+    public void setNumeroTarjeta(String numeroTarjeta) {
+        this.numeroTarjeta = numeroTarjeta;
+    }
+
+    /**
+     * @return the numeroDeVerificacion
+     */
+    public String getNumeroDeVerificacion() {
+        return numeroDeVerificacion;
+    }
+
+    /**
+     * @param numeroDeVerificacion the numeroDeVerificacion to set
+     */
+    public void setNumeroDeVerificacion(String numeroDeVerificacion) {
+        this.numeroDeVerificacion = numeroDeVerificacion;
+    }
+
+    /**
+     * @return the tipoTarjeta
+     */
+    public String getTipoTarjeta() {
+        return tipoTarjeta;
+    }
+
+    /**
+     * @param tipoTarjeta the tipoTarjeta to set
+     */
+    public void setTipoTarjeta(String tipoTarjeta) {
+        this.tipoTarjeta = tipoTarjeta;
+    }
+
+    /**
+     * @return the tipoCredito
+     */
+    public String getTipoCredito() {
+        return tipoCredito;
+    }
+
+    /**
+     * @param tipoCredito the tipoCredito to set
+     */
+    public void setTipoCredito(String tipoCredito) {
+        this.tipoCredito = tipoCredito;
     }
 
 }
