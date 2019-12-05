@@ -201,7 +201,7 @@
 			"response": []
 		},
 		{
-			"name": "Crear un medio de pago de tipo MasteCardInvalido",
+			"name": "Crear un medio de pago de tipo Mastercad Invalido",
 			"event": [
 				{
 					"listen": "test",
@@ -221,8 +221,8 @@
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"body": {

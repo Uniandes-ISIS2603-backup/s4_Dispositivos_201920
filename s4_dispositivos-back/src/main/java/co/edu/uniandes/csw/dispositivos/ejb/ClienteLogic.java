@@ -168,4 +168,8 @@ public class ClienteLogic {
 
         cp.delete(clienteId);
     }
+    
+    public ClienteEntity getClienteUsuario(String clienteUsuario) {
+        return cp.findByUsuario(clienteUsuario);
+    }
 }
