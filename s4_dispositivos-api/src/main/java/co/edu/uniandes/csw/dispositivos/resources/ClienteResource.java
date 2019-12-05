@@ -141,4 +141,10 @@ public class ClienteResource {
         }
         return FacturaResource.class;
     }
+    
+    @GET
+    @Path("user/{clienteUsuario: \\w+}")
+    public ClienteDTO getClienteUsuario(@PathParam("clienteUsuario") String clienteId) {
+        return new ClienteDetailDTO(clienteLogic.getClienteUsuario(clienteId));
+    }
 }

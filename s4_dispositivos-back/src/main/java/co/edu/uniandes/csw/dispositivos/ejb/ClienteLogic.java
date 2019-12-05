@@ -158,6 +158,10 @@ public class ClienteLogic {
     public boolean validarNoVacioONull(String aValidar) {
         return aValidar == null || aValidar.trim().equals("");
     }
+    
+    public ClienteEntity getClienteUsuario(String clienteUsuario) {
+        return cp.findByUsuario(clienteUsuario);
+    }
 
     /**
      * Eliminar un cliente por ID
