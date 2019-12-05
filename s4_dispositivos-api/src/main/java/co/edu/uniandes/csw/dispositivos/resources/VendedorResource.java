@@ -107,13 +107,13 @@ public class VendedorResource
      */
     @PUT
     @Path("{vendedorID: \\d+}")
-    public VendedorDetailDTO updateVendedor(@PathParam("vendedorID") Long idVendedor, VendedorDetailDTO vrdto) throws BusinessLogicException
+    public VendedorDTO updateVendedor(@PathParam("vendedorID") Long idVendedor, VendedorDTO vrdto) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "VendedorResource updateVendedor: input: {0}, vendedor: {1}", new Object[]{idVendedor, vrdto});
         vrdto.setId(idVendedor);
         if(vrlogic.findVendedor(idVendedor) == null)
             throw new WebApplicationException(NOTVRMSG + idVendedor, 404);
-        VendedorDetailDTO detailVendedor = new VendedorDetailDTO(vrlogic.updateVendedor(vrdto.toEntity()));
+        VendedorDTO detailVendedor = new VendedorDTO(vrlogic.updateVendedor(vrdto.toEntity()));
         LOGGER.log(Level.INFO, "VendedorResource updateVendedor: output: {0}", detailVendedor);
         return detailVendedor;
     }
@@ -137,7 +137,8 @@ public class VendedorResource
     }
     
     /**
-     *
+     * Conexión con el servicio de ventas para un vendedor.
+     * {@link VentaResource}
      * @param idVendedor
      * @return
      * @throws BusinessLogicException
