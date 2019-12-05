@@ -34,15 +34,15 @@ public class DispositivoDTO implements Serializable {
     /**
      * Longs
      */
-    private long id;
+    private Long id;
 
     /**
      * Booleans
      */
-    private boolean promocion;
-    private boolean enStock;
-    private boolean esImportado;
-    private boolean usado;
+    private Boolean promocion;
+    private Boolean enStock;
+    private Boolean esImportado;
+    private Boolean usado;
 
     /**
      * Enums
@@ -125,7 +125,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @return
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -197,7 +197,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @return
      */
-    public boolean isPromocion() {
+    public Boolean isPromocion() {
         return promocion;
     }
 
@@ -205,7 +205,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @return
      */
-    public boolean isEnStock() {
+    public Boolean isEnStock() {
         return enStock;
     }
 
@@ -213,7 +213,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @return
      */
-    public boolean isEsImportado() {
+    public Boolean isEsImportado() {
         return esImportado;
     }
 
@@ -221,7 +221,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @return
      */
-    public boolean isUsado() {
+    public Boolean isUsado() {
         return usado;
     }
 
@@ -245,7 +245,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @param id
      */
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -317,7 +317,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @param promocion
      */
-    public void setPromocion(boolean promocion) {
+    public void setPromocion(Boolean promocion) {
         this.promocion = promocion;
     }
 
@@ -325,7 +325,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @param enStock
      */
-    public void setEnStock(boolean enStock) {
+    public void setEnStock(Boolean enStock) {
         this.enStock = enStock;
     }
 
@@ -333,7 +333,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @param esImportado
      */
-    public void setEsImportado(boolean esImportado) {
+    public void setEsImportado(Boolean esImportado) {
         this.esImportado = esImportado;
     }
 
@@ -341,7 +341,7 @@ public class DispositivoDTO implements Serializable {
      *
      * @param usado
      */
-    public void setUsado(boolean usado) {
+    public void setUsado(Boolean usado) {
         this.usado = usado;
     }
 
