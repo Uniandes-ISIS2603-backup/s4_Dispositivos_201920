@@ -419,6 +419,8 @@ public class DispositivoLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void createDispositivoEnPromocionPrecioLessDescuento() throws BusinessLogicException {
         DispositivoEntity newEntity = factory.manufacturePojo(DispositivoEntity.class);
+        newEntity.setPrecio(10.0);
+        newEntity.setDescuento(1.0);
         DispositivoEntity result = dispositivoLogic.createDispositivo(newEntity);
         result.setPrecio(100.0);
         result.setDescuento(200.0);

@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.dispositivos.tests.postman;
 
 import co.edu.uniandes.csw.dispositivos.dtos.AdministradorDTO;
-import co.edu.uniandes.csw.dispositivos.dtos.CascaraDTO;
 import co.edu.uniandes.csw.dispositivos.mappers.BusinessLogicExceptionMapper;
 import co.edu.uniandes.csw.dispositivos.resources.AdministradorResource;
 import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
@@ -58,7 +57,7 @@ public class AdministradorIT{
         PostmanTestBuilder tp = new PostmanTestBuilder();
         tp.setTestWithoutLogin(COLLECTION, "Entorno-IT.postman_environment");
         String desiredResult = "0";
-        System.out.println(tp.getIterations_failed());
+
         Assert.assertEquals("Error en Iterations de: " + COLLECTION, desiredResult, tp.getIterations_failed());
 
         Assert.assertEquals("Error en Requests de: " + COLLECTION, desiredResult, tp.getRequests_failed());

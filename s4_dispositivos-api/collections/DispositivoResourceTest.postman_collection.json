@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ca5708e3-bc5b-479f-b231-54287c48a81f",
+		"_postman_id": "6db65ee1-5171-461d-9b5a-2c8b2bf7741d",
 		"name": "DispositivoResourceTest",
 		"description": "Dispositivo Resource Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -34,7 +34,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "\r\n    {\r\n        \"descripcion\": \"El más veloz de la categoria\",\r\n        \"descuento\": 50.0,\r\n        \"enStock\": true,\r\n        \"esImportado\": false,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"Galaxy\",\r\n        \"nombre\": \"S10\",\r\n        \"precio\": 300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"categoria\": {\"id\": {{new_id_c}} },\r\n        \"usado\": false\r\n    }\r\n\r\n",
+					"raw": "    {\r\n        \"descripcion\": \"El más veloz de la categoria\",\r\n        \"descuento\": 50.0,\r\n        \"enStock\": true,\r\n        \"esImportado\": false,\r\n        \"estado\": \"NUEVO\",\r\n        \"modelo\": \"Galaxy\",\r\n        \"nombre\": \"S10\",\r\n        \"precio\": 300.0,\r\n        \"precioImportacion\": 0.0,\r\n        \"promocion\": false,\r\n        \"tipo\": \"COMPUTADOR\",\r\n        \"categoria\": {\"id\": 3 } ,\r\n        \"usado\": false\r\n    }\r\n\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -66,7 +66,7 @@
 						"id": "2cb09173-e77b-4a85-becb-1ac270f83c6e",
 						"exec": [
 							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un dispositivo con el nombre\");"
+							""
 						],
 						"type": "text/javascript"
 					}
